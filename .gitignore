@@ -1,4 +1,5 @@
+.DS_Store
 .idea
 .ipynb_checkpoints
+*.pem
 hops
-.DS_Store
