@@ -10,9 +10,11 @@
 - `3_experimentation.ipynb`
     - This notebooks must be run in a PySpark kernel because of Maggy.
     - We would like to use `gridsearch` instead of `randomsearch`, but it does not work at the moment.
+- `4_model_training_and_registration.ipynb`
+    - The old Hopsworks UI has to be used (to enable serving).
 - `5_model_serving.ipynb`
     - There is an error message when deploying models (even though it works).
-    - The old Hopsworks UI has to be used.
+    - The old Hopsworks UI has to be used (to setup REST API).
     - A small part of the code (based on [this example](https://hopsworks.readthedocs.io/en/latest/hopsml/python_model_serving.html#serving-python-based-models-on-hopsworks)) uses the old `hops` library.
 - `6_job_scheduling.ipynb`
     - The old Hopsworks UI has to be used.
