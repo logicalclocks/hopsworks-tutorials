@@ -3,7 +3,6 @@
 ### Notebooks
 
 - `2_training_dataset_creation.ipynb`
-    - Min-max scaling does not work when using a splitted dataset.
     - There is a prefix bug when making join queries (minor issue).
     - Chronological split is not implemented (needed for this tutorial).
     - Datasets can't be downloaded locally easily (`td.read()`).
@@ -21,8 +20,9 @@
 
 ### Dependencies
 
-At the time of development, we needed to install two libraries from GitHub:
+At the time of development, we needed to install libraries from GitHub:
 - hsml: https://github.com/robzor92/machine-learning-api@branch-2.5#egg=hsml&subdirectory=python
 - hopsworks: https://github.com/logicalclocks/hopsworks-api@main#egg=hopsworks&subdirectory=python
+- hsfs (fix for the transformation error)
 
 That is, some notebooks will not work with the libraries on PyPi (unless they have been updated).
