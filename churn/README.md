@@ -3,7 +3,6 @@
 ### Notebooks
 
 - `2_training_dataset_creation.ipynb`
-    - Label encoder does not seem to work when we have a dataset with multiple categorical features. (It does seem to work when we use only one categorical feature.)
     - Datasets can't be downloaded locally easily (`td.read()`).
 - `3_experimentation.ipynb`
     - This notebooks must be run in a PySpark kernel because of Maggy.
@@ -19,8 +18,9 @@
 
 ### Dependencies
 
-At the time of development, we needed to install two libraries from GitHub:
+At the time of development, we needed to install libraries from GitHub:
 - hsml: https://github.com/robzor92/machine-learning-api@branch-2.5#egg=hsml&subdirectory=python
 - hopsworks: https://github.com/logicalclocks/hopsworks-api@main#egg=hopsworks&subdirectory=python
+- hsfs (fix for the transformation error)
 
 That is, some notebooks will not work with the libraries on PyPi (unless they have been updated).
