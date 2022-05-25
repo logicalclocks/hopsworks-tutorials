@@ -1,4 +1,4 @@
-,rideId,taxiId,driverId,startTime,paymentType,tip,tolls,totalFare
+,ride_id,taxi_id,driver_id,pickup_datetime,payment_type,tip,tolls,total_fare
 0,1,2013000185,2013000185,1577880020,CASH,33.0,0.0,118.0
 1,2,2013000108,2013000108,1577880040,CARD,14.0,0.0,48.0
 2,3,2013000134,2013000134,1577880060,CASH,12.0,0.0,41.0

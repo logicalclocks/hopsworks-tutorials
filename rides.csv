@@ -1,4 +1,4 @@
-,rideId,isStart,startTime,endTime,startLon,startLat,endLon,endLat,passengerCnt,taxiId,driverId
+,ride_id,is_start,pickup_datetime,dropoff_datetime,pickup_longitude,pickup_latitude,dropoff_longitude,dropoff_latitude,passenger_count,taxi_id,driver_id
 0,1228,True,1577904560000,0,-73.867676,40.759323,-73.86408,40.763897,3,2013000194,2013000194
 1,527,True,1577890540000,0,-73.857086,40.772793,-73.807335,40.836117,3,2013000122,2013000122
 2,394,True,1577887880000,0,-73.84432,40.789043,-73.76595,40.88879,3,2013000102,2013000102
