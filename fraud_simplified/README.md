@@ -1,30 +1,26 @@
-# <span style="font-width:bold; font-size: 3rem; color:#1EB182;"><img src="images/icon102.png" width="38px"></img> **Hopsworks Feature Store** </span><span style="font-width:bold; font-size: 3rem; color:#333;">Quick Start 30m or less - Fraud Tutorial</span>
+# <span style="font-width:bold; font-size: 3rem; color:#1EB182;"><img src="images/icon102.png" width="38px"></img> **Hopsworks Feature Store** </span><span style="font-width:bold; font-size: 3rem; color:#333;">Quick Start - Fraud Tutorial</span>
 
 <span style="font-width:bold; font-size: 1.4rem;"> This is a quick-start of the Hopsworks Feature Store; using a fraud use case we will load data into the feature store, create two feature groups from which we will make a training dataset and train a model.  This is a batch use case, it will give you a high level view on how to use our python APIs and the UI to navigate the feature groups. </span>
 
 ## **🗒️ This Quick introduction is divided in 3 parts:** 
-    1. How to load, engineer and create feature groups, 
-    2. How to create training datasets,
-    3. How to train a model from the feature store.
+1. How to load, engineer and create feature groups, 
+2. How to create training datasets,
+3. How to train a model from the feature store.
 
 
 # Pre-requisite
 <span style="font-width:bold; font-size: 1.4rem;">Before you start, you need to create an account on Hopsworks.ai, and launch a cluster on your own infrastructure or our own. You will then be able to create a project and clone this repository. You need to do the following steps, in order, before starting with the first notebook: </span>
 
-    1.  Create a project on Hopsworks.
-    
-    2. In user settings (near your user name) got to **Account settings** and **git providers**
+1.  Create a project on Hopsworks.
+2. In user settings (near your user name) got to **Account settings** and **git providers**
 Add a Github token with the whole repo scope selected to allow you to clone the repository. 
-
-    3. Once your account configured, go to **project Settings** > **Git**. 
+3. Once your account configured, go to **project Settings** > **Git**. 
 Here you can simple clone the repository (be mindful; you need to copy the url in the "code" dropdown in Github). You can choose any folder.
+4. Once the repository is cloned you can launch a Jupyter to run the notebooks. 
 
-    4. Once the repository is cloned you can launch a Jupyter to run the notebooks. 
-
-
-#  <span style="font-width:bold; font-size: 3rem; color:#1EB182;">Hopsworks: Main Concepts.</span>
-
-
+#  <span style="font-width:bold; font-size: 3rem; color:#1EB182;">Hopsworks: Main Concepts</span>
+You may refere to the concept documentation on [docs.hopsworks.ai](https://docs.hopsworks.ai/concepts/) for an extensive overview of all the concepts and abstraction in the feature store.
+Below are the the concepts covered in this quick start; 
 
 ## Feature Store
 
