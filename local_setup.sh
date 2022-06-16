@@ -11,8 +11,6 @@ bash Miniconda3-py38_4.8.3-Linux-x86_64.sh -p miniconda3 -b
 
 ./miniconda3/envs/hopsworks/bin/pip install -U jupyterlab==2.2.8 'git+https://github.com/logicalclocks/feature-store-api@master#egg=hsfs[python]&subdirectory=python' 'git+https://github.com/logicalclocks/hopsworks-api@main#egg=hopsworks&subdirectory=python' --force-reinstall
 
-git clone https://github.com/logicalclocks/hopsworks-tutorials.git
-
 cd hopsworks-tutorials
 
 ../miniconda3/envs/hopsworks/bin/jupyter lab
