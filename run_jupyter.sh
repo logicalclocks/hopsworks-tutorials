@@ -1,6 +1,12 @@
 #!/bin/bash
 set -e
 
+if ! gcc -v &> /dev/null
+then
+    echo "Could not find gcc, please install it first"
+    exit 1
+fi
+
 if [ ! -f ./.installed ] | [ ! -d ./miniconda ]; then
     if [ "$(uname)" == "Darwin" ]; then
         curl -L https://repo.anaconda.com/miniconda/Miniconda3-py38_4.8.3-MacOSX-x86_64.sh -o Miniconda3-py38_4.8.3-x86_64.sh
