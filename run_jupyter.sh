@@ -14,13 +14,16 @@ if [ ! -f ./.installed ] | [ ! -d ./miniconda ]; then
     ./miniconda/bin/conda config --set sat_solver pycryptosat
     ./miniconda/bin/conda update conda -y -q
     ./miniconda/bin/conda create --prefix ./miniconda/envs/hopsworks python=3.8 -y
-    ./miniconda/envs/hopsworks/bin/pip install scikit-learn==1.0.2 jupyterlab==2.3.2 'git+https://github.com/logicalclocks/feature-store-api@master#egg=hsfs[python]&subdirectory=python' 'git+https://github.com/logicalclocks/hopsworks-api@main#egg=hopsworks&subdirectory=python'
+    ./miniconda/envs/hopsworks/bin/pip install hopsworks~=3.0.0rc --no-cache-dir
+    ./miniconda/envs/hopsworks/bin/pip install jupyterlab==2.3.2 jupyter
+    ./miniconda/envs/hopsworks/bin/pip install scikit-learn==1.0.2
 
     touch .installed
 fi
 
-if [ -f quickstart.ipynb ]; then
+if [ -f ./miniconda/envs/hopsworks/bin/jupyter ]; then
     ./miniconda/envs/hopsworks/bin/jupyter trust quickstart.ipynb
+    ./miniconda/envs/hopsworks/bin/jupyter lab
+else
+    ./miniconda/envs/hopsworks/bin/jupyter-lab
 fi
-
-./miniconda/envs/hopsworks/bin/jupyter lab
