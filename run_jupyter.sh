@@ -24,7 +24,12 @@ if [ ! -f ./.installed ] | [ ! -d ./miniconda ]; then
     ./miniconda/envs/hopsworks/bin/pip install jupyterlab==2.3.2 jupyter
     ./miniconda/envs/hopsworks/bin/pip install scikit-learn==1.0.2
 
-    touch .installed
+    touch ./.installed
+fi
+
+# Set environment variable for hopsworks.login()
+if [ -f ./.hw_api_key ]; then
+    export HOPSWORKS_API_KEY=`cat ./.hw_api_key`
 fi
 
 if [ -f ./miniconda/envs/hopsworks/bin/jupyter ]; then
