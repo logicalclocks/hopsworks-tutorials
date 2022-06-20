@@ -20,9 +20,8 @@ if [ ! -f ./.installed ] | [ ! -d ./miniconda ]; then
     ./miniconda/bin/conda config --set sat_solver pycryptosat
     ./miniconda/bin/conda update conda -y -q
     ./miniconda/bin/conda create --prefix ./miniconda/envs/hopsworks python=3.8 -y
-    ./miniconda/envs/hopsworks/bin/pip install hopsworks~=3.0.0rc --no-cache-dir
-    ./miniconda/envs/hopsworks/bin/pip install jupyterlab==2.3.2 jupyter
-    ./miniconda/envs/hopsworks/bin/pip install scikit-learn==1.0.2
+    ./miniconda/envs/hopsworks/bin/pip install hopsworks==3.0.0rc3 --no-cache-dir
+    ./miniconda/envs/hopsworks/bin/pip install jupyterlab==2.3.2 jupyter scikit-learn==1.0.2 matplotlib==3.5.2 seaborn==0.11.2
 
     touch ./.installed
 fi
