@@ -1,4 +1,4 @@
-# <span style="font-width:bold; font-size: 3rem; color:#1EB182;"><img src="images/icon102.png" width="38px"></img> **Hopsworks Feature Store** </span><span style="font-width:bold; font-size: 3rem; color:#333;">Quick Start - Fraud Tutorial</span>
+# <span style="font-width:bold; font-size: 3rem; color:#1EB182;"><img src="../images/icon102.png" width="38px"></img> **Hopsworks Feature Store** </span><span style="font-width:bold; font-size: 3rem; color:#333;">Quick Start - Fraud Tutorial</span>
 
 <span style="font-width:bold; font-size: 1.4rem;"> This is a quick-start of the Hopsworks Feature Store; using a fraud use case we will load data into the feature store, create two feature groups from which we will make a training dataset and train a model.  This is a batch use case, it will give you a high level view on how to use our python APIs and the UI to navigate the feature groups. </span>
 
