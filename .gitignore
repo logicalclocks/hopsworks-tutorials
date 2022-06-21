@@ -3,3 +3,6 @@
 .idea
 hops
 **/.hw_api_key
+miniconda/
+.installed
+aml_model/
