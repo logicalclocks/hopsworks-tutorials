@@ -6,3 +6,6 @@ hops
 miniconda/
 .installed
 aml_model/
+aml_model_transformer.py
+fraud_online/model.pkl
+fraud_online/predict_example.py
