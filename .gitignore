@@ -7,3 +7,6 @@ fraud_online/model.pkl
 fraud_online/predict_example.py
 miniconda/
 .installed
+**/ca_chain
+**/certfile
+**/keyfile
