@@ -11,30 +11,17 @@ fs = project.get_feature_store()
 
 st.write(fs)
 st.text('Done ✅')
-st.text('-------\n🪄 Retrieving Feature Groups...')
+st.text('-------\n🪄 Retrieving Feature View...')
 
-customer_info_fg = fs.get_feature_group(
-    name="customer_info",
-    version=1
-)
-
-demography_fg = fs.get_feature_group(
-    name="customer_demography_info",
-    version=1
-)
-
-sunscritions_fg = fs.get_feature_group(
-    name="customer_subscribtion_info",
-    version=1
+feature_view = fs.get_feature_view(
+    name = 'churn_feature_view',
+    version = 1
 )
 
 st.text('Done ✅')
 st.text('-------\n⚙️ Reading DataFrame from Feature Groups...')
 
-df_all = customer_info_fg.select_except(["customerid"])\
-        .join(demography_fg.select_except(["customerid"]))\
-        .join(sunscritions_fg.select_except(["customerid"]))\
-        .read()
+df_all = feature_view.query.read()
 
 st.dataframe(df_all.head())
 st.text(f'Shape: {df_all.shape}')
@@ -124,4 +111,18 @@ data = {
 result = deployment.predict(data)
 
 st.text(f'-------\n👩🏻‍⚖️ Prediction: {result}')
+st.text('-------\n📝 Batch Data Prediction...')
+
+batch_data = feature_view.get_batch_data()
+st.dataframe(batch_data.head())
+
+def get_predictions(row, deployment = deployment):
+    data = {
+        'inputs': row.tolist()
+    }
+    return deployment.predict(data)
+
+result_batch = batch_data.iloc[:10].apply(get_predictions,axis = 1)
+
+st.text(f'-------\n👩🏻‍⚖️ Predictions for 10 rows:\n {result_batch}')
 st.text('-------\n🎉 📈 🤝 App Finished Successfully 🤝 📈 🎉')
