@@ -124,4 +124,4 @@ data = {
 result = deployment.predict(data)
 
 st.text(f'-------\n👩🏻‍⚖️ Prediction: {result}')
-st.text('-------\n🎉 📈 🤝 App Finished Successfully')
+st.text('-------\n🎉 📈 🤝 App Finished Successfully 🤝 📈 🎉')
