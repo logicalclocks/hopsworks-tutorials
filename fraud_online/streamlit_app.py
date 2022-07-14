@@ -127,5 +127,6 @@ if submit_button:
     positive = "**🆘 Fraudulent**"
     res = negative if res["predictions"][0] == -1 else positive
     st.write(res, "transaction.")
+    deployment.stop()
     progress_bar.progress(100)
     st.text('Done ✅')
