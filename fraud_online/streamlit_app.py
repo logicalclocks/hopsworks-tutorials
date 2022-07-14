@@ -27,7 +27,7 @@ progress_bar.progress(10)
 st.text('Done ✅')
 
 st.text('-------\n🔮 Retrieving Feature View...')
-feature_view = fs.get_feature_view("fraud_online_model_view", 1)
+feature_view = fs.get_feature_view("transactions_fraud_online_fv", 1)
 progress_bar.progress(20)
 st.text('Done ✅')
 
