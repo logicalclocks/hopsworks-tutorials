@@ -2,6 +2,10 @@ import streamlit as st
 import hopsworks
 import plotly.graph_objs as go
 import plotly.express as px
+import joblib
+import math
+import pandas as pd
+
 
 st.title('🔮 Churn Prediction Project')
 st.text('Connecting to Hopsworks Feature Store...')
@@ -76,6 +80,28 @@ df_all['Churn'] = predictions
 st.text(f'👩🏻‍⚖️ Predictions for 5 rows:\n {predictions[:5]}')
 st.text('-------\n👨🏻‍🎨 Prediction Visualizing...')
 
+model_lr = joblib.load('churnmodel.pkl')
+importance = model_lr.coef_[0]
+
+feature_names = batch_data.columns
+
+feature_importance = pd.DataFrame(feature_names, columns = ["feature"])
+feature_importance["importance"] = pow(math.e, model_lr.coef_[0])
+feature_importance = feature_importance.sort_values(by = ["importance"], ascending = False)
+
+fig_importance = px.bar(
+    feature_importance,
+    x='feature',
+    y='importance',
+    title = 'Feature Importance Plot'
+     )
+
+fig_importance.update_xaxes(tickangle = 23)
+fig_importance.update_xaxes(title = "Feature")
+fig_importance.update_yaxes(title = "Importance")
+fig_importance.update_traces(hovertemplate = 'Feature: %{x} <br>Importance: %{y}') 
+
+
 fig_gender = go.Figure()
 
 fig_gender = px.histogram(
@@ -87,7 +113,7 @@ fig_gender = px.histogram(
 
 fig_gender.update_xaxes(title = "Gender")
 fig_gender.update_yaxes(title = "Count")
-fig_gender.update_traces(hovertemplate = 'Gender: %{x} <br>Amount: %{y} <br>Churn: %{color}') 
+fig_gender.update_traces(hovertemplate = 'Gender: %{x} <br>Amount: %{y}') 
 
 fig_totalcharges = go.Figure()
 
@@ -128,6 +154,7 @@ fig_partner.update_xaxes(title = "Have a partner")
 fig_partner.update_yaxes(title = "Count")
 fig_partner.update_traces(hovertemplate = 'Partner: %{x} <br>Amount: %{y}') 
 
+st.plotly_chart(fig_importance)
 st.plotly_chart(fig_gender)
 st.plotly_chart(fig_totalcharges)
 st.plotly_chart(fig_paymentmethod)
