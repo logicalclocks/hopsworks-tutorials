@@ -3,7 +3,10 @@
 .idea
 hops
 **/.hw_api_key
-fraud_online/model.pkl
-fraud_online/predict_example.py
+**/*.pkl
+**/predict_example.py
 miniconda/
 .installed
+**/ca_chain
+**/certfile
+**/keyfile
