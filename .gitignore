@@ -10,3 +10,4 @@ miniconda/
 **/ca_chain
 **/certfile
 **/keyfile
+**/tmp*

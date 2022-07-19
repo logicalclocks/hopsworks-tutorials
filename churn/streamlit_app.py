@@ -6,10 +6,10 @@ import joblib
 import math
 import pandas as pd
 
+st.title('🔮 Customer Churn Prediction')
 
-st.title('🔮 Churn Prediction Project')
-st.text('Connecting to Hopsworks Feature Store...')
-
+st.write(36 * "-")
+st.header('\n📡 Connecting to Hopsworks Feature Store...')
 project = hopsworks.login()
 fs = project.get_feature_store()
 
@@ -80,7 +80,7 @@ df_all['Churn'] = predictions
 st.text(f'👩🏻‍⚖️ Predictions for 5 rows:\n {predictions[:5]}')
 st.text('-------\n👨🏻‍🎨 Prediction Visualizing...')
 
-model_lr = joblib.load('churnmodel.pkl')
+model_lr = joblib.load('churn/churnmodel.pkl')
 importance = model_lr.coef_[0]
 
 feature_names = batch_data.columns

@@ -1,26 +1,14 @@
-## Development Status
+# Churn Tutorial on Hopsworks
+This is a churn tutorial with the Hopsworks feature store and model serving. In those notebooks you will learn how to create feature groups of different features to later create training datasets from which you can train a model. 
 
-### Notebooks
+## Prerequisite
+To run this tutorial, you simply need a Hopsworks account, if you do not have one, simply get to [app.hopsworks.ai](https://app.hopsworks.ai) and create an account. In the notebook you will be prompted with a link to the API token to connect to your account. 
 
-- `2_training_dataset_creation.ipynb`
-    - Datasets can't be downloaded locally easily (`td.read()`).
-- `3_experimentation.ipynb`
-    - This notebooks must be run in a PySpark kernel because of Maggy.
-    - We would like to use `gridsearch` instead of `randomsearch`, but it does not work at the moment.
-- `4_model_training_and_registration.ipynb`
-    - The old Hopsworks UI has to be used (to enable serving).
-- `5_model_serving.ipynb`
-    - There is an error message when deploying models (even though it works).
-    - The old Hopsworks UI has to be used (to setup REST API).
-    - A small part of the code (based on [this example](https://hopsworks.readthedocs.io/en/latest/hopsml/python_model_serving.html#serving-python-based-models-on-hopsworks)) uses the old `hops` library.
-- `6_job_scheduling.ipynb`
-    - The old Hopsworks UI has to be used.
+## Concepts:
+In order to understand the tutorials you need to be familiar with general concepts of Machine Learning and Python development. You may find some useful information in the [Hopsworks documentation.](https://docs.hopsworks.ai) 
 
-### Dependencies
-
-At the time of development, we needed to install libraries from GitHub:
-- hsml: https://github.com/robzor92/machine-learning-api@branch-2.5#egg=hsml&subdirectory=python
-- hopsworks: https://github.com/logicalclocks/hopsworks-api@main#egg=hopsworks&subdirectory=python
-- hsfs (fix for the transformation error)
-
-That is, some notebooks will not work with the libraries on PyPi (unless they have been updated).
+## Feedbacks & Comments:
+We welcome feedbacks and suggestions, you can contact us on any of the following channels:
+- Our [Support Forum](https://community.hopsworks.ai/),
+- Directly on this [github repository](https://github.com/logicalclocks/hopsworks-tutorials),
+- Send us an email at info@hopsworks.ai 
