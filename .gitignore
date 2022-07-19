@@ -11,3 +11,4 @@ miniconda/
 **/certfile
 **/keyfile
 **/tmp*
+iris/iris_model
