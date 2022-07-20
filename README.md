@@ -17,7 +17,7 @@ fs = project.get_feature_store()
 
 In some cases, you may also need to install Hopsworks; to be able to work with the package. Simply start your notebook with: 
 ```python
-!pip install -U hopsworks==3.0.0rc5 --quiet
+!pip install -U hopsworks --quiet
 ```
 The walkthrough and tutorials are provided in the form of Python notebooks, you will therefore need to run a jupyter environment or work within a colaboratory notebook in google; the later option might lead to some minor errors being displayed or libraries might require different library versions to work.
 
