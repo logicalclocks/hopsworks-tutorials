@@ -41,6 +41,9 @@ st.write("Retrieved from Feature Store BTC timeseries DataFrame:")
 st.dataframe(old_btc_df.tail())
 st.subheader(f"There are {old_btc_df.shape[0]} records on Feature Store right now.")
 
+fig1 = get_price_plot(old_btc_df.sort_values(by=["date"]))
+st.plotly_chart(fig1)
+
 tweets_textblob_fg = fs.get_or_create_feature_group(
     name = 'tweets_textblob_fg',
     version = 1
@@ -72,9 +75,6 @@ else:
     new_btc_df = parse_btc_data(last_date=last_date)
     new_btc_df.date = pd.to_datetime(new_btc_df.date)
     concat_btc_df = pd.concat([old_btc_df[new_btc_df.columns], new_btc_df]).reset_index(drop=True)
-
-    fig1 = get_price_plot(concat_btc_df.sort_values(by=["date"]))
-    st.plotly_chart(fig1)
 
     st.write(36 * "-")
     print_fancy_header("🧮 Processing new Bitcoin timeseries data...")
@@ -162,8 +162,9 @@ deployment = ms.get_deployment("btcforest")
 deployment.start()
 progress_bar.progress(90)
 
-X_today = X.tail(1).values.tolist()
+X_today = X.sort_values(by=["index"]).tail(1).values.tolist()
 
+st.write(X_today)
 
 data = {
     "inputs": X_today
