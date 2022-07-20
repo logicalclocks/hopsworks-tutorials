@@ -70,5 +70,5 @@ def process_btc_data(df):
                      strength_index]:
             df = func(df, i).fillna(0)
 
-    df.date = pd.to_datetime(df.date) 
+    df["date"] = df["date"].astype(str)
     return df

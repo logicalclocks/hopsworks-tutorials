@@ -43,7 +43,7 @@ def fill_gap(df, last_date, fill_with=0):
 
 def clean_text1(df):
     """First cleaning"""
-    
+
     for i,s in enumerate(tqdm(df['text'],position=0, leave=True)):
         text = str(df.loc[i, 'text'])
         text = text.replace("#", "")
@@ -52,15 +52,15 @@ def clean_text1(df):
         df.loc[i, 'text'] = text
     return df
 
-    
+
 def vader_processing(df, last_date):
     """
     Takes a DataFrame with 'text' column (cleaned using 'clean_text1' function) and
     returns a DataFrame with VADER-analized score.
     """
-    
+
     df = clean_text1(df)
-    
+
     analyzer = SentimentIntensityAnalyzer()
     compound = []
     for i,s in enumerate(tqdm(df['text'], position=0, leave=True)):
@@ -74,14 +74,16 @@ def vader_processing(df, last_date):
     df['date'] = df['date'].dt.strftime('%Y-%m-%d %H:%M:%S')
     df = fill_gap(df, last_date)
     df['unix'] = df.date.apply(timestamp_2_time)
+
+    df["date"] = df["date"].astype(str)
     
     return df
-    
 
-    
+
+
 def clean_text2(df):
     """Second cleaning using 'nltk' module. Processes 'text' feature. """
-    
+
     stop_words = nltk.corpus.stopwords.words(['english'])
     lem = WordNetLemmatizer()
 
@@ -110,9 +112,9 @@ def clean_text2(df):
 
         # Joining
         return " ".join(text_cleaned)
-    
+
     df['cleaned_tweets'] = df['text'].apply(cleaning)
-    
+
     return df
 
 
@@ -122,28 +124,30 @@ def textblob_processing(df, last_date):
     """
     df = clean_text1(df)
     df = clean_text2(df)
-    
+
     def getSubjectivity(tweet):
         return TextBlob(tweet).sentiment.subjectivity
 
     def getPolarity(tweet):
         return TextBlob(tweet).sentiment.polarity
-    
+
     correct_dates = df['date'].copy()
     df['date'] = pd.to_datetime(df['date']).dt.strftime('%Y-%m-%d')
     df.cleaned_tweets = df.cleaned_tweets.astype(str)
-    
+
     df['subjectivity'] = df['cleaned_tweets'].apply(getSubjectivity)
     df['polarity'] = df['cleaned_tweets'].apply(getPolarity)
-    
+
     df.date = correct_dates
     df.date = pd.to_datetime(df.date)
     df = df.set_index("date")
     df = df.resample('1D').sum()
     df = df[["subjectivity", "polarity"]].reset_index()
-    
+
     df['date'] = df['date'].dt.strftime('%Y-%m-%d %H:%M:%S')
     df = fill_gap(df, last_date)
     df['unix'] = df.date.apply(timestamp_2_time)
-    
+
+    df["date"] = df["date"].astype(str)
+
     return df
