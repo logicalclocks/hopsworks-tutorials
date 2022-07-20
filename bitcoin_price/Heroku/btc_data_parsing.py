@@ -45,8 +45,10 @@ def get_data(since_this_date=None, until_this_date=datetime.datetime.now(), numb
 
 
 def parse_btc_data(last_date=None, number_of_days_ago=None):
+    if number_of_days_ago:
+        number_of_days_ago += 1
     df = get_data(since_this_date=last_date, until_this_date=datetime.datetime.now(),
-                  number_of_days_ago=number_of_days_ago + 1)
+                  number_of_days_ago=number_of_days_ago)
     df.index.name = 'date'
     df.reset_index(inplace = True)
     df.columns = [*df.columns[:6],'quote_av','trades','tb_base_av','tb_quote_av']
