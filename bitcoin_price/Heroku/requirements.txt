@@ -1,0 +1,16 @@
+#schedule~=0.6.0
+unicorn_binance_rest_api
+hsfs~=3.0.0rc2
+hopsworks~=3.0.0rc2
+hsfs[python]~=3.0.0rc2
+tweepy
+vaderSentiment
+textblob 
+tqdm
+nltk
+schedule
+numpy
+pandas
+streamlit
+plotly
+
