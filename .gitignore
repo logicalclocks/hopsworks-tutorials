@@ -12,3 +12,5 @@ miniconda/
 **/keyfile
 **/tmp*
 iris/iris_model
+**/**.pkl
+
