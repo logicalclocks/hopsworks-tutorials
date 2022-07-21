@@ -135,22 +135,18 @@ def get_X():
         version = 1
     )
 
-    X_train, y_train = feature_view.get_training_data(
-        training_dataset_version = 1
-    )
+    data = feature_view.query.read().sort_values('date').tail(1)
+    pk_index, pk_unix = data[['index','unix']].values[0]
 
-    X_train['close'] = y_train
-    X_train.sort_values('unix',inplace = True)
-    X_train["close_nextday"] = X_train.close.shift(-1)
-    X_train.date = X_train.date.apply(str)
-    X_train.unix = X_train.unix.apply(int)
-    X_train.set_index('date',inplace = True)
-    X_train.dropna(inplace = True)
+    vector =  feature_view.get_feature_vector(entry = {'index' : pk_index,'unix': pk_unix})
+    vector.pop(1)
+    vector.pop(10)
 
-    return X_train.drop(labels=["close_nextday", "unix"], axis=1)
+    return vector[:4] + vector[5:] + [vector[4]]
+
 
 X = get_X()
-st.dataframe(X.tail(5))
+st.write(X)
 progress_bar.progress(80)
 
 
@@ -164,12 +160,8 @@ deployment = ms.get_deployment("btcforest")
 deployment.start()
 progress_bar.progress(90)
 
-X_today = X.sort_values(by=["index"]).tail(1).values.tolist()
-
-st.write(X_today)
-
 data = {
-    "inputs": X_today
+    "inputs": X
 }
 
 res = deployment.predict(data)
