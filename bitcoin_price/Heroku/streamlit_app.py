@@ -42,7 +42,9 @@ st.dataframe(old_btc_df.tail())
 st.subheader(f"There are {old_btc_df.shape[0]} records on Feature Store right now.")
 
 fig1 = get_price_plot(old_btc_df.sort_values(by=["date"]))
+fig2 = get_volume_plot(old_btc_df.sort_values(by=["date"]))
 st.plotly_chart(fig1)
+st.plotly_chart(fig2)
 
 tweets_textblob_fg = fs.get_or_create_feature_group(
     name = 'tweets_textblob_fg',
