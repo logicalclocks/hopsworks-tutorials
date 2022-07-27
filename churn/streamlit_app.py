@@ -1,5 +1,6 @@
 import streamlit as st
 import hopsworks
+import hsfs
 import plotly.graph_objs as go
 import plotly.express as px
 import joblib
@@ -10,12 +11,30 @@ st.title('🔮 Customer Churn Prediction')
 
 st.write(36 * "-")
 st.header('\n📡 Connecting to Hopsworks Feature Store...')
-project = hopsworks.login()
-fs = project.get_feature_store()
+
+def header(text):
+    st.write(36 * "-")
+    st.write('#### ' + text)
+
+conn = hsfs.connection(
+    host="0f060790-06a4-11ed-8aed-d1422d4ec537.cloud.hopsworks.ai",                               
+    project="churn",                    
+    hostname_verification=False,                     
+    api_key_value="API_KEY"         
+)
+fs = conn.get_feature_store()     
+
+hopsworks_conn = hopsworks.connection(
+    host="0f060790-06a4-11ed-8aed-d1422d4ec537.cloud.hopsworks.ai",                              
+    project="churn",                     
+    hostname_verification=False,                     
+    api_key_value="API_KEY"        
+)
+
+project = hopsworks_conn.get_project()
 
 st.write(fs)
-st.text('Done ✅')
-st.text('-------\n🪄 Retrieving Feature View...')
+header('🪄 Retrieving Feature View...')
 
 @st.cache(allow_output_mutation=True, suppress_st_warning=True)
 def retrive_feature_view(fs = fs):
@@ -27,7 +46,7 @@ def retrive_feature_view(fs = fs):
 
 feature_view = retrive_feature_view()
 st.text('Done ✅')
-st.text('-------\n⚙️ Reading DataFrames from Feature View...')
+header('⚙️ Reading DataFrames from Feature View...')
 
 @st.cache(allow_output_mutation=True, suppress_st_warning=True)
 def retrive_data(feature_view = feature_view):
@@ -41,50 +60,28 @@ batch_data, df_all = retrive_data()
 
 st.dataframe(df_all.head())
 st.text(f'Shape: {df_all.shape}')
-st.text('Done ✅')
-st.text('-------\n🔮 Model Retrieving...')
+header('🔮 Model Retrieving...')
 
 @st.cache(allow_output_mutation=True,suppress_st_warning=True)
-def get_deployment(project = project):
+def get_model(project = project):
     mr = project.get_model_registry()
-    ms = project.get_model_serving()
     model = mr.get_model("churnmodel", version = 1)
-    deployment = ms.get_deployment("churnmodel")
-    deployment.start()
-    return deployment,model
+    model_dir = model.download()
+    return joblib.load(model_dir + "/churnmodel.pkl")
 
-deployment, model = get_deployment()
+model = get_model()
 
-st.write(deployment)
-st.text('Done ✅')
-
-st.text('-------\n📝 Input Example...')
+st.write(model)
 
 def transform_preds(predictions):
-    if type(predictions) == list:
-        return ['Churn' if pred == 1 else 'Not Churn' for pred in predictions]
-    return ['Churn' if pred == 1 else 'Not Churn' for pred in predictions['predictions']]
+    return ['Churn' if pred == 1 else 'Not Churn' for pred in predictions]
 
-st.write(model.input_example)
-
-data = {
-    "inputs": model.input_example
-}
-
-result = deployment.predict(data)
-
-st.text(f'👩🏻‍⚖️ Prediction: {transform_preds(result)}')
-st.text('-------\n📝 Batch Data Prediction...')
+header('📝 Batch Data Prediction...')
 
 st.dataframe(batch_data.head())
 
-def get_predictions(row, deployment = deployment):
-    data = {
-        'inputs': row.tolist()
-    }
-    return deployment.predict(data)
 
-predictions = [pred['predictions'][0] for pred in batch_data[:500].apply(get_predictions,axis = 1)]
+predictions = model.predict(batch_data[:500])
 predictions = transform_preds(predictions)
 
 df_all['Churn'] = predictions
@@ -92,7 +89,7 @@ df_all['Churn'] = predictions
 result_table = df_all[['customerid','Churn']]
 
 st.text(f'👩🏻‍⚖️ Predictions for 5 rows:\n {predictions[:5]}')
-st.text('-------\n💳 Prediction by Customer Id...')
+header('💳 Prediction by Customer Id...')
 
 with st.form(key="Selecting Customer ID"):
     option = st.selectbox(
@@ -107,15 +104,13 @@ if submit_button:
     st.text(f'👮🏻‍♂️ Customer ID: {option}')
     st.text(f'👩🏻‍⚖️ Prediction: {result}')
 
-st.text('-------\n👨🏻‍🎨 Prediction Visualizing...')
+header('👨🏻‍🎨 Prediction Visualizing...')
 
-model_lr = joblib.load('churnmodel.pkl')
-importance = model_lr.coef_[0]
 
 feature_names = batch_data.columns
 
 feature_importance = pd.DataFrame(feature_names, columns = ["feature"])
-feature_importance["importance"] = pow(math.e, model_lr.coef_[0])
+feature_importance["importance"] = pow(math.e, model.coef_[0])
 feature_importance = feature_importance.sort_values(by = ["importance"], ascending = False)
 
 fig_importance = px.bar(
@@ -154,5 +149,5 @@ st.plotly_chart(plot_histogram(df_all,'totalcharges','Distribution of Total Char
 st.plotly_chart(plot_histogram(df_all,'paymentmethod','Amount of each Payment Method',"Payment Method",'Total Amount'))
 st.plotly_chart(plot_histogram(df_all,'partner','Affect of having a partner on Churn/Not',"Have a partner",'Count'))
 
-st.text('Done ✅')
-st.text('-------\n🎉 📈 🤝 App Finished Successfully 🤝 📈 🎉')
+st.success('🎉 📈 🤝 App Finished Successfully 🤝 📈 🎉')    
+st.balloons()
