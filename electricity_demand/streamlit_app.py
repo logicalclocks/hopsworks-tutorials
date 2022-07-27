@@ -20,7 +20,7 @@ conn = hsfs.connection(
     host="0f060790-06a4-11ed-8aed-d1422d4ec537.cloud.hopsworks.ai",                               
     project="electricity_demand",                      
     hostname_verification=False,                    
-    api_key_value="gmofsgbktxOcuFK4.QTS8Maf9eGGZj6tsPOylJS9UsHyAn6MJz1FyxDjsjd4SP035ObyxnpsNmQKxh6oP"         
+    api_key_value="API_KEY"         
 )
 fs = conn.get_feature_store()     
 
@@ -28,7 +28,7 @@ hopsworks_conn = hopsworks.connection(
     host="0f060790-06a4-11ed-8aed-d1422d4ec537.cloud.hopsworks.ai",                              
     project="electricity_demand",                     
     hostname_verification=False,                     
-    api_key_value="gmofsgbktxOcuFK4.QTS8Maf9eGGZj6tsPOylJS9UsHyAn6MJz1FyxDjsjd4SP035ObyxnpsNmQKxh6oP"        
+    api_key_value="API_KEY"        
 )
 
 project = hopsworks_conn.get_project()
