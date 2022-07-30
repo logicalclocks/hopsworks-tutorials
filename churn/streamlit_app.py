@@ -1,6 +1,5 @@
 import streamlit as st
 import hopsworks
-import hsfs
 import plotly.graph_objs as go
 import plotly.express as px
 import joblib
@@ -16,22 +15,8 @@ def header(text):
     st.write(36 * "-")
     st.write('#### ' + text)
 
-conn = hsfs.connection(
-    host="0f060790-06a4-11ed-8aed-d1422d4ec537.cloud.hopsworks.ai",                               
-    project="churn",                    
-    hostname_verification=False,                     
-    api_key_value="API_KEY"         
-)
-fs = conn.get_feature_store()     
-
-hopsworks_conn = hopsworks.connection(
-    host="0f060790-06a4-11ed-8aed-d1422d4ec537.cloud.hopsworks.ai",                              
-    project="churn",                     
-    hostname_verification=False,                     
-    api_key_value="API_KEY"        
-)
-
-project = hopsworks_conn.get_project()
+project = hopsworks.login()
+fs = project.get_feature_store()
 
 st.write(fs)
 header('🪄 Retrieving Feature View...')
