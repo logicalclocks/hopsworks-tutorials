@@ -37,7 +37,7 @@ header('⚙️ Reading DataFrames from Feature View...')
 def retrive_data(feature_view = feature_view):
     batch_data = feature_view.get_batch_data()
     batch_data.drop('customerid',axis = 1, inplace = True)
-    df_all = feature_view.query.read()[:500]
+    df_all = feature_view.query.read()
     df_all.drop('churn',axis = 1, inplace = True)
     return batch_data,df_all
 
@@ -65,8 +65,7 @@ header('📝 Batch Data Prediction...')
 
 st.dataframe(batch_data.head())
 
-
-predictions = model.predict(batch_data[:500])
+predictions = model.predict(batch_data)
 predictions = transform_preds(predictions)
 
 df_all['Churn'] = predictions
@@ -129,10 +128,12 @@ def plot_histogram(data, x_col, title, xlabel, ylabel):
 
     return fig
 
-st.plotly_chart(plot_histogram(df_all, 'gender','Churn rate according to Gender','Gender', 'Count'))
-st.plotly_chart(plot_histogram(df_all,'totalcharges','Distribution of Total Charges according to Churn/Not',"Charge Value",'Count'))
+st.plotly_chart(plot_histogram(df_all, 'internetservice','Churn rate according to internet service subscribtion','Internet service', 'Number of customers'))
+st.plotly_chart(plot_histogram(df_all, 'streamingmovies','Churn rate according to streaming movies subscribtion','Streaming movies', 'Number of customers'))
+st.plotly_chart(plot_histogram(df_all, 'streamingtv','Churn rate according to internet streaming tv subscribtion','Gender', 'Number of customers'))
+st.plotly_chart(plot_histogram(df_all, 'gender','Churn rate according to Gender','Gender', 'Number of customers'))
+st.plotly_chart(plot_histogram(df_all,'totalcharges','Distribution of Total Charges according to Churn/Not',"Charge Value",'Number of customers'))
 st.plotly_chart(plot_histogram(df_all,'paymentmethod','Amount of each Payment Method',"Payment Method",'Total Amount'))
-st.plotly_chart(plot_histogram(df_all,'partner','Affect of having a partner on Churn/Not',"Have a partner",'Count'))
+st.plotly_chart(plot_histogram(df_all,'partner','Affect of having a partner on Churn/Not',"Have a partner",'Number of customers'))
 
 st.success('🎉 📈 🤝 App Finished Successfully 🤝 📈 🎉')    
-st.balloons()
