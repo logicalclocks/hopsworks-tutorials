@@ -1,6 +1,7 @@
 .ipynb_checkpoints
 .DS_Store
 .idea
+.wandb
 hops
 **/.hw_api_key
 **/*.pkl

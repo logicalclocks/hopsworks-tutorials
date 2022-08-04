@@ -474,3 +474,5 @@
 2022-08-05 01:04:06,927 DEBUG   SenderThread:1216 [sender.py:send_request():316] send_request: stop_status
 2022-08-05 01:04:22,171 DEBUG   HandlerThread:1216 [handler.py:handle_request():141] handle_request: stop_status
 2022-08-05 01:04:22,172 DEBUG   SenderThread:1216 [sender.py:send_request():316] send_request: stop_status
+2022-08-05 01:04:37,524 DEBUG   HandlerThread:1216 [handler.py:handle_request():141] handle_request: stop_status
+2022-08-05 01:04:37,525 DEBUG   SenderThread:1216 [sender.py:send_request():316] send_request: stop_status
