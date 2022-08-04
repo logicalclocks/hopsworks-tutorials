@@ -1,0 +1,162 @@
+2022-08-04 23:04:08,231 INFO    Thread-12 :1960 [wandb_setup.py:_flush():76] Configure stats pid to 1960
+2022-08-04 23:04:08,232 INFO    Thread-12 :1960 [wandb_setup.py:_flush():76] Loading settings from C:\Users\rkaha\.config\wandb\settings
+2022-08-04 23:04:08,232 INFO    Thread-12 :1960 [wandb_setup.py:_flush():76] Loading settings from wandb\settings
+2022-08-04 23:04:08,232 INFO    Thread-12 :1960 [wandb_setup.py:_flush():76] Loading settings from environment variables: {'_require_service': 'True', 'project': 'nyc_taxi_fares', 'entity': 'rktraz_', 'root_dir': 'C:\\Users\\rkaha\\Documents\\hopsworks\\hopsworks-tutorials\\nyc_taxi_fares', 'sweep_id': '53a7it7x', 'run_id': 'pz80ivh6', 'sweep_param_path': 'C:\\Users\\rkaha\\Documents\\hopsworks\\hopsworks-tutorials\\nyc_taxi_fares\\wandb\\sweep-53a7it7x\\config-pz80ivh6.yaml'}
+2022-08-04 23:04:08,236 INFO    Thread-12 :1960 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program': '<python with no main file>'}
+2022-08-04 23:04:08,237 INFO    Thread-12 :1960 [wandb_init.py:_log_setup():461] Logging user logs to C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\nyc_taxi_fares\wandb\run-20220804_230408-pz80ivh6\logs\debug.log
+2022-08-04 23:04:08,238 INFO    Thread-12 :1960 [wandb_init.py:_log_setup():462] Logging internal logs to C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\nyc_taxi_fares\wandb\run-20220804_230408-pz80ivh6\logs\debug-internal.log
+2022-08-04 23:04:08,238 INFO    Thread-12 :1960 [wandb_init.py:_jupyter_setup():411] configuring jupyter hooks <wandb.sdk.wandb_init._WandbInit object at 0x000002502C1C0D90>
+2022-08-04 23:04:08,239 INFO    Thread-12 :1960 [wandb_init.py:init():495] calling init triggers
+2022-08-04 23:04:08,239 INFO    Thread-12 :1960 [wandb_init.py:init():498] wandb.init called with sweep_config: {'max_depth': 6, 'n_estimators': 800}
+config: {'max_depth': 3, 'n_estimators': 50}
+2022-08-04 23:04:08,240 INFO    Thread-12 :1960 [wandb_init.py:init():548] starting backend
+2022-08-04 23:04:08,240 INFO    Thread-12 :1960 [wandb_init.py:init():552] setting up manager
+2022-08-04 23:04:08,261 INFO    Thread-12 :1960 [backend.py:_multiprocessing_setup():97] multiprocessing start_methods=spawn, using: spawn
+2022-08-04 23:04:08,290 INFO    Thread-12 :1960 [wandb_init.py:init():558] backend started and connected
+2022-08-04 23:04:08,358 INFO    Thread-12 :1960 [wandb_run.py:_config_callback():1152] config_cb None None {'max_depth': 6, 'n_estimators': 800}
+2022-08-04 23:04:08,361 INFO    Thread-12 :1960 [wandb_run.py:_label_probe_notebook():1105] probe notebook
+2022-08-04 23:04:08,364 INFO    Thread-12 :1960 [wandb_run.py:_label_probe_notebook():1115] Unable to probe notebook: 'NoneType' object has no attribute 'get'
+2022-08-04 23:04:08,364 INFO    Thread-12 :1960 [wandb_init.py:init():636] updated telemetry
+2022-08-04 23:04:08,674 INFO    Thread-12 :1960 [wandb_init.py:init():667] communicating run to backend with 30 second timeout
+2022-08-04 23:04:09,212 INFO    Thread-12 :1960 [wandb_run.py:_on_init():1981] communicating current version
+2022-08-04 23:04:09,373 INFO    Thread-12 :1960 [wandb_run.py:_on_init():1985] got version response 
+2022-08-04 23:04:09,373 INFO    Thread-12 :1960 [wandb_init.py:init():700] starting run threads in backend
+2022-08-04 23:04:09,755 INFO    Thread-12 :1960 [wandb_run.py:_console_start():1961] atexit reg
+2022-08-04 23:04:09,755 INFO    Thread-12 :1960 [wandb_run.py:_redirect():1819] redirect: SettingsConsole.WRAP_RAW
+2022-08-04 23:04:09,756 INFO    Thread-12 :1960 [wandb_run.py:_redirect():1884] Wrapping output streams.
+2022-08-04 23:04:09,756 INFO    Thread-12 :1960 [wandb_run.py:_redirect():1906] Redirects installed.
+2022-08-04 23:04:09,758 INFO    Thread-12 :1960 [wandb_init.py:init():732] run started, returning control to user process
+2022-08-04 23:04:09,759 INFO    Thread-12 :1960 [wandb_run.py:_finish():1727] finishing run rktraz_/nyc_taxi_fares/pz80ivh6
+2022-08-04 23:04:09,759 INFO    Thread-12 :1960 [jupyter.py:save_history():435] not saving jupyter history
+2022-08-04 23:04:09,759 INFO    Thread-12 :1960 [jupyter.py:save_ipynb():377] not saving jupyter notebook
+2022-08-04 23:04:09,760 INFO    Thread-12 :1960 [wandb_init.py:_jupyter_teardown():393] cleaning up jupyter logic
+2022-08-04 23:04:09,760 INFO    Thread-12 :1960 [wandb_run.py:_atexit_cleanup():1930] got exitcode: 1
+2022-08-04 23:04:09,760 INFO    Thread-12 :1960 [wandb_run.py:_restore():1913] restore
+2022-08-04 23:04:09,760 INFO    Thread-12 :1960 [wandb_run.py:_restore():1919] restore done
+2022-08-04 23:04:10,084 INFO    Thread-12 :1960 [wandb_run.py:_on_finish():2220] got exit ret: file_counts {
+  wandb_count: 1
+}
+pusher_stats {
+  total_bytes: 779
+}
+
+2022-08-04 23:04:11,009 INFO    Thread-12 :1960 [wandb_run.py:_on_finish():2220] got exit ret: file_counts {
+  wandb_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 779
+  total_bytes: 779
+}
+
+2022-08-04 23:04:11,278 INFO    Thread-12 :1960 [wandb_run.py:_on_finish():2220] got exit ret: file_counts {
+  wandb_count: 3
+}
+pusher_stats {
+  uploaded_bytes: 779
+  total_bytes: 4538
+}
+
+2022-08-04 23:04:11,388 INFO    Thread-12 :1960 [wandb_run.py:_on_finish():2220] got exit ret: file_counts {
+  wandb_count: 4
+}
+pusher_stats {
+  uploaded_bytes: 779
+  total_bytes: 4564
+}
+
+2022-08-04 23:04:11,499 INFO    Thread-12 :1960 [wandb_run.py:_on_finish():2220] got exit ret: file_counts {
+  wandb_count: 4
+}
+pusher_stats {
+  uploaded_bytes: 779
+  total_bytes: 4564
+}
+
+2022-08-04 23:04:11,639 INFO    Thread-12 :1960 [wandb_run.py:_on_finish():2220] got exit ret: file_counts {
+  wandb_count: 4
+}
+pusher_stats {
+  uploaded_bytes: 779
+  total_bytes: 4564
+}
+
+2022-08-04 23:04:11,747 INFO    Thread-12 :1960 [wandb_run.py:_on_finish():2220] got exit ret: file_counts {
+  wandb_count: 4
+}
+pusher_stats {
+  uploaded_bytes: 4564
+  total_bytes: 4564
+}
+
+2022-08-04 23:04:11,855 INFO    Thread-12 :1960 [wandb_run.py:_on_finish():2220] got exit ret: file_counts {
+  wandb_count: 4
+}
+pusher_stats {
+  uploaded_bytes: 4564
+  total_bytes: 4564
+}
+
+2022-08-04 23:04:11,964 INFO    Thread-12 :1960 [wandb_run.py:_on_finish():2220] got exit ret: file_counts {
+  wandb_count: 4
+}
+pusher_stats {
+  uploaded_bytes: 4564
+  total_bytes: 4564
+}
+
+2022-08-04 23:04:12,073 INFO    Thread-12 :1960 [wandb_run.py:_on_finish():2220] got exit ret: file_counts {
+  wandb_count: 4
+}
+pusher_stats {
+  uploaded_bytes: 4564
+  total_bytes: 4564
+}
+
+2022-08-04 23:04:12,185 INFO    Thread-12 :1960 [wandb_run.py:_on_finish():2220] got exit ret: file_counts {
+  wandb_count: 4
+}
+pusher_stats {
+  uploaded_bytes: 4564
+  total_bytes: 4564
+}
+
+2022-08-04 23:04:12,292 INFO    Thread-12 :1960 [wandb_run.py:_on_finish():2220] got exit ret: file_counts {
+  wandb_count: 4
+}
+pusher_stats {
+  uploaded_bytes: 4564
+  total_bytes: 4564
+}
+
+2022-08-04 23:04:12,402 INFO    Thread-12 :1960 [wandb_run.py:_on_finish():2220] got exit ret: file_counts {
+  wandb_count: 4
+}
+pusher_stats {
+  uploaded_bytes: 4564
+  total_bytes: 4564
+}
+
+2022-08-04 23:04:13,027 INFO    Thread-12 :1960 [wandb_run.py:_on_finish():2220] got exit ret: file_counts {
+  wandb_count: 4
+}
+pusher_stats {
+  uploaded_bytes: 4564
+  total_bytes: 4564
+}
+
+2022-08-04 23:04:13,869 INFO    Thread-12 :1960 [wandb_run.py:_on_finish():2220] got exit ret: done: true
+exit_result {
+}
+file_counts {
+  wandb_count: 4
+}
+pusher_stats {
+  uploaded_bytes: 4564
+  total_bytes: 4564
+}
+local_info {
+}
+
+2022-08-04 23:04:14,999 INFO    Thread-12 :1960 [wandb_run.py:_footer_history_summary_info():3304] rendering history
+2022-08-04 23:04:14,999 INFO    Thread-12 :1960 [wandb_run.py:_footer_history_summary_info():3336] rendering summary
+2022-08-04 23:04:15,014 INFO    Thread-12 :1960 [wandb_run.py:_footer_sync_info():3260] logging synced files

@@ -1,0 +1,6 @@
+wandb_version: 1
+
+max_depth:
+  value: 10
+n_estimators:
+  value: 200

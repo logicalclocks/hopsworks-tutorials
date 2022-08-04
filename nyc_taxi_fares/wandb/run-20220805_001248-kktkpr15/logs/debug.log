@@ -1,0 +1,207 @@
+2022-08-05 00:12:48,019 INFO    Thread-13 :15916 [wandb_setup.py:_flush():76] Configure stats pid to 15916
+2022-08-05 00:12:48,019 INFO    Thread-13 :15916 [wandb_setup.py:_flush():76] Loading settings from C:\Users\rkaha\.config\wandb\settings
+2022-08-05 00:12:48,019 INFO    Thread-13 :15916 [wandb_setup.py:_flush():76] Loading settings from wandb\settings
+2022-08-05 00:12:48,019 INFO    Thread-13 :15916 [wandb_setup.py:_flush():76] Loading settings from environment variables: {'_require_service': 'True', 'project': 'nyc_taxi_fares', 'entity': 'rktraz_', 'root_dir': 'C:\\Users\\rkaha\\Documents\\hopsworks\\hopsworks-tutorials\\nyc_taxi_fares', 'sweep_id': 'udbbio98', 'run_id': 'kktkpr15', 'sweep_param_path': 'C:\\Users\\rkaha\\Documents\\hopsworks\\hopsworks-tutorials\\nyc_taxi_fares\\wandb\\sweep-udbbio98\\config-kktkpr15.yaml'}
+2022-08-05 00:12:48,019 INFO    Thread-13 :15916 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program': '<python with no main file>'}
+2022-08-05 00:12:48,020 INFO    Thread-13 :15916 [wandb_init.py:_log_setup():461] Logging user logs to C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\nyc_taxi_fares\wandb\run-20220805_001248-kktkpr15\logs\debug.log
+2022-08-05 00:12:48,020 INFO    Thread-13 :15916 [wandb_init.py:_log_setup():462] Logging internal logs to C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\nyc_taxi_fares\wandb\run-20220805_001248-kktkpr15\logs\debug-internal.log
+2022-08-05 00:12:48,020 INFO    Thread-13 :15916 [wandb_init.py:_jupyter_setup():411] configuring jupyter hooks <wandb.sdk.wandb_init._WandbInit object at 0x000002644AC8A1C0>
+2022-08-05 00:12:48,021 INFO    Thread-13 :15916 [wandb_init.py:init():495] calling init triggers
+2022-08-05 00:12:48,021 INFO    Thread-13 :15916 [wandb_init.py:init():498] wandb.init called with sweep_config: {'max_depth': 4, 'n_estimators': 800}
+config: {'max_depth': 3, 'n_estimators': 50}
+2022-08-05 00:12:48,021 INFO    Thread-13 :15916 [wandb_init.py:init():548] starting backend
+2022-08-05 00:12:48,021 INFO    Thread-13 :15916 [wandb_init.py:init():552] setting up manager
+2022-08-05 00:12:48,031 INFO    Thread-13 :15916 [backend.py:_multiprocessing_setup():97] multiprocessing start_methods=spawn, using: spawn
+2022-08-05 00:12:48,044 INFO    Thread-13 :15916 [wandb_init.py:init():558] backend started and connected
+2022-08-05 00:12:48,078 INFO    Thread-13 :15916 [wandb_run.py:_config_callback():1152] config_cb None None {'max_depth': 4, 'n_estimators': 800}
+2022-08-05 00:12:48,079 INFO    Thread-13 :15916 [wandb_run.py:_label_probe_notebook():1105] probe notebook
+2022-08-05 00:12:48,080 INFO    Thread-13 :15916 [wandb_run.py:_label_probe_notebook():1115] Unable to probe notebook: 'NoneType' object has no attribute 'get'
+2022-08-05 00:12:48,080 INFO    Thread-13 :15916 [wandb_init.py:init():636] updated telemetry
+2022-08-05 00:12:48,355 INFO    Thread-13 :15916 [wandb_init.py:init():667] communicating run to backend with 30 second timeout
+2022-08-05 00:12:48,844 INFO    Thread-13 :15916 [wandb_run.py:_on_init():1981] communicating current version
+2022-08-05 00:12:48,964 INFO    Thread-13 :15916 [wandb_run.py:_on_init():1985] got version response 
+2022-08-05 00:12:48,964 INFO    Thread-13 :15916 [wandb_init.py:init():700] starting run threads in backend
+2022-08-05 00:12:49,192 INFO    Thread-13 :15916 [wandb_run.py:_console_start():1961] atexit reg
+2022-08-05 00:12:49,193 INFO    Thread-13 :15916 [wandb_run.py:_redirect():1819] redirect: SettingsConsole.WRAP_RAW
+2022-08-05 00:12:49,193 INFO    Thread-13 :15916 [wandb_run.py:_redirect():1884] Wrapping output streams.
+2022-08-05 00:12:49,193 INFO    Thread-13 :15916 [wandb_run.py:_redirect():1906] Redirects installed.
+2022-08-05 00:12:49,194 INFO    Thread-13 :15916 [wandb_init.py:init():732] run started, returning control to user process
+2022-08-05 00:13:57,277 INFO    Thread-13 :15916 [wandb_run.py:_config_callback():1152] config_cb ('_wandb', 'viz', 'summary_metrics') {'id': 'wandb/metrics/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'summary_metrics'}} None
+2022-08-05 00:26:33,687 INFO    Thread-13 :15916 [wandb_run.py:_config_callback():1152] config_cb ('_wandb', 'viz', 'learning_curve') {'id': 'wandb/learning_curve/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'learning_curve'}} None
+2022-08-05 00:27:39,505 INFO    Thread-13 :15916 [wandb_run.py:_config_callback():1152] config_cb ('_wandb', 'viz', 'outlier_candidates') {'id': 'wandb/outliers/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'outlier_candidates'}} None
+2022-08-05 00:28:35,275 INFO    Thread-13 :15916 [wandb_run.py:_config_callback():1152] config_cb ('_wandb', 'viz', 'residuals') {'id': 'wandb/residuals_plot/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'residuals'}} None
+2022-08-05 00:28:35,592 INFO    Thread-13 :15916 [wandb_run.py:_finish():1727] finishing run rktraz_/nyc_taxi_fares/kktkpr15
+2022-08-05 00:28:35,592 INFO    Thread-13 :15916 [jupyter.py:save_history():435] not saving jupyter history
+2022-08-05 00:28:35,592 INFO    Thread-13 :15916 [jupyter.py:save_ipynb():377] not saving jupyter notebook
+2022-08-05 00:28:35,592 INFO    Thread-13 :15916 [wandb_init.py:_jupyter_teardown():393] cleaning up jupyter logic
+2022-08-05 00:28:35,593 INFO    Thread-13 :15916 [wandb_run.py:_atexit_cleanup():1930] got exitcode: 0
+2022-08-05 00:28:35,593 INFO    Thread-13 :15916 [wandb_run.py:_restore():1913] restore
+2022-08-05 00:28:35,594 INFO    Thread-13 :15916 [wandb_run.py:_restore():1919] restore done
+2022-08-05 00:28:38,499 INFO    Thread-13 :15916 [wandb_run.py:_on_finish():2220] got exit ret: file_counts {
+  wandb_count: 1
+  media_count: 3
+  artifact_count: 4
+}
+pusher_stats {
+  uploaded_bytes: 144960
+  total_bytes: 144960
+}
+
+2022-08-05 00:28:38,869 INFO    Thread-13 :15916 [wandb_run.py:_on_finish():2220] got exit ret: file_counts {
+  wandb_count: 1
+  media_count: 4
+  artifact_count: 4
+}
+pusher_stats {
+  uploaded_bytes: 163208
+  total_bytes: 163208
+}
+
+2022-08-05 00:28:40,526 INFO    Thread-13 :15916 [wandb_run.py:_on_finish():2220] got exit ret: file_counts {
+  wandb_count: 1
+  media_count: 4
+  artifact_count: 4
+}
+pusher_stats {
+  uploaded_bytes: 163208
+  total_bytes: 163208
+}
+
+2022-08-05 00:28:41,367 INFO    Thread-13 :15916 [wandb_run.py:_on_finish():2220] got exit ret: file_counts {
+  wandb_count: 5
+  media_count: 4
+  artifact_count: 4
+}
+pusher_stats {
+  uploaded_bytes: 163208
+  total_bytes: 171784
+}
+
+2022-08-05 00:28:41,485 INFO    Thread-13 :15916 [wandb_run.py:_on_finish():2220] got exit ret: file_counts {
+  wandb_count: 5
+  media_count: 4
+  artifact_count: 4
+}
+pusher_stats {
+  uploaded_bytes: 163208
+  total_bytes: 171784
+}
+
+2022-08-05 00:28:41,595 INFO    Thread-13 :15916 [wandb_run.py:_on_finish():2220] got exit ret: file_counts {
+  wandb_count: 5
+  media_count: 4
+  artifact_count: 4
+}
+pusher_stats {
+  uploaded_bytes: 163208
+  total_bytes: 171784
+}
+
+2022-08-05 00:28:41,704 INFO    Thread-13 :15916 [wandb_run.py:_on_finish():2220] got exit ret: file_counts {
+  wandb_count: 5
+  media_count: 4
+  artifact_count: 4
+}
+pusher_stats {
+  uploaded_bytes: 163208
+  total_bytes: 171784
+}
+
+2022-08-05 00:28:41,812 INFO    Thread-13 :15916 [wandb_run.py:_on_finish():2220] got exit ret: file_counts {
+  wandb_count: 5
+  media_count: 4
+  artifact_count: 4
+}
+pusher_stats {
+  uploaded_bytes: 171784
+  total_bytes: 171784
+}
+
+2022-08-05 00:28:41,920 INFO    Thread-13 :15916 [wandb_run.py:_on_finish():2220] got exit ret: file_counts {
+  wandb_count: 5
+  media_count: 4
+  artifact_count: 4
+}
+pusher_stats {
+  uploaded_bytes: 171784
+  total_bytes: 171784
+}
+
+2022-08-05 00:28:42,029 INFO    Thread-13 :15916 [wandb_run.py:_on_finish():2220] got exit ret: file_counts {
+  wandb_count: 5
+  media_count: 4
+  artifact_count: 4
+}
+pusher_stats {
+  uploaded_bytes: 171784
+  total_bytes: 171784
+}
+
+2022-08-05 00:28:42,136 INFO    Thread-13 :15916 [wandb_run.py:_on_finish():2220] got exit ret: file_counts {
+  wandb_count: 5
+  media_count: 4
+  artifact_count: 4
+}
+pusher_stats {
+  uploaded_bytes: 171784
+  total_bytes: 171784
+}
+
+2022-08-05 00:28:42,245 INFO    Thread-13 :15916 [wandb_run.py:_on_finish():2220] got exit ret: file_counts {
+  wandb_count: 5
+  media_count: 4
+  artifact_count: 4
+}
+pusher_stats {
+  uploaded_bytes: 171784
+  total_bytes: 171784
+}
+
+2022-08-05 00:28:42,353 INFO    Thread-13 :15916 [wandb_run.py:_on_finish():2220] got exit ret: file_counts {
+  wandb_count: 5
+  media_count: 4
+  artifact_count: 4
+}
+pusher_stats {
+  uploaded_bytes: 171784
+  total_bytes: 171784
+}
+
+2022-08-05 00:28:42,463 INFO    Thread-13 :15916 [wandb_run.py:_on_finish():2220] got exit ret: file_counts {
+  wandb_count: 5
+  media_count: 4
+  artifact_count: 4
+}
+pusher_stats {
+  uploaded_bytes: 171784
+  total_bytes: 171784
+}
+
+2022-08-05 00:28:43,633 INFO    Thread-13 :15916 [wandb_run.py:_on_finish():2220] got exit ret: file_counts {
+  wandb_count: 5
+  media_count: 4
+  artifact_count: 4
+}
+pusher_stats {
+  uploaded_bytes: 171784
+  total_bytes: 171784
+}
+
+2022-08-05 00:28:44,002 INFO    Thread-13 :15916 [wandb_run.py:_on_finish():2220] got exit ret: done: true
+exit_result {
+}
+file_counts {
+  wandb_count: 5
+  media_count: 4
+  artifact_count: 4
+}
+pusher_stats {
+  uploaded_bytes: 171784
+  total_bytes: 171784
+}
+local_info {
+}
+
+2022-08-05 00:28:45,157 INFO    Thread-13 :15916 [wandb_run.py:_footer_history_summary_info():3304] rendering history
+2022-08-05 00:28:45,157 INFO    Thread-13 :15916 [wandb_run.py:_footer_history_summary_info():3336] rendering summary
+2022-08-05 00:28:45,170 INFO    Thread-13 :15916 [wandb_run.py:_footer_sync_info():3260] logging synced files

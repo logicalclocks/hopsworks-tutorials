@@ -1,0 +1,26 @@
+2022-08-04 22:51:23 ERROR Traceback (most recent call last):
+  File "C:\Users\rkaha\Documents\hopsworks\venv38\lib\site-packages\wandb\cli\cli.py", line 97, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\rkaha\Documents\hopsworks\venv38\lib\site-packages\wandb\cli\cli.py", line 245, in login
+    wandb.login(relogin=relogin, key=key, anonymous=anon_mode, host=host, force=True)
+  File "C:\Users\rkaha\Documents\hopsworks\venv38\lib\site-packages\wandb\sdk\wandb_login.py", line 76, in login
+    configured = _login(**kwargs)
+  File "C:\Users\rkaha\Documents\hopsworks\venv38\lib\site-packages\wandb\sdk\wandb_login.py", line 297, in _login
+    wlogin.prompt_api_key()
+  File "C:\Users\rkaha\Documents\hopsworks\venv38\lib\site-packages\wandb\sdk\wandb_login.py", line 227, in prompt_api_key
+    raise UsageError("api_key not configured (no-tty). call " + directive)
+wandb.errors.UsageError: api_key not configured (no-tty). call wandb login [your_api_key]
+
+2022-08-04 23:17:10 ERROR Traceback (most recent call last):
+  File "C:\Users\rkaha\Documents\hopsworks\venv38\lib\site-packages\wandb\cli\cli.py", line 97, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\rkaha\Documents\hopsworks\venv38\lib\site-packages\wandb\cli\cli.py", line 245, in login
+    wandb.login(relogin=relogin, key=key, anonymous=anon_mode, host=host, force=True)
+  File "C:\Users\rkaha\Documents\hopsworks\venv38\lib\site-packages\wandb\sdk\wandb_login.py", line 76, in login
+    configured = _login(**kwargs)
+  File "C:\Users\rkaha\Documents\hopsworks\venv38\lib\site-packages\wandb\sdk\wandb_login.py", line 297, in _login
+    wlogin.prompt_api_key()
+  File "C:\Users\rkaha\Documents\hopsworks\venv38\lib\site-packages\wandb\sdk\wandb_login.py", line 227, in prompt_api_key
+    raise UsageError("api_key not configured (no-tty). call " + directive)
+wandb.errors.UsageError: api_key not configured (no-tty). call wandb login [your_api_key]
+

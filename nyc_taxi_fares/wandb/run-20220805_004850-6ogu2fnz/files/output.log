@@ -1,0 +1,19 @@
+
+Connected. Call `.close()` to terminate connection gracefully.
+Model created, explore it at https://c.app.hopsworks.ai:443/p/164/models/nyc_taxi_fares_model/1
+Overwriting predict_example.py
+Help on method deploy in module hsml.model:
+deploy(name: Union[str, NoneType] = None, artifact_version: Union[str, NoneType] = 'CREATE', model_server: Union[str, NoneType] = None, serving_tool: Union[str, NoneType] = None, script_file: Union[str, NoneType] = None, resources: Union[hsml.resources.PredictorResources, dict, NoneType] = {}, inference_logger: Union[hsml.inference_logger.InferenceLogger, dict, NoneType] = None, inference_batcher: Union[hsml.inference_batcher.InferenceBatcher, dict, NoneType] = None, transformer: Union[hsml.transformer.Transformer, dict, NoneType] = None) method of hsml.sklearn.model.Model instance
+    Deploy the model.
+    # Arguments
+        name: Name of the deployment.
+        artifact_version: Version number of the model artifact to deploy, `CREATE` to create a new model artifact
+        or `MODEL-ONLY` to reuse the shared artifact containing only the model files.
+        model_server: Model server ran by the predictor.
+        serving_tool: Serving tool used to deploy the model server.
+        script_file: Path to a custom predictor script implementing the Predict class.
+        resources: Resources to be allocated for the predictor.
+        inference_logger: Inference logger configuration.
+        inference_batcher: Inference batcher configuration.
+        transformer: Transformer to be deployed together with the predictor.
+    # Returns

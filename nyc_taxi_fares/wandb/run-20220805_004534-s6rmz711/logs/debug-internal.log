@@ -1,0 +1,169 @@
+2022-08-05 00:45:34,442 INFO    StreamThr :1600 [internal.py:wandb_internal():90] W&B internal server running at pid: 1600, started at: 2022-08-05 00:45:34.441462
+2022-08-05 00:45:34,444 DEBUG   HandlerThread:1600 [handler.py:handle_request():141] handle_request: status
+2022-08-05 00:45:34,448 DEBUG   SenderThread:1600 [sender.py:send_request():316] send_request: status
+2022-08-05 00:45:34,475 DEBUG   SenderThread:1600 [sender.py:send():302] send: header
+2022-08-05 00:45:34,476 INFO    WriterThread:1600 [datastore.py:open_for_write():75] open: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\nyc_taxi_fares\wandb\run-20220805_004534-s6rmz711\run-s6rmz711.wandb
+2022-08-05 00:45:34,545 DEBUG   SenderThread:1600 [sender.py:send():302] send: run
+2022-08-05 00:45:35,052 DEBUG   HandlerThread:1600 [handler.py:handle_request():141] handle_request: check_version
+2022-08-05 00:45:35,053 INFO    SenderThread:1600 [dir_watcher.py:__init__():216] watching files in: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\nyc_taxi_fares\wandb\run-20220805_004534-s6rmz711\files
+2022-08-05 00:45:35,054 INFO    SenderThread:1600 [sender.py:_start_run_threads():913] run started: s6rmz711 with start time 1659653134.441461
+2022-08-05 00:45:35,054 DEBUG   SenderThread:1600 [sender.py:send():302] send: summary
+2022-08-05 00:45:35,055 INFO    SenderThread:1600 [sender.py:_save_file():1156] saving file wandb-summary.json with policy end
+2022-08-05 00:45:35,056 DEBUG   SenderThread:1600 [sender.py:send_request():316] send_request: check_version
+2022-08-05 00:45:35,192 DEBUG   HandlerThread:1600 [handler.py:handle_request():141] handle_request: run_start
+2022-08-05 00:45:35,213 DEBUG   HandlerThread:1600 [meta.py:__init__():35] meta init
+2022-08-05 00:45:35,214 DEBUG   HandlerThread:1600 [meta.py:__init__():50] meta init done
+2022-08-05 00:45:35,214 DEBUG   HandlerThread:1600 [meta.py:probe():216] probe
+2022-08-05 00:45:35,227 DEBUG   HandlerThread:1600 [meta.py:_setup_git():206] setup git
+2022-08-05 00:45:35,351 DEBUG   HandlerThread:1600 [meta.py:_setup_git():213] setup git done
+2022-08-05 00:45:35,351 DEBUG   HandlerThread:1600 [meta.py:_save_pip():54] save pip
+2022-08-05 00:45:35,353 DEBUG   HandlerThread:1600 [meta.py:_save_pip():68] save pip done
+2022-08-05 00:45:35,353 DEBUG   HandlerThread:1600 [meta.py:probe():254] probe done
+2022-08-05 00:45:35,361 DEBUG   SenderThread:1600 [sender.py:send():302] send: files
+2022-08-05 00:45:35,361 INFO    SenderThread:1600 [sender.py:_save_file():1156] saving file wandb-metadata.json with policy now
+2022-08-05 00:45:35,387 DEBUG   HandlerThread:1600 [handler.py:handle_request():141] handle_request: stop_status
+2022-08-05 00:45:35,389 DEBUG   SenderThread:1600 [sender.py:send_request():316] send_request: stop_status
+2022-08-05 00:45:35,601 DEBUG   SenderThread:1600 [sender.py:send():302] send: telemetry
+2022-08-05 00:45:36,007 INFO    Thread-22 :1600 [upload_job.py:push():138] Uploaded file C:\Users\rkaha\AppData\Local\Temp\tmprps9fn72wandb\1td96rzi-wandb-metadata.json
+2022-08-05 00:45:36,058 INFO    Thread-16 :1600 [dir_watcher.py:_on_file_created():275] file/dir created: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\nyc_taxi_fares\wandb\run-20220805_004534-s6rmz711\files\wandb-summary.json
+2022-08-05 00:45:36,059 INFO    Thread-16 :1600 [dir_watcher.py:_on_file_created():275] file/dir created: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\nyc_taxi_fares\wandb\run-20220805_004534-s6rmz711\files\requirements.txt
+2022-08-05 00:45:36,059 INFO    Thread-16 :1600 [dir_watcher.py:_on_file_created():275] file/dir created: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\nyc_taxi_fares\wandb\run-20220805_004534-s6rmz711\files\wandb-metadata.json
+2022-08-05 00:45:50,644 DEBUG   HandlerThread:1600 [handler.py:handle_request():141] handle_request: stop_status
+2022-08-05 00:45:50,645 DEBUG   SenderThread:1600 [sender.py:send_request():316] send_request: stop_status
+2022-08-05 00:46:05,339 INFO    Thread-16 :1600 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\nyc_taxi_fares\wandb\run-20220805_004534-s6rmz711\files\config.yaml
+2022-08-05 00:46:05,871 DEBUG   HandlerThread:1600 [handler.py:handle_request():141] handle_request: stop_status
+2022-08-05 00:46:05,872 DEBUG   SenderThread:1600 [sender.py:send_request():316] send_request: stop_status
+2022-08-05 00:46:06,081 DEBUG   SenderThread:1600 [sender.py:send():302] send: stats
+2022-08-05 00:46:21,093 DEBUG   HandlerThread:1600 [handler.py:handle_request():141] handle_request: stop_status
+2022-08-05 00:46:21,093 DEBUG   SenderThread:1600 [sender.py:send_request():316] send_request: stop_status
+2022-08-05 00:46:36,342 DEBUG   HandlerThread:1600 [handler.py:handle_request():141] handle_request: stop_status
+2022-08-05 00:46:36,343 DEBUG   SenderThread:1600 [sender.py:send_request():316] send_request: stop_status
+2022-08-05 00:46:39,007 DEBUG   SenderThread:1600 [sender.py:send():302] send: stats
+2022-08-05 00:46:51,577 DEBUG   HandlerThread:1600 [handler.py:handle_request():141] handle_request: stop_status
+2022-08-05 00:46:51,578 DEBUG   SenderThread:1600 [sender.py:send_request():316] send_request: stop_status
+2022-08-05 00:47:01,737 DEBUG   HandlerThread:1600 [handler.py:handle_request():141] handle_request: partial_history
+2022-08-05 00:47:01,738 DEBUG   SenderThread:1600 [sender.py:send():302] send: history
+2022-08-05 00:47:01,740 DEBUG   SenderThread:1600 [sender.py:send():302] send: summary
+2022-08-05 00:47:01,743 INFO    SenderThread:1600 [sender.py:_save_file():1156] saving file wandb-summary.json with policy end
+2022-08-05 00:47:01,744 DEBUG   SenderThread:1600 [sender.py:send():302] send: telemetry
+2022-08-05 00:47:01,745 DEBUG   SenderThread:1600 [sender.py:send():302] send: exit
+2022-08-05 00:47:01,745 INFO    SenderThread:1600 [sender.py:send_exit():438] handling exit code: 0
+2022-08-05 00:47:01,746 INFO    SenderThread:1600 [sender.py:send_exit():440] handling runtime: 86
+2022-08-05 00:47:01,746 DEBUG   HandlerThread:1600 [handler.py:handle_request():141] handle_request: poll_exit
+2022-08-05 00:47:01,747 INFO    SenderThread:1600 [sender.py:_save_file():1156] saving file wandb-summary.json with policy end
+2022-08-05 00:47:01,747 INFO    SenderThread:1600 [sender.py:send_exit():446] send defer
+2022-08-05 00:47:01,747 DEBUG   SenderThread:1600 [sender.py:send_request():316] send_request: poll_exit
+2022-08-05 00:47:01,748 DEBUG   HandlerThread:1600 [handler.py:handle_request():141] handle_request: defer
+2022-08-05 00:47:01,748 INFO    HandlerThread:1600 [handler.py:handle_request_defer():164] handle defer: 0
+2022-08-05 00:47:01,749 DEBUG   SenderThread:1600 [sender.py:send_request():316] send_request: defer
+2022-08-05 00:47:01,750 INFO    SenderThread:1600 [sender.py:send_request_defer():455] handle sender defer: 0
+2022-08-05 00:47:01,750 INFO    SenderThread:1600 [sender.py:transition_state():459] send defer: 1
+2022-08-05 00:47:01,751 DEBUG   HandlerThread:1600 [handler.py:handle_request():141] handle_request: defer
+2022-08-05 00:47:01,751 INFO    HandlerThread:1600 [handler.py:handle_request_defer():164] handle defer: 1
+2022-08-05 00:47:01,784 DEBUG   SenderThread:1600 [sender.py:send_request():316] send_request: defer
+2022-08-05 00:47:01,784 INFO    SenderThread:1600 [sender.py:send_request_defer():455] handle sender defer: 1
+2022-08-05 00:47:01,784 INFO    SenderThread:1600 [sender.py:transition_state():459] send defer: 2
+2022-08-05 00:47:01,785 DEBUG   SenderThread:1600 [sender.py:send():302] send: stats
+2022-08-05 00:47:01,786 DEBUG   HandlerThread:1600 [handler.py:handle_request():141] handle_request: defer
+2022-08-05 00:47:01,786 INFO    HandlerThread:1600 [handler.py:handle_request_defer():164] handle defer: 2
+2022-08-05 00:47:01,787 DEBUG   SenderThread:1600 [sender.py:send_request():316] send_request: defer
+2022-08-05 00:47:01,787 INFO    SenderThread:1600 [sender.py:send_request_defer():455] handle sender defer: 2
+2022-08-05 00:47:01,787 INFO    SenderThread:1600 [sender.py:transition_state():459] send defer: 3
+2022-08-05 00:47:01,788 DEBUG   HandlerThread:1600 [handler.py:handle_request():141] handle_request: defer
+2022-08-05 00:47:01,788 INFO    HandlerThread:1600 [handler.py:handle_request_defer():164] handle defer: 3
+2022-08-05 00:47:01,788 DEBUG   SenderThread:1600 [sender.py:send_request():316] send_request: defer
+2022-08-05 00:47:01,788 INFO    SenderThread:1600 [sender.py:send_request_defer():455] handle sender defer: 3
+2022-08-05 00:47:01,788 INFO    SenderThread:1600 [sender.py:transition_state():459] send defer: 4
+2022-08-05 00:47:01,789 DEBUG   HandlerThread:1600 [handler.py:handle_request():141] handle_request: defer
+2022-08-05 00:47:01,789 INFO    HandlerThread:1600 [handler.py:handle_request_defer():164] handle defer: 4
+2022-08-05 00:47:01,790 DEBUG   SenderThread:1600 [sender.py:send():302] send: summary
+2022-08-05 00:47:01,791 INFO    SenderThread:1600 [sender.py:_save_file():1156] saving file wandb-summary.json with policy end
+2022-08-05 00:47:01,792 DEBUG   SenderThread:1600 [sender.py:send_request():316] send_request: defer
+2022-08-05 00:47:01,792 INFO    SenderThread:1600 [sender.py:send_request_defer():455] handle sender defer: 4
+2022-08-05 00:47:01,792 INFO    SenderThread:1600 [sender.py:transition_state():459] send defer: 5
+2022-08-05 00:47:01,792 DEBUG   HandlerThread:1600 [handler.py:handle_request():141] handle_request: defer
+2022-08-05 00:47:01,792 INFO    HandlerThread:1600 [handler.py:handle_request_defer():164] handle defer: 5
+2022-08-05 00:47:01,793 DEBUG   SenderThread:1600 [sender.py:send_request():316] send_request: defer
+2022-08-05 00:47:01,793 INFO    SenderThread:1600 [sender.py:send_request_defer():455] handle sender defer: 5
+2022-08-05 00:47:01,864 DEBUG   HandlerThread:1600 [handler.py:handle_request():141] handle_request: poll_exit
+2022-08-05 00:47:01,958 INFO    Thread-16 :1600 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\nyc_taxi_fares\wandb\run-20220805_004534-s6rmz711\files\wandb-summary.json
+2022-08-05 00:47:01,959 INFO    Thread-16 :1600 [dir_watcher.py:_on_file_created():275] file/dir created: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\nyc_taxi_fares\wandb\run-20220805_004534-s6rmz711\files\output.log
+2022-08-05 00:47:02,200 INFO    SenderThread:1600 [sender.py:transition_state():459] send defer: 6
+2022-08-05 00:47:02,200 DEBUG   SenderThread:1600 [sender.py:send_request():316] send_request: poll_exit
+2022-08-05 00:47:02,202 DEBUG   HandlerThread:1600 [handler.py:handle_request():141] handle_request: defer
+2022-08-05 00:47:02,202 INFO    HandlerThread:1600 [handler.py:handle_request_defer():164] handle defer: 6
+2022-08-05 00:47:02,203 DEBUG   SenderThread:1600 [sender.py:send_request():316] send_request: defer
+2022-08-05 00:47:02,203 INFO    SenderThread:1600 [sender.py:send_request_defer():455] handle sender defer: 6
+2022-08-05 00:47:02,314 DEBUG   HandlerThread:1600 [handler.py:handle_request():141] handle_request: poll_exit
+2022-08-05 00:47:02,968 INFO    Thread-16 :1600 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\nyc_taxi_fares\wandb\run-20220805_004534-s6rmz711\files\config.yaml
+2022-08-05 00:47:03,745 INFO    SenderThread:1600 [sender.py:transition_state():459] send defer: 7
+2022-08-05 00:47:03,746 DEBUG   SenderThread:1600 [sender.py:send_request():316] send_request: poll_exit
+2022-08-05 00:47:03,748 DEBUG   HandlerThread:1600 [handler.py:handle_request():141] handle_request: defer
+2022-08-05 00:47:03,748 INFO    HandlerThread:1600 [handler.py:handle_request_defer():164] handle defer: 7
+2022-08-05 00:47:03,748 DEBUG   SenderThread:1600 [sender.py:send_request():316] send_request: defer
+2022-08-05 00:47:03,749 INFO    SenderThread:1600 [sender.py:send_request_defer():455] handle sender defer: 7
+2022-08-05 00:47:03,749 INFO    SenderThread:1600 [dir_watcher.py:finish():362] shutting down directory watcher
+2022-08-05 00:47:03,856 DEBUG   HandlerThread:1600 [handler.py:handle_request():141] handle_request: poll_exit
+2022-08-05 00:47:03,980 INFO    SenderThread:1600 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\nyc_taxi_fares\wandb\run-20220805_004534-s6rmz711\files\output.log
+2022-08-05 00:47:03,980 INFO    SenderThread:1600 [dir_watcher.py:finish():392] scan: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\nyc_taxi_fares\wandb\run-20220805_004534-s6rmz711\files
+2022-08-05 00:47:03,981 INFO    SenderThread:1600 [dir_watcher.py:finish():406] scan save: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\nyc_taxi_fares\wandb\run-20220805_004534-s6rmz711\files\config.yaml config.yaml
+2022-08-05 00:47:03,981 INFO    SenderThread:1600 [dir_watcher.py:finish():406] scan save: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\nyc_taxi_fares\wandb\run-20220805_004534-s6rmz711\files\output.log output.log
+2022-08-05 00:47:03,985 INFO    SenderThread:1600 [dir_watcher.py:finish():406] scan save: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\nyc_taxi_fares\wandb\run-20220805_004534-s6rmz711\files\requirements.txt requirements.txt
+2022-08-05 00:47:03,986 INFO    SenderThread:1600 [dir_watcher.py:finish():406] scan save: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\nyc_taxi_fares\wandb\run-20220805_004534-s6rmz711\files\wandb-metadata.json wandb-metadata.json
+2022-08-05 00:47:03,987 INFO    SenderThread:1600 [dir_watcher.py:finish():406] scan save: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\nyc_taxi_fares\wandb\run-20220805_004534-s6rmz711\files\wandb-summary.json wandb-summary.json
+2022-08-05 00:47:03,998 INFO    SenderThread:1600 [sender.py:transition_state():459] send defer: 8
+2022-08-05 00:47:03,998 DEBUG   SenderThread:1600 [sender.py:send_request():316] send_request: poll_exit
+2022-08-05 00:47:04,000 DEBUG   HandlerThread:1600 [handler.py:handle_request():141] handle_request: defer
+2022-08-05 00:47:04,000 INFO    HandlerThread:1600 [handler.py:handle_request_defer():164] handle defer: 8
+2022-08-05 00:47:04,001 DEBUG   SenderThread:1600 [sender.py:send_request():316] send_request: defer
+2022-08-05 00:47:04,001 INFO    SenderThread:1600 [sender.py:send_request_defer():455] handle sender defer: 8
+2022-08-05 00:47:04,001 INFO    SenderThread:1600 [file_pusher.py:finish():171] shutting down file pusher
+2022-08-05 00:47:04,117 DEBUG   HandlerThread:1600 [handler.py:handle_request():141] handle_request: poll_exit
+2022-08-05 00:47:04,117 DEBUG   SenderThread:1600 [sender.py:send_request():316] send_request: poll_exit
+2022-08-05 00:47:04,225 DEBUG   HandlerThread:1600 [handler.py:handle_request():141] handle_request: poll_exit
+2022-08-05 00:47:04,225 DEBUG   SenderThread:1600 [sender.py:send_request():316] send_request: poll_exit
+2022-08-05 00:47:04,330 DEBUG   HandlerThread:1600 [handler.py:handle_request():141] handle_request: poll_exit
+2022-08-05 00:47:04,330 DEBUG   SenderThread:1600 [sender.py:send_request():316] send_request: poll_exit
+2022-08-05 00:47:04,441 DEBUG   HandlerThread:1600 [handler.py:handle_request():141] handle_request: poll_exit
+2022-08-05 00:47:04,442 DEBUG   SenderThread:1600 [sender.py:send_request():316] send_request: poll_exit
+2022-08-05 00:47:04,548 DEBUG   HandlerThread:1600 [handler.py:handle_request():141] handle_request: poll_exit
+2022-08-05 00:47:04,549 DEBUG   SenderThread:1600 [sender.py:send_request():316] send_request: poll_exit
+2022-08-05 00:47:04,657 DEBUG   HandlerThread:1600 [handler.py:handle_request():141] handle_request: poll_exit
+2022-08-05 00:47:04,658 DEBUG   SenderThread:1600 [sender.py:send_request():316] send_request: poll_exit
+2022-08-05 00:47:04,665 INFO    Thread-25 :1600 [upload_job.py:push():138] Uploaded file C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\nyc_taxi_fares\wandb\run-20220805_004534-s6rmz711\files\requirements.txt
+2022-08-05 00:47:04,665 INFO    Thread-24 :1600 [upload_job.py:push():138] Uploaded file C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\nyc_taxi_fares\wandb\run-20220805_004534-s6rmz711\files\output.log
+2022-08-05 00:47:04,670 INFO    Thread-23 :1600 [upload_job.py:push():138] Uploaded file C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\nyc_taxi_fares\wandb\run-20220805_004534-s6rmz711\files\config.yaml
+2022-08-05 00:47:04,675 INFO    Thread-26 :1600 [upload_job.py:push():138] Uploaded file C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\nyc_taxi_fares\wandb\run-20220805_004534-s6rmz711\files\wandb-summary.json
+2022-08-05 00:47:04,783 DEBUG   HandlerThread:1600 [handler.py:handle_request():141] handle_request: poll_exit
+2022-08-05 00:47:04,784 DEBUG   SenderThread:1600 [sender.py:send_request():316] send_request: poll_exit
+2022-08-05 00:47:04,891 INFO    Thread-15 :1600 [sender.py:transition_state():459] send defer: 9
+2022-08-05 00:47:04,893 DEBUG   HandlerThread:1600 [handler.py:handle_request():141] handle_request: defer
+2022-08-05 00:47:04,893 INFO    HandlerThread:1600 [handler.py:handle_request_defer():164] handle defer: 9
+2022-08-05 00:47:04,894 DEBUG   SenderThread:1600 [sender.py:send_request():316] send_request: defer
+2022-08-05 00:47:04,894 INFO    SenderThread:1600 [sender.py:send_request_defer():455] handle sender defer: 9
+2022-08-05 00:47:04,895 DEBUG   HandlerThread:1600 [handler.py:handle_request():141] handle_request: poll_exit
+2022-08-05 00:47:05,438 INFO    SenderThread:1600 [sender.py:transition_state():459] send defer: 10
+2022-08-05 00:47:05,439 DEBUG   SenderThread:1600 [sender.py:send_request():316] send_request: poll_exit
+2022-08-05 00:47:05,439 DEBUG   HandlerThread:1600 [handler.py:handle_request():141] handle_request: defer
+2022-08-05 00:47:05,439 INFO    HandlerThread:1600 [handler.py:handle_request_defer():164] handle defer: 10
+2022-08-05 00:47:05,440 DEBUG   SenderThread:1600 [sender.py:send_request():316] send_request: defer
+2022-08-05 00:47:05,440 INFO    SenderThread:1600 [sender.py:send_request_defer():455] handle sender defer: 10
+2022-08-05 00:47:05,440 INFO    SenderThread:1600 [sender.py:transition_state():459] send defer: 11
+2022-08-05 00:47:05,441 DEBUG   HandlerThread:1600 [handler.py:handle_request():141] handle_request: defer
+2022-08-05 00:47:05,441 INFO    HandlerThread:1600 [handler.py:handle_request_defer():164] handle defer: 11
+2022-08-05 00:47:05,441 DEBUG   SenderThread:1600 [sender.py:send():302] send: final
+2022-08-05 00:47:05,441 DEBUG   SenderThread:1600 [sender.py:send():302] send: footer
+2022-08-05 00:47:05,442 DEBUG   SenderThread:1600 [sender.py:send_request():316] send_request: defer
+2022-08-05 00:47:05,442 INFO    SenderThread:1600 [sender.py:send_request_defer():455] handle sender defer: 11
+2022-08-05 00:47:05,559 DEBUG   HandlerThread:1600 [handler.py:handle_request():141] handle_request: poll_exit
+2022-08-05 00:47:05,560 DEBUG   SenderThread:1600 [sender.py:send_request():316] send_request: poll_exit
+2022-08-05 00:47:05,561 INFO    SenderThread:1600 [file_pusher.py:join():176] waiting for file pusher
+2022-08-05 00:47:06,102 DEBUG   HandlerThread:1600 [handler.py:handle_request():141] handle_request: sampled_history
+2022-08-05 00:47:06,106 DEBUG   HandlerThread:1600 [handler.py:handle_request():141] handle_request: get_summary
+2022-08-05 00:47:06,110 DEBUG   HandlerThread:1600 [handler.py:handle_request():141] handle_request: shutdown
+2022-08-05 00:47:06,111 INFO    HandlerThread:1600 [handler.py:finish():810] shutting down handler
+2022-08-05 00:47:06,457 INFO    WriterThread:1600 [datastore.py:close():279] close: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\nyc_taxi_fares\wandb\run-20220805_004534-s6rmz711\run-s6rmz711.wandb
+2022-08-05 00:47:06,998 INFO    SenderThread:1600 [sender.py:finish():1312] shutting down sender
+2022-08-05 00:47:06,998 INFO    SenderThread:1600 [file_pusher.py:finish():171] shutting down file pusher
+2022-08-05 00:47:06,999 INFO    SenderThread:1600 [file_pusher.py:join():176] waiting for file pusher
+2022-08-05 00:47:10,845 INFO    MainThread:1600 [internal.py:handle_exit():80] Internal process exited

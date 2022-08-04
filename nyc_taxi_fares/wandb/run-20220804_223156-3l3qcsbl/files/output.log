@@ -1,0 +1,4 @@
+
+[34m[1mwandb[39m[22m: [33mWARNING[39m Calling wandb.login() after wandb.init() has no effect.
+Create sweep with ID: 43c9m4h2
+Sweep URL: https://wandb.ai/rktraz_/nyc_taxi_fares/sweeps/43c9m4h2

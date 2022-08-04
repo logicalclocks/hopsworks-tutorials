@@ -1,0 +1,36 @@
+2022-08-05 00:37:02,795 INFO    StreamThr :7688 [internal.py:wandb_internal():90] W&B internal server running at pid: 7688, started at: 2022-08-05 00:37:02.794558
+2022-08-05 00:37:02,798 DEBUG   HandlerThread:7688 [handler.py:handle_request():141] handle_request: status
+2022-08-05 00:37:02,802 DEBUG   SenderThread:7688 [sender.py:send_request():316] send_request: status
+2022-08-05 00:37:02,827 DEBUG   SenderThread:7688 [sender.py:send():302] send: header
+2022-08-05 00:37:02,827 INFO    WriterThread:7688 [datastore.py:open_for_write():75] open: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\nyc_taxi_fares\wandb\run-20220805_003702-rprpdku0\run-rprpdku0.wandb
+2022-08-05 00:37:02,893 DEBUG   SenderThread:7688 [sender.py:send():302] send: run
+2022-08-05 00:37:03,388 INFO    SenderThread:7688 [dir_watcher.py:__init__():216] watching files in: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\nyc_taxi_fares\wandb\run-20220805_003702-rprpdku0\files
+2022-08-05 00:37:03,388 INFO    SenderThread:7688 [sender.py:_start_run_threads():913] run started: rprpdku0 with start time 1659652622.792559
+2022-08-05 00:37:03,388 DEBUG   SenderThread:7688 [sender.py:send():302] send: summary
+2022-08-05 00:37:03,389 INFO    SenderThread:7688 [sender.py:_save_file():1156] saving file wandb-summary.json with policy end
+2022-08-05 00:37:03,390 DEBUG   HandlerThread:7688 [handler.py:handle_request():141] handle_request: check_version
+2022-08-05 00:37:03,390 DEBUG   SenderThread:7688 [sender.py:send_request():316] send_request: check_version
+2022-08-05 00:37:03,515 DEBUG   HandlerThread:7688 [handler.py:handle_request():141] handle_request: run_start
+2022-08-05 00:37:03,536 DEBUG   HandlerThread:7688 [meta.py:__init__():35] meta init
+2022-08-05 00:37:03,539 DEBUG   HandlerThread:7688 [meta.py:__init__():50] meta init done
+2022-08-05 00:37:03,539 DEBUG   HandlerThread:7688 [meta.py:probe():216] probe
+2022-08-05 00:37:03,548 DEBUG   HandlerThread:7688 [meta.py:_setup_git():206] setup git
+2022-08-05 00:37:03,677 DEBUG   HandlerThread:7688 [meta.py:_setup_git():213] setup git done
+2022-08-05 00:37:03,678 DEBUG   HandlerThread:7688 [meta.py:_save_pip():54] save pip
+2022-08-05 00:37:03,679 DEBUG   HandlerThread:7688 [meta.py:_save_pip():68] save pip done
+2022-08-05 00:37:03,679 DEBUG   HandlerThread:7688 [meta.py:probe():254] probe done
+2022-08-05 00:37:03,687 DEBUG   SenderThread:7688 [sender.py:send():302] send: files
+2022-08-05 00:37:03,687 INFO    SenderThread:7688 [sender.py:_save_file():1156] saving file wandb-metadata.json with policy now
+2022-08-05 00:37:03,713 DEBUG   HandlerThread:7688 [handler.py:handle_request():141] handle_request: stop_status
+2022-08-05 00:37:03,715 DEBUG   SenderThread:7688 [sender.py:send_request():316] send_request: stop_status
+2022-08-05 00:37:03,932 DEBUG   SenderThread:7688 [sender.py:send():302] send: telemetry
+2022-08-05 00:37:04,363 INFO    Thread-22 :7688 [upload_job.py:push():138] Uploaded file C:\Users\rkaha\AppData\Local\Temp\tmpvpvlulgbwandb\o3v2dz9t-wandb-metadata.json
+2022-08-05 00:37:04,394 INFO    Thread-16 :7688 [dir_watcher.py:_on_file_created():275] file/dir created: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\nyc_taxi_fares\wandb\run-20220805_003702-rprpdku0\files\wandb-summary.json
+2022-08-05 00:37:04,395 INFO    Thread-16 :7688 [dir_watcher.py:_on_file_created():275] file/dir created: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\nyc_taxi_fares\wandb\run-20220805_003702-rprpdku0\files\wandb-metadata.json
+2022-08-05 00:37:04,395 INFO    Thread-16 :7688 [dir_watcher.py:_on_file_created():275] file/dir created: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\nyc_taxi_fares\wandb\run-20220805_003702-rprpdku0\files\requirements.txt
+2022-08-05 00:37:18,951 DEBUG   HandlerThread:7688 [handler.py:handle_request():141] handle_request: stop_status
+2022-08-05 00:37:18,951 DEBUG   SenderThread:7688 [sender.py:send_request():316] send_request: stop_status
+2022-08-05 00:37:33,674 INFO    Thread-16 :7688 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\nyc_taxi_fares\wandb\run-20220805_003702-rprpdku0\files\config.yaml
+2022-08-05 00:37:34,175 DEBUG   HandlerThread:7688 [handler.py:handle_request():141] handle_request: stop_status
+2022-08-05 00:37:34,176 DEBUG   SenderThread:7688 [sender.py:send_request():316] send_request: stop_status
+2022-08-05 00:37:34,579 DEBUG   SenderThread:7688 [sender.py:send():302] send: stats
