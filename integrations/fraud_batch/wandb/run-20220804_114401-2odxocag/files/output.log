@@ -1,7 +1,0 @@
-Create sweep with ID: nrs39lso
-Sweep URL: https://wandb.ai/davitbzh/fraud_batch/sweeps/nrs39lso
-[34m[1mwandb[39m[22m: [33mWARNING[39m Calling wandb.login() after wandb.init() has no effect.
-[34m[1mwandb[39m[22m: Agent Starting Run: uzyxfyof with config:
-[34m[1mwandb[39m[22m: 	criterion: gini
-[34m[1mwandb[39m[22m: 	min_samples_split: 5
-[34m[1mwandb[39m[22m: 	n_estimators: 75

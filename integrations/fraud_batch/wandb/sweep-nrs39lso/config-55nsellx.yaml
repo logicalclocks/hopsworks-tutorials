@@ -1,8 +1,0 @@
-wandb_version: 1
-
-criterion:
-  value: entropy
-min_samples_split:
-  value: 5
-n_estimators:
-  value: 75
