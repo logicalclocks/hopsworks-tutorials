@@ -1,0 +1,1967 @@
+2022-08-04 11:44:01,778 INFO    MainThread:13791 [wandb_setup.py:_flush():76] Configure stats pid to 13791
+2022-08-04 11:44:01,778 INFO    MainThread:13791 [wandb_setup.py:_flush():76] Loading settings from /Users/davitbzhalava/.config/wandb/settings
+2022-08-04 11:44:01,778 INFO    MainThread:13791 [wandb_setup.py:_flush():76] Loading settings from /Users/davitbzhalava/hops/hopsworks-tutorials/fraud_batch/wandb/settings
+2022-08-04 11:44:01,779 INFO    MainThread:13791 [wandb_setup.py:_flush():76] Loading settings from environment variables: {}
+2022-08-04 11:44:01,779 INFO    MainThread:13791 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program': '<python with no main file>'}
+2022-08-04 11:44:01,779 INFO    MainThread:13791 [wandb_init.py:_log_setup():461] Logging user logs to /Users/davitbzhalava/hops/hopsworks-tutorials/fraud_batch/wandb/run-20220804_114401-2odxocag/logs/debug.log
+2022-08-04 11:44:01,779 INFO    MainThread:13791 [wandb_init.py:_log_setup():462] Logging internal logs to /Users/davitbzhalava/hops/hopsworks-tutorials/fraud_batch/wandb/run-20220804_114401-2odxocag/logs/debug-internal.log
+2022-08-04 11:44:01,779 INFO    MainThread:13791 [wandb_init.py:init():495] calling init triggers
+2022-08-04 11:44:01,779 INFO    MainThread:13791 [wandb_init.py:init():498] wandb.init called with sweep_config: {}
+config: {}
+2022-08-04 11:44:01,779 INFO    MainThread:13791 [wandb_init.py:init():514] re-initializing run, found existing run on stack: 1lmqp1tt
+2022-08-04 11:44:01,781 INFO    MainThread:13791 [wandb_run.py:_finish():1680] finishing run davitbzh/fraud_batch/1lmqp1tt
+2022-08-04 11:44:01,782 INFO    MainThread:13791 [jupyter.py:save_history():435] not saving jupyter history
+2022-08-04 11:44:01,782 INFO    MainThread:13791 [jupyter.py:save_ipynb():377] not saving jupyter notebook
+2022-08-04 11:44:01,782 INFO    MainThread:13791 [wandb_init.py:_jupyter_teardown():393] cleaning up jupyter logic
+2022-08-04 11:44:01,782 INFO    MainThread:13791 [wandb_run.py:_atexit_cleanup():1862] got exitcode: 0
+2022-08-04 11:44:01,787 INFO    MainThread:13791 [wandb_run.py:_restore():1834] restore
+2022-08-04 11:44:02,186 INFO    MainThread:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 768
+  total_bytes: 768
+}
+
+2022-08-04 11:44:02,571 INFO    MainThread:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 768
+  total_bytes: 768
+}
+
+2022-08-04 11:44:02,677 INFO    MainThread:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+}
+pusher_stats {
+  uploaded_bytes: 768
+  total_bytes: 18065
+}
+
+2022-08-04 11:44:02,782 INFO    MainThread:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+}
+pusher_stats {
+  uploaded_bytes: 768
+  total_bytes: 18065
+}
+
+2022-08-04 11:44:02,886 INFO    MainThread:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+}
+pusher_stats {
+  uploaded_bytes: 18065
+  total_bytes: 18065
+}
+
+2022-08-04 11:44:02,992 INFO    MainThread:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+}
+pusher_stats {
+  uploaded_bytes: 18065
+  total_bytes: 18065
+}
+
+2022-08-04 11:44:03,099 INFO    MainThread:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+}
+pusher_stats {
+  uploaded_bytes: 18065
+  total_bytes: 18065
+}
+
+2022-08-04 11:44:03,204 INFO    MainThread:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+}
+pusher_stats {
+  uploaded_bytes: 18065
+  total_bytes: 18065
+}
+
+2022-08-04 11:44:03,307 INFO    MainThread:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+}
+pusher_stats {
+  uploaded_bytes: 18065
+  total_bytes: 18065
+}
+
+2022-08-04 11:44:03,413 INFO    MainThread:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+}
+pusher_stats {
+  uploaded_bytes: 18065
+  total_bytes: 18065
+}
+
+2022-08-04 11:44:03,518 INFO    MainThread:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+}
+pusher_stats {
+  uploaded_bytes: 18065
+  total_bytes: 18065
+}
+
+2022-08-04 11:44:03,678 INFO    MainThread:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+}
+pusher_stats {
+  uploaded_bytes: 18065
+  total_bytes: 18065
+}
+
+2022-08-04 11:44:03,956 INFO    MainThread:13791 [wandb_run.py:_on_finish():1991] got exit ret: done: true
+exit_result {
+}
+file_counts {
+  wandb_count: 5
+}
+pusher_stats {
+  uploaded_bytes: 18065
+  total_bytes: 18065
+}
+local_info {
+}
+
+2022-08-04 11:44:05,114 INFO    MainThread:13791 [wandb_run.py:_footer_history_summary_info():3099] rendering history
+2022-08-04 11:44:05,114 INFO    MainThread:13791 [wandb_run.py:_footer_history_summary_info():3131] rendering summary
+2022-08-04 11:44:05,117 INFO    MainThread:13791 [wandb_run.py:_footer_sync_info():3055] logging synced files
+2022-08-04 11:44:05,122 INFO    MainThread:13791 [wandb_init.py:init():548] starting backend
+2022-08-04 11:44:05,122 INFO    MainThread:13791 [backend.py:_multiprocessing_setup():97] multiprocessing start_methods=spawn,fork,forkserver, using: spawn
+2022-08-04 11:44:05,124 INFO    MainThread:13791 [backend.py:ensure_launched():217] starting backend process...
+2022-08-04 11:44:05,130 INFO    MainThread:13791 [backend.py:ensure_launched():222] started backend process with pid: 13936
+2022-08-04 11:44:05,132 INFO    MainThread:13791 [wandb_init.py:init():558] backend started and connected
+2022-08-04 11:44:05,164 INFO    MainThread:13791 [wandb_run.py:_label_probe_notebook():1084] probe notebook
+2022-08-04 11:44:05,165 INFO    MainThread:13791 [wandb_run.py:_label_probe_notebook():1094] Unable to probe notebook: 'NoneType' object has no attribute 'get'
+2022-08-04 11:44:05,165 INFO    MainThread:13791 [wandb_init.py:init():634] updated telemetry
+2022-08-04 11:44:05,191 INFO    MainThread:13791 [wandb_init.py:init():665] communicating run to backend with 30 second timeout
+2022-08-04 11:44:06,418 INFO    MainThread:13791 [wandb_run.py:_on_init():1919] communicating current version
+2022-08-04 11:44:06,479 INFO    MainThread:13791 [wandb_run.py:_on_init():1923] got version response upgrade_message: "wandb version 0.13.0 is available!  To upgrade, please run:\n $ pip install wandb --upgrade"
+
+2022-08-04 11:44:06,480 INFO    MainThread:13791 [wandb_init.py:init():700] starting run threads in backend
+2022-08-04 11:44:11,497 INFO    MainThread:13791 [wandb_run.py:_console_start():1893] atexit reg
+2022-08-04 11:44:11,499 INFO    MainThread:13791 [wandb_run.py:_redirect():1766] redirect: SettingsConsole.WRAP
+2022-08-04 11:44:11,499 INFO    MainThread:13791 [wandb_run.py:_redirect():1803] Wrapping output streams.
+2022-08-04 11:44:11,500 INFO    MainThread:13791 [wandb_run.py:_redirect():1827] Redirects installed.
+2022-08-04 11:44:11,500 INFO    MainThread:13791 [wandb_init.py:init():732] run started, returning control to user process
+2022-08-04 11:44:34,991 INFO    MainThread:13791 [pyagent.py:run():316] Starting sweep agent: entity=None, project=None, count=None
+2022-08-04 11:44:36,010 INFO    Thread-116:13791 [wandb_setup.py:_flush():76] Configure stats pid to 13791
+2022-08-04 11:44:36,010 INFO    Thread-116:13791 [wandb_setup.py:_flush():76] Loading settings from /Users/davitbzhalava/.config/wandb/settings
+2022-08-04 11:44:36,010 INFO    Thread-116:13791 [wandb_setup.py:_flush():76] Loading settings from wandb/settings
+2022-08-04 11:44:36,011 INFO    Thread-116:13791 [wandb_setup.py:_flush():76] Loading settings from environment variables: {'project': 'fraud_batch', 'entity': 'davitbzh', 'root_dir': '/Users/davitbzhalava/hops/hopsworks-tutorials/fraud_batch', 'sweep_id': 'nrs39lso', 'run_id': 'uzyxfyof', 'sweep_param_path': '/Users/davitbzhalava/hops/hopsworks-tutorials/fraud_batch/wandb/sweep-nrs39lso/config-uzyxfyof.yaml'}
+2022-08-04 11:44:36,011 INFO    Thread-116:13791 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program': '<python with no main file>'}
+2022-08-04 11:44:36,011 INFO    Thread-116:13791 [wandb_init.py:_log_setup():461] Logging user logs to /Users/davitbzhalava/hops/hopsworks-tutorials/fraud_batch/wandb/run-20220804_114436-uzyxfyof/logs/debug.log
+2022-08-04 11:44:36,011 INFO    Thread-116:13791 [wandb_init.py:_log_setup():462] Logging internal logs to /Users/davitbzhalava/hops/hopsworks-tutorials/fraud_batch/wandb/run-20220804_114436-uzyxfyof/logs/debug-internal.log
+2022-08-04 11:44:36,011 INFO    Thread-116:13791 [wandb_init.py:_jupyter_setup():411] configuring jupyter hooks <wandb.sdk.wandb_init._WandbInit object at 0x7fa03d97ee80>
+2022-08-04 11:44:36,011 INFO    Thread-116:13791 [wandb_init.py:init():495] calling init triggers
+2022-08-04 11:44:36,011 INFO    Thread-116:13791 [wandb_init.py:init():498] wandb.init called with sweep_config: {'criterion': 'gini', 'min_samples_split': 5, 'n_estimators': 75}
+config: {'n_estimators': 100, 'criterion': 'gini', 'min_samples_split': 10}
+2022-08-04 11:44:36,011 INFO    Thread-116:13791 [wandb_init.py:init():548] starting backend
+2022-08-04 11:44:36,012 INFO    Thread-116:13791 [backend.py:_multiprocessing_setup():97] multiprocessing start_methods=spawn,fork,forkserver, using: spawn
+2022-08-04 11:44:36,016 INFO    Thread-116:13791 [backend.py:ensure_launched():217] starting backend process...
+2022-08-04 11:44:36,021 INFO    Thread-116:13791 [backend.py:ensure_launched():222] started backend process with pid: 13946
+2022-08-04 11:44:36,025 INFO    Thread-116:13791 [wandb_init.py:init():558] backend started and connected
+2022-08-04 11:44:36,052 INFO    Thread-116:13791 [wandb_run.py:_config_callback():1131] config_cb None None {'criterion': 'gini', 'min_samples_split': 5, 'n_estimators': 75}
+2022-08-04 11:44:36,058 INFO    Thread-116:13791 [wandb_run.py:_label_probe_notebook():1084] probe notebook
+2022-08-04 11:44:36,058 INFO    Thread-116:13791 [wandb_run.py:_label_probe_notebook():1094] Unable to probe notebook: 'NoneType' object has no attribute 'get'
+2022-08-04 11:44:36,058 INFO    Thread-116:13791 [wandb_init.py:init():634] updated telemetry
+2022-08-04 11:44:36,077 INFO    Thread-116:13791 [wandb_init.py:init():665] communicating run to backend with 30 second timeout
+2022-08-04 11:44:37,312 INFO    Thread-116:13791 [wandb_run.py:_on_init():1919] communicating current version
+2022-08-04 11:44:37,378 INFO    Thread-116:13791 [wandb_run.py:_on_init():1923] got version response upgrade_message: "wandb version 0.13.0 is available!  To upgrade, please run:\n $ pip install wandb --upgrade"
+
+2022-08-04 11:44:37,379 INFO    Thread-116:13791 [wandb_init.py:init():700] starting run threads in backend
+2022-08-04 11:44:42,398 INFO    Thread-116:13791 [wandb_run.py:_console_start():1893] atexit reg
+2022-08-04 11:44:42,399 INFO    Thread-116:13791 [wandb_run.py:_redirect():1766] redirect: SettingsConsole.WRAP
+2022-08-04 11:44:42,399 INFO    Thread-116:13791 [wandb_run.py:_redirect():1803] Wrapping output streams.
+2022-08-04 11:44:42,695 INFO    Thread-116:13791 [wandb_run.py:_redirect():1827] Redirects installed.
+2022-08-04 11:44:42,695 INFO    Thread-116:13791 [wandb_init.py:init():732] run started, returning control to user process
+2022-08-04 11:44:43,768 INFO    Thread-116:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'feature_importances') {'id': 'wandb/feature_importances/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'feature_importances'}} None
+2022-08-04 11:44:44,333 INFO    Thread-116:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'confusion_matrix') {'id': 'wandb/confusion_matrix/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'confusion_matrix'}} None
+2022-08-04 11:44:44,758 INFO    Thread-116:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'summary_metrics') {'id': 'wandb/metrics/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'summary_metrics'}} None
+2022-08-04 11:44:44,965 INFO    Thread-116:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'class_proportions') {'id': 'wandb/class_proportions/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'class_proportions'}} None
+2022-08-04 11:44:47,976 INFO    Thread-116:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'calibration_curve') {'id': 'wandb/calibration/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'calibration_curve'}} None
+2022-08-04 11:44:48,174 INFO    Thread-116:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'roc') {'id': 'wandb/roc/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'roc'}} None
+2022-08-04 11:44:48,373 INFO    Thread-116:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'precision_recall') {'id': 'wandb/pr_curve/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'precision_recall'}} None
+2022-08-04 11:44:48,569 INFO    Thread-116:13791 [wandb_run.py:_finish():1680] finishing run davitbzh/fraud_batch/uzyxfyof
+2022-08-04 11:44:48,570 INFO    Thread-116:13791 [jupyter.py:save_history():435] not saving jupyter history
+2022-08-04 11:44:48,570 INFO    Thread-116:13791 [jupyter.py:save_ipynb():377] not saving jupyter notebook
+2022-08-04 11:44:48,570 INFO    Thread-116:13791 [wandb_init.py:_jupyter_teardown():393] cleaning up jupyter logic
+2022-08-04 11:44:48,571 INFO    Thread-116:13791 [wandb_run.py:_atexit_cleanup():1862] got exitcode: 0
+2022-08-04 11:44:48,575 INFO    Thread-116:13791 [wandb_run.py:_restore():1834] restore
+2022-08-04 11:44:53,753 INFO    Thread-116:13791 [wandb_run.py:_on_finish():1991] got exit ret: None
+2022-08-04 11:44:58,861 INFO    Thread-116:13791 [wandb_run.py:_on_finish():1991] got exit ret: None
+2022-08-04 11:45:02,355 INFO    Thread-116:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 1
+  media_count: 6
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 16479
+  total_bytes: 16479
+}
+
+2022-08-04 11:45:02,594 INFO    Thread-116:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 1
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 17572
+  total_bytes: 17572
+}
+
+2022-08-04 11:45:03,428 INFO    Thread-116:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 17572
+  total_bytes: 43102
+}
+
+2022-08-04 11:45:03,535 INFO    Thread-116:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 17572
+  total_bytes: 43102
+}
+
+2022-08-04 11:45:03,640 INFO    Thread-116:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 17572
+  total_bytes: 43102
+}
+
+2022-08-04 11:45:03,745 INFO    Thread-116:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 43102
+  total_bytes: 43102
+}
+
+2022-08-04 11:45:03,851 INFO    Thread-116:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 43102
+  total_bytes: 43102
+}
+
+2022-08-04 11:45:03,955 INFO    Thread-116:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 43102
+  total_bytes: 43102
+}
+
+2022-08-04 11:45:04,063 INFO    Thread-116:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 43102
+  total_bytes: 43102
+}
+
+2022-08-04 11:45:04,165 INFO    Thread-116:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 43102
+  total_bytes: 43102
+}
+
+2022-08-04 11:45:04,796 INFO    Thread-116:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 43102
+  total_bytes: 43102
+}
+
+2022-08-04 11:45:05,074 INFO    Thread-116:13791 [wandb_run.py:_on_finish():1991] got exit ret: done: true
+exit_result {
+}
+file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 43102
+  total_bytes: 43102
+}
+local_info {
+}
+
+2022-08-04 11:45:06,230 INFO    Thread-116:13791 [wandb_run.py:_footer_history_summary_info():3099] rendering history
+2022-08-04 11:45:06,231 INFO    Thread-116:13791 [wandb_run.py:_footer_history_summary_info():3131] rendering summary
+2022-08-04 11:45:06,236 INFO    Thread-116:13791 [wandb_run.py:_footer_sync_info():3055] logging synced files
+2022-08-04 11:45:08,743 INFO    Thread-391:13791 [wandb_setup.py:_flush():76] Configure stats pid to 13791
+2022-08-04 11:45:08,743 INFO    Thread-391:13791 [wandb_setup.py:_flush():76] Loading settings from /Users/davitbzhalava/.config/wandb/settings
+2022-08-04 11:45:08,743 INFO    Thread-391:13791 [wandb_setup.py:_flush():76] Loading settings from wandb/settings
+2022-08-04 11:45:08,743 INFO    Thread-391:13791 [wandb_setup.py:_flush():76] Loading settings from environment variables: {'project': 'fraud_batch', 'entity': 'davitbzh', 'root_dir': '/Users/davitbzhalava/hops/hopsworks-tutorials/fraud_batch', 'run_id': 'svultyod', 'sweep_param_path': '/Users/davitbzhalava/hops/hopsworks-tutorials/fraud_batch/wandb/sweep-nrs39lso/config-svultyod.yaml', 'sweep_id': 'nrs39lso'}
+2022-08-04 11:45:08,743 INFO    Thread-391:13791 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program': '<python with no main file>'}
+2022-08-04 11:45:08,743 INFO    Thread-391:13791 [wandb_init.py:_log_setup():461] Logging user logs to /Users/davitbzhalava/hops/hopsworks-tutorials/fraud_batch/wandb/run-20220804_114508-svultyod/logs/debug.log
+2022-08-04 11:45:08,744 INFO    Thread-391:13791 [wandb_init.py:_log_setup():462] Logging internal logs to /Users/davitbzhalava/hops/hopsworks-tutorials/fraud_batch/wandb/run-20220804_114508-svultyod/logs/debug-internal.log
+2022-08-04 11:45:08,744 INFO    Thread-391:13791 [wandb_init.py:_jupyter_setup():411] configuring jupyter hooks <wandb.sdk.wandb_init._WandbInit object at 0x7fa03ef70310>
+2022-08-04 11:45:08,744 INFO    Thread-391:13791 [wandb_init.py:init():495] calling init triggers
+2022-08-04 11:45:08,744 INFO    Thread-391:13791 [wandb_init.py:init():498] wandb.init called with sweep_config: {'criterion': 'gini', 'min_samples_split': 5, 'n_estimators': 150}
+config: {'n_estimators': 100, 'criterion': 'gini', 'min_samples_split': 10}
+2022-08-04 11:45:08,744 INFO    Thread-391:13791 [wandb_init.py:init():548] starting backend
+2022-08-04 11:45:08,744 INFO    Thread-391:13791 [backend.py:_multiprocessing_setup():97] multiprocessing start_methods=spawn,fork,forkserver, using: spawn
+2022-08-04 11:45:08,748 INFO    Thread-391:13791 [backend.py:ensure_launched():217] starting backend process...
+2022-08-04 11:45:08,753 INFO    Thread-391:13791 [backend.py:ensure_launched():222] started backend process with pid: 13992
+2022-08-04 11:45:08,757 INFO    Thread-391:13791 [wandb_init.py:init():558] backend started and connected
+2022-08-04 11:45:08,782 INFO    Thread-391:13791 [wandb_run.py:_config_callback():1131] config_cb None None {'criterion': 'gini', 'min_samples_split': 5, 'n_estimators': 150}
+2022-08-04 11:45:08,788 INFO    Thread-391:13791 [wandb_run.py:_label_probe_notebook():1084] probe notebook
+2022-08-04 11:45:08,788 INFO    Thread-391:13791 [wandb_run.py:_label_probe_notebook():1094] Unable to probe notebook: 'NoneType' object has no attribute 'get'
+2022-08-04 11:45:08,788 INFO    Thread-391:13791 [wandb_init.py:init():634] updated telemetry
+2022-08-04 11:45:08,809 INFO    Thread-391:13791 [wandb_init.py:init():665] communicating run to backend with 30 second timeout
+2022-08-04 11:45:10,140 INFO    Thread-391:13791 [wandb_run.py:_on_init():1919] communicating current version
+2022-08-04 11:45:10,209 INFO    Thread-391:13791 [wandb_run.py:_on_init():1923] got version response upgrade_message: "wandb version 0.13.0 is available!  To upgrade, please run:\n $ pip install wandb --upgrade"
+
+2022-08-04 11:45:10,209 INFO    Thread-391:13791 [wandb_init.py:init():700] starting run threads in backend
+2022-08-04 11:45:15,226 INFO    Thread-391:13791 [wandb_run.py:_console_start():1893] atexit reg
+2022-08-04 11:45:15,228 INFO    Thread-391:13791 [wandb_run.py:_redirect():1766] redirect: SettingsConsole.WRAP
+2022-08-04 11:45:15,228 INFO    Thread-391:13791 [wandb_run.py:_redirect():1803] Wrapping output streams.
+2022-08-04 11:45:15,229 INFO    Thread-391:13791 [wandb_run.py:_redirect():1827] Redirects installed.
+2022-08-04 11:45:15,229 INFO    Thread-391:13791 [wandb_init.py:init():732] run started, returning control to user process
+2022-08-04 11:45:17,217 INFO    Thread-391:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'feature_importances') {'id': 'wandb/feature_importances/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'feature_importances'}} None
+2022-08-04 11:45:17,433 INFO    Thread-391:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'confusion_matrix') {'id': 'wandb/confusion_matrix/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'confusion_matrix'}} None
+2022-08-04 11:45:17,909 INFO    Thread-391:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'summary_metrics') {'id': 'wandb/metrics/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'summary_metrics'}} None
+2022-08-04 11:45:18,154 INFO    Thread-391:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'class_proportions') {'id': 'wandb/class_proportions/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'class_proportions'}} None
+2022-08-04 11:45:19,713 INFO    Thread-391:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'calibration_curve') {'id': 'wandb/calibration/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'calibration_curve'}} None
+2022-08-04 11:45:19,921 INFO    Thread-391:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'roc') {'id': 'wandb/roc/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'roc'}} None
+2022-08-04 11:45:20,158 INFO    Thread-391:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'precision_recall') {'id': 'wandb/pr_curve/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'precision_recall'}} None
+2022-08-04 11:45:20,351 INFO    Thread-391:13791 [wandb_run.py:_finish():1680] finishing run davitbzh/fraud_batch/svultyod
+2022-08-04 11:45:20,351 INFO    Thread-391:13791 [jupyter.py:save_history():435] not saving jupyter history
+2022-08-04 11:45:20,352 INFO    Thread-391:13791 [jupyter.py:save_ipynb():377] not saving jupyter notebook
+2022-08-04 11:45:20,352 INFO    Thread-391:13791 [wandb_init.py:_jupyter_teardown():393] cleaning up jupyter logic
+2022-08-04 11:45:20,352 INFO    Thread-391:13791 [wandb_run.py:_atexit_cleanup():1862] got exitcode: 0
+2022-08-04 11:45:20,356 INFO    Thread-391:13791 [wandb_run.py:_restore():1834] restore
+2022-08-04 11:45:25,787 INFO    Thread-391:13791 [wandb_run.py:_on_finish():1991] got exit ret: None
+2022-08-04 11:45:30,896 INFO    Thread-391:13791 [wandb_run.py:_on_finish():1991] got exit ret: None
+2022-08-04 11:45:36,004 INFO    Thread-391:13791 [wandb_run.py:_on_finish():1991] got exit ret: None
+2022-08-04 11:45:36,896 INFO    Thread-391:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 1
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 17825
+  total_bytes: 18916
+}
+
+2022-08-04 11:45:37,137 INFO    Thread-391:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 1
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 18916
+  total_bytes: 18916
+}
+
+2022-08-04 11:45:37,258 INFO    Thread-391:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 18916
+  total_bytes: 44292
+}
+
+2022-08-04 11:45:37,365 INFO    Thread-391:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 18916
+  total_bytes: 44292
+}
+
+2022-08-04 11:45:37,471 INFO    Thread-391:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 18916
+  total_bytes: 44292
+}
+
+2022-08-04 11:45:37,577 INFO    Thread-391:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 44292
+  total_bytes: 44292
+}
+
+2022-08-04 11:45:37,682 INFO    Thread-391:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 44292
+  total_bytes: 44292
+}
+
+2022-08-04 11:45:37,787 INFO    Thread-391:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 44292
+  total_bytes: 44292
+}
+
+2022-08-04 11:45:37,889 INFO    Thread-391:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 44292
+  total_bytes: 44292
+}
+
+2022-08-04 11:45:37,995 INFO    Thread-391:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 44292
+  total_bytes: 44292
+}
+
+2022-08-04 11:45:38,096 INFO    Thread-391:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 44292
+  total_bytes: 44292
+}
+
+2022-08-04 11:45:38,660 INFO    Thread-391:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 44292
+  total_bytes: 44292
+}
+
+2022-08-04 11:45:38,945 INFO    Thread-391:13791 [wandb_run.py:_on_finish():1991] got exit ret: done: true
+exit_result {
+}
+file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 44292
+  total_bytes: 44292
+}
+local_info {
+}
+
+2022-08-04 11:45:40,109 INFO    Thread-391:13791 [wandb_run.py:_footer_history_summary_info():3099] rendering history
+2022-08-04 11:45:40,109 INFO    Thread-391:13791 [wandb_run.py:_footer_history_summary_info():3131] rendering summary
+2022-08-04 11:45:40,114 INFO    Thread-391:13791 [wandb_run.py:_footer_sync_info():3055] logging synced files
+2022-08-04 11:45:45,566 INFO    Thread-666:13791 [wandb_setup.py:_flush():76] Configure stats pid to 13791
+2022-08-04 11:45:45,566 INFO    Thread-666:13791 [wandb_setup.py:_flush():76] Loading settings from /Users/davitbzhalava/.config/wandb/settings
+2022-08-04 11:45:45,566 INFO    Thread-666:13791 [wandb_setup.py:_flush():76] Loading settings from wandb/settings
+2022-08-04 11:45:45,566 INFO    Thread-666:13791 [wandb_setup.py:_flush():76] Loading settings from environment variables: {'project': 'fraud_batch', 'entity': 'davitbzh', 'root_dir': '/Users/davitbzhalava/hops/hopsworks-tutorials/fraud_batch', 'run_id': 'c20dl3co', 'sweep_param_path': '/Users/davitbzhalava/hops/hopsworks-tutorials/fraud_batch/wandb/sweep-nrs39lso/config-c20dl3co.yaml', 'sweep_id': 'nrs39lso'}
+2022-08-04 11:45:45,567 INFO    Thread-666:13791 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program': '<python with no main file>'}
+2022-08-04 11:45:45,567 INFO    Thread-666:13791 [wandb_init.py:_log_setup():461] Logging user logs to /Users/davitbzhalava/hops/hopsworks-tutorials/fraud_batch/wandb/run-20220804_114545-c20dl3co/logs/debug.log
+2022-08-04 11:45:45,567 INFO    Thread-666:13791 [wandb_init.py:_log_setup():462] Logging internal logs to /Users/davitbzhalava/hops/hopsworks-tutorials/fraud_batch/wandb/run-20220804_114545-c20dl3co/logs/debug-internal.log
+2022-08-04 11:45:45,567 INFO    Thread-666:13791 [wandb_init.py:_jupyter_setup():411] configuring jupyter hooks <wandb.sdk.wandb_init._WandbInit object at 0x7fa0400b85e0>
+2022-08-04 11:45:45,567 INFO    Thread-666:13791 [wandb_init.py:init():495] calling init triggers
+2022-08-04 11:45:45,567 INFO    Thread-666:13791 [wandb_init.py:init():498] wandb.init called with sweep_config: {'criterion': 'gini', 'min_samples_split': 15, 'n_estimators': 75}
+config: {'n_estimators': 100, 'criterion': 'gini', 'min_samples_split': 10}
+2022-08-04 11:45:45,567 INFO    Thread-666:13791 [wandb_init.py:init():548] starting backend
+2022-08-04 11:45:45,567 INFO    Thread-666:13791 [backend.py:_multiprocessing_setup():97] multiprocessing start_methods=spawn,fork,forkserver, using: spawn
+2022-08-04 11:45:45,572 INFO    Thread-666:13791 [backend.py:ensure_launched():217] starting backend process...
+2022-08-04 11:45:45,578 INFO    Thread-666:13791 [backend.py:ensure_launched():222] started backend process with pid: 14009
+2022-08-04 11:45:45,584 INFO    Thread-666:13791 [wandb_init.py:init():558] backend started and connected
+2022-08-04 11:45:45,612 INFO    Thread-666:13791 [wandb_run.py:_config_callback():1131] config_cb None None {'criterion': 'gini', 'min_samples_split': 15, 'n_estimators': 75}
+2022-08-04 11:45:45,618 INFO    Thread-666:13791 [wandb_run.py:_label_probe_notebook():1084] probe notebook
+2022-08-04 11:45:45,618 INFO    Thread-666:13791 [wandb_run.py:_label_probe_notebook():1094] Unable to probe notebook: 'NoneType' object has no attribute 'get'
+2022-08-04 11:45:45,618 INFO    Thread-666:13791 [wandb_init.py:init():634] updated telemetry
+2022-08-04 11:45:45,640 INFO    Thread-666:13791 [wandb_init.py:init():665] communicating run to backend with 30 second timeout
+2022-08-04 11:45:46,945 INFO    Thread-666:13791 [wandb_run.py:_on_init():1919] communicating current version
+2022-08-04 11:45:47,008 INFO    Thread-666:13791 [wandb_run.py:_on_init():1923] got version response upgrade_message: "wandb version 0.13.0 is available!  To upgrade, please run:\n $ pip install wandb --upgrade"
+
+2022-08-04 11:45:47,008 INFO    Thread-666:13791 [wandb_init.py:init():700] starting run threads in backend
+2022-08-04 11:45:52,027 INFO    Thread-666:13791 [wandb_run.py:_console_start():1893] atexit reg
+2022-08-04 11:45:52,029 INFO    Thread-666:13791 [wandb_run.py:_redirect():1766] redirect: SettingsConsole.WRAP
+2022-08-04 11:45:52,029 INFO    Thread-666:13791 [wandb_run.py:_redirect():1803] Wrapping output streams.
+2022-08-04 11:45:52,031 INFO    Thread-666:13791 [wandb_run.py:_redirect():1827] Redirects installed.
+2022-08-04 11:45:52,031 INFO    Thread-666:13791 [wandb_init.py:init():732] run started, returning control to user process
+2022-08-04 11:45:53,042 INFO    Thread-666:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'feature_importances') {'id': 'wandb/feature_importances/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'feature_importances'}} None
+2022-08-04 11:45:53,236 INFO    Thread-666:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'confusion_matrix') {'id': 'wandb/confusion_matrix/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'confusion_matrix'}} None
+2022-08-04 11:45:53,671 INFO    Thread-666:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'summary_metrics') {'id': 'wandb/metrics/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'summary_metrics'}} None
+2022-08-04 11:45:53,865 INFO    Thread-666:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'class_proportions') {'id': 'wandb/class_proportions/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'class_proportions'}} None
+2022-08-04 11:45:54,955 INFO    Thread-666:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'calibration_curve') {'id': 'wandb/calibration/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'calibration_curve'}} None
+2022-08-04 11:45:55,163 INFO    Thread-666:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'roc') {'id': 'wandb/roc/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'roc'}} None
+2022-08-04 11:45:55,369 INFO    Thread-666:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'precision_recall') {'id': 'wandb/pr_curve/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'precision_recall'}} None
+2022-08-04 11:45:55,566 INFO    Thread-666:13791 [wandb_run.py:_finish():1680] finishing run davitbzh/fraud_batch/c20dl3co
+2022-08-04 11:45:55,566 INFO    Thread-666:13791 [jupyter.py:save_history():435] not saving jupyter history
+2022-08-04 11:45:55,567 INFO    Thread-666:13791 [jupyter.py:save_ipynb():377] not saving jupyter notebook
+2022-08-04 11:45:55,567 INFO    Thread-666:13791 [wandb_init.py:_jupyter_teardown():393] cleaning up jupyter logic
+2022-08-04 11:45:55,567 INFO    Thread-666:13791 [wandb_run.py:_atexit_cleanup():1862] got exitcode: 0
+2022-08-04 11:45:55,571 INFO    Thread-666:13791 [wandb_run.py:_restore():1834] restore
+2022-08-04 11:46:01,084 INFO    Thread-666:13791 [wandb_run.py:_on_finish():1991] got exit ret: None
+2022-08-04 11:46:06,194 INFO    Thread-666:13791 [wandb_run.py:_on_finish():1991] got exit ret: None
+2022-08-04 11:46:11,299 INFO    Thread-666:13791 [wandb_run.py:_on_finish():1991] got exit ret: None
+2022-08-04 11:46:16,407 INFO    Thread-666:13791 [wandb_run.py:_on_finish():1991] got exit ret: None
+2022-08-04 11:46:19,570 INFO    Thread-666:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 1
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 21849
+  total_bytes: 22944
+}
+
+2022-08-04 11:46:19,918 INFO    Thread-666:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 1
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 21849
+  total_bytes: 22944
+}
+
+2022-08-04 11:46:20,090 INFO    Thread-666:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 22944
+  total_bytes: 48319
+}
+
+2022-08-04 11:46:20,192 INFO    Thread-666:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 22944
+  total_bytes: 48319
+}
+
+2022-08-04 11:46:20,295 INFO    Thread-666:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 22944
+  total_bytes: 48319
+}
+
+2022-08-04 11:46:20,397 INFO    Thread-666:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 48319
+  total_bytes: 48319
+}
+
+2022-08-04 11:46:20,501 INFO    Thread-666:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 48319
+  total_bytes: 48319
+}
+
+2022-08-04 11:46:20,606 INFO    Thread-666:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 48319
+  total_bytes: 48319
+}
+
+2022-08-04 11:46:20,710 INFO    Thread-666:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 48319
+  total_bytes: 48319
+}
+
+2022-08-04 11:46:20,816 INFO    Thread-666:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 48319
+  total_bytes: 48319
+}
+
+2022-08-04 11:46:20,920 INFO    Thread-666:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 48319
+  total_bytes: 48319
+}
+
+2022-08-04 11:46:22,787 INFO    Thread-666:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 48319
+  total_bytes: 48319
+}
+
+2022-08-04 11:46:23,062 INFO    Thread-666:13791 [wandb_run.py:_on_finish():1991] got exit ret: done: true
+exit_result {
+}
+file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 48319
+  total_bytes: 48319
+}
+local_info {
+}
+
+2022-08-04 11:46:24,214 INFO    Thread-666:13791 [wandb_run.py:_footer_history_summary_info():3099] rendering history
+2022-08-04 11:46:24,214 INFO    Thread-666:13791 [wandb_run.py:_footer_history_summary_info():3131] rendering summary
+2022-08-04 11:46:24,219 INFO    Thread-666:13791 [wandb_run.py:_footer_sync_info():3055] logging synced files
+2022-08-04 11:46:27,764 INFO    Thread-941:13791 [wandb_setup.py:_flush():76] Configure stats pid to 13791
+2022-08-04 11:46:27,764 INFO    Thread-941:13791 [wandb_setup.py:_flush():76] Loading settings from /Users/davitbzhalava/.config/wandb/settings
+2022-08-04 11:46:27,764 INFO    Thread-941:13791 [wandb_setup.py:_flush():76] Loading settings from wandb/settings
+2022-08-04 11:46:27,764 INFO    Thread-941:13791 [wandb_setup.py:_flush():76] Loading settings from environment variables: {'project': 'fraud_batch', 'entity': 'davitbzh', 'root_dir': '/Users/davitbzhalava/hops/hopsworks-tutorials/fraud_batch', 'run_id': 'faplbahf', 'sweep_param_path': '/Users/davitbzhalava/hops/hopsworks-tutorials/fraud_batch/wandb/sweep-nrs39lso/config-faplbahf.yaml', 'sweep_id': 'nrs39lso'}
+2022-08-04 11:46:27,764 INFO    Thread-941:13791 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program': '<python with no main file>'}
+2022-08-04 11:46:27,764 INFO    Thread-941:13791 [wandb_init.py:_log_setup():461] Logging user logs to /Users/davitbzhalava/hops/hopsworks-tutorials/fraud_batch/wandb/run-20220804_114627-faplbahf/logs/debug.log
+2022-08-04 11:46:27,764 INFO    Thread-941:13791 [wandb_init.py:_log_setup():462] Logging internal logs to /Users/davitbzhalava/hops/hopsworks-tutorials/fraud_batch/wandb/run-20220804_114627-faplbahf/logs/debug-internal.log
+2022-08-04 11:46:27,764 INFO    Thread-941:13791 [wandb_init.py:_jupyter_setup():411] configuring jupyter hooks <wandb.sdk.wandb_init._WandbInit object at 0x7fa03f8590a0>
+2022-08-04 11:46:27,765 INFO    Thread-941:13791 [wandb_init.py:init():495] calling init triggers
+2022-08-04 11:46:27,765 INFO    Thread-941:13791 [wandb_init.py:init():498] wandb.init called with sweep_config: {'criterion': 'gini', 'min_samples_split': 15, 'n_estimators': 150}
+config: {'n_estimators': 100, 'criterion': 'gini', 'min_samples_split': 10}
+2022-08-04 11:46:27,765 INFO    Thread-941:13791 [wandb_init.py:init():548] starting backend
+2022-08-04 11:46:27,765 INFO    Thread-941:13791 [backend.py:_multiprocessing_setup():97] multiprocessing start_methods=spawn,fork,forkserver, using: spawn
+2022-08-04 11:46:27,769 INFO    Thread-941:13791 [backend.py:ensure_launched():217] starting backend process...
+2022-08-04 11:46:27,776 INFO    Thread-941:13791 [backend.py:ensure_launched():222] started backend process with pid: 14022
+2022-08-04 11:46:27,780 INFO    Thread-941:13791 [wandb_init.py:init():558] backend started and connected
+2022-08-04 11:46:27,809 INFO    Thread-941:13791 [wandb_run.py:_config_callback():1131] config_cb None None {'criterion': 'gini', 'min_samples_split': 15, 'n_estimators': 150}
+2022-08-04 11:46:27,815 INFO    Thread-941:13791 [wandb_run.py:_label_probe_notebook():1084] probe notebook
+2022-08-04 11:46:27,815 INFO    Thread-941:13791 [wandb_run.py:_label_probe_notebook():1094] Unable to probe notebook: 'NoneType' object has no attribute 'get'
+2022-08-04 11:46:27,816 INFO    Thread-941:13791 [wandb_init.py:init():634] updated telemetry
+2022-08-04 11:46:27,836 INFO    Thread-941:13791 [wandb_init.py:init():665] communicating run to backend with 30 second timeout
+2022-08-04 11:46:28,863 INFO    Thread-941:13791 [wandb_run.py:_on_init():1919] communicating current version
+2022-08-04 11:46:28,916 INFO    Thread-941:13791 [wandb_run.py:_on_init():1923] got version response upgrade_message: "wandb version 0.13.0 is available!  To upgrade, please run:\n $ pip install wandb --upgrade"
+
+2022-08-04 11:46:28,916 INFO    Thread-941:13791 [wandb_init.py:init():700] starting run threads in backend
+2022-08-04 11:46:33,936 INFO    Thread-941:13791 [wandb_run.py:_console_start():1893] atexit reg
+2022-08-04 11:46:33,937 INFO    Thread-941:13791 [wandb_run.py:_redirect():1766] redirect: SettingsConsole.WRAP
+2022-08-04 11:46:33,937 INFO    Thread-941:13791 [wandb_run.py:_redirect():1803] Wrapping output streams.
+2022-08-04 11:46:33,938 INFO    Thread-941:13791 [wandb_run.py:_redirect():1827] Redirects installed.
+2022-08-04 11:46:33,938 INFO    Thread-941:13791 [wandb_init.py:init():732] run started, returning control to user process
+2022-08-04 11:46:35,837 INFO    Thread-941:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'feature_importances') {'id': 'wandb/feature_importances/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'feature_importances'}} None
+2022-08-04 11:46:36,025 INFO    Thread-941:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'confusion_matrix') {'id': 'wandb/confusion_matrix/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'confusion_matrix'}} None
+2022-08-04 11:46:36,469 INFO    Thread-941:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'summary_metrics') {'id': 'wandb/metrics/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'summary_metrics'}} None
+2022-08-04 11:46:36,659 INFO    Thread-941:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'class_proportions') {'id': 'wandb/class_proportions/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'class_proportions'}} None
+2022-08-04 11:46:38,393 INFO    Thread-941:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'calibration_curve') {'id': 'wandb/calibration/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'calibration_curve'}} None
+2022-08-04 11:46:38,630 INFO    Thread-941:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'roc') {'id': 'wandb/roc/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'roc'}} None
+2022-08-04 11:46:38,834 INFO    Thread-941:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'precision_recall') {'id': 'wandb/pr_curve/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'precision_recall'}} None
+2022-08-04 11:46:39,096 INFO    Thread-941:13791 [wandb_run.py:_finish():1680] finishing run davitbzh/fraud_batch/faplbahf
+2022-08-04 11:46:39,097 INFO    Thread-941:13791 [jupyter.py:save_history():435] not saving jupyter history
+2022-08-04 11:46:39,097 INFO    Thread-941:13791 [jupyter.py:save_ipynb():377] not saving jupyter notebook
+2022-08-04 11:46:39,097 INFO    Thread-941:13791 [wandb_init.py:_jupyter_teardown():393] cleaning up jupyter logic
+2022-08-04 11:46:39,097 INFO    Thread-941:13791 [wandb_run.py:_atexit_cleanup():1862] got exitcode: 0
+2022-08-04 11:46:39,098 INFO    Thread-941:13791 [wandb_run.py:_restore():1834] restore
+2022-08-04 11:46:44,482 INFO    Thread-941:13791 [wandb_run.py:_on_finish():1991] got exit ret: None
+2022-08-04 11:46:49,589 INFO    Thread-941:13791 [wandb_run.py:_on_finish():1991] got exit ret: None
+2022-08-04 11:46:52,602 INFO    Thread-941:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 1
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 25948
+  total_bytes: 27040
+}
+
+2022-08-04 11:46:52,853 INFO    Thread-941:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 1
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 27040
+  total_bytes: 27040
+}
+
+2022-08-04 11:46:52,978 INFO    Thread-941:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 27040
+  total_bytes: 52418
+}
+
+2022-08-04 11:46:53,084 INFO    Thread-941:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 27040
+  total_bytes: 52418
+}
+
+2022-08-04 11:46:53,190 INFO    Thread-941:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 29855
+  total_bytes: 52418
+}
+
+2022-08-04 11:46:53,296 INFO    Thread-941:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 52418
+  total_bytes: 52418
+}
+
+2022-08-04 11:46:53,401 INFO    Thread-941:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 52418
+  total_bytes: 52418
+}
+
+2022-08-04 11:46:53,507 INFO    Thread-941:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 52418
+  total_bytes: 52418
+}
+
+2022-08-04 11:46:53,612 INFO    Thread-941:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 52418
+  total_bytes: 52418
+}
+
+2022-08-04 11:46:53,717 INFO    Thread-941:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 52418
+  total_bytes: 52418
+}
+
+2022-08-04 11:46:53,824 INFO    Thread-941:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 52418
+  total_bytes: 52418
+}
+
+2022-08-04 11:46:54,352 INFO    Thread-941:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 52418
+  total_bytes: 52418
+}
+
+2022-08-04 11:46:54,634 INFO    Thread-941:13791 [wandb_run.py:_on_finish():1991] got exit ret: done: true
+exit_result {
+}
+file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 52418
+  total_bytes: 52418
+}
+local_info {
+}
+
+2022-08-04 11:46:55,858 INFO    Thread-941:13791 [wandb_run.py:_footer_history_summary_info():3099] rendering history
+2022-08-04 11:46:55,859 INFO    Thread-941:13791 [wandb_run.py:_footer_history_summary_info():3131] rendering summary
+2022-08-04 11:46:55,863 INFO    Thread-941:13791 [wandb_run.py:_footer_sync_info():3055] logging synced files
+2022-08-04 11:46:59,062 INFO    Thread-1216:13791 [wandb_setup.py:_flush():76] Configure stats pid to 13791
+2022-08-04 11:46:59,062 INFO    Thread-1216:13791 [wandb_setup.py:_flush():76] Loading settings from /Users/davitbzhalava/.config/wandb/settings
+2022-08-04 11:46:59,062 INFO    Thread-1216:13791 [wandb_setup.py:_flush():76] Loading settings from wandb/settings
+2022-08-04 11:46:59,062 INFO    Thread-1216:13791 [wandb_setup.py:_flush():76] Loading settings from environment variables: {'project': 'fraud_batch', 'entity': 'davitbzh', 'root_dir': '/Users/davitbzhalava/hops/hopsworks-tutorials/fraud_batch', 'run_id': '55nsellx', 'sweep_param_path': '/Users/davitbzhalava/hops/hopsworks-tutorials/fraud_batch/wandb/sweep-nrs39lso/config-55nsellx.yaml', 'sweep_id': 'nrs39lso'}
+2022-08-04 11:46:59,062 INFO    Thread-1216:13791 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program': '<python with no main file>'}
+2022-08-04 11:46:59,063 INFO    Thread-1216:13791 [wandb_init.py:_log_setup():461] Logging user logs to /Users/davitbzhalava/hops/hopsworks-tutorials/fraud_batch/wandb/run-20220804_114659-55nsellx/logs/debug.log
+2022-08-04 11:46:59,063 INFO    Thread-1216:13791 [wandb_init.py:_log_setup():462] Logging internal logs to /Users/davitbzhalava/hops/hopsworks-tutorials/fraud_batch/wandb/run-20220804_114659-55nsellx/logs/debug-internal.log
+2022-08-04 11:46:59,063 INFO    Thread-1216:13791 [wandb_init.py:_jupyter_setup():411] configuring jupyter hooks <wandb.sdk.wandb_init._WandbInit object at 0x7fa03f415d90>
+2022-08-04 11:46:59,063 INFO    Thread-1216:13791 [wandb_init.py:init():495] calling init triggers
+2022-08-04 11:46:59,063 INFO    Thread-1216:13791 [wandb_init.py:init():498] wandb.init called with sweep_config: {'criterion': 'entropy', 'min_samples_split': 5, 'n_estimators': 75}
+config: {'n_estimators': 100, 'criterion': 'gini', 'min_samples_split': 10}
+2022-08-04 11:46:59,063 INFO    Thread-1216:13791 [wandb_init.py:init():548] starting backend
+2022-08-04 11:46:59,063 INFO    Thread-1216:13791 [backend.py:_multiprocessing_setup():97] multiprocessing start_methods=spawn,fork,forkserver, using: spawn
+2022-08-04 11:46:59,068 INFO    Thread-1216:13791 [backend.py:ensure_launched():217] starting backend process...
+2022-08-04 11:46:59,074 INFO    Thread-1216:13791 [backend.py:ensure_launched():222] started backend process with pid: 14034
+2022-08-04 11:46:59,078 INFO    Thread-1216:13791 [wandb_init.py:init():558] backend started and connected
+2022-08-04 11:46:59,106 INFO    Thread-1216:13791 [wandb_run.py:_config_callback():1131] config_cb None None {'criterion': 'entropy', 'min_samples_split': 5, 'n_estimators': 75}
+2022-08-04 11:46:59,112 INFO    Thread-1216:13791 [wandb_run.py:_label_probe_notebook():1084] probe notebook
+2022-08-04 11:46:59,112 INFO    Thread-1216:13791 [wandb_run.py:_label_probe_notebook():1094] Unable to probe notebook: 'NoneType' object has no attribute 'get'
+2022-08-04 11:46:59,112 INFO    Thread-1216:13791 [wandb_init.py:init():634] updated telemetry
+2022-08-04 11:46:59,132 INFO    Thread-1216:13791 [wandb_init.py:init():665] communicating run to backend with 30 second timeout
+2022-08-04 11:47:00,279 INFO    Thread-1216:13791 [wandb_run.py:_on_init():1919] communicating current version
+2022-08-04 11:47:00,333 INFO    Thread-1216:13791 [wandb_run.py:_on_init():1923] got version response upgrade_message: "wandb version 0.13.0 is available!  To upgrade, please run:\n $ pip install wandb --upgrade"
+
+2022-08-04 11:47:00,333 INFO    Thread-1216:13791 [wandb_init.py:init():700] starting run threads in backend
+2022-08-04 11:47:05,348 INFO    Thread-1216:13791 [wandb_run.py:_console_start():1893] atexit reg
+2022-08-04 11:47:05,349 INFO    Thread-1216:13791 [wandb_run.py:_redirect():1766] redirect: SettingsConsole.WRAP
+2022-08-04 11:47:05,349 INFO    Thread-1216:13791 [wandb_run.py:_redirect():1803] Wrapping output streams.
+2022-08-04 11:47:05,350 INFO    Thread-1216:13791 [wandb_run.py:_redirect():1827] Redirects installed.
+2022-08-04 11:47:05,350 INFO    Thread-1216:13791 [wandb_init.py:init():732] run started, returning control to user process
+2022-08-04 11:47:06,436 INFO    Thread-1216:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'feature_importances') {'id': 'wandb/feature_importances/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'feature_importances'}} None
+2022-08-04 11:47:06,628 INFO    Thread-1216:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'confusion_matrix') {'id': 'wandb/confusion_matrix/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'confusion_matrix'}} None
+2022-08-04 11:47:07,055 INFO    Thread-1216:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'summary_metrics') {'id': 'wandb/metrics/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'summary_metrics'}} None
+2022-08-04 11:47:07,500 INFO    Thread-1216:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'class_proportions') {'id': 'wandb/class_proportions/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'class_proportions'}} None
+2022-08-04 11:47:08,543 INFO    Thread-1216:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'calibration_curve') {'id': 'wandb/calibration/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'calibration_curve'}} None
+2022-08-04 11:47:08,750 INFO    Thread-1216:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'roc') {'id': 'wandb/roc/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'roc'}} None
+2022-08-04 11:47:08,957 INFO    Thread-1216:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'precision_recall') {'id': 'wandb/pr_curve/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'precision_recall'}} None
+2022-08-04 11:47:09,142 INFO    Thread-1216:13791 [wandb_run.py:_finish():1680] finishing run davitbzh/fraud_batch/55nsellx
+2022-08-04 11:47:09,143 INFO    Thread-1216:13791 [jupyter.py:save_history():435] not saving jupyter history
+2022-08-04 11:47:09,143 INFO    Thread-1216:13791 [jupyter.py:save_ipynb():377] not saving jupyter notebook
+2022-08-04 11:47:09,143 INFO    Thread-1216:13791 [wandb_init.py:_jupyter_teardown():393] cleaning up jupyter logic
+2022-08-04 11:47:09,143 INFO    Thread-1216:13791 [wandb_run.py:_atexit_cleanup():1862] got exitcode: 0
+2022-08-04 11:47:09,147 INFO    Thread-1216:13791 [wandb_run.py:_restore():1834] restore
+2022-08-04 11:47:14,388 INFO    Thread-1216:13791 [wandb_run.py:_on_finish():1991] got exit ret: None
+2022-08-04 11:47:19,495 INFO    Thread-1216:13791 [wandb_run.py:_on_finish():1991] got exit ret: None
+2022-08-04 11:47:24,603 INFO    Thread-1216:13791 [wandb_run.py:_on_finish():1991] got exit ret: None
+2022-08-04 11:47:24,710 INFO    Thread-1216:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 1
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 17140
+  total_bytes: 18235
+}
+
+2022-08-04 11:47:25,026 INFO    Thread-1216:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 1
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 18235
+  total_bytes: 18235
+}
+
+2022-08-04 11:47:25,393 INFO    Thread-1216:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 18235
+  total_bytes: 43612
+}
+
+2022-08-04 11:47:25,496 INFO    Thread-1216:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 18235
+  total_bytes: 43612
+}
+
+2022-08-04 11:47:25,602 INFO    Thread-1216:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 18235
+  total_bytes: 43612
+}
+
+2022-08-04 11:47:25,708 INFO    Thread-1216:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 43612
+  total_bytes: 43612
+}
+
+2022-08-04 11:47:25,815 INFO    Thread-1216:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 43612
+  total_bytes: 43612
+}
+
+2022-08-04 11:47:25,918 INFO    Thread-1216:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 43612
+  total_bytes: 43612
+}
+
+2022-08-04 11:47:26,023 INFO    Thread-1216:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 43612
+  total_bytes: 43612
+}
+
+2022-08-04 11:47:26,126 INFO    Thread-1216:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 43612
+  total_bytes: 43612
+}
+
+2022-08-04 11:47:26,431 INFO    Thread-1216:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 43612
+  total_bytes: 43612
+}
+
+2022-08-04 11:47:26,711 INFO    Thread-1216:13791 [wandb_run.py:_on_finish():1991] got exit ret: done: true
+exit_result {
+}
+file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 43612
+  total_bytes: 43612
+}
+local_info {
+}
+
+2022-08-04 11:47:27,863 INFO    Thread-1216:13791 [wandb_run.py:_footer_history_summary_info():3099] rendering history
+2022-08-04 11:47:27,863 INFO    Thread-1216:13791 [wandb_run.py:_footer_history_summary_info():3131] rendering summary
+2022-08-04 11:47:27,868 INFO    Thread-1216:13791 [wandb_run.py:_footer_sync_info():3055] logging synced files
+2022-08-04 11:47:30,392 INFO    Thread-1491:13791 [wandb_setup.py:_flush():76] Configure stats pid to 13791
+2022-08-04 11:47:30,393 INFO    Thread-1491:13791 [wandb_setup.py:_flush():76] Loading settings from /Users/davitbzhalava/.config/wandb/settings
+2022-08-04 11:47:30,393 INFO    Thread-1491:13791 [wandb_setup.py:_flush():76] Loading settings from wandb/settings
+2022-08-04 11:47:30,393 INFO    Thread-1491:13791 [wandb_setup.py:_flush():76] Loading settings from environment variables: {'project': 'fraud_batch', 'entity': 'davitbzh', 'root_dir': '/Users/davitbzhalava/hops/hopsworks-tutorials/fraud_batch', 'run_id': 'u1270rp1', 'sweep_param_path': '/Users/davitbzhalava/hops/hopsworks-tutorials/fraud_batch/wandb/sweep-nrs39lso/config-u1270rp1.yaml', 'sweep_id': 'nrs39lso'}
+2022-08-04 11:47:30,393 INFO    Thread-1491:13791 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program': '<python with no main file>'}
+2022-08-04 11:47:30,393 INFO    Thread-1491:13791 [wandb_init.py:_log_setup():461] Logging user logs to /Users/davitbzhalava/hops/hopsworks-tutorials/fraud_batch/wandb/run-20220804_114730-u1270rp1/logs/debug.log
+2022-08-04 11:47:30,393 INFO    Thread-1491:13791 [wandb_init.py:_log_setup():462] Logging internal logs to /Users/davitbzhalava/hops/hopsworks-tutorials/fraud_batch/wandb/run-20220804_114730-u1270rp1/logs/debug-internal.log
+2022-08-04 11:47:30,393 INFO    Thread-1491:13791 [wandb_init.py:_jupyter_setup():411] configuring jupyter hooks <wandb.sdk.wandb_init._WandbInit object at 0x7fa03f3dec10>
+2022-08-04 11:47:30,394 INFO    Thread-1491:13791 [wandb_init.py:init():495] calling init triggers
+2022-08-04 11:47:30,394 INFO    Thread-1491:13791 [wandb_init.py:init():498] wandb.init called with sweep_config: {'criterion': 'entropy', 'min_samples_split': 5, 'n_estimators': 150}
+config: {'n_estimators': 100, 'criterion': 'gini', 'min_samples_split': 10}
+2022-08-04 11:47:30,394 INFO    Thread-1491:13791 [wandb_init.py:init():548] starting backend
+2022-08-04 11:47:30,394 INFO    Thread-1491:13791 [backend.py:_multiprocessing_setup():97] multiprocessing start_methods=spawn,fork,forkserver, using: spawn
+2022-08-04 11:47:30,398 INFO    Thread-1491:13791 [backend.py:ensure_launched():217] starting backend process...
+2022-08-04 11:47:30,405 INFO    Thread-1491:13791 [backend.py:ensure_launched():222] started backend process with pid: 14045
+2022-08-04 11:47:30,410 INFO    Thread-1491:13791 [wandb_init.py:init():558] backend started and connected
+2022-08-04 11:47:30,442 INFO    Thread-1491:13791 [wandb_run.py:_config_callback():1131] config_cb None None {'criterion': 'entropy', 'min_samples_split': 5, 'n_estimators': 150}
+2022-08-04 11:47:30,449 INFO    Thread-1491:13791 [wandb_run.py:_label_probe_notebook():1084] probe notebook
+2022-08-04 11:47:30,449 INFO    Thread-1491:13791 [wandb_run.py:_label_probe_notebook():1094] Unable to probe notebook: 'NoneType' object has no attribute 'get'
+2022-08-04 11:47:30,449 INFO    Thread-1491:13791 [wandb_init.py:init():634] updated telemetry
+2022-08-04 11:47:30,476 INFO    Thread-1491:13791 [wandb_init.py:init():665] communicating run to backend with 30 second timeout
+2022-08-04 11:47:31,868 INFO    Thread-1491:13791 [wandb_run.py:_on_init():1919] communicating current version
+2022-08-04 11:47:32,922 INFO    Thread-1491:13791 [wandb_run.py:_on_init():1923] got version response upgrade_message: "wandb version 0.13.0 is available!  To upgrade, please run:\n $ pip install wandb --upgrade"
+
+2022-08-04 11:47:32,922 INFO    Thread-1491:13791 [wandb_init.py:init():700] starting run threads in backend
+2022-08-04 11:47:37,937 INFO    Thread-1491:13791 [wandb_run.py:_console_start():1893] atexit reg
+2022-08-04 11:47:37,937 INFO    Thread-1491:13791 [wandb_run.py:_redirect():1766] redirect: SettingsConsole.WRAP
+2022-08-04 11:47:37,937 INFO    Thread-1491:13791 [wandb_run.py:_redirect():1803] Wrapping output streams.
+2022-08-04 11:47:37,938 INFO    Thread-1491:13791 [wandb_run.py:_redirect():1827] Redirects installed.
+2022-08-04 11:47:37,939 INFO    Thread-1491:13791 [wandb_init.py:init():732] run started, returning control to user process
+2022-08-04 11:47:39,965 INFO    Thread-1491:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'feature_importances') {'id': 'wandb/feature_importances/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'feature_importances'}} None
+2022-08-04 11:47:40,158 INFO    Thread-1491:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'confusion_matrix') {'id': 'wandb/confusion_matrix/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'confusion_matrix'}} None
+2022-08-04 11:47:40,785 INFO    Thread-1491:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'summary_metrics') {'id': 'wandb/metrics/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'summary_metrics'}} None
+2022-08-04 11:47:40,978 INFO    Thread-1491:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'class_proportions') {'id': 'wandb/class_proportions/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'class_proportions'}} None
+2022-08-04 11:47:42,547 INFO    Thread-1491:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'calibration_curve') {'id': 'wandb/calibration/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'calibration_curve'}} None
+2022-08-04 11:47:42,768 INFO    Thread-1491:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'roc') {'id': 'wandb/roc/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'roc'}} None
+2022-08-04 11:47:42,979 INFO    Thread-1491:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'precision_recall') {'id': 'wandb/pr_curve/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'precision_recall'}} None
+2022-08-04 11:47:43,167 INFO    Thread-1491:13791 [wandb_run.py:_finish():1680] finishing run davitbzh/fraud_batch/u1270rp1
+2022-08-04 11:47:43,168 INFO    Thread-1491:13791 [jupyter.py:save_history():435] not saving jupyter history
+2022-08-04 11:47:43,168 INFO    Thread-1491:13791 [jupyter.py:save_ipynb():377] not saving jupyter notebook
+2022-08-04 11:47:43,168 INFO    Thread-1491:13791 [wandb_init.py:_jupyter_teardown():393] cleaning up jupyter logic
+2022-08-04 11:47:43,169 INFO    Thread-1491:13791 [wandb_run.py:_atexit_cleanup():1862] got exitcode: 0
+2022-08-04 11:47:43,172 INFO    Thread-1491:13791 [wandb_run.py:_restore():1834] restore
+2022-08-04 11:47:48,987 INFO    Thread-1491:13791 [wandb_run.py:_on_finish():1991] got exit ret: None
+2022-08-04 11:47:54,095 INFO    Thread-1491:13791 [wandb_run.py:_on_finish():1991] got exit ret: None
+2022-08-04 11:47:57,851 INFO    Thread-1491:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 1
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 17997
+  total_bytes: 19088
+}
+
+2022-08-04 11:47:58,093 INFO    Thread-1491:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 1
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 19088
+  total_bytes: 19088
+}
+
+2022-08-04 11:47:58,995 INFO    Thread-1491:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 19088
+  total_bytes: 44467
+}
+
+2022-08-04 11:47:59,102 INFO    Thread-1491:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 19088
+  total_bytes: 44467
+}
+
+2022-08-04 11:47:59,208 INFO    Thread-1491:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 19088
+  total_bytes: 44467
+}
+
+2022-08-04 11:47:59,314 INFO    Thread-1491:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 44467
+  total_bytes: 44467
+}
+
+2022-08-04 11:47:59,425 INFO    Thread-1491:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 44467
+  total_bytes: 44467
+}
+
+2022-08-04 11:47:59,531 INFO    Thread-1491:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 44467
+  total_bytes: 44467
+}
+
+2022-08-04 11:47:59,636 INFO    Thread-1491:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 44467
+  total_bytes: 44467
+}
+
+2022-08-04 11:47:59,741 INFO    Thread-1491:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 44467
+  total_bytes: 44467
+}
+
+2022-08-04 11:47:59,848 INFO    Thread-1491:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 44467
+  total_bytes: 44467
+}
+
+2022-08-04 11:48:00,384 INFO    Thread-1491:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 44467
+  total_bytes: 44467
+}
+
+2022-08-04 11:48:00,658 INFO    Thread-1491:13791 [wandb_run.py:_on_finish():1991] got exit ret: done: true
+exit_result {
+}
+file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 44467
+  total_bytes: 44467
+}
+local_info {
+}
+
+2022-08-04 11:48:01,874 INFO    Thread-1491:13791 [wandb_run.py:_footer_history_summary_info():3099] rendering history
+2022-08-04 11:48:01,874 INFO    Thread-1491:13791 [wandb_run.py:_footer_history_summary_info():3131] rendering summary
+2022-08-04 11:48:01,879 INFO    Thread-1491:13791 [wandb_run.py:_footer_sync_info():3055] logging synced files
+2022-08-04 11:48:06,968 INFO    Thread-1766:13791 [wandb_setup.py:_flush():76] Configure stats pid to 13791
+2022-08-04 11:48:06,968 INFO    Thread-1766:13791 [wandb_setup.py:_flush():76] Loading settings from /Users/davitbzhalava/.config/wandb/settings
+2022-08-04 11:48:06,968 INFO    Thread-1766:13791 [wandb_setup.py:_flush():76] Loading settings from wandb/settings
+2022-08-04 11:48:06,968 INFO    Thread-1766:13791 [wandb_setup.py:_flush():76] Loading settings from environment variables: {'project': 'fraud_batch', 'entity': 'davitbzh', 'root_dir': '/Users/davitbzhalava/hops/hopsworks-tutorials/fraud_batch', 'run_id': '0blyrr1p', 'sweep_param_path': '/Users/davitbzhalava/hops/hopsworks-tutorials/fraud_batch/wandb/sweep-nrs39lso/config-0blyrr1p.yaml', 'sweep_id': 'nrs39lso'}
+2022-08-04 11:48:06,968 INFO    Thread-1766:13791 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program': '<python with no main file>'}
+2022-08-04 11:48:06,968 INFO    Thread-1766:13791 [wandb_init.py:_log_setup():461] Logging user logs to /Users/davitbzhalava/hops/hopsworks-tutorials/fraud_batch/wandb/run-20220804_114806-0blyrr1p/logs/debug.log
+2022-08-04 11:48:06,968 INFO    Thread-1766:13791 [wandb_init.py:_log_setup():462] Logging internal logs to /Users/davitbzhalava/hops/hopsworks-tutorials/fraud_batch/wandb/run-20220804_114806-0blyrr1p/logs/debug-internal.log
+2022-08-04 11:48:06,968 INFO    Thread-1766:13791 [wandb_init.py:_jupyter_setup():411] configuring jupyter hooks <wandb.sdk.wandb_init._WandbInit object at 0x7fa03ef70af0>
+2022-08-04 11:48:06,969 INFO    Thread-1766:13791 [wandb_init.py:init():495] calling init triggers
+2022-08-04 11:48:06,969 INFO    Thread-1766:13791 [wandb_init.py:init():498] wandb.init called with sweep_config: {'criterion': 'entropy', 'min_samples_split': 15, 'n_estimators': 75}
+config: {'n_estimators': 100, 'criterion': 'gini', 'min_samples_split': 10}
+2022-08-04 11:48:06,969 INFO    Thread-1766:13791 [wandb_init.py:init():548] starting backend
+2022-08-04 11:48:06,969 INFO    Thread-1766:13791 [backend.py:_multiprocessing_setup():97] multiprocessing start_methods=spawn,fork,forkserver, using: spawn
+2022-08-04 11:48:06,973 INFO    Thread-1766:13791 [backend.py:ensure_launched():217] starting backend process...
+2022-08-04 11:48:06,980 INFO    Thread-1766:13791 [backend.py:ensure_launched():222] started backend process with pid: 14056
+2022-08-04 11:48:06,985 INFO    Thread-1766:13791 [wandb_init.py:init():558] backend started and connected
+2022-08-04 11:48:07,010 INFO    Thread-1766:13791 [wandb_run.py:_config_callback():1131] config_cb None None {'criterion': 'entropy', 'min_samples_split': 15, 'n_estimators': 75}
+2022-08-04 11:48:07,016 INFO    Thread-1766:13791 [wandb_run.py:_label_probe_notebook():1084] probe notebook
+2022-08-04 11:48:07,016 INFO    Thread-1766:13791 [wandb_run.py:_label_probe_notebook():1094] Unable to probe notebook: 'NoneType' object has no attribute 'get'
+2022-08-04 11:48:07,016 INFO    Thread-1766:13791 [wandb_init.py:init():634] updated telemetry
+2022-08-04 11:48:07,037 INFO    Thread-1766:13791 [wandb_init.py:init():665] communicating run to backend with 30 second timeout
+2022-08-04 11:48:08,347 INFO    Thread-1766:13791 [wandb_run.py:_on_init():1919] communicating current version
+2022-08-04 11:48:08,399 INFO    Thread-1766:13791 [wandb_run.py:_on_init():1923] got version response upgrade_message: "wandb version 0.13.0 is available!  To upgrade, please run:\n $ pip install wandb --upgrade"
+
+2022-08-04 11:48:08,399 INFO    Thread-1766:13791 [wandb_init.py:init():700] starting run threads in backend
+2022-08-04 11:48:13,417 INFO    Thread-1766:13791 [wandb_run.py:_console_start():1893] atexit reg
+2022-08-04 11:48:13,418 INFO    Thread-1766:13791 [wandb_run.py:_redirect():1766] redirect: SettingsConsole.WRAP
+2022-08-04 11:48:13,418 INFO    Thread-1766:13791 [wandb_run.py:_redirect():1803] Wrapping output streams.
+2022-08-04 11:48:13,419 INFO    Thread-1766:13791 [wandb_run.py:_redirect():1827] Redirects installed.
+2022-08-04 11:48:13,419 INFO    Thread-1766:13791 [wandb_init.py:init():732] run started, returning control to user process
+2022-08-04 11:48:14,525 INFO    Thread-1766:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'feature_importances') {'id': 'wandb/feature_importances/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'feature_importances'}} None
+2022-08-04 11:48:14,718 INFO    Thread-1766:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'confusion_matrix') {'id': 'wandb/confusion_matrix/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'confusion_matrix'}} None
+2022-08-04 11:48:15,166 INFO    Thread-1766:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'summary_metrics') {'id': 'wandb/metrics/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'summary_metrics'}} None
+2022-08-04 11:48:15,354 INFO    Thread-1766:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'class_proportions') {'id': 'wandb/class_proportions/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'class_proportions'}} None
+2022-08-04 11:48:16,429 INFO    Thread-1766:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'calibration_curve') {'id': 'wandb/calibration/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'calibration_curve'}} None
+2022-08-04 11:48:16,633 INFO    Thread-1766:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'roc') {'id': 'wandb/roc/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'roc'}} None
+2022-08-04 11:48:16,853 INFO    Thread-1766:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'precision_recall') {'id': 'wandb/pr_curve/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'precision_recall'}} None
+2022-08-04 11:48:17,041 INFO    Thread-1766:13791 [wandb_run.py:_finish():1680] finishing run davitbzh/fraud_batch/0blyrr1p
+2022-08-04 11:48:17,042 INFO    Thread-1766:13791 [jupyter.py:save_history():435] not saving jupyter history
+2022-08-04 11:48:17,042 INFO    Thread-1766:13791 [jupyter.py:save_ipynb():377] not saving jupyter notebook
+2022-08-04 11:48:17,042 INFO    Thread-1766:13791 [wandb_init.py:_jupyter_teardown():393] cleaning up jupyter logic
+2022-08-04 11:48:17,042 INFO    Thread-1766:13791 [wandb_run.py:_atexit_cleanup():1862] got exitcode: 0
+2022-08-04 11:48:17,046 INFO    Thread-1766:13791 [wandb_run.py:_restore():1834] restore
+2022-08-04 11:48:22,470 INFO    Thread-1766:13791 [wandb_run.py:_on_finish():1991] got exit ret: None
+2022-08-04 11:48:27,580 INFO    Thread-1766:13791 [wandb_run.py:_on_finish():1991] got exit ret: None
+2022-08-04 11:48:32,441 INFO    Thread-1766:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 1
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 23873
+  total_bytes: 24966
+}
+
+2022-08-04 11:48:32,679 INFO    Thread-1766:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 1
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 24966
+  total_bytes: 24966
+}
+
+2022-08-04 11:48:33,461 INFO    Thread-1766:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 24966
+  total_bytes: 50327
+}
+
+2022-08-04 11:48:33,567 INFO    Thread-1766:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 24966
+  total_bytes: 50327
+}
+
+2022-08-04 11:48:33,674 INFO    Thread-1766:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 24966
+  total_bytes: 50327
+}
+
+2022-08-04 11:48:33,779 INFO    Thread-1766:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 50327
+  total_bytes: 50327
+}
+
+2022-08-04 11:48:33,885 INFO    Thread-1766:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 50327
+  total_bytes: 50327
+}
+
+2022-08-04 11:48:33,988 INFO    Thread-1766:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 50327
+  total_bytes: 50327
+}
+
+2022-08-04 11:48:34,092 INFO    Thread-1766:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 50327
+  total_bytes: 50327
+}
+
+2022-08-04 11:48:34,196 INFO    Thread-1766:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 50327
+  total_bytes: 50327
+}
+
+2022-08-04 11:48:34,301 INFO    Thread-1766:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 50327
+  total_bytes: 50327
+}
+
+2022-08-04 11:48:34,686 INFO    Thread-1766:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 50327
+  total_bytes: 50327
+}
+
+2022-08-04 11:48:34,965 INFO    Thread-1766:13791 [wandb_run.py:_on_finish():1991] got exit ret: done: true
+exit_result {
+}
+file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 50327
+  total_bytes: 50327
+}
+local_info {
+}
+
+2022-08-04 11:48:36,123 INFO    Thread-1766:13791 [wandb_run.py:_footer_history_summary_info():3099] rendering history
+2022-08-04 11:48:36,123 INFO    Thread-1766:13791 [wandb_run.py:_footer_history_summary_info():3131] rendering summary
+2022-08-04 11:48:36,128 INFO    Thread-1766:13791 [wandb_run.py:_footer_sync_info():3055] logging synced files
+2022-08-04 11:48:38,631 INFO    Thread-2041:13791 [wandb_setup.py:_flush():76] Configure stats pid to 13791
+2022-08-04 11:48:38,631 INFO    Thread-2041:13791 [wandb_setup.py:_flush():76] Loading settings from /Users/davitbzhalava/.config/wandb/settings
+2022-08-04 11:48:38,631 INFO    Thread-2041:13791 [wandb_setup.py:_flush():76] Loading settings from wandb/settings
+2022-08-04 11:48:38,631 INFO    Thread-2041:13791 [wandb_setup.py:_flush():76] Loading settings from environment variables: {'project': 'fraud_batch', 'entity': 'davitbzh', 'root_dir': '/Users/davitbzhalava/hops/hopsworks-tutorials/fraud_batch', 'run_id': 'bh8bzafw', 'sweep_param_path': '/Users/davitbzhalava/hops/hopsworks-tutorials/fraud_batch/wandb/sweep-nrs39lso/config-bh8bzafw.yaml', 'sweep_id': 'nrs39lso'}
+2022-08-04 11:48:38,631 INFO    Thread-2041:13791 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program': '<python with no main file>'}
+2022-08-04 11:48:38,631 INFO    Thread-2041:13791 [wandb_init.py:_log_setup():461] Logging user logs to /Users/davitbzhalava/hops/hopsworks-tutorials/fraud_batch/wandb/run-20220804_114838-bh8bzafw/logs/debug.log
+2022-08-04 11:48:38,631 INFO    Thread-2041:13791 [wandb_init.py:_log_setup():462] Logging internal logs to /Users/davitbzhalava/hops/hopsworks-tutorials/fraud_batch/wandb/run-20220804_114838-bh8bzafw/logs/debug-internal.log
+2022-08-04 11:48:38,632 INFO    Thread-2041:13791 [wandb_init.py:_jupyter_setup():411] configuring jupyter hooks <wandb.sdk.wandb_init._WandbInit object at 0x7fa03f90cac0>
+2022-08-04 11:48:38,632 INFO    Thread-2041:13791 [wandb_init.py:init():495] calling init triggers
+2022-08-04 11:48:38,632 INFO    Thread-2041:13791 [wandb_init.py:init():498] wandb.init called with sweep_config: {'criterion': 'entropy', 'min_samples_split': 15, 'n_estimators': 150}
+config: {'n_estimators': 100, 'criterion': 'gini', 'min_samples_split': 10}
+2022-08-04 11:48:38,632 INFO    Thread-2041:13791 [wandb_init.py:init():548] starting backend
+2022-08-04 11:48:38,632 INFO    Thread-2041:13791 [backend.py:_multiprocessing_setup():97] multiprocessing start_methods=spawn,fork,forkserver, using: spawn
+2022-08-04 11:48:38,636 INFO    Thread-2041:13791 [backend.py:ensure_launched():217] starting backend process...
+2022-08-04 11:48:38,642 INFO    Thread-2041:13791 [backend.py:ensure_launched():222] started backend process with pid: 14066
+2022-08-04 11:48:38,646 INFO    Thread-2041:13791 [wandb_init.py:init():558] backend started and connected
+2022-08-04 11:48:38,673 INFO    Thread-2041:13791 [wandb_run.py:_config_callback():1131] config_cb None None {'criterion': 'entropy', 'min_samples_split': 15, 'n_estimators': 150}
+2022-08-04 11:48:38,679 INFO    Thread-2041:13791 [wandb_run.py:_label_probe_notebook():1084] probe notebook
+2022-08-04 11:48:38,680 INFO    Thread-2041:13791 [wandb_run.py:_label_probe_notebook():1094] Unable to probe notebook: 'NoneType' object has no attribute 'get'
+2022-08-04 11:48:38,680 INFO    Thread-2041:13791 [wandb_init.py:init():634] updated telemetry
+2022-08-04 11:48:38,704 INFO    Thread-2041:13791 [wandb_init.py:init():665] communicating run to backend with 30 second timeout
+2022-08-04 11:48:39,971 INFO    Thread-2041:13791 [wandb_run.py:_on_init():1919] communicating current version
+2022-08-04 11:48:40,022 INFO    Thread-2041:13791 [wandb_run.py:_on_init():1923] got version response upgrade_message: "wandb version 0.13.0 is available!  To upgrade, please run:\n $ pip install wandb --upgrade"
+
+2022-08-04 11:48:40,023 INFO    Thread-2041:13791 [wandb_init.py:init():700] starting run threads in backend
+2022-08-04 11:48:45,038 INFO    Thread-2041:13791 [wandb_run.py:_console_start():1893] atexit reg
+2022-08-04 11:48:45,039 INFO    Thread-2041:13791 [wandb_run.py:_redirect():1766] redirect: SettingsConsole.WRAP
+2022-08-04 11:48:45,039 INFO    Thread-2041:13791 [wandb_run.py:_redirect():1803] Wrapping output streams.
+2022-08-04 11:48:45,040 INFO    Thread-2041:13791 [wandb_run.py:_redirect():1827] Redirects installed.
+2022-08-04 11:48:45,040 INFO    Thread-2041:13791 [wandb_init.py:init():732] run started, returning control to user process
+2022-08-04 11:48:47,124 INFO    Thread-2041:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'feature_importances') {'id': 'wandb/feature_importances/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'feature_importances'}} None
+2022-08-04 11:48:47,314 INFO    Thread-2041:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'confusion_matrix') {'id': 'wandb/confusion_matrix/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'confusion_matrix'}} None
+2022-08-04 11:48:47,762 INFO    Thread-2041:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'summary_metrics') {'id': 'wandb/metrics/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'summary_metrics'}} None
+2022-08-04 11:48:47,960 INFO    Thread-2041:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'class_proportions') {'id': 'wandb/class_proportions/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'class_proportions'}} None
+2022-08-04 11:48:49,613 INFO    Thread-2041:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'calibration_curve') {'id': 'wandb/calibration/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'calibration_curve'}} None
+2022-08-04 11:48:49,831 INFO    Thread-2041:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'roc') {'id': 'wandb/roc/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'roc'}} None
+2022-08-04 11:48:50,037 INFO    Thread-2041:13791 [wandb_run.py:_config_callback():1131] config_cb ('_wandb', 'viz', 'precision_recall') {'id': 'wandb/pr_curve/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'precision_recall'}} None
+2022-08-04 11:48:50,245 INFO    Thread-2041:13791 [wandb_run.py:_finish():1680] finishing run davitbzh/fraud_batch/bh8bzafw
+2022-08-04 11:48:50,246 INFO    Thread-2041:13791 [jupyter.py:save_history():435] not saving jupyter history
+2022-08-04 11:48:50,246 INFO    Thread-2041:13791 [jupyter.py:save_ipynb():377] not saving jupyter notebook
+2022-08-04 11:48:50,246 INFO    Thread-2041:13791 [wandb_init.py:_jupyter_teardown():393] cleaning up jupyter logic
+2022-08-04 11:48:50,247 INFO    Thread-2041:13791 [wandb_run.py:_atexit_cleanup():1862] got exitcode: 0
+2022-08-04 11:48:50,250 INFO    Thread-2041:13791 [wandb_run.py:_restore():1834] restore
+2022-08-04 11:48:55,595 INFO    Thread-2041:13791 [wandb_run.py:_on_finish():1991] got exit ret: None
+2022-08-04 11:49:00,706 INFO    Thread-2041:13791 [wandb_run.py:_on_finish():1991] got exit ret: None
+2022-08-04 11:49:03,869 INFO    Thread-2041:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 1
+  media_count: 6
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 27031
+  total_bytes: 27031
+}
+
+2022-08-04 11:49:04,162 INFO    Thread-2041:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 1
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 28124
+  total_bytes: 28124
+}
+
+2022-08-04 11:49:05,099 INFO    Thread-2041:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 28124
+  total_bytes: 53504
+}
+
+2022-08-04 11:49:05,204 INFO    Thread-2041:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 28124
+  total_bytes: 53504
+}
+
+2022-08-04 11:49:05,314 INFO    Thread-2041:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 28124
+  total_bytes: 53504
+}
+
+2022-08-04 11:49:05,420 INFO    Thread-2041:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 53504
+  total_bytes: 53504
+}
+
+2022-08-04 11:49:05,527 INFO    Thread-2041:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 53504
+  total_bytes: 53504
+}
+
+2022-08-04 11:49:05,632 INFO    Thread-2041:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 53504
+  total_bytes: 53504
+}
+
+2022-08-04 11:49:05,735 INFO    Thread-2041:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 53504
+  total_bytes: 53504
+}
+
+2022-08-04 11:49:05,842 INFO    Thread-2041:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 53504
+  total_bytes: 53504
+}
+
+2022-08-04 11:49:05,945 INFO    Thread-2041:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 53504
+  total_bytes: 53504
+}
+
+2022-08-04 11:49:06,507 INFO    Thread-2041:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 53504
+  total_bytes: 53504
+}
+
+2022-08-04 11:49:06,785 INFO    Thread-2041:13791 [wandb_run.py:_on_finish():1991] got exit ret: done: true
+exit_result {
+}
+file_counts {
+  wandb_count: 6
+  media_count: 7
+  artifact_count: 7
+}
+pusher_stats {
+  uploaded_bytes: 53504
+  total_bytes: 53504
+}
+local_info {
+}
+
+2022-08-04 11:49:07,985 INFO    Thread-2041:13791 [wandb_run.py:_footer_history_summary_info():3099] rendering history
+2022-08-04 11:49:07,985 INFO    Thread-2041:13791 [wandb_run.py:_footer_history_summary_info():3131] rendering summary
+2022-08-04 11:49:07,989 INFO    Thread-2041:13791 [wandb_run.py:_footer_sync_info():3055] logging synced files
+2022-08-04 11:49:21,549 INFO    MainThread:13791 [wandb_setup.py:_flush():76] Configure stats pid to 13791
+2022-08-04 11:49:21,549 INFO    MainThread:13791 [wandb_setup.py:_flush():76] Loading settings from /Users/davitbzhalava/.config/wandb/settings
+2022-08-04 11:49:21,549 INFO    MainThread:13791 [wandb_setup.py:_flush():76] Loading settings from wandb/settings
+2022-08-04 11:49:21,549 INFO    MainThread:13791 [wandb_setup.py:_flush():76] Loading settings from environment variables: {'project': 'fraud_batch', 'entity': 'davitbzh', 'root_dir': '/Users/davitbzhalava/hops/hopsworks-tutorials/fraud_batch', 'run_id': 'bh8bzafw', 'sweep_param_path': '/Users/davitbzhalava/hops/hopsworks-tutorials/fraud_batch/wandb/sweep-nrs39lso/config-bh8bzafw.yaml', 'sweep_id': 'nrs39lso'}
+2022-08-04 11:49:21,549 INFO    MainThread:13791 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program': '<python with no main file>'}
+2022-08-04 11:49:21,550 INFO    MainThread:13791 [wandb_init.py:_log_setup():461] Logging user logs to /Users/davitbzhalava/hops/hopsworks-tutorials/fraud_batch/wandb/run-20220804_114921-bh8bzafw/logs/debug.log
+2022-08-04 11:49:21,550 INFO    MainThread:13791 [wandb_init.py:_log_setup():462] Logging internal logs to /Users/davitbzhalava/hops/hopsworks-tutorials/fraud_batch/wandb/run-20220804_114921-bh8bzafw/logs/debug-internal.log
+2022-08-04 11:49:21,550 INFO    MainThread:13791 [wandb_init.py:_jupyter_setup():411] configuring jupyter hooks <wandb.sdk.wandb_init._WandbInit object at 0x7fa03fe56b50>
+2022-08-04 11:49:21,550 INFO    MainThread:13791 [wandb_init.py:init():495] calling init triggers
+2022-08-04 11:49:21,550 INFO    MainThread:13791 [wandb_init.py:init():498] wandb.init called with sweep_config: {'criterion': 'entropy', 'min_samples_split': 15, 'n_estimators': 150}
+config: {'method': 'grid', 'metric': {'name': 'f1_score', 'goal': 'maximize'}, 'parameters': {'n_estimators': {'values': [75, 150]}, 'criterion': {'values': ['gini', 'entropy']}, 'min_samples_split': {'values': [5, 15]}}}
+2022-08-04 11:49:21,551 INFO    MainThread:13791 [wandb_init.py:init():548] starting backend
+2022-08-04 11:49:21,551 INFO    MainThread:13791 [backend.py:_multiprocessing_setup():97] multiprocessing start_methods=spawn,fork,forkserver, using: spawn
+2022-08-04 11:49:21,557 INFO    MainThread:13791 [backend.py:ensure_launched():217] starting backend process...
+2022-08-04 11:49:21,564 INFO    MainThread:13791 [backend.py:ensure_launched():222] started backend process with pid: 14077
+2022-08-04 11:49:21,569 INFO    MainThread:13791 [wandb_init.py:init():558] backend started and connected
+2022-08-04 11:49:21,600 INFO    MainThread:13791 [wandb_run.py:_config_callback():1131] config_cb None None {'criterion': 'entropy', 'min_samples_split': 15, 'n_estimators': 150}
+2022-08-04 11:49:21,609 INFO    MainThread:13791 [wandb_run.py:_label_probe_notebook():1084] probe notebook
+2022-08-04 11:49:21,609 INFO    MainThread:13791 [wandb_run.py:_label_probe_notebook():1094] Unable to probe notebook: 'NoneType' object has no attribute 'get'
+2022-08-04 11:49:21,609 INFO    MainThread:13791 [wandb_init.py:init():634] updated telemetry
+2022-08-04 11:49:21,634 INFO    MainThread:13791 [wandb_init.py:init():665] communicating run to backend with 30 second timeout
+2022-08-04 11:49:22,717 INFO    MainThread:13791 [wandb_run.py:_on_init():1919] communicating current version
+2022-08-04 11:49:22,772 INFO    MainThread:13791 [wandb_run.py:_on_init():1923] got version response upgrade_message: "wandb version 0.13.0 is available!  To upgrade, please run:\n $ pip install wandb --upgrade"
+
+2022-08-04 11:49:22,772 INFO    MainThread:13791 [wandb_init.py:init():700] starting run threads in backend
+2022-08-04 11:49:27,789 INFO    MainThread:13791 [wandb_run.py:_console_start():1893] atexit reg
+2022-08-04 11:49:27,789 INFO    MainThread:13791 [wandb_run.py:_redirect():1766] redirect: SettingsConsole.WRAP
+2022-08-04 11:49:27,789 INFO    MainThread:13791 [wandb_run.py:_redirect():1803] Wrapping output streams.
+2022-08-04 11:49:27,790 INFO    MainThread:13791 [wandb_run.py:_redirect():1827] Redirects installed.
+2022-08-04 11:49:27,791 INFO    MainThread:13791 [wandb_init.py:init():732] run started, returning control to user process
+2022-08-04 11:49:28,037 INFO    MainThread:13791 [wandb_run.py:_finish():1680] finishing run davitbzh/fraud_batch/bh8bzafw
+2022-08-04 11:49:28,038 INFO    MainThread:13791 [jupyter.py:save_history():435] not saving jupyter history
+2022-08-04 11:49:28,038 INFO    MainThread:13791 [jupyter.py:save_ipynb():377] not saving jupyter notebook
+2022-08-04 11:49:28,038 INFO    MainThread:13791 [wandb_init.py:_jupyter_teardown():393] cleaning up jupyter logic
+2022-08-04 11:49:28,038 INFO    MainThread:13791 [wandb_run.py:_atexit_cleanup():1862] got exitcode: 0
+2022-08-04 11:49:28,042 INFO    MainThread:13791 [wandb_run.py:_restore():1834] restore
+2022-08-04 11:49:32,091 INFO    MainThread:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  artifact_count: 1
+  other_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 4250446
+  total_bytes: 4250446
+}
+
+2022-08-04 11:49:32,360 INFO    MainThread:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 1
+  artifact_count: 1
+  other_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 4251214
+  total_bytes: 4251214
+}
+
+2022-08-04 11:49:32,756 INFO    MainThread:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+  artifact_count: 1
+  other_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 4251214
+  total_bytes: 4268954
+}
+
+2022-08-04 11:49:32,859 INFO    MainThread:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+  artifact_count: 1
+  other_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 4251214
+  total_bytes: 4268954
+}
+
+2022-08-04 11:49:32,964 INFO    MainThread:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+  artifact_count: 1
+  other_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 4251214
+  total_bytes: 4268954
+}
+
+2022-08-04 11:49:33,070 INFO    MainThread:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+  artifact_count: 1
+  other_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 4268954
+  total_bytes: 4268954
+}
+
+2022-08-04 11:49:33,173 INFO    MainThread:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+  artifact_count: 1
+  other_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 4268954
+  total_bytes: 4268954
+}
+
+2022-08-04 11:49:33,277 INFO    MainThread:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+  artifact_count: 1
+  other_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 4268954
+  total_bytes: 4268954
+}
+
+2022-08-04 11:49:33,383 INFO    MainThread:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+  artifact_count: 1
+  other_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 4268954
+  total_bytes: 4268954
+}
+
+2022-08-04 11:49:33,487 INFO    MainThread:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+  artifact_count: 1
+  other_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 4268954
+  total_bytes: 4268954
+}
+
+2022-08-04 11:49:33,589 INFO    MainThread:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+  artifact_count: 1
+  other_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 4268954
+  total_bytes: 4268954
+}
+
+2022-08-04 11:49:33,696 INFO    MainThread:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+  artifact_count: 1
+  other_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 4268954
+  total_bytes: 4268954
+}
+
+2022-08-04 11:49:33,803 INFO    MainThread:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+  artifact_count: 1
+  other_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 4268954
+  total_bytes: 4268954
+}
+
+2022-08-04 11:49:33,929 INFO    MainThread:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+  artifact_count: 1
+  other_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 4268954
+  total_bytes: 4268954
+}
+
+2022-08-04 11:49:34,036 INFO    MainThread:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+  artifact_count: 1
+  other_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 4268954
+  total_bytes: 4268954
+}
+
+2022-08-04 11:49:34,141 INFO    MainThread:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+  artifact_count: 1
+  other_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 4268954
+  total_bytes: 4268954
+}
+
+2022-08-04 11:49:34,854 INFO    MainThread:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+  artifact_count: 1
+  other_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 4268954
+  total_bytes: 4268954
+}
+
+2022-08-04 11:49:35,141 INFO    MainThread:13791 [wandb_run.py:_on_finish():1991] got exit ret: done: true
+exit_result {
+}
+file_counts {
+  wandb_count: 5
+  artifact_count: 1
+  other_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 4268954
+  total_bytes: 4268954
+}
+local_info {
+}
+
+2022-08-04 11:49:36,298 INFO    MainThread:13791 [wandb_run.py:_footer_history_summary_info():3099] rendering history
+2022-08-04 11:49:36,298 INFO    MainThread:13791 [wandb_run.py:_footer_history_summary_info():3131] rendering summary
+2022-08-04 11:49:36,301 INFO    MainThread:13791 [wandb_run.py:_footer_sync_info():3055] logging synced files
+2022-08-04 11:49:36,345 INFO    MainThread:13791 [wandb_setup.py:_flush():76] Configure stats pid to 13791
+2022-08-04 11:49:36,345 INFO    MainThread:13791 [wandb_setup.py:_flush():76] Loading settings from /Users/davitbzhalava/.config/wandb/settings
+2022-08-04 11:49:36,345 INFO    MainThread:13791 [wandb_setup.py:_flush():76] Loading settings from wandb/settings
+2022-08-04 11:49:36,345 INFO    MainThread:13791 [wandb_setup.py:_flush():76] Loading settings from environment variables: {'project': 'fraud_batch', 'entity': 'davitbzh', 'root_dir': '/Users/davitbzhalava/hops/hopsworks-tutorials/fraud_batch', 'run_id': 'bh8bzafw', 'sweep_param_path': '/Users/davitbzhalava/hops/hopsworks-tutorials/fraud_batch/wandb/sweep-nrs39lso/config-bh8bzafw.yaml', 'sweep_id': 'nrs39lso'}
+2022-08-04 11:49:36,345 INFO    MainThread:13791 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program': '<python with no main file>'}
+2022-08-04 11:49:36,345 INFO    MainThread:13791 [wandb_init.py:_log_setup():461] Logging user logs to /Users/davitbzhalava/hops/hopsworks-tutorials/fraud_batch/wandb/run-20220804_114936-bh8bzafw/logs/debug.log
+2022-08-04 11:49:36,345 INFO    MainThread:13791 [wandb_init.py:_log_setup():462] Logging internal logs to /Users/davitbzhalava/hops/hopsworks-tutorials/fraud_batch/wandb/run-20220804_114936-bh8bzafw/logs/debug-internal.log
+2022-08-04 11:49:36,346 INFO    MainThread:13791 [wandb_init.py:_jupyter_setup():411] configuring jupyter hooks <wandb.sdk.wandb_init._WandbInit object at 0x7fa043397220>
+2022-08-04 11:49:36,346 INFO    MainThread:13791 [wandb_init.py:init():495] calling init triggers
+2022-08-04 11:49:36,346 INFO    MainThread:13791 [wandb_init.py:init():498] wandb.init called with sweep_config: {'criterion': 'entropy', 'min_samples_split': 15, 'n_estimators': 150}
+config: {'method': 'grid', 'metric': {'name': 'f1_score', 'goal': 'maximize'}, 'parameters': {'n_estimators': {'values': [75, 150]}, 'criterion': {'values': ['gini', 'entropy']}, 'min_samples_split': {'values': [5, 15]}}}
+2022-08-04 11:49:36,346 INFO    MainThread:13791 [wandb_init.py:init():548] starting backend
+2022-08-04 11:49:36,346 INFO    MainThread:13791 [backend.py:_multiprocessing_setup():97] multiprocessing start_methods=spawn,fork,forkserver, using: spawn
+2022-08-04 11:49:36,351 INFO    MainThread:13791 [backend.py:ensure_launched():217] starting backend process...
+2022-08-04 11:49:36,357 INFO    MainThread:13791 [backend.py:ensure_launched():222] started backend process with pid: 14088
+2022-08-04 11:49:36,361 INFO    MainThread:13791 [wandb_init.py:init():558] backend started and connected
+2022-08-04 11:49:36,389 INFO    MainThread:13791 [wandb_run.py:_config_callback():1131] config_cb None None {'criterion': 'entropy', 'min_samples_split': 15, 'n_estimators': 150}
+2022-08-04 11:49:36,395 INFO    MainThread:13791 [wandb_run.py:_label_probe_notebook():1084] probe notebook
+2022-08-04 11:49:36,395 INFO    MainThread:13791 [wandb_run.py:_label_probe_notebook():1094] Unable to probe notebook: 'NoneType' object has no attribute 'get'
+2022-08-04 11:49:36,395 INFO    MainThread:13791 [wandb_init.py:init():634] updated telemetry
+2022-08-04 11:49:36,418 INFO    MainThread:13791 [wandb_init.py:init():665] communicating run to backend with 30 second timeout
+2022-08-04 11:49:37,420 INFO    MainThread:13791 [wandb_run.py:_on_init():1919] communicating current version
+2022-08-04 11:49:37,471 INFO    MainThread:13791 [wandb_run.py:_on_init():1923] got version response upgrade_message: "wandb version 0.13.0 is available!  To upgrade, please run:\n $ pip install wandb --upgrade"
+
+2022-08-04 11:49:37,471 INFO    MainThread:13791 [wandb_init.py:init():700] starting run threads in backend
+2022-08-04 11:49:42,492 INFO    MainThread:13791 [wandb_run.py:_console_start():1893] atexit reg
+2022-08-04 11:49:42,493 INFO    MainThread:13791 [wandb_run.py:_redirect():1766] redirect: SettingsConsole.WRAP
+2022-08-04 11:49:42,493 INFO    MainThread:13791 [wandb_run.py:_redirect():1803] Wrapping output streams.
+2022-08-04 11:49:42,494 INFO    MainThread:13791 [wandb_run.py:_redirect():1827] Redirects installed.
+2022-08-04 11:49:42,494 INFO    MainThread:13791 [wandb_init.py:init():732] run started, returning control to user process
+2022-08-04 11:49:43,591 INFO    MainThread:13791 [wandb_run.py:_finish():1680] finishing run davitbzh/fraud_batch/bh8bzafw
+2022-08-04 11:49:43,591 INFO    MainThread:13791 [jupyter.py:save_history():435] not saving jupyter history
+2022-08-04 11:49:43,592 INFO    MainThread:13791 [jupyter.py:save_ipynb():377] not saving jupyter notebook
+2022-08-04 11:49:43,592 INFO    MainThread:13791 [wandb_init.py:_jupyter_teardown():393] cleaning up jupyter logic
+2022-08-04 11:49:43,592 INFO    MainThread:13791 [wandb_run.py:_atexit_cleanup():1862] got exitcode: 0
+2022-08-04 11:49:43,596 INFO    MainThread:13791 [wandb_run.py:_restore():1834] restore
+2022-08-04 11:49:44,002 INFO    MainThread:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 768
+  total_bytes: 768
+}
+
+2022-08-04 11:49:44,287 INFO    MainThread:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 768
+  total_bytes: 768
+}
+
+2022-08-04 11:49:44,452 INFO    MainThread:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 3
+}
+pusher_stats {
+  uploaded_bytes: 768
+  total_bytes: 4400
+}
+
+2022-08-04 11:49:44,559 INFO    MainThread:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+}
+pusher_stats {
+  uploaded_bytes: 768
+  total_bytes: 18498
+}
+
+2022-08-04 11:49:44,664 INFO    MainThread:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+}
+pusher_stats {
+  uploaded_bytes: 768
+  total_bytes: 18498
+}
+
+2022-08-04 11:49:44,768 INFO    MainThread:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+}
+pusher_stats {
+  uploaded_bytes: 18498
+  total_bytes: 18498
+}
+
+2022-08-04 11:49:44,875 INFO    MainThread:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+}
+pusher_stats {
+  uploaded_bytes: 18498
+  total_bytes: 18498
+}
+
+2022-08-04 11:49:44,979 INFO    MainThread:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+}
+pusher_stats {
+  uploaded_bytes: 18498
+  total_bytes: 18498
+}
+
+2022-08-04 11:49:45,081 INFO    MainThread:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+}
+pusher_stats {
+  uploaded_bytes: 18498
+  total_bytes: 18498
+}
+
+2022-08-04 11:49:45,187 INFO    MainThread:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+}
+pusher_stats {
+  uploaded_bytes: 18498
+  total_bytes: 18498
+}
+
+2022-08-04 11:49:45,292 INFO    MainThread:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+}
+pusher_stats {
+  uploaded_bytes: 18498
+  total_bytes: 18498
+}
+
+2022-08-04 11:49:45,919 INFO    MainThread:13791 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+}
+pusher_stats {
+  uploaded_bytes: 18498
+  total_bytes: 18498
+}
+
+2022-08-04 11:49:46,375 INFO    MainThread:13791 [wandb_run.py:_on_finish():1991] got exit ret: done: true
+exit_result {
+}
+file_counts {
+  wandb_count: 5
+}
+pusher_stats {
+  uploaded_bytes: 18498
+  total_bytes: 18498
+}
+local_info {
+}
+
+2022-08-04 11:49:47,538 INFO    MainThread:13791 [wandb_run.py:_footer_history_summary_info():3099] rendering history
+2022-08-04 11:49:47,539 INFO    MainThread:13791 [wandb_run.py:_footer_history_summary_info():3131] rendering summary
+2022-08-04 11:49:47,541 INFO    MainThread:13791 [wandb_run.py:_footer_sync_info():3055] logging synced files

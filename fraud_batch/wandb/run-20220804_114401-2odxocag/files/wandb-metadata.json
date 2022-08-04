@@ -1,0 +1,21 @@
+{
+    "os": "macOS-10.16-x86_64-i386-64bit",
+    "python": "3.8.13",
+    "heartbeatAt": "2022-08-04T09:44:06.482605",
+    "startedAt": "2022-08-04T09:44:01.773286",
+    "docker": null,
+    "cpu_count": 16,
+    "cuda": null,
+    "args": null,
+    "state": "running",
+    "program": "fraud_batch/3_model_training.ipynb",
+    "root": "/Users/davitbzhalava/hops/hopsworks-tutorials",
+    "git": {
+        "remote": "https://github.com/logicalclocks/hopsworks-tutorials.git",
+        "commit": "5998422241d2c3f0f9da2f0128a9bb086a70eecf"
+    },
+    "email": "davit.bzhalava@gmail.com",
+    "host": "MacBook-Pro-som-tillhor-Davit.local",
+    "username": "davitbzhalava",
+    "executable": "/Users/davitbzhalava/hops/hopsworks-tutorials/miniconda/envs/hopsworks/bin/python"
+}
