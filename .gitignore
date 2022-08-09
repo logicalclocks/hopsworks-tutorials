@@ -2,6 +2,7 @@
 .DS_Store
 .idea
 hops
+**/wandb
 **/.hw_api_key
 **/*.pkl
 **/**predict_example.py
