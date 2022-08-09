@@ -1,0 +1,145 @@
+2022-08-08 01:37:00,853 INFO    StreamThr :640 [internal.py:wandb_internal():90] W&B internal server running at pid: 640, started at: 2022-08-08 01:37:00.852121
+2022-08-08 01:37:00,857 DEBUG   HandlerThread:640 [handler.py:handle_request():141] handle_request: status
+2022-08-08 01:37:00,866 DEBUG   SenderThread:640 [sender.py:send_request():316] send_request: status
+2022-08-08 01:37:00,892 DEBUG   SenderThread:640 [sender.py:send():302] send: header
+2022-08-08 01:37:00,892 INFO    WriterThread:640 [datastore.py:open_for_write():75] open: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\fraud_online\wandb\run-20220808_013700-l5cojmsj\run-l5cojmsj.wandb
+2022-08-08 01:37:01,152 DEBUG   SenderThread:640 [sender.py:send():302] send: run
+2022-08-08 01:37:01,652 DEBUG   HandlerThread:640 [handler.py:handle_request():141] handle_request: check_version
+2022-08-08 01:37:01,654 INFO    SenderThread:640 [dir_watcher.py:__init__():216] watching files in: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\fraud_online\wandb\run-20220808_013700-l5cojmsj\files
+2022-08-08 01:37:01,654 INFO    SenderThread:640 [sender.py:_start_run_threads():913] run started: l5cojmsj with start time 1659915420.851116
+2022-08-08 01:37:01,654 DEBUG   SenderThread:640 [sender.py:send():302] send: summary
+2022-08-08 01:37:01,655 INFO    SenderThread:640 [sender.py:_save_file():1156] saving file wandb-summary.json with policy end
+2022-08-08 01:37:01,656 DEBUG   SenderThread:640 [sender.py:send_request():316] send_request: check_version
+2022-08-08 01:37:01,790 DEBUG   HandlerThread:640 [handler.py:handle_request():141] handle_request: run_start
+2022-08-08 01:37:01,813 DEBUG   HandlerThread:640 [meta.py:__init__():35] meta init
+2022-08-08 01:37:01,813 DEBUG   HandlerThread:640 [meta.py:__init__():50] meta init done
+2022-08-08 01:37:01,813 DEBUG   HandlerThread:640 [meta.py:probe():216] probe
+2022-08-08 01:37:01,826 DEBUG   HandlerThread:640 [meta.py:_setup_git():206] setup git
+2022-08-08 01:37:01,957 DEBUG   HandlerThread:640 [meta.py:_setup_git():213] setup git done
+2022-08-08 01:37:01,957 DEBUG   HandlerThread:640 [meta.py:_save_pip():54] save pip
+2022-08-08 01:37:01,958 DEBUG   HandlerThread:640 [meta.py:_save_pip():68] save pip done
+2022-08-08 01:37:01,959 DEBUG   HandlerThread:640 [meta.py:probe():254] probe done
+2022-08-08 01:37:02,059 DEBUG   SenderThread:640 [sender.py:send():302] send: files
+2022-08-08 01:37:02,059 INFO    SenderThread:640 [sender.py:_save_file():1156] saving file wandb-metadata.json with policy now
+2022-08-08 01:37:02,060 DEBUG   HandlerThread:640 [handler.py:handle_request():141] handle_request: stop_status
+2022-08-08 01:37:02,061 DEBUG   SenderThread:640 [sender.py:send_request():316] send_request: stop_status
+2022-08-08 01:37:02,064 DEBUG   HandlerThread:640 [handler.py:handle_request():141] handle_request: poll_exit
+2022-08-08 01:37:02,263 DEBUG   SenderThread:640 [sender.py:send():302] send: telemetry
+2022-08-08 01:37:02,263 DEBUG   SenderThread:640 [sender.py:send():302] send: telemetry
+2022-08-08 01:37:02,263 DEBUG   SenderThread:640 [sender.py:send():302] send: exit
+2022-08-08 01:37:02,263 INFO    SenderThread:640 [sender.py:send_exit():438] handling exit code: 1
+2022-08-08 01:37:02,263 INFO    SenderThread:640 [sender.py:send_exit():440] handling runtime: 0
+2022-08-08 01:37:02,265 INFO    SenderThread:640 [sender.py:_save_file():1156] saving file wandb-summary.json with policy end
+2022-08-08 01:37:02,265 INFO    SenderThread:640 [sender.py:send_exit():446] send defer
+2022-08-08 01:37:02,266 DEBUG   SenderThread:640 [sender.py:send_request():316] send_request: poll_exit
+2022-08-08 01:37:02,268 DEBUG   HandlerThread:640 [handler.py:handle_request():141] handle_request: defer
+2022-08-08 01:37:02,268 INFO    HandlerThread:640 [handler.py:handle_request_defer():164] handle defer: 0
+2022-08-08 01:37:02,268 DEBUG   SenderThread:640 [sender.py:send_request():316] send_request: defer
+2022-08-08 01:37:02,269 INFO    SenderThread:640 [sender.py:send_request_defer():455] handle sender defer: 0
+2022-08-08 01:37:02,269 INFO    SenderThread:640 [sender.py:transition_state():459] send defer: 1
+2022-08-08 01:37:02,269 DEBUG   HandlerThread:640 [handler.py:handle_request():141] handle_request: defer
+2022-08-08 01:37:02,270 INFO    HandlerThread:640 [handler.py:handle_request_defer():164] handle defer: 1
+2022-08-08 01:37:02,298 DEBUG   SenderThread:640 [sender.py:send_request():316] send_request: defer
+2022-08-08 01:37:02,298 INFO    SenderThread:640 [sender.py:send_request_defer():455] handle sender defer: 1
+2022-08-08 01:37:02,299 INFO    SenderThread:640 [sender.py:transition_state():459] send defer: 2
+2022-08-08 01:37:02,299 DEBUG   SenderThread:640 [sender.py:send():302] send: stats
+2022-08-08 01:37:02,300 DEBUG   HandlerThread:640 [handler.py:handle_request():141] handle_request: defer
+2022-08-08 01:37:02,301 INFO    HandlerThread:640 [handler.py:handle_request_defer():164] handle defer: 2
+2022-08-08 01:37:02,301 DEBUG   SenderThread:640 [sender.py:send_request():316] send_request: defer
+2022-08-08 01:37:02,301 INFO    SenderThread:640 [sender.py:send_request_defer():455] handle sender defer: 2
+2022-08-08 01:37:02,301 INFO    SenderThread:640 [sender.py:transition_state():459] send defer: 3
+2022-08-08 01:37:02,302 DEBUG   HandlerThread:640 [handler.py:handle_request():141] handle_request: defer
+2022-08-08 01:37:02,302 INFO    HandlerThread:640 [handler.py:handle_request_defer():164] handle defer: 3
+2022-08-08 01:37:02,304 DEBUG   SenderThread:640 [sender.py:send_request():316] send_request: defer
+2022-08-08 01:37:02,304 INFO    SenderThread:640 [sender.py:send_request_defer():455] handle sender defer: 3
+2022-08-08 01:37:02,304 INFO    SenderThread:640 [sender.py:transition_state():459] send defer: 4
+2022-08-08 01:37:02,306 DEBUG   HandlerThread:640 [handler.py:handle_request():141] handle_request: defer
+2022-08-08 01:37:02,306 INFO    HandlerThread:640 [handler.py:handle_request_defer():164] handle defer: 4
+2022-08-08 01:37:02,306 DEBUG   SenderThread:640 [sender.py:send():302] send: summary
+2022-08-08 01:37:02,308 INFO    SenderThread:640 [sender.py:_save_file():1156] saving file wandb-summary.json with policy end
+2022-08-08 01:37:02,309 DEBUG   SenderThread:640 [sender.py:send_request():316] send_request: defer
+2022-08-08 01:37:02,309 INFO    SenderThread:640 [sender.py:send_request_defer():455] handle sender defer: 4
+2022-08-08 01:37:02,309 INFO    SenderThread:640 [sender.py:transition_state():459] send defer: 5
+2022-08-08 01:37:02,310 DEBUG   HandlerThread:640 [handler.py:handle_request():141] handle_request: defer
+2022-08-08 01:37:02,310 INFO    HandlerThread:640 [handler.py:handle_request_defer():164] handle defer: 5
+2022-08-08 01:37:02,310 DEBUG   SenderThread:640 [sender.py:send_request():316] send_request: defer
+2022-08-08 01:37:02,310 INFO    SenderThread:640 [sender.py:send_request_defer():455] handle sender defer: 5
+2022-08-08 01:37:02,378 DEBUG   HandlerThread:640 [handler.py:handle_request():141] handle_request: poll_exit
+2022-08-08 01:37:02,554 INFO    SenderThread:640 [sender.py:transition_state():459] send defer: 6
+2022-08-08 01:37:02,554 DEBUG   SenderThread:640 [sender.py:send_request():316] send_request: poll_exit
+2022-08-08 01:37:02,556 DEBUG   HandlerThread:640 [handler.py:handle_request():141] handle_request: defer
+2022-08-08 01:37:02,556 INFO    HandlerThread:640 [handler.py:handle_request_defer():164] handle defer: 6
+2022-08-08 01:37:02,557 DEBUG   SenderThread:640 [sender.py:send_request():316] send_request: defer
+2022-08-08 01:37:02,557 INFO    SenderThread:640 [sender.py:send_request_defer():455] handle sender defer: 6
+2022-08-08 01:37:02,557 INFO    SenderThread:640 [sender.py:transition_state():459] send defer: 7
+2022-08-08 01:37:02,559 DEBUG   HandlerThread:640 [handler.py:handle_request():141] handle_request: defer
+2022-08-08 01:37:02,559 INFO    HandlerThread:640 [handler.py:handle_request_defer():164] handle defer: 7
+2022-08-08 01:37:02,560 DEBUG   SenderThread:640 [sender.py:send_request():316] send_request: defer
+2022-08-08 01:37:02,560 INFO    SenderThread:640 [sender.py:send_request_defer():455] handle sender defer: 7
+2022-08-08 01:37:02,561 INFO    SenderThread:640 [dir_watcher.py:finish():362] shutting down directory watcher
+2022-08-08 01:37:02,666 INFO    SenderThread:640 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\fraud_online\wandb\run-20220808_013700-l5cojmsj\files\config.yaml
+2022-08-08 01:37:02,667 INFO    SenderThread:640 [dir_watcher.py:_on_file_created():275] file/dir created: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\fraud_online\wandb\run-20220808_013700-l5cojmsj\files\wandb-summary.json
+2022-08-08 01:37:02,668 INFO    SenderThread:640 [dir_watcher.py:_on_file_created():275] file/dir created: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\fraud_online\wandb\run-20220808_013700-l5cojmsj\files\requirements.txt
+2022-08-08 01:37:02,669 INFO    SenderThread:640 [dir_watcher.py:_on_file_created():275] file/dir created: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\fraud_online\wandb\run-20220808_013700-l5cojmsj\files\wandb-metadata.json
+2022-08-08 01:37:02,670 INFO    SenderThread:640 [dir_watcher.py:finish():392] scan: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\fraud_online\wandb\run-20220808_013700-l5cojmsj\files
+2022-08-08 01:37:02,671 INFO    SenderThread:640 [dir_watcher.py:finish():406] scan save: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\fraud_online\wandb\run-20220808_013700-l5cojmsj\files\config.yaml config.yaml
+2022-08-08 01:37:02,672 INFO    SenderThread:640 [dir_watcher.py:finish():406] scan save: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\fraud_online\wandb\run-20220808_013700-l5cojmsj\files\requirements.txt requirements.txt
+2022-08-08 01:37:02,680 INFO    Thread-22 :640 [upload_job.py:push():138] Uploaded file C:\Users\rkaha\AppData\Local\Temp\tmps4vsoipywandb\nphey111-wandb-metadata.json
+2022-08-08 01:37:02,681 DEBUG   HandlerThread:640 [handler.py:handle_request():141] handle_request: poll_exit
+2022-08-08 01:37:02,691 INFO    SenderThread:640 [dir_watcher.py:finish():406] scan save: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\fraud_online\wandb\run-20220808_013700-l5cojmsj\files\wandb-metadata.json wandb-metadata.json
+2022-08-08 01:37:02,692 INFO    SenderThread:640 [dir_watcher.py:finish():406] scan save: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\fraud_online\wandb\run-20220808_013700-l5cojmsj\files\wandb-summary.json wandb-summary.json
+2022-08-08 01:37:02,700 INFO    SenderThread:640 [sender.py:transition_state():459] send defer: 8
+2022-08-08 01:37:02,701 DEBUG   SenderThread:640 [sender.py:send_request():316] send_request: poll_exit
+2022-08-08 01:37:02,703 DEBUG   HandlerThread:640 [handler.py:handle_request():141] handle_request: defer
+2022-08-08 01:37:02,703 INFO    HandlerThread:640 [handler.py:handle_request_defer():164] handle defer: 8
+2022-08-08 01:37:02,703 DEBUG   SenderThread:640 [sender.py:send_request():316] send_request: defer
+2022-08-08 01:37:02,704 INFO    SenderThread:640 [sender.py:send_request_defer():455] handle sender defer: 8
+2022-08-08 01:37:02,710 INFO    SenderThread:640 [file_pusher.py:finish():171] shutting down file pusher
+2022-08-08 01:37:02,830 DEBUG   HandlerThread:640 [handler.py:handle_request():141] handle_request: poll_exit
+2022-08-08 01:37:02,830 DEBUG   SenderThread:640 [sender.py:send_request():316] send_request: poll_exit
+2022-08-08 01:37:02,942 DEBUG   HandlerThread:640 [handler.py:handle_request():141] handle_request: poll_exit
+2022-08-08 01:37:02,943 DEBUG   SenderThread:640 [sender.py:send_request():316] send_request: poll_exit
+2022-08-08 01:37:03,063 DEBUG   HandlerThread:640 [handler.py:handle_request():141] handle_request: poll_exit
+2022-08-08 01:37:03,064 DEBUG   SenderThread:640 [sender.py:send_request():316] send_request: poll_exit
+2022-08-08 01:37:03,174 DEBUG   HandlerThread:640 [handler.py:handle_request():141] handle_request: poll_exit
+2022-08-08 01:37:03,174 DEBUG   SenderThread:640 [sender.py:send_request():316] send_request: poll_exit
+2022-08-08 01:37:03,282 DEBUG   HandlerThread:640 [handler.py:handle_request():141] handle_request: poll_exit
+2022-08-08 01:37:03,283 DEBUG   SenderThread:640 [sender.py:send_request():316] send_request: poll_exit
+2022-08-08 01:37:03,339 INFO    Thread-24 :640 [upload_job.py:push():138] Uploaded file C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\fraud_online\wandb\run-20220808_013700-l5cojmsj\files\requirements.txt
+2022-08-08 01:37:03,377 INFO    Thread-23 :640 [upload_job.py:push():138] Uploaded file C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\fraud_online\wandb\run-20220808_013700-l5cojmsj\files\config.yaml
+2022-08-08 01:37:03,397 INFO    Thread-25 :640 [upload_job.py:push():138] Uploaded file C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\fraud_online\wandb\run-20220808_013700-l5cojmsj\files\wandb-summary.json
+2022-08-08 01:37:03,399 DEBUG   HandlerThread:640 [handler.py:handle_request():141] handle_request: poll_exit
+2022-08-08 01:37:03,399 DEBUG   SenderThread:640 [sender.py:send_request():316] send_request: poll_exit
+2022-08-08 01:37:03,516 DEBUG   HandlerThread:640 [handler.py:handle_request():141] handle_request: poll_exit
+2022-08-08 01:37:03,517 DEBUG   SenderThread:640 [sender.py:send_request():316] send_request: poll_exit
+2022-08-08 01:37:03,608 INFO    Thread-15 :640 [sender.py:transition_state():459] send defer: 9
+2022-08-08 01:37:03,609 DEBUG   HandlerThread:640 [handler.py:handle_request():141] handle_request: defer
+2022-08-08 01:37:03,609 INFO    HandlerThread:640 [handler.py:handle_request_defer():164] handle defer: 9
+2022-08-08 01:37:03,610 DEBUG   SenderThread:640 [sender.py:send_request():316] send_request: defer
+2022-08-08 01:37:03,610 INFO    SenderThread:640 [sender.py:send_request_defer():455] handle sender defer: 9
+2022-08-08 01:37:03,625 DEBUG   HandlerThread:640 [handler.py:handle_request():141] handle_request: poll_exit
+2022-08-08 01:37:04,195 INFO    SenderThread:640 [sender.py:transition_state():459] send defer: 10
+2022-08-08 01:37:04,195 DEBUG   SenderThread:640 [sender.py:send_request():316] send_request: poll_exit
+2022-08-08 01:37:04,196 DEBUG   HandlerThread:640 [handler.py:handle_request():141] handle_request: defer
+2022-08-08 01:37:04,196 INFO    HandlerThread:640 [handler.py:handle_request_defer():164] handle defer: 10
+2022-08-08 01:37:04,196 DEBUG   SenderThread:640 [sender.py:send_request():316] send_request: defer
+2022-08-08 01:37:04,197 INFO    SenderThread:640 [sender.py:send_request_defer():455] handle sender defer: 10
+2022-08-08 01:37:04,197 INFO    SenderThread:640 [sender.py:transition_state():459] send defer: 11
+2022-08-08 01:37:04,198 DEBUG   SenderThread:640 [sender.py:send():302] send: final
+2022-08-08 01:37:04,199 DEBUG   SenderThread:640 [sender.py:send():302] send: footer
+2022-08-08 01:37:04,199 DEBUG   HandlerThread:640 [handler.py:handle_request():141] handle_request: defer
+2022-08-08 01:37:04,199 INFO    HandlerThread:640 [handler.py:handle_request_defer():164] handle defer: 11
+2022-08-08 01:37:04,199 DEBUG   SenderThread:640 [sender.py:send_request():316] send_request: defer
+2022-08-08 01:37:04,200 INFO    SenderThread:640 [sender.py:send_request_defer():455] handle sender defer: 11
+2022-08-08 01:37:04,308 DEBUG   HandlerThread:640 [handler.py:handle_request():141] handle_request: poll_exit
+2022-08-08 01:37:04,309 DEBUG   SenderThread:640 [sender.py:send_request():316] send_request: poll_exit
+2022-08-08 01:37:04,309 INFO    SenderThread:640 [file_pusher.py:join():176] waiting for file pusher
+2022-08-08 01:37:04,826 DEBUG   HandlerThread:640 [handler.py:handle_request():141] handle_request: sampled_history
+2022-08-08 01:37:04,831 DEBUG   HandlerThread:640 [handler.py:handle_request():141] handle_request: get_summary
+2022-08-08 01:37:04,835 DEBUG   HandlerThread:640 [handler.py:handle_request():141] handle_request: shutdown
+2022-08-08 01:37:04,835 INFO    HandlerThread:640 [handler.py:finish():810] shutting down handler
+2022-08-08 01:37:05,213 INFO    WriterThread:640 [datastore.py:close():279] close: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\fraud_online\wandb\run-20220808_013700-l5cojmsj\run-l5cojmsj.wandb
+2022-08-08 01:37:05,727 INFO    SenderThread:640 [sender.py:finish():1312] shutting down sender
+2022-08-08 01:37:05,728 INFO    SenderThread:640 [file_pusher.py:finish():171] shutting down file pusher
+2022-08-08 01:37:05,728 INFO    SenderThread:640 [file_pusher.py:join():176] waiting for file pusher
+2022-08-08 01:38:24,866 INFO    MainThread:640 [internal.py:handle_exit():80] Internal process exited

@@ -1,0 +1,77 @@
+2022-08-08 01:38:28,658 INFO    Thread-29 :15568 [wandb_setup.py:_flush():76] Configure stats pid to 15568
+2022-08-08 01:38:28,658 INFO    Thread-29 :15568 [wandb_setup.py:_flush():76] Loading settings from C:\Users\rkaha\.config\wandb\settings
+2022-08-08 01:38:28,658 INFO    Thread-29 :15568 [wandb_setup.py:_flush():76] Loading settings from wandb\settings
+2022-08-08 01:38:28,658 INFO    Thread-29 :15568 [wandb_setup.py:_flush():76] Loading settings from environment variables: {'_require_service': 'True', 'project': 'fraud_online', 'entity': 'rktraz_', 'root_dir': 'C:\\Users\\rkaha\\Documents\\hopsworks\\hopsworks-tutorials\\fraud_online', 'sweep_id': 'ijak1cpd', 'run_id': 'krkmlfcz', 'sweep_param_path': 'C:\\Users\\rkaha\\Documents\\hopsworks\\hopsworks-tutorials\\fraud_online\\wandb\\sweep-ijak1cpd\\config-krkmlfcz.yaml'}
+2022-08-08 01:38:28,662 INFO    Thread-29 :15568 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program': '<python with no main file>'}
+2022-08-08 01:38:28,662 INFO    Thread-29 :15568 [wandb_init.py:_log_setup():461] Logging user logs to C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\fraud_online\wandb\run-20220808_013828-krkmlfcz\logs\debug.log
+2022-08-08 01:38:28,663 INFO    Thread-29 :15568 [wandb_init.py:_log_setup():462] Logging internal logs to C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\fraud_online\wandb\run-20220808_013828-krkmlfcz\logs\debug-internal.log
+2022-08-08 01:38:28,663 INFO    Thread-29 :15568 [wandb_init.py:_jupyter_setup():411] configuring jupyter hooks <wandb.sdk.wandb_init._WandbInit object at 0x0000024083407B20>
+2022-08-08 01:38:28,663 INFO    Thread-29 :15568 [wandb_init.py:init():495] calling init triggers
+2022-08-08 01:38:28,663 INFO    Thread-29 :15568 [wandb_init.py:init():498] wandb.init called with sweep_config: {'criterion': 'gini', 'min_samples_split': 15, 'n_estimators': 150}
+config: {'n_estimators': 100, 'criterion': 'gini', 'min_samples_split': 10}
+2022-08-08 01:38:28,663 INFO    Thread-29 :15568 [wandb_init.py:init():548] starting backend
+2022-08-08 01:38:28,663 INFO    Thread-29 :15568 [wandb_init.py:init():552] setting up manager
+2022-08-08 01:38:28,672 INFO    Thread-29 :15568 [backend.py:_multiprocessing_setup():97] multiprocessing start_methods=spawn, using: spawn
+2022-08-08 01:38:28,685 INFO    Thread-29 :15568 [wandb_init.py:init():558] backend started and connected
+2022-08-08 01:38:28,719 INFO    Thread-29 :15568 [wandb_run.py:_config_callback():1152] config_cb None None {'criterion': 'gini', 'min_samples_split': 15, 'n_estimators': 150}
+2022-08-08 01:38:28,720 INFO    Thread-29 :15568 [wandb_run.py:_label_probe_notebook():1105] probe notebook
+2022-08-08 01:38:28,720 INFO    Thread-29 :15568 [wandb_run.py:_label_probe_notebook():1115] Unable to probe notebook: 'NoneType' object has no attribute 'get'
+2022-08-08 01:38:28,721 INFO    Thread-29 :15568 [wandb_init.py:init():636] updated telemetry
+2022-08-08 01:38:28,793 INFO    Thread-29 :15568 [wandb_init.py:init():667] communicating run to backend with 30 second timeout
+2022-08-08 01:38:29,290 INFO    Thread-29 :15568 [wandb_run.py:_on_init():1981] communicating current version
+2022-08-08 01:38:29,425 INFO    Thread-29 :15568 [wandb_run.py:_on_init():1985] got version response upgrade_message: "wandb version 0.13.1 is available!  To upgrade, please run:\n $ pip install wandb --upgrade"
+
+2022-08-08 01:38:29,426 INFO    Thread-29 :15568 [wandb_init.py:init():700] starting run threads in backend
+2022-08-08 01:38:29,659 INFO    Thread-29 :15568 [wandb_run.py:_console_start():1961] atexit reg
+2022-08-08 01:38:29,659 INFO    Thread-29 :15568 [wandb_run.py:_redirect():1819] redirect: SettingsConsole.WRAP_RAW
+2022-08-08 01:38:29,659 INFO    Thread-29 :15568 [wandb_run.py:_redirect():1884] Wrapping output streams.
+2022-08-08 01:38:29,659 INFO    Thread-29 :15568 [wandb_run.py:_redirect():1906] Redirects installed.
+2022-08-08 01:38:29,661 INFO    Thread-29 :15568 [wandb_init.py:init():732] run started, returning control to user process
+2022-08-08 01:38:44,047 INFO    Thread-29 :15568 [wandb_run.py:_config_callback():1152] config_cb ('_wandb', 'viz', 'feature_importances') {'id': 'wandb/feature_importances/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'feature_importances'}} None
+2022-08-08 01:38:44,760 INFO    Thread-29 :15568 [wandb_run.py:_config_callback():1152] config_cb ('_wandb', 'viz', 'confusion_matrix') {'id': 'wandb/confusion_matrix/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'confusion_matrix'}} None
+2022-08-08 01:38:46,835 INFO    Thread-29 :15568 [wandb_run.py:_config_callback():1152] config_cb ('_wandb', 'viz', 'summary_metrics') {'id': 'wandb/metrics/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'summary_metrics'}} None
+2022-08-08 01:38:47,128 INFO    Thread-29 :15568 [wandb_run.py:_config_callback():1152] config_cb ('_wandb', 'viz', 'class_proportions') {'id': 'wandb/class_proportions/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'class_proportions'}} None
+2022-08-08 01:39:06,539 INFO    Thread-29 :15568 [wandb_run.py:_config_callback():1152] config_cb ('_wandb', 'viz', 'calibration_curve') {'id': 'wandb/calibration/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'calibration_curve'}} None
+2022-08-08 01:39:06,959 INFO    Thread-29 :15568 [wandb_run.py:_config_callback():1152] config_cb ('_wandb', 'viz', 'roc') {'id': 'wandb/roc/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'roc'}} None
+2022-08-08 01:39:07,348 INFO    Thread-29 :15568 [wandb_run.py:_config_callback():1152] config_cb ('_wandb', 'viz', 'precision_recall') {'id': 'wandb/pr_curve/v1', 'historyFieldSettings': {'x-axis': '_step', 'key': 'precision_recall'}} None
+2022-08-08 01:39:07,633 INFO    Thread-29 :15568 [wandb_run.py:_finish():1727] finishing run rktraz_/fraud_online/krkmlfcz
+2022-08-08 01:39:07,633 INFO    Thread-29 :15568 [jupyter.py:save_history():435] not saving jupyter history
+2022-08-08 01:39:07,634 INFO    Thread-29 :15568 [jupyter.py:save_ipynb():377] not saving jupyter notebook
+2022-08-08 01:39:07,634 INFO    Thread-29 :15568 [wandb_init.py:_jupyter_teardown():393] cleaning up jupyter logic
+2022-08-08 01:39:07,635 INFO    Thread-29 :15568 [wandb_run.py:_atexit_cleanup():1930] got exitcode: 0
+2022-08-08 01:39:07,635 INFO    Thread-29 :15568 [wandb_run.py:_restore():1913] restore
+2022-08-08 01:39:07,636 INFO    Thread-29 :15568 [wandb_run.py:_restore():1919] restore done
+2022-08-08 01:39:08,245 INFO    Thread-29 :15568 [wandb_run.py:_on_finish():2220] got exit ret: file_counts {
+  wandb_count: 1
+  media_count: 6
+  artifact_count: 4
+}
+pusher_stats {
+  uploaded_bytes: 4379
+  total_bytes: 19070
+}
+
+2022-08-08 01:39:08,364 INFO    Thread-29 :15568 [wandb_run.py:_on_finish():2220] got exit ret: file_counts {
+  wandb_count: 1
+  media_count: 7
+  artifact_count: 4
+}
+pusher_stats {
+  uploaded_bytes: 4379
+  total_bytes: 20575
+}
+
+2022-08-08 01:39:13,475 INFO    Thread-29 :15568 [wandb_run.py:_on_finish():2220] got exit ret: None
+2022-08-08 01:39:18,593 INFO    Thread-29 :15568 [wandb_run.py:_on_finish():2220] got exit ret: None
+2022-08-08 01:39:23,715 INFO    Thread-29 :15568 [wandb_run.py:_on_finish():2220] got exit ret: None
+2022-08-08 01:39:28,837 INFO    Thread-29 :15568 [wandb_run.py:_on_finish():2220] got exit ret: None
+2022-08-08 01:39:33,948 INFO    Thread-29 :15568 [wandb_run.py:_on_finish():2220] got exit ret: None
+2022-08-08 01:39:39,063 INFO    Thread-29 :15568 [wandb_run.py:_on_finish():2220] got exit ret: None
+2022-08-08 01:39:42,437 WARNING MsgRouterThr:15568 [router.py:message_loop():76] message_loop has been closed
+2022-08-08 01:39:44,181 INFO    Thread-29 :15568 [wandb_run.py:_on_finish():2220] got exit ret: None
+2022-08-08 01:39:44,290 INFO    Thread-29 :15568 [wandb_run.py:_restore():1913] restore
+2022-08-08 01:39:44,290 INFO    Thread-29 :15568 [wandb_run.py:_restore():1919] restore done
+2022-08-08 01:39:44,291 INFO    Thread-29 :15568 [wandb_run.py:_finish():1727] finishing run rktraz_/fraud_online/krkmlfcz
+2022-08-08 01:39:44,292 INFO    Thread-29 :15568 [jupyter.py:save_history():435] not saving jupyter history
+2022-08-08 01:39:44,292 INFO    Thread-29 :15568 [jupyter.py:save_ipynb():377] not saving jupyter notebook
+2022-08-08 01:39:44,292 INFO    Thread-29 :15568 [wandb_init.py:_jupyter_teardown():393] cleaning up jupyter logic
