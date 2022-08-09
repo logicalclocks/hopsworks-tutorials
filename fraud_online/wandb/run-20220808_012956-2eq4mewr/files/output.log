@@ -1,0 +1,5 @@
+DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+Create sweep with ID: jop97qt1
+Sweep URL: https://wandb.ai/rktraz_/fraud_online/sweeps/jop97qt1
+[34m[1mwandb[39m[22m: [33mWARNING[39m Calling wandb.login() after wandb.init() has no effect.

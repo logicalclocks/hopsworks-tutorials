@@ -1,0 +1,228 @@
+2022-08-08 01:38:28,687 INFO    StreamThr :8088 [internal.py:wandb_internal():90] W&B internal server running at pid: 8088, started at: 2022-08-08 01:38:28.686517
+2022-08-08 01:38:28,690 DEBUG   HandlerThread:8088 [handler.py:handle_request():141] handle_request: status
+2022-08-08 01:38:28,694 DEBUG   SenderThread:8088 [sender.py:send_request():316] send_request: status
+2022-08-08 01:38:28,722 DEBUG   SenderThread:8088 [sender.py:send():302] send: header
+2022-08-08 01:38:28,722 INFO    WriterThread:8088 [datastore.py:open_for_write():75] open: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\fraud_online\wandb\run-20220808_013828-krkmlfcz\run-krkmlfcz.wandb
+2022-08-08 01:38:28,794 DEBUG   SenderThread:8088 [sender.py:send():302] send: run
+2022-08-08 01:38:29,291 DEBUG   HandlerThread:8088 [handler.py:handle_request():141] handle_request: check_version
+2022-08-08 01:38:29,292 INFO    SenderThread:8088 [dir_watcher.py:__init__():216] watching files in: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\fraud_online\wandb\run-20220808_013828-krkmlfcz\files
+2022-08-08 01:38:29,292 INFO    SenderThread:8088 [sender.py:_start_run_threads():913] run started: krkmlfcz with start time 1659915508.685513
+2022-08-08 01:38:29,292 DEBUG   SenderThread:8088 [sender.py:send():302] send: summary
+2022-08-08 01:38:29,293 INFO    SenderThread:8088 [sender.py:_save_file():1156] saving file wandb-summary.json with policy end
+2022-08-08 01:38:29,294 DEBUG   SenderThread:8088 [sender.py:send_request():316] send_request: check_version
+2022-08-08 01:38:29,440 DEBUG   HandlerThread:8088 [handler.py:handle_request():141] handle_request: run_start
+2022-08-08 01:38:29,463 DEBUG   HandlerThread:8088 [meta.py:__init__():35] meta init
+2022-08-08 01:38:29,463 DEBUG   HandlerThread:8088 [meta.py:__init__():50] meta init done
+2022-08-08 01:38:29,463 DEBUG   HandlerThread:8088 [meta.py:probe():216] probe
+2022-08-08 01:38:29,476 DEBUG   HandlerThread:8088 [meta.py:_setup_git():206] setup git
+2022-08-08 01:38:29,617 DEBUG   HandlerThread:8088 [meta.py:_setup_git():213] setup git done
+2022-08-08 01:38:29,617 DEBUG   HandlerThread:8088 [meta.py:_save_pip():54] save pip
+2022-08-08 01:38:29,618 DEBUG   HandlerThread:8088 [meta.py:_save_pip():68] save pip done
+2022-08-08 01:38:29,619 DEBUG   HandlerThread:8088 [meta.py:probe():254] probe done
+2022-08-08 01:38:29,736 DEBUG   SenderThread:8088 [sender.py:send():302] send: files
+2022-08-08 01:38:29,736 INFO    SenderThread:8088 [sender.py:_save_file():1156] saving file wandb-metadata.json with policy now
+2022-08-08 01:38:29,736 DEBUG   HandlerThread:8088 [handler.py:handle_request():141] handle_request: stop_status
+2022-08-08 01:38:29,738 DEBUG   SenderThread:8088 [sender.py:send_request():316] send_request: stop_status
+2022-08-08 01:38:29,977 DEBUG   SenderThread:8088 [sender.py:send():302] send: telemetry
+2022-08-08 01:38:30,307 INFO    Thread-16 :8088 [dir_watcher.py:_on_file_created():275] file/dir created: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\fraud_online\wandb\run-20220808_013828-krkmlfcz\files\wandb-summary.json
+2022-08-08 01:38:30,307 INFO    Thread-16 :8088 [dir_watcher.py:_on_file_created():275] file/dir created: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\fraud_online\wandb\run-20220808_013828-krkmlfcz\files\wandb-metadata.json
+2022-08-08 01:38:30,308 INFO    Thread-16 :8088 [dir_watcher.py:_on_file_created():275] file/dir created: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\fraud_online\wandb\run-20220808_013828-krkmlfcz\files\output.log
+2022-08-08 01:38:30,308 INFO    Thread-16 :8088 [dir_watcher.py:_on_file_created():275] file/dir created: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\fraud_online\wandb\run-20220808_013828-krkmlfcz\files\requirements.txt
+2022-08-08 01:38:30,454 INFO    Thread-22 :8088 [upload_job.py:push():138] Uploaded file C:\Users\rkaha\AppData\Local\Temp\tmpe409uvkqwandb\3lnb3svq-wandb-metadata.json
+2022-08-08 01:38:32,337 INFO    Thread-16 :8088 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\fraud_online\wandb\run-20220808_013828-krkmlfcz\files\output.log
+2022-08-08 01:38:43,881 DEBUG   HandlerThread:8088 [handler.py:handle_request():141] handle_request: partial_history
+2022-08-08 01:38:43,884 DEBUG   SenderThread:8088 [sender.py:send():302] send: history
+2022-08-08 01:38:43,886 DEBUG   SenderThread:8088 [sender.py:send():302] send: summary
+2022-08-08 01:38:43,889 INFO    SenderThread:8088 [sender.py:_save_file():1156] saving file wandb-summary.json with policy end
+2022-08-08 01:38:44,049 DEBUG   SenderThread:8088 [sender.py:send():302] send: config
+2022-08-08 01:38:44,291 DEBUG   HandlerThread:8088 [handler.py:handle_request():141] handle_request: log_artifact
+2022-08-08 01:38:44,292 DEBUG   SenderThread:8088 [sender.py:send_request():316] send_request: log_artifact
+2022-08-08 01:38:44,589 INFO    Thread-16 :8088 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\fraud_online\wandb\run-20220808_013828-krkmlfcz\files\wandb-summary.json
+2022-08-08 01:38:44,589 INFO    Thread-16 :8088 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\fraud_online\wandb\run-20220808_013828-krkmlfcz\files\output.log
+2022-08-08 01:38:44,589 INFO    Thread-16 :8088 [dir_watcher.py:_on_file_created():275] file/dir created: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\fraud_online\wandb\run-20220808_013828-krkmlfcz\files\media\table\feature_importances_1_b63f9be6ff10679b561a.table.json
+2022-08-08 01:38:44,590 INFO    Thread-16 :8088 [dir_watcher.py:_on_file_created():275] file/dir created: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\fraud_online\wandb\run-20220808_013828-krkmlfcz\files\media\table
+2022-08-08 01:38:44,590 INFO    Thread-16 :8088 [dir_watcher.py:_on_file_created():275] file/dir created: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\fraud_online\wandb\run-20220808_013828-krkmlfcz\files\media
+2022-08-08 01:38:44,740 DEBUG   HandlerThread:8088 [handler.py:handle_request():141] handle_request: partial_history
+2022-08-08 01:38:44,983 DEBUG   HandlerThread:8088 [handler.py:handle_request():141] handle_request: stop_status
+2022-08-08 01:38:45,009 DEBUG   HandlerThread:8088 [handler.py:handle_request():141] handle_request: log_artifact
+2022-08-08 01:38:45,032 DEBUG   HandlerThread:8088 [handler.py:handle_request():141] handle_request: partial_history
+2022-08-08 01:38:45,598 INFO    Thread-16 :8088 [dir_watcher.py:_on_file_created():275] file/dir created: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\fraud_online\wandb\run-20220808_013828-krkmlfcz\files\media\table\confusion_matrix_2_345eacd00c8f1257b7fd.table.json
+2022-08-08 01:38:45,599 INFO    Thread-16 :8088 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\fraud_online\wandb\run-20220808_013828-krkmlfcz\files\media\table
+2022-08-08 01:38:45,839 INFO    Thread-24 :8088 [upload_job.py:push():96] Uploaded file C:\Users\rkaha\.cache\wandb\artifacts\obj\md5\00\a2bcbaa2eb13eb1495e1f492e8087d
+2022-08-08 01:38:46,615 INFO    Thread-16 :8088 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\fraud_online\wandb\run-20220808_013828-krkmlfcz\files\output.log
+2022-08-08 01:38:46,836 INFO    SenderThread:8088 [sender.py:send_request_log_artifact():1207] logged artifact run-krkmlfcz-feature_importances - {'id': 'QXJ0aWZhY3Q6MTY5NTE2Mzc5', 'digest': '6298edb322548eccb408714d954510d2', 'state': 'PENDING', 'aliases': [], 'artifactSequence': {'id': 'QXJ0aWZhY3RDb2xsZWN0aW9uOjI1NDE3NTEy', 'latestArtifact': None}, 'version': 'latest'}
+2022-08-08 01:38:46,837 DEBUG   SenderThread:8088 [sender.py:send():302] send: files
+2022-08-08 01:38:46,837 INFO    SenderThread:8088 [sender.py:_save_file():1156] saving file media\table\feature_importances_1_b63f9be6ff10679b561a.table.json with policy now
+2022-08-08 01:38:46,839 DEBUG   SenderThread:8088 [sender.py:send():302] send: history
+2022-08-08 01:38:46,840 DEBUG   SenderThread:8088 [sender.py:send():302] send: summary
+2022-08-08 01:38:46,841 INFO    SenderThread:8088 [sender.py:_save_file():1156] saving file wandb-summary.json with policy end
+2022-08-08 01:38:46,841 DEBUG   SenderThread:8088 [sender.py:send():302] send: config
+2022-08-08 01:38:46,841 DEBUG   SenderThread:8088 [sender.py:send_request():316] send_request: stop_status
+2022-08-08 01:38:47,074 DEBUG   SenderThread:8088 [sender.py:send_request():316] send_request: log_artifact
+2022-08-08 01:38:47,086 DEBUG   HandlerThread:8088 [handler.py:handle_request():141] handle_request: log_artifact
+2022-08-08 01:38:47,109 DEBUG   HandlerThread:8088 [handler.py:handle_request():141] handle_request: partial_history
+2022-08-08 01:38:47,541 DEBUG   HandlerThread:8088 [handler.py:handle_request():141] handle_request: log_artifact
+2022-08-08 01:38:47,566 DEBUG   HandlerThread:8088 [handler.py:handle_request():141] handle_request: partial_history
+2022-08-08 01:38:47,616 INFO    Thread-16 :8088 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\fraud_online\wandb\run-20220808_013828-krkmlfcz\files\wandb-summary.json
+2022-08-08 01:38:47,617 INFO    Thread-16 :8088 [dir_watcher.py:_on_file_created():275] file/dir created: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\fraud_online\wandb\run-20220808_013828-krkmlfcz\files\media\table\summary_metrics_3_ef7546364c139e746b09.table.json
+2022-08-08 01:38:47,617 INFO    Thread-16 :8088 [dir_watcher.py:_on_file_created():275] file/dir created: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\fraud_online\wandb\run-20220808_013828-krkmlfcz\files\media\table\class_proportions_4_edd544981c4a0ddfe9b1.table.json
+2022-08-08 01:38:47,617 INFO    Thread-16 :8088 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\fraud_online\wandb\run-20220808_013828-krkmlfcz\files\media\table
+2022-08-08 01:38:47,754 INFO    Thread-25 :8088 [upload_job.py:push():138] Uploaded file C:\Users\rkaha\AppData\Local\Temp\tmpe409uvkqwandb\3t9nw912-media/table/feature_importances_1_b63f9be6ff10679b561a.table.json
+2022-08-08 01:38:48,627 INFO    Thread-16 :8088 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\fraud_online\wandb\run-20220808_013828-krkmlfcz\files\output.log
+2022-08-08 01:38:49,046 INFO    Thread-27 :8088 [upload_job.py:push():96] Uploaded file C:\Users\rkaha\.cache\wandb\artifacts\obj\md5\00\55fddfa4ae4934dd949a2482af17c8
+2022-08-08 01:38:50,093 INFO    SenderThread:8088 [sender.py:send_request_log_artifact():1207] logged artifact run-krkmlfcz-confusion_matrix - {'id': 'QXJ0aWZhY3Q6MTY5NTE2NDAx', 'digest': '925d9cabb449c6d0dd17b0c936bc2723', 'state': 'PENDING', 'aliases': [], 'artifactSequence': {'id': 'QXJ0aWZhY3RDb2xsZWN0aW9uOjI1NDE3NTE1', 'latestArtifact': None}, 'version': 'latest'}
+2022-08-08 01:38:50,094 DEBUG   SenderThread:8088 [sender.py:send():302] send: files
+2022-08-08 01:38:50,094 INFO    SenderThread:8088 [sender.py:_save_file():1156] saving file media\table\confusion_matrix_2_345eacd00c8f1257b7fd.table.json with policy now
+2022-08-08 01:38:50,095 DEBUG   SenderThread:8088 [sender.py:send():302] send: history
+2022-08-08 01:38:50,096 DEBUG   SenderThread:8088 [sender.py:send():302] send: summary
+2022-08-08 01:38:50,097 INFO    SenderThread:8088 [sender.py:_save_file():1156] saving file wandb-summary.json with policy end
+2022-08-08 01:38:50,099 DEBUG   SenderThread:8088 [sender.py:send():302] send: config
+2022-08-08 01:38:50,100 DEBUG   SenderThread:8088 [sender.py:send_request():316] send_request: log_artifact
+2022-08-08 01:38:50,651 INFO    Thread-16 :8088 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\fraud_online\wandb\run-20220808_013828-krkmlfcz\files\wandb-summary.json
+2022-08-08 01:38:50,651 INFO    Thread-16 :8088 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\fraud_online\wandb\run-20220808_013828-krkmlfcz\files\output.log
+2022-08-08 01:38:50,914 INFO    Thread-28 :8088 [upload_job.py:push():138] Uploaded file C:\Users\rkaha\AppData\Local\Temp\tmpe409uvkqwandb\20locq6j-media/table/confusion_matrix_2_345eacd00c8f1257b7fd.table.json
+2022-08-08 01:38:51,632 INFO    Thread-30 :8088 [upload_job.py:push():96] Uploaded file C:\Users\rkaha\.cache\wandb\artifacts\obj\md5\61\c957bb59fffbb64d5609977b59b9a2
+2022-08-08 01:38:52,655 INFO    SenderThread:8088 [sender.py:send_request_log_artifact():1207] logged artifact run-krkmlfcz-summary_metrics - {'id': 'QXJ0aWZhY3Q6MTY5NTE2NDIy', 'digest': '7624c48f72ae523491d8aaf09b24084c', 'state': 'PENDING', 'aliases': [], 'artifactSequence': {'id': 'QXJ0aWZhY3RDb2xsZWN0aW9uOjI1NDE3NTE3', 'latestArtifact': None}, 'version': 'latest'}
+2022-08-08 01:38:52,655 DEBUG   SenderThread:8088 [sender.py:send():302] send: files
+2022-08-08 01:38:52,657 INFO    SenderThread:8088 [sender.py:_save_file():1156] saving file media\table\summary_metrics_3_ef7546364c139e746b09.table.json with policy now
+2022-08-08 01:38:52,659 DEBUG   SenderThread:8088 [sender.py:send():302] send: history
+2022-08-08 01:38:52,661 DEBUG   SenderThread:8088 [sender.py:send():302] send: summary
+2022-08-08 01:38:52,668 INFO    SenderThread:8088 [sender.py:_save_file():1156] saving file wandb-summary.json with policy end
+2022-08-08 01:38:52,669 DEBUG   SenderThread:8088 [sender.py:send():302] send: config
+2022-08-08 01:38:52,670 DEBUG   SenderThread:8088 [sender.py:send_request():316] send_request: log_artifact
+2022-08-08 01:38:52,704 INFO    Thread-16 :8088 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\fraud_online\wandb\run-20220808_013828-krkmlfcz\files\wandb-summary.json
+2022-08-08 01:38:53,447 INFO    Thread-31 :8088 [upload_job.py:push():138] Uploaded file C:\Users\rkaha\AppData\Local\Temp\tmpe409uvkqwandb\bh6amm6c-media/table/summary_metrics_3_ef7546364c139e746b09.table.json
+2022-08-08 01:38:54,285 INFO    Thread-33 :8088 [upload_job.py:push():96] Uploaded file C:\Users\rkaha\.cache\wandb\artifacts\obj\md5\c0\38edb3f377cafffbd920633d21d29a
+2022-08-08 01:38:54,777 INFO    Thread-16 :8088 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\fraud_online\wandb\run-20220808_013828-krkmlfcz\files\output.log
+2022-08-08 01:38:56,045 INFO    SenderThread:8088 [sender.py:send_request_log_artifact():1207] logged artifact run-krkmlfcz-class_proportions - {'id': 'QXJ0aWZhY3Q6MTY5NTE2NDQz', 'digest': '3ae4b7f6910e556c47a77cb9751a0ce1', 'state': 'PENDING', 'aliases': [], 'artifactSequence': {'id': 'QXJ0aWZhY3RDb2xsZWN0aW9uOjI1NDE3NTIw', 'latestArtifact': None}, 'version': 'latest'}
+2022-08-08 01:38:56,045 DEBUG   SenderThread:8088 [sender.py:send():302] send: files
+2022-08-08 01:38:56,046 INFO    SenderThread:8088 [sender.py:_save_file():1156] saving file media\table\class_proportions_4_edd544981c4a0ddfe9b1.table.json with policy now
+2022-08-08 01:38:56,048 DEBUG   SenderThread:8088 [sender.py:send():302] send: history
+2022-08-08 01:38:56,048 DEBUG   SenderThread:8088 [sender.py:send():302] send: summary
+2022-08-08 01:38:56,052 INFO    SenderThread:8088 [sender.py:_save_file():1156] saving file wandb-summary.json with policy end
+2022-08-08 01:38:56,852 INFO    Thread-16 :8088 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\fraud_online\wandb\run-20220808_013828-krkmlfcz\files\wandb-summary.json
+2022-08-08 01:38:56,866 INFO    Thread-34 :8088 [upload_job.py:push():138] Uploaded file C:\Users\rkaha\AppData\Local\Temp\tmpe409uvkqwandb\29ylr3ff-media/table/class_proportions_4_edd544981c4a0ddfe9b1.table.json
+2022-08-08 01:38:58,902 INFO    Thread-16 :8088 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\fraud_online\wandb\run-20220808_013828-krkmlfcz\files\output.log
+2022-08-08 01:38:59,917 INFO    Thread-16 :8088 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\fraud_online\wandb\run-20220808_013828-krkmlfcz\files\config.yaml
+2022-08-08 01:39:02,095 DEBUG   HandlerThread:8088 [handler.py:handle_request():141] handle_request: stop_status
+2022-08-08 01:39:02,096 DEBUG   SenderThread:8088 [sender.py:send_request():316] send_request: stop_status
+2022-08-08 01:39:02,997 INFO    Thread-16 :8088 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\fraud_online\wandb\run-20220808_013828-krkmlfcz\files\output.log
+2022-08-08 01:39:03,649 DEBUG   SenderThread:8088 [sender.py:send():302] send: stats
+2022-08-08 01:39:05,058 INFO    Thread-16 :8088 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\fraud_online\wandb\run-20220808_013828-krkmlfcz\files\output.log
+2022-08-08 01:39:06,540 DEBUG   SenderThread:8088 [sender.py:send():302] send: config
+2022-08-08 01:39:06,787 DEBUG   HandlerThread:8088 [handler.py:handle_request():141] handle_request: log_artifact
+2022-08-08 01:39:06,787 DEBUG   SenderThread:8088 [sender.py:send_request():316] send_request: log_artifact
+2022-08-08 01:39:06,824 DEBUG   HandlerThread:8088 [handler.py:handle_request():141] handle_request: partial_history
+2022-08-08 01:39:07,091 INFO    Thread-16 :8088 [dir_watcher.py:_on_file_created():275] file/dir created: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\fraud_online\wandb\run-20220808_013828-krkmlfcz\files\media\table\calibration_curve_5_9c57b4acf172cbbcd81e.table.json
+2022-08-08 01:39:07,092 INFO    Thread-16 :8088 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\fraud_online\wandb\run-20220808_013828-krkmlfcz\files\media\table
+2022-08-08 01:39:07,215 DEBUG   HandlerThread:8088 [handler.py:handle_request():141] handle_request: log_artifact
+2022-08-08 01:39:07,239 ERROR   SenderThread:8088 [internal_api.py:execute():207] 404 response executing GraphQL.
+2022-08-08 01:39:07,240 ERROR   SenderThread:8088 [internal_api.py:execute():208] {"errors":[{"message":"failed to find run fraud_online/krkmlfcz","path":["createArtifact"]}],"data":{"createArtifact":null}}
+2022-08-08 01:39:07,253 DEBUG   SenderThread:8088 [sender.py:send():302] send: files
+2022-08-08 01:39:07,253 INFO    SenderThread:8088 [sender.py:_save_file():1156] saving file media\table\calibration_curve_5_9c57b4acf172cbbcd81e.table.json with policy now
+2022-08-08 01:39:07,256 DEBUG   HandlerThread:8088 [handler.py:handle_request():141] handle_request: partial_history
+2022-08-08 01:39:07,257 DEBUG   SenderThread:8088 [sender.py:send():302] send: history
+2022-08-08 01:39:07,258 DEBUG   SenderThread:8088 [sender.py:send():302] send: summary
+2022-08-08 01:39:07,261 INFO    SenderThread:8088 [sender.py:_save_file():1156] saving file wandb-summary.json with policy end
+2022-08-08 01:39:07,263 DEBUG   SenderThread:8088 [sender.py:send():302] send: telemetry
+2022-08-08 01:39:07,264 DEBUG   SenderThread:8088 [sender.py:send():302] send: config
+2022-08-08 01:39:07,265 DEBUG   SenderThread:8088 [sender.py:send_request():316] send_request: log_artifact
+2022-08-08 01:39:07,592 DEBUG   HandlerThread:8088 [handler.py:handle_request():141] handle_request: log_artifact
+2022-08-08 01:39:07,625 DEBUG   HandlerThread:8088 [handler.py:handle_request():141] handle_request: partial_history
+2022-08-08 01:39:07,641 DEBUG   HandlerThread:8088 [handler.py:handle_request():141] handle_request: poll_exit
+2022-08-08 01:39:07,720 ERROR   SenderThread:8088 [internal_api.py:execute():207] 404 response executing GraphQL.
+2022-08-08 01:39:07,721 ERROR   SenderThread:8088 [internal_api.py:execute():208] {"errors":[{"message":"failed to find run fraud_online/krkmlfcz","path":["createArtifact"]}],"data":{"createArtifact":null}}
+2022-08-08 01:39:07,723 DEBUG   SenderThread:8088 [sender.py:send():302] send: files
+2022-08-08 01:39:07,723 INFO    SenderThread:8088 [sender.py:_save_file():1156] saving file media\table\roc_6_efc71763adfd6a65228a.table.json with policy now
+2022-08-08 01:39:07,725 DEBUG   SenderThread:8088 [sender.py:send():302] send: history
+2022-08-08 01:39:07,726 DEBUG   SenderThread:8088 [sender.py:send():302] send: summary
+2022-08-08 01:39:07,727 INFO    SenderThread:8088 [sender.py:_save_file():1156] saving file wandb-summary.json with policy end
+2022-08-08 01:39:07,728 DEBUG   SenderThread:8088 [sender.py:send():302] send: config
+2022-08-08 01:39:07,729 DEBUG   SenderThread:8088 [sender.py:send_request():316] send_request: log_artifact
+2022-08-08 01:39:08,104 INFO    Thread-16 :8088 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\fraud_online\wandb\run-20220808_013828-krkmlfcz\files\wandb-summary.json
+2022-08-08 01:39:08,105 INFO    Thread-16 :8088 [dir_watcher.py:_on_file_created():275] file/dir created: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\fraud_online\wandb\run-20220808_013828-krkmlfcz\files\media\table\precision_recall_7_e7923d077818034c3e4f.table.json
+2022-08-08 01:39:08,105 INFO    Thread-16 :8088 [dir_watcher.py:_on_file_created():275] file/dir created: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\fraud_online\wandb\run-20220808_013828-krkmlfcz\files\media\table\roc_6_efc71763adfd6a65228a.table.json
+2022-08-08 01:39:08,106 INFO    Thread-16 :8088 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\fraud_online\wandb\run-20220808_013828-krkmlfcz\files\media\table
+2022-08-08 01:39:08,220 ERROR   SenderThread:8088 [internal_api.py:execute():207] 404 response executing GraphQL.
+2022-08-08 01:39:08,220 ERROR   SenderThread:8088 [internal_api.py:execute():208] {"errors":[{"message":"failed to find run fraud_online/krkmlfcz","path":["createArtifact"]}],"data":{"createArtifact":null}}
+2022-08-08 01:39:08,224 DEBUG   SenderThread:8088 [sender.py:send():302] send: files
+2022-08-08 01:39:08,224 INFO    SenderThread:8088 [sender.py:_save_file():1156] saving file media\table\precision_recall_7_e7923d077818034c3e4f.table.json with policy now
+2022-08-08 01:39:08,226 DEBUG   SenderThread:8088 [sender.py:send():302] send: history
+2022-08-08 01:39:08,227 DEBUG   SenderThread:8088 [sender.py:send():302] send: summary
+2022-08-08 01:39:08,229 INFO    SenderThread:8088 [sender.py:_save_file():1156] saving file wandb-summary.json with policy end
+2022-08-08 01:39:08,230 DEBUG   SenderThread:8088 [sender.py:send():302] send: telemetry
+2022-08-08 01:39:08,230 DEBUG   SenderThread:8088 [sender.py:send():302] send: exit
+2022-08-08 01:39:08,230 INFO    SenderThread:8088 [sender.py:send_exit():438] handling exit code: 0
+2022-08-08 01:39:08,231 INFO    SenderThread:8088 [sender.py:send_exit():440] handling runtime: 38
+2022-08-08 01:39:08,232 INFO    SenderThread:8088 [sender.py:_save_file():1156] saving file wandb-summary.json with policy end
+2022-08-08 01:39:08,233 INFO    SenderThread:8088 [sender.py:send_exit():446] send defer
+2022-08-08 01:39:08,233 DEBUG   SenderThread:8088 [sender.py:send_request():316] send_request: poll_exit
+2022-08-08 01:39:08,235 DEBUG   HandlerThread:8088 [handler.py:handle_request():141] handle_request: defer
+2022-08-08 01:39:08,235 INFO    HandlerThread:8088 [handler.py:handle_request_defer():164] handle defer: 0
+2022-08-08 01:39:08,236 DEBUG   SenderThread:8088 [sender.py:send_request():316] send_request: defer
+2022-08-08 01:39:08,236 INFO    SenderThread:8088 [sender.py:send_request_defer():455] handle sender defer: 0
+2022-08-08 01:39:08,236 INFO    SenderThread:8088 [sender.py:transition_state():459] send defer: 1
+2022-08-08 01:39:08,244 DEBUG   HandlerThread:8088 [handler.py:handle_request():141] handle_request: defer
+2022-08-08 01:39:08,244 INFO    HandlerThread:8088 [handler.py:handle_request_defer():164] handle defer: 1
+2022-08-08 01:39:08,356 DEBUG   SenderThread:8088 [sender.py:send_request():316] send_request: defer
+2022-08-08 01:39:08,357 INFO    SenderThread:8088 [sender.py:send_request_defer():455] handle sender defer: 1
+2022-08-08 01:39:08,357 INFO    SenderThread:8088 [sender.py:transition_state():459] send defer: 2
+2022-08-08 01:39:08,358 DEBUG   SenderThread:8088 [sender.py:send():302] send: stats
+2022-08-08 01:39:08,359 DEBUG   HandlerThread:8088 [handler.py:handle_request():141] handle_request: defer
+2022-08-08 01:39:08,359 INFO    HandlerThread:8088 [handler.py:handle_request_defer():164] handle defer: 2
+2022-08-08 01:39:08,359 DEBUG   SenderThread:8088 [sender.py:send_request():316] send_request: defer
+2022-08-08 01:39:08,359 INFO    SenderThread:8088 [sender.py:send_request_defer():455] handle sender defer: 2
+2022-08-08 01:39:08,360 INFO    SenderThread:8088 [sender.py:transition_state():459] send defer: 3
+2022-08-08 01:39:08,360 DEBUG   HandlerThread:8088 [handler.py:handle_request():141] handle_request: poll_exit
+2022-08-08 01:39:08,360 DEBUG   SenderThread:8088 [sender.py:send_request():316] send_request: poll_exit
+2022-08-08 01:39:08,361 DEBUG   HandlerThread:8088 [handler.py:handle_request():141] handle_request: defer
+2022-08-08 01:39:08,361 INFO    HandlerThread:8088 [handler.py:handle_request_defer():164] handle defer: 3
+2022-08-08 01:39:08,362 DEBUG   SenderThread:8088 [sender.py:send_request():316] send_request: defer
+2022-08-08 01:39:08,363 INFO    SenderThread:8088 [sender.py:send_request_defer():455] handle sender defer: 3
+2022-08-08 01:39:08,363 INFO    SenderThread:8088 [sender.py:transition_state():459] send defer: 4
+2022-08-08 01:39:08,364 DEBUG   HandlerThread:8088 [handler.py:handle_request():141] handle_request: defer
+2022-08-08 01:39:08,364 INFO    HandlerThread:8088 [handler.py:handle_request_defer():164] handle defer: 4
+2022-08-08 01:39:08,365 DEBUG   SenderThread:8088 [sender.py:send():302] send: summary
+2022-08-08 01:39:08,366 INFO    SenderThread:8088 [sender.py:_save_file():1156] saving file wandb-summary.json with policy end
+2022-08-08 01:39:08,367 DEBUG   SenderThread:8088 [sender.py:send_request():316] send_request: defer
+2022-08-08 01:39:08,367 INFO    SenderThread:8088 [sender.py:send_request_defer():455] handle sender defer: 4
+2022-08-08 01:39:08,367 INFO    SenderThread:8088 [sender.py:transition_state():459] send defer: 5
+2022-08-08 01:39:08,368 DEBUG   HandlerThread:8088 [handler.py:handle_request():141] handle_request: defer
+2022-08-08 01:39:08,368 INFO    HandlerThread:8088 [handler.py:handle_request_defer():164] handle defer: 5
+2022-08-08 01:39:08,368 DEBUG   SenderThread:8088 [sender.py:send_request():316] send_request: defer
+2022-08-08 01:39:08,368 INFO    SenderThread:8088 [sender.py:send_request_defer():455] handle sender defer: 5
+2022-08-08 01:39:08,473 DEBUG   HandlerThread:8088 [handler.py:handle_request():141] handle_request: poll_exit
+2022-08-08 01:39:08,631 ERROR   SenderThread:8088 [internal_api.py:execute():207] 409 response executing GraphQL.
+2022-08-08 01:39:08,631 ERROR   SenderThread:8088 [internal_api.py:execute():208] {"errors":[{"message":"Error 1062: Duplicate entry '36802079-krkmlfcz' for key 'PRIMARY'","path":["upsertBucket"]}],"data":{"upsertBucket":null}}
+2022-08-08 01:39:09,111 INFO    Thread-16 :8088 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\fraud_online\wandb\run-20220808_013828-krkmlfcz\files\wandb-summary.json
+2022-08-08 01:39:09,112 INFO    Thread-16 :8088 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\fraud_online\wandb\run-20220808_013828-krkmlfcz\files\output.log
+2022-08-08 01:39:10,270 ERROR   SenderThread:8088 [internal_api.py:execute():207] 409 response executing GraphQL.
+2022-08-08 01:39:10,271 ERROR   SenderThread:8088 [internal_api.py:execute():208] {"errors":[{"message":"Error 1062: Duplicate entry '36802079-krkmlfcz' for key 'PRIMARY'","path":["upsertBucket"]}],"data":{"upsertBucket":null}}
+2022-08-08 01:39:11,140 INFO    Thread-16 :8088 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Users\rkaha\Documents\hopsworks\hopsworks-tutorials\fraud_online\wandb\run-20220808_013828-krkmlfcz\files\output.log
+2022-08-08 01:39:12,841 ERROR   SenderThread:8088 [internal_api.py:execute():207] 409 response executing GraphQL.
+2022-08-08 01:39:12,841 ERROR   SenderThread:8088 [internal_api.py:execute():208] {"errors":[{"message":"Error 1062: Duplicate entry '36802079-krkmlfcz' for key 'PRIMARY'","path":["upsertBucket"]}],"data":{"upsertBucket":null}}
+2022-08-08 01:39:12,843 ERROR   SenderThread:8088 [retry.py:__call__():154] Retry attempt failed:
+Traceback (most recent call last):
+  File "C:\Users\rkaha\Documents\hopsworks\venv38\lib\site-packages\wandb\sdk\lib\retry.py", line 113, in __call__
+    result = self._call_fn(*args, **kwargs)
+  File "C:\Users\rkaha\Documents\hopsworks\venv38\lib\site-packages\wandb\sdk\internal\internal_api.py", line 204, in execute
+    return self.client.execute(*args, **kwargs)  # type: ignore
+  File "C:\Users\rkaha\Documents\hopsworks\venv38\lib\site-packages\wandb\vendor\gql-0.2.0\wandb_gql\client.py", line 52, in execute
+    result = self._get_result(document, *args, **kwargs)
+  File "C:\Users\rkaha\Documents\hopsworks\venv38\lib\site-packages\wandb\vendor\gql-0.2.0\wandb_gql\client.py", line 60, in _get_result
+    return self.transport.execute(document, *args, **kwargs)
+  File "C:\Users\rkaha\Documents\hopsworks\venv38\lib\site-packages\wandb\vendor\gql-0.2.0\wandb_gql\transport\requests.py", line 39, in execute
+    request.raise_for_status()
+  File "C:\Users\rkaha\Documents\hopsworks\venv38\lib\site-packages\requests\models.py", line 1021, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 409 Client Error: Conflict for url: https://api.wandb.ai/graphql
+2022-08-08 01:39:13,583 DEBUG   HandlerThread:8088 [handler.py:handle_request():141] handle_request: poll_exit
+2022-08-08 01:39:17,423 ERROR   SenderThread:8088 [internal_api.py:execute():207] 409 response executing GraphQL.
+2022-08-08 01:39:17,424 ERROR   SenderThread:8088 [internal_api.py:execute():208] {"errors":[{"message":"Error 1062: Duplicate entry '36802079-krkmlfcz' for key 'PRIMARY'","path":["upsertBucket"]}],"data":{"upsertBucket":null}}
+2022-08-08 01:39:18,703 DEBUG   HandlerThread:8088 [handler.py:handle_request():141] handle_request: poll_exit
+2022-08-08 01:39:23,828 DEBUG   HandlerThread:8088 [handler.py:handle_request():141] handle_request: poll_exit
+2022-08-08 01:39:27,109 ERROR   SenderThread:8088 [internal_api.py:execute():207] 409 response executing GraphQL.
+2022-08-08 01:39:27,109 ERROR   SenderThread:8088 [internal_api.py:execute():208] {"errors":[{"message":"Error 1062: Duplicate entry '36802079-krkmlfcz' for key 'PRIMARY'","path":["upsertBucket"]}],"data":{"upsertBucket":null}}
+2022-08-08 01:39:28,949 DEBUG   HandlerThread:8088 [handler.py:handle_request():141] handle_request: poll_exit
+2022-08-08 01:39:34,057 DEBUG   HandlerThread:8088 [handler.py:handle_request():141] handle_request: poll_exit
+2022-08-08 01:39:39,173 DEBUG   HandlerThread:8088 [handler.py:handle_request():141] handle_request: poll_exit

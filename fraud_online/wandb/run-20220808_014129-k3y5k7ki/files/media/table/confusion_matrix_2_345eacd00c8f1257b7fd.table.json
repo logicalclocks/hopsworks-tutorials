@@ -1,0 +1,1 @@
+{"columns": ["Predicted", "Actual", "Count"], "data": [["loc_delta_t_plus_1", "loc_delta_t_plus_1", 84740], ["loc_delta_t_plus_1", "loc_delta_t_minus_1", 0], ["loc_delta_t_minus_1", "loc_delta_t_plus_1", 0], ["loc_delta_t_minus_1", "loc_delta_t_minus_1", 63]]}
