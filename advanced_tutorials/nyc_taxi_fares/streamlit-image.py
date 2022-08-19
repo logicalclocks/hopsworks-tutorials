@@ -85,7 +85,6 @@ def process_input_vector(pickup_latitude, pickup_longitude, dropoff_latitude, dr
     df['year'] = df.pickup_datetime.apply(lambda t: t.year)
     df['weekday'] = df.pickup_datetime.apply(lambda t: t.weekday())
     df['hour'] = df.pickup_datetime.apply(lambda t: t.hour)
-    df["month_of_the_ride"] = df["pickup_datetime"].dt.strftime('%Y%m')
     df["pickup_datetime"] = df["pickup_datetime"].values.astype(np.int64) // 10 ** 6
 
     return df.drop(columns=['pickup_latitude', 'pickup_longitude',
