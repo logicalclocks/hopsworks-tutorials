@@ -1,5 +1,4 @@
 parsedatetime
-secrets
 hsfs[python]
 hopsworks
 scikit-learn
