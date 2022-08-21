@@ -2,6 +2,13 @@
 .DS_Store
 .idea
 hops
+
+**/**/artifacts/
+**/**/config.yaml
+**/**/**.model*
+**/**/wandb-metadata.json
+**/**/wandb/
+
 **/.hw_api_key
 **/*.pkl
 **/**predict_example.py

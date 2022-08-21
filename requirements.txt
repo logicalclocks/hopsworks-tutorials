@@ -1,0 +1,8 @@
+parsedatetime
+hsfs[python]
+hopsworks
+scikit-learn
+plotly
+pandas
+numpy
+

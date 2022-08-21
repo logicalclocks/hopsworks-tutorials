@@ -1,0 +1,30 @@
+name: nyc_data_ingestion_action
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '24 */6 * * *'
+
+jobs:
+  test_schedule:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v2
+
+      - name: setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8.1'
+
+      - name: install python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: execute python workflows from bash script
+        env:
+          HOPSWORKS_API_KEY: ${{ secrets.HOPSWORKS_API_KEY }}
+        run: ./scripts/run-nyc-data-ingestion-pipelines-every-6-hrs.sh
+
+      
