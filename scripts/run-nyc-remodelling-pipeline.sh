@@ -1,10 +1,10 @@
 #!/bin/bash
 
 set -e
-
-cd ../advanced_tutorials/nyc_taxi_fares
-
 echo "$PWD"
+
+cd advanced_tutorials/nyc_taxi_fares
+
 
 echo "Remodelling pipeline starts."
 
