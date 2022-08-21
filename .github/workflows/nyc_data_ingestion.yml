@@ -1,9 +1,9 @@
-name: nyc_data_ingestion_action
+name: nyc-data-ingestion-action
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: '24 */6 * * *'
+    - cron: '0 30 * * *?'
 
 jobs:
   test_schedule:
@@ -25,6 +25,4 @@ jobs:
       - name: execute python workflows from bash script
         env:
           HOPSWORKS_API_KEY: ${{ secrets.HOPSWORKS_API_KEY }}
-        run: ./scripts/run-nyc-data-ingestion-pipelines-every-6-hrs.sh
-
-      
+        run: ./scripts/run-nyc-data-ingestion-pipelines.sh
