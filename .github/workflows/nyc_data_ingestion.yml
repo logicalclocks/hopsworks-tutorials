@@ -3,7 +3,7 @@ name: nyc-data-ingestion-action
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 30 * * *?'
+    - cron: '30 * * * *'
 
 jobs:
   test_schedule:
