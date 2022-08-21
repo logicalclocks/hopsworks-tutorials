@@ -200,7 +200,7 @@ expectation_suite_profiler, _ = ge_profiler.profile(ge.from_pandas(df_rides)) # 
 
 
 for col in ["passenger_count", "taxi_id", "driver_id"]:
-    df_rides[col] = df_rides[col].astype("int")
+    df_rides[col] = df_rides[col].astype("int32")
 
 
 # In[17]:
