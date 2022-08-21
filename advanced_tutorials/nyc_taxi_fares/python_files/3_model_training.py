@@ -2,20 +2,20 @@
 # coding: utf-8
 
 # ![hopsworks_logo](../../images/hopsworks_logo.png)
-# 
+#
 # # Part 03: Model training & UI Exploration
-# 
+#
 # [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/logicalclocks/hopsworks-tutorials/blob/master/fraud_online/3_model_training.ipynb)
-# 
+#
 # In this last notebook, we will train a model on the dataset we created in the previous tutorial. We will train our model using standard Python and Scikit-learn, although it could just as well be trained with other machine learning frameworks such as PySpark, TensorFlow, and PyTorch. We will also show some of the exploration that can be done in Hopsworks, notably the search functions and the lineage.
-# 
+#
 # ## 🗒️ This notebook is divided in 5 main sections:
 # 1. **Loading the training data**
 # 2. **Train the model**
 # 3. **Register model to Hopsworks model registry**.
 # 4. **Deploy the model on KServe behind Hopsworks for real-time inference requests**.
 # 5. **Test model deployment and use model serving rest APIs**.
-# 
+#
 # ![tutorial-flow](../../images/03_model.png)
 
 # In[1]:
@@ -33,9 +33,9 @@ fs = project.get_feature_store()
 # ## <span style="color:#ff5f27;"> ⬇️ Training Dataset retrieval</span>
 
 # To retrieve training dataset from **Feature Store** we retrieve **Feature View** using `FeatureStore.get_feature_view` method.
-# 
+#
 # Then we can use **Feature View** in order to retrieve **training dataset** using `FeatureView.get_training_dataset` method.
-# 
+#
 
 # In[2]:
 
@@ -140,27 +140,12 @@ print("LogisticRegression MAE:", lr_mae)
 
 # ### Remember, our data is random, so the results are not accurate at all.
 
-# In[13]:
-
-
-# import matplotlib.pyplot as plt
-# import seaborn as sns
-
-
-# sns.residplot(y_test, lr_preds, color='#613F75')
-# plt.title('Model Residuals')
-# plt.xlabel('Obsevation #')
-# plt.ylabel('Error')
-
-# plt.show()
-
-
 # ---
 
 # ## <span style="color:#ff5f27;">📝 Register model in Hopsworks</span>
-# 
+#
 # One of the features in Hopsworks is the model registry. This is where we can store different versions of models and compare their performance. Models from the registry can then be served as API endpoints.
-# 
+#
 # Let's connect to the model registry using the [HSML library](https://docs.hopsworks.ai/machine-learning-api/latest) from Hopsworks.
 
 # In[14]:
@@ -182,7 +167,7 @@ joblib.dump(lr_model, 'model.pkl')
 # ### <span style="color:#ff5f27;">⚙️ Model Schema</span>
 
 # The model needs to be set up with a [Model Schema](https://docs.hopsworks.ai/machine-learning-api/latest/generated/model_schema/), which describes the inputs and outputs for a model.
-# 
+#
 # A Model Schema can be automatically generated from training examples, as shown below.
 
 # In[16]:
@@ -238,7 +223,7 @@ model.save('model.pkl')
 
 
 # Here we have also saved an input example from the training data, which can be helpful for test purposes.
-# 
+#
 # It's important to know that every time you save a model with the same name, a new version of the model will be saved, so nothing will be overwritten. In this way, you can compare several versions of the same model - or create a model with a new name, if you prefer that.
 
 # ## <a class="anchor" id="1.5_bullet" style="color:#ff5f27"> 🚀 Model Deployment</a>
@@ -258,11 +243,11 @@ model.save('model.pkl')
 # class Predict(object):
 
 #     def __init__(self):
-#         """ Initializes the serving state, reads a trained model"""        
+#         """ Initializes the serving state, reads a trained model"""
 #         # get feature store handle
 #         project = hopsworks.login()
 #         self.fs = project.get_feature_store()
-        
+
 #         # load the trained model
 #         self.model = joblib.load(os.environ["ARTIFACT_FILES_PATH"] + "/model.pkl")
 #         print("Initialization Complete")
@@ -319,7 +304,7 @@ model.save('model.pkl')
 
 # # Give it any name you want
 # deployment = model.deploy(
-#     name="nyctaxifares", 
+#     name="nyctaxifares",
 #     model_server="PYTHON",
 #     script_file=predictor_script_path,
 #     serving_tool="KSERVE"
@@ -374,5 +359,5 @@ model.save('model.pkl')
 # ---
 
 # ## <span style="color:#ff5f27;"> 🎁  Wrapping things up </span>
-# 
+#
 # We have now performed a simple training with training data that we have created in the feature store. This concludes the fisrt module and introduction to the core aspect of the Feature store. In the second module we will introduce streaming and external feature groups for a similar fraud use case.

@@ -135,7 +135,7 @@ model = get_model()
 progress_bar.progress(75)
 preds = model.predict(data)[0]
 
-st.subheader(f"Prediction: \n**{preds}**")
+st.header(f"Prediction: \n**{preds}**")
 progress_bar.progress(100)
 
 st.subheader('\n🎉 📈 🤝 App Finished Successfully 🤝 📈 🎉')
