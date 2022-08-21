@@ -1,10 +1,10 @@
-name: cjsurf-surf-report
+name: nyc-remodelling-action
 
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: '11 11 * * *'
+    - cron: '45 * * * *'
 
 jobs:
   test_schedule:
@@ -26,4 +26,4 @@ jobs:
       - name: execute python workflows from bash script
         env:
           HOPSWORKS_API_KEY: ${{ secrets.HOPSWORKS_API_KEY }}
-        run: ./scripts/nyc-remodeling-pipeline-24-hrs.sh
+        run: ./scripts/run-nyc-remodelling-pipeline.sh
