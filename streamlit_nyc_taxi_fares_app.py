@@ -94,15 +94,26 @@ def process_input_vector(pickup_latitude, pickup_longitude, dropoff_latitude, dr
 
 st.write(36 * "-")
 st.header('\n🧩 Interactive predictions...')
-st.subheader("Please enter the coordinates of pick-up and destination:")
-st.write("**🌇 NYC coordinates: Latitude - (40.5, 41.8), Longitude - (-74.5, -72.8)**")
-pickup_latitude = st.number_input('Insert a pickup_latitude value')
-pickup_longitude = st.number_input('Insert a pickup_longitude value')
-dropoff_latitude = st.number_input('Insert a dropoff_latitude value')
-dropoff_longitude = st.number_input('Insert a dropoff_longitude value')
+st.subheader("🔺 Please enter the coordinates of the pick-up:")
+# st.write("**🌇 NYC coordinates: Latitude - (40.5, 41.8), Longitude - (-74.5, -72.8)**")
+
+pickup_latitude = st.slider(
+     'Pick-up Latitude',
+     40.5, 41.8)
+pickup_longitude = st.slider(
+     'ick-up Longitude',
+     -74.5, -72.8)
+
+st.subheader("🔻 Please enter the coordinates of the destination:")
+dropoff_latitude = st.slider(
+     'Destination Latitude',
+     40.5, 41.8)
+dropoff_longitude = st.slider(
+     'Destination Longitude',
+     -74.5, -72.8)
 
 passenger_count = st.selectbox(
-     'Please enter the number of passengers:',
+     '👥 Please enter the number of passengers:',
      (1, 2, 3, 4))
 
 map_df = pd.DataFrame(

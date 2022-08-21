@@ -1,0 +1,60 @@
+{
+  "input_schema": {
+    "columnar_schema": [
+      {
+        "name": "month_of_the_ride",
+        "type": "int64"
+      },
+      {
+        "name": "passenger_count",
+        "type": "int64"
+      },
+      {
+        "name": "distance",
+        "type": "float64"
+      },
+      {
+        "name": "pickup_distance_to_jfk",
+        "type": "float64"
+      },
+      {
+        "name": "dropoff_distance_to_jfk",
+        "type": "float64"
+      },
+      {
+        "name": "pickup_distance_to_ewr",
+        "type": "float64"
+      },
+      {
+        "name": "dropoff_distance_to_ewr",
+        "type": "float64"
+      },
+      {
+        "name": "pickup_distance_to_lgr",
+        "type": "float64"
+      },
+      {
+        "name": "dropoff_distance_to_lgr",
+        "type": "float64"
+      },
+      {
+        "name": "year",
+        "type": "int64"
+      },
+      {
+        "name": "weekday",
+        "type": "int64"
+      },
+      {
+        "name": "hour",
+        "type": "int64"
+      }
+    ]
+  },
+  "output_schema": {
+    "tensor_schema": {
+      "shape": "(87,)",
+      "type": "float64"
+    }
+  }
+}
