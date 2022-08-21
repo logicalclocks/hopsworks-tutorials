@@ -143,16 +143,16 @@ print("LogisticRegression MAE:", lr_mae)
 # In[13]:
 
 
-import matplotlib.pyplot as plt
-import seaborn as sns
+# import matplotlib.pyplot as plt
+# import seaborn as sns
 
 
-sns.residplot(y_test, lr_preds, color='#613F75')
-plt.title('Model Residuals')
-plt.xlabel('Obsevation #')
-plt.ylabel('Error')
+# sns.residplot(y_test, lr_preds, color='#613F75')
+# plt.title('Model Residuals')
+# plt.xlabel('Obsevation #')
+# plt.ylabel('Error')
 
-plt.show()
+# plt.show()
 
 
 # ---
@@ -246,7 +246,30 @@ model.save('model.pkl')
 # In[20]:
 
 
-get_ipython().run_cell_magic('writefile', 'predict_example.py', 'import os\nimport joblib\nimport numpy as np\nimport pandas as pd\n\nimport hopsworks\n\n\nclass Predict(object):\n\n    def __init__(self):\n        """ Initializes the serving state, reads a trained model"""        \n        # get feature store handle\n        project = hopsworks.login()\n        self.fs = project.get_feature_store()\n        \n        # load the trained model\n        self.model = joblib.load(os.environ["ARTIFACT_FILES_PATH"] + "/model.pkl")\n        print("Initialization Complete")\n\n    def predict(self, inputs):\n        """ Serves a prediction request usign a trained model"""\n        return self.model.predict(np.array(inputs).reshape(1, -1)).tolist()')
+# %%writefile predict_example.py
+# import os
+# import joblib
+# import numpy as np
+# import pandas as pd
+
+# import hopsworks
+
+
+# class Predict(object):
+
+#     def __init__(self):
+#         """ Initializes the serving state, reads a trained model"""        
+#         # get feature store handle
+#         project = hopsworks.login()
+#         self.fs = project.get_feature_store()
+        
+#         # load the trained model
+#         self.model = joblib.load(os.environ["ARTIFACT_FILES_PATH"] + "/model.pkl")
+#         print("Initialization Complete")
+
+#     def predict(self, inputs):
+#         """ Serves a prediction request usign a trained model"""
+#         return self.model.predict(np.array(inputs).reshape(1, -1)).tolist()
 
 
 # In[21]:
@@ -291,16 +314,16 @@ get_ipython().run_cell_magic('writefile', 'predict_example.py', 'import os\nimpo
 # ## 📡 Create the deployment
 # Here, we fetch the model we want from the model registry and define a configuration for the deployment. For the configuration, we need to specify the serving type (default or KFserving) and in this case, since we use default serving and an sklearn model, we need to give the location of the prediction script.
 
-# In[34]:
+# In[ ]:
 
 
-# Give it any name you want
-deployment = model.deploy(
-    name="nyctaxifares", 
-    model_server="PYTHON",
-    script_file=predictor_script_path,
-    serving_tool="KSERVE"
-)
+# # Give it any name you want
+# deployment = model.deploy(
+#     name="nyctaxifares", 
+#     model_server="PYTHON",
+#     script_file=predictor_script_path,
+#     serving_tool="KSERVE"
+# )
 
 
 # In[26]:
