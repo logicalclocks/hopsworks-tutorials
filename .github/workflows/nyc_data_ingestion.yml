@@ -25,4 +25,4 @@ jobs:
       - name: execute python workflows from bash script
         env:
           HOPSWORKS_API_KEY: ${{ secrets.HOPSWORKS_API_KEY }}
-        run: ./scripts/run-nyc-data-ingestion-pipelines.sh
+        run: git update-index --chmod=+x ./scripts/run-nyc-data-ingestion-pipelines.sh
