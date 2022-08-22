@@ -144,6 +144,7 @@ fig_preds = plot_trend(batch,'predictions','Electricity demand prediction from J
 st.plotly_chart(fig_preds)
 
 st.write(36 * "-")
+st.write(36 * "-")
 st.success('🎉 📈 🤝 App Finished Successfully 🤝 📈 🎉')    
 st.balloons()
 
