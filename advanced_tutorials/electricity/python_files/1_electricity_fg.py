@@ -48,7 +48,7 @@ import numpy as np
 import random
 from datetime import datetime
 
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 
 import warnings
 warnings.filterwarnings('ignore')
@@ -57,11 +57,11 @@ warnings.filterwarnings('ignore')
 # In[3]:
 
 
-from hops import hdfs
+# from hops import hdfs
 
-project_path = hdfs.project_path()
+# project_path = hdfs.project_path()
 
-project_path
+# project_path
 
 
 # ## <span style="color:#ff5f27;"> 🔮 Connecting to Hopsworks Feature Store </span>
@@ -179,33 +179,33 @@ df_electricity.head()
 # In[8]:
 
 
-fig,ax = plt.subplots(figsize = (16,6))
+# fig,ax = plt.subplots(figsize = (16,6))
 
-df_electricity.plot('date','demand', ax = ax)
+# df_electricity.plot('date','demand', ax = ax)
 
-ax.set_xlabel('Date',fontsize = 15)
-ax.set_ylabel('Demand MWh',fontsize = 15)
-ax.set_title('Daily electricity demand from January 2015 to October 2020',fontsize = 20)
+# ax.set_xlabel('Date',fontsize = 15)
+# ax.set_ylabel('Demand MWh',fontsize = 15)
+# ax.set_title('Daily electricity demand from January 2015 to October 2020',fontsize = 20)
 
-plt.show()
+# plt.show()
 
 
 # In[9]:
 
 
-fig,ax = plt.subplots(figsize = (16,6))
+# fig,ax = plt.subplots(figsize = (16,6))
 
-try:
-    df_electricity.plot('date','RRP', ax = ax)
-except:
-    df_electricity.plot('date','rrp', ax = ax)
+# try:
+#     df_electricity.plot('date','RRP', ax = ax)
+# except:
+#     df_electricity.plot('date','rrp', ax = ax)
     
-ax.set_xlabel('Date',fontsize = 15)
-ax.set_ylabel('Price in AUD$/MWh',fontsize = 15)
-ax.set_title('Daily price in AUD$/MWh from January 2015 to October 2020',fontsize = 20)
+# ax.set_xlabel('Date',fontsize = 15)
+# ax.set_ylabel('Price in AUD$/MWh',fontsize = 15)
+# ax.set_title('Daily price in AUD$/MWh from January 2015 to October 2020',fontsize = 20)
 
-plt.yscale("log")
-plt.show()
+# plt.yscale("log")
+# plt.show()
 
 
 # ## <span style="color:#ff5f27;">🧬 Data Generation</span>
