@@ -203,9 +203,9 @@ def append_generated_data(df,amount = 1,date_window = date_window,statistics=sta
 # In[11]:
 
 
-append_generated_data(df_weather,50)
+# append_generated_data(df_weather,50)
 
-df_weather.tail()
+# df_weather.tail()
 
 
 # ## <span style="color:#ff5f27;">👩🏻‍⚖️ 🪄 Validation and Insertion of Generated Data</span>
