@@ -1,0 +1,9 @@
+hsfs[python]
+hopsworks
+pandas
+numpy
+random
+datetime
+matplotlib
+warnings
+scikit-learn
