@@ -11,7 +11,7 @@ import numpy as np
 import random
 from datetime import datetime
 
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 
 import warnings
 warnings.filterwarnings('ignore')
@@ -20,11 +20,11 @@ warnings.filterwarnings('ignore')
 # In[2]:
 
 
-from hops import hdfs
+# from hops import hdfs
 
-project_path = hdfs.project_path()
+# project_path = hdfs.project_path()
 
-project_path
+# project_path
 
 
 # ## <span style="color:#ff5f27;"> 🔮 Connecting to Hopsworks Feature Store </span>
@@ -145,19 +145,19 @@ df_weather.head()
 # In[7]:
 
 
-fig,ax = plt.subplots(figsize = (16,6))
+# fig,ax = plt.subplots(figsize = (16,6))
 
-df_plot = df_weather.sort_values('date')
-df_plot.date = df_plot.date.apply(to_date)
+# df_plot = df_weather.sort_values('date')
+# df_plot.date = df_plot.date.apply(to_date)
 
-df_plot.plot('date','min_temperature', ax = ax)
-df_plot.plot('date','max_temperature', ax = ax)
+# df_plot.plot('date','min_temperature', ax = ax)
+# df_plot.plot('date','max_temperature', ax = ax)
 
-ax.set_xlabel('Date',fontsize = 15)
-ax.set_ylabel('Temperature in Celsius',fontsize = 15)
-ax.set_title('Daily min and max temperature from January 2015 to October 2020',fontsize = 20)
+# ax.set_xlabel('Date',fontsize = 15)
+# ax.set_ylabel('Temperature in Celsius',fontsize = 15)
+# ax.set_title('Daily min and max temperature from January 2015 to October 2020',fontsize = 20)
 
-plt.show()
+# plt.show()
 
 
 # ## <span style="color:#ff5f27;">🧬 Data Generation</span>
