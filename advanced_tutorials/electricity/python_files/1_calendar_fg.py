@@ -11,8 +11,6 @@ import numpy as np
 import random
 from datetime import datetime
 
-import matplotlib.pyplot as plt
-
 import warnings
 warnings.filterwarnings('ignore')
 
@@ -20,11 +18,11 @@ warnings.filterwarnings('ignore')
 # In[2]:
 
 
-from hops import hdfs
+# from hops import hdfs
 
-project_path = hdfs.project_path()
+# project_path = hdfs.project_path()
 
-project_path
+# project_path
 
 
 # ## <span style="color:#ff5f27;"> 🔮 Connecting to Hopsworks Feature Store </span>
@@ -146,30 +144,30 @@ df_calendar.head()
 # In[7]:
 
 
-fig,ax = plt.subplots(1,2,figsize = (16,6))
+# fig,ax = plt.subplots(1,2,figsize = (16,6))
 
-ax[0].pie(
-    df_calendar.school_day.value_counts(),
-    labels = ['Yes','No'],
-    explode = [0.1, 0],
-    shadow=True,
-    autopct='%1.1f%%',
-    radius = 1.1
-)
+# ax[0].pie(
+#     df_calendar.school_day.value_counts(),
+#     labels = ['Yes','No'],
+#     explode = [0.1, 0],
+#     shadow=True,
+#     autopct='%1.1f%%',
+#     radius = 1.1
+# )
 
-ax[1].pie(
-    df_calendar.holiday.value_counts(),
-    labels = ['Yes','No'],
-    explode = [0.35, 0],
-    shadow=True,
-    autopct='%1.1f%%',
-    radius = 1.1
-)
+# ax[1].pie(
+#     df_calendar.holiday.value_counts(),
+#     labels = ['Yes','No'],
+#     explode = [0.35, 0],
+#     shadow=True,
+#     autopct='%1.1f%%',
+#     radius = 1.1
+# )
 
-ax[0].set_title("Ratio of School Days or Not", fontsize = 15)
-ax[1].set_title("Ratio of Holidays or Not", fontsize = 15)
+# ax[0].set_title("Ratio of School Days or Not", fontsize = 15)
+# ax[1].set_title("Ratio of Holidays or Not", fontsize = 15)
 
-plt.show()
+# plt.show()
 
 
 # ## <span style="color:#ff5f27;">🧬 Data Generation</span>
