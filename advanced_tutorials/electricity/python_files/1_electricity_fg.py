@@ -251,9 +251,9 @@ def append_generated_data(df,amount = 1,date_window = date_window,statistics=sta
 # In[13]:
 
 
-append_generated_data(df_electricity,50)
+# append_generated_data(df_electricity,50)
 
-df_electricity.tail()
+# df_electricity.tail()
 
 
 # ## <span style="color:#ff5f27;">👩🏻‍⚖️ 🪄 Validation and Insertion of Generated Data</span>
