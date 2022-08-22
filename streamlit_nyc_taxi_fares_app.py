@@ -26,19 +26,24 @@ def get_random_map_points(n):
 
 def get_model():
     # load our Model
-    import os.path
-    if not os.path.exists("model.pkl"):
-        mr = project.get_model_registry()
-        EVALUATION_METRIC="mae"  # or r2_score
-        SORT_METRICS_BY="max"
-        # get best model based on custom metrics
-        model = mr.get_best_model("nyc_taxi_fares_model",
-                                       EVALUATION_METRIC,
-                                       SORT_METRICS_BY)
-        model_dir = model.download()
-        model = joblib.load(model_dir + "/model.pkl")
+    import os
+    TARGET_FILE = "model.pkl"
+    list_of_files = [os.path.join(dirpath,filename) for dirpath, _, filenames in os.walk('.') for filename in filenames if filename == TARGET_FILE]
+
+    if list_of_files:
+        model_path = list_of_files[0]
+        model = joblib.load(model_path)
     else:
-        model = joblib.load("model.pkl")
+        if not os.path.exists(TARGET_FILE):
+            mr = project.get_model_registry()
+            EVALUATION_METRIC="mae"  # or r2_score
+            SORT_METRICS_BY="max"
+            # get best model based on custom metrics
+            model = mr.get_best_model("nyc_taxi_fares_model",
+                                           EVALUATION_METRIC,
+                                           SORT_METRICS_BY)
+            model_dir = model.download()
+            model = joblib.load(model_dir + "/model.pkl")
 
     progress_bar.progress(80)
 
