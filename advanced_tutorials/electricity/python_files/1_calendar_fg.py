@@ -125,7 +125,7 @@ try:
     indexes = df_calendar.pop('index')
     
 except: 
-    DATA_PATH = project_path + 'Jupyter/data/calendar.csv'
+    DATA_PATH = '../data/calendar.csv'
     
     df_calendar = get_data(DATA_PATH)
     feature_engineering(df_calendar)
@@ -229,4 +229,6 @@ generated_data.head()
 
 
 feature_group.insert(generated_data)
+
+print('🎉 🤝 Calendar Feature Group is Ready! 🤝 🎉')
 

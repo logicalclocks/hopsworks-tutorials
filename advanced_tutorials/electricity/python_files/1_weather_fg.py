@@ -19,14 +19,6 @@ warnings.filterwarnings('ignore')
 
 # In[2]:
 
-
-# from hops import hdfs
-
-# project_path = hdfs.project_path()
-
-# project_path
-
-
 # ## <span style="color:#ff5f27;"> 🔮 Connecting to Hopsworks Feature Store </span>
 
 # In[3]:
@@ -126,7 +118,7 @@ try:
     indexes = df_weather.pop('index')
     
 except: 
-    DATA_PATH = project_path + 'Jupyter/data/weather.csv'
+    DATA_PATH = '../data/weather.csv'
     
     df_weather = get_data(DATA_PATH)
     feature_engineering(df_weather)
@@ -201,17 +193,7 @@ def append_generated_data(df,amount = 1,date_window = date_window,statistics=sta
 
 
 # In[11]:
-
-
-# append_generated_data(df_weather,50)
-
-# df_weather.tail()
-
-
-# ## <span style="color:#ff5f27;">👩🏻‍⚖️ 🪄 Validation and Insertion of Generated Data</span>
-
-# In[12]:
-
+## <span style="color:#ff5f27;">👩🏻‍⚖️ 🪄 Validation and Insertion of Generated Data</span>
 
 def add_indexes(df,indexes=None):
     if indexes is None:
@@ -221,7 +203,7 @@ def add_indexes(df,indexes=None):
     return df
 
 
-# In[13]:
+# In[12]:
 
 
 generated_data = generate_data(df_weather,50)
@@ -235,8 +217,9 @@ except:
 generated_data.head()
 
 
-# In[14]:
+# In[13]:
 
 
 feature_group.insert(generated_data)
 
+print('🎉 🤝 Weather Feature Group is Ready! 🤝 🎉')

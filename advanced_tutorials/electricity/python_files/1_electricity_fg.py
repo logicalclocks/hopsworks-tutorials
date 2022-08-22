@@ -56,14 +56,6 @@ warnings.filterwarnings('ignore')
 
 # In[3]:
 
-
-# from hops import hdfs
-
-# project_path = hdfs.project_path()
-
-# project_path
-
-
 # ## <span style="color:#ff5f27;"> 🔮 Connecting to Hopsworks Feature Store </span>
 
 # In[4]:
@@ -160,7 +152,7 @@ try:
     indexes = df_electricity.pop('index')
     
 except: 
-    DATA_PATH = project_path + 'Jupyter/data/electricity.csv'
+    DATA_PATH = '../data/electricity.csv'
     
     df_electricity = get_data(DATA_PATH)
     feature_engineering(df_electricity)
@@ -288,3 +280,4 @@ generated_data.head()
 
 feature_group.insert(generated_data)
 
+print('🎉 🤝 Electricity Feature Group is Ready! 🤝 🎉')
