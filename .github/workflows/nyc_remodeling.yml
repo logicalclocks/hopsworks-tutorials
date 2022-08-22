@@ -4,7 +4,7 @@ name: nyc-remodelling-action
 on:
   workflow_dispatch:
   schedule:
-    - cron: '45 * * * *'
+    - cron: '45 */6 * * *'
 
 jobs:
   test_schedule:

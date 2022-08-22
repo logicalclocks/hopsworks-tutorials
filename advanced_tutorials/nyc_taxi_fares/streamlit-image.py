@@ -26,24 +26,19 @@ def get_random_map_points(n):
 
 def get_model():
     # load our Model
-    import os
-    TARGET_FILE = "model.pkl"
-    list_of_files = [os.path.join(dirpath,filename) for dirpath, _, filenames in os.walk('.') for filename in filenames if filename == TARGET_FILE]
-
-    if list_of_files:
-        model_path = list_of_files[0]
-        model = joblib.load(model_path)
+    import os.path
+    if not os.path.exists("model.pkl"):
+        mr = project.get_model_registry()
+        EVALUATION_METRIC="mae"  # or r2_score
+        SORT_METRICS_BY="max"
+        # get best model based on custom metrics
+        model = mr.get_best_model("nyc_taxi_fares_model",
+                                       EVALUATION_METRIC,
+                                       SORT_METRICS_BY)
+        model_dir = model.download()
+        model = joblib.load(model_dir + "/model.pkl")
     else:
-        if not os.path.exists(TARGET_FILE):
-            mr = project.get_model_registry()
-            EVALUATION_METRIC="mae"  # or r2_score
-            SORT_METRICS_BY="max"
-            # get best model based on custom metrics
-            model = mr.get_best_model("nyc_taxi_fares_model",
-                                           EVALUATION_METRIC,
-                                           SORT_METRICS_BY)
-            model_dir = model.download()
-            model = joblib.load(model_dir + "/model.pkl")
+        model = joblib.load("model.pkl")
 
     progress_bar.progress(80)
 
@@ -99,26 +94,15 @@ def process_input_vector(pickup_latitude, pickup_longitude, dropoff_latitude, dr
 
 st.write(36 * "-")
 st.header('\n🧩 Interactive predictions...')
-st.subheader("🔺 Please enter the coordinates of the pick-up:")
-# st.write("**🌇 NYC coordinates: Latitude - (40.5, 41.8), Longitude - (-74.5, -72.8)**")
-
-pickup_latitude = st.slider(
-     'Pick-up Latitude',
-     40.5, 41.8)
-pickup_longitude = st.slider(
-     'ick-up Longitude',
-     -74.5, -72.8)
-
-st.subheader("🔻 Please enter the coordinates of the destination:")
-dropoff_latitude = st.slider(
-     'Destination Latitude',
-     40.5, 41.8)
-dropoff_longitude = st.slider(
-     'Destination Longitude',
-     -74.5, -72.8)
+st.subheader("Please enter the coordinates of pick-up and destination:")
+st.write("**🌇 NYC coordinates: Latitude - (40.5, 41.8), Longitude - (-74.5, -72.8)**")
+pickup_latitude = st.number_input('Insert a pickup_latitude value')
+pickup_longitude = st.number_input('Insert a pickup_longitude value')
+dropoff_latitude = st.number_input('Insert a dropoff_latitude value')
+dropoff_longitude = st.number_input('Insert a dropoff_longitude value')
 
 passenger_count = st.selectbox(
-     '👥 Please enter the number of passengers:',
+     'Please enter the number of passengers:',
      (1, 2, 3, 4))
 
 map_df = pd.DataFrame(
@@ -140,7 +124,7 @@ model = get_model()
 progress_bar.progress(75)
 preds = model.predict(data)[0]
 
-st.header(f"Prediction: \n**{preds}**")
+st.subheader(f"Prediction: \n**{preds}**")
 progress_bar.progress(100)
 
 st.subheader('\n🎉 📈 🤝 App Finished Successfully 🤝 📈 🎉')
