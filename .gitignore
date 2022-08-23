@@ -2,13 +2,6 @@
 .DS_Store
 .idea
 hops
-
-**/**/artifacts/
-**/**/config.yaml
-**/**/**.model*
-**/**/wandb-metadata.json
-**/**/wandb/
-
 **/.hw_api_key
 **/*.pkl
 **/**predict_example.py
@@ -21,8 +14,3 @@ miniconda/
 iris/iris_model
 **/**.pkl
 
-integrations/fraud_batch/artifacts/
-integrations/fraud_batch/config.yaml
-integrations/fraud_batch/fraud.model*
-integrations/fraud_batch/wandb-metadata.json
-integrations/fraud_batch/wandb/
