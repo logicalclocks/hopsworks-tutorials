@@ -1,11 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# ## <span style="color:#ff5f27;"> 📝 Imports</span>
-
-# In[1]:
-
-
 import pandas as pd
 import numpy as np
 import random
@@ -14,32 +6,11 @@ from datetime import datetime
 import warnings
 warnings.filterwarnings('ignore')
 
-
-# In[2]:
-
-
-# from hops import hdfs
-
-# project_path = hdfs.project_path()
-
-# project_path
-
-
-# ## <span style="color:#ff5f27;"> 🔮 Connecting to Hopsworks Feature Store </span>
-
-# In[3]:
-
-
 import hopsworks
 
+
 project = hopsworks.login()
-
 fs = project.get_feature_store() 
-
-
-# ## <span style="color:#ff5f27;">🧑🏻‍🏫 Functions</span>
-
-# In[4]:
 
 
 def get_data(data_path):
@@ -114,71 +85,24 @@ def retrieve_feature_group(name='calendar_fg',fs=fs):
     return feature_group
 
 
-# ## <span style="color:#ff5f27;">🪄 👩🏻‍🔬 Retrieving or Creating Feature Group</span>
-
-# In[5]:
-
-
 try:
     feature_group = retrieve_feature_group()
     df_calendar = feature_group.read()
     indexes = df_calendar.pop('index')
     
 except: 
-    DATA_PATH = '../data/calendar.csv'
+    DATA_PATH = './data/calendar.csv'
     
     df_calendar = get_data(DATA_PATH)
     feature_engineering(df_calendar)
     
     feature_group = create_feature_group(df_calendar)
 
-
-# In[6]:
-
-
 df_calendar.head()
 
 
-# ## <span style="color:#ff5f27;">🕵🏻‍♂️ Data Exploration</span>
-
-# In[7]:
-
-
-# fig,ax = plt.subplots(1,2,figsize = (16,6))
-
-# ax[0].pie(
-#     df_calendar.school_day.value_counts(),
-#     labels = ['Yes','No'],
-#     explode = [0.1, 0],
-#     shadow=True,
-#     autopct='%1.1f%%',
-#     radius = 1.1
-# )
-
-# ax[1].pie(
-#     df_calendar.holiday.value_counts(),
-#     labels = ['Yes','No'],
-#     explode = [0.35, 0],
-#     shadow=True,
-#     autopct='%1.1f%%',
-#     radius = 1.1
-# )
-
-# ax[0].set_title("Ratio of School Days or Not", fontsize = 15)
-# ax[1].set_title("Ratio of Holidays or Not", fontsize = 15)
-
-# plt.show()
-
-
-# ## <span style="color:#ff5f27;">🧬 Data Generation</span>
-
-# In[8]:
-
 
 date_window = 24*60*60*1000
-
-
-# In[9]:
 
 
 def generate_observation(columns):
@@ -198,20 +122,12 @@ def append_generated_data(df,amount = 1,date_window = date_window):
     return df
 
 
-# ## <span style="color:#ff5f27;">👩🏻‍⚖️ 🪄 Validation and Insertion of Generated Data</span>
-
-# In[10]:
-
-
 def add_indexes(df,indexes=None):
     if indexes is None:
         return df.reset_index()
     df.reset_index(inplace = True)
     df['index'] = df['index'] + indexes.max() + 1
     return df
-
-
-# In[11]:
 
 
 generated_data = generate_data(df_calendar,50)
@@ -223,9 +139,6 @@ except:
     generated_data = add_indexes(generated_data)
 
 generated_data.head()
-
-
-# In[12]:
 
 
 feature_group.insert(generated_data)

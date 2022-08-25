@@ -1,39 +1,16 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# ## <span style="color:#ff5f27;"> 📝 Imports</span>
-
-# In[1]:
-
-
 import pandas as pd
 import numpy as np
 import random
 from datetime import datetime
 
-# import matplotlib.pyplot as plt
-
 import warnings
 warnings.filterwarnings('ignore')
 
-
-# In[2]:
-
-# ## <span style="color:#ff5f27;"> 🔮 Connecting to Hopsworks Feature Store </span>
-
-# In[3]:
-
-
 import hopsworks
 
+
 project = hopsworks.login()
-
 fs = project.get_feature_store() 
-
-
-# ## <span style="color:#ff5f27;">🧑🏻‍🏫 Functions</span>
-
-# In[4]:
 
 
 def get_data(data_path):
@@ -107,10 +84,6 @@ def retrieve_feature_group(name='weather_fg',fs=fs):
     return feature_group
 
 
-# ## <span style="color:#ff5f27;">🪄 👩🏻‍🔬 Retrieving or Creating Feature Group</span>
-
-# In[5]:
-
 
 try:
     feature_group = retrieve_feature_group()
@@ -118,7 +91,7 @@ try:
     indexes = df_weather.pop('index')
     
 except: 
-    DATA_PATH = '../data/weather.csv'
+    DATA_PATH = './data/weather.csv'
     
     df_weather = get_data(DATA_PATH)
     feature_engineering(df_weather)
@@ -126,35 +99,8 @@ except:
     feature_group = create_feature_group(df_weather)
 
 
-# In[6]:
-
 
 df_weather.head()
-
-
-# ## <span style="color:#ff5f27;">🕵🏻‍♂️ Data Exploration</span>
-
-# In[7]:
-
-
-# fig,ax = plt.subplots(figsize = (16,6))
-
-# df_plot = df_weather.sort_values('date')
-# df_plot.date = df_plot.date.apply(to_date)
-
-# df_plot.plot('date','min_temperature', ax = ax)
-# df_plot.plot('date','max_temperature', ax = ax)
-
-# ax.set_xlabel('Date',fontsize = 15)
-# ax.set_ylabel('Temperature in Celsius',fontsize = 15)
-# ax.set_title('Daily min and max temperature from January 2015 to October 2020',fontsize = 20)
-
-# plt.show()
-
-
-# ## <span style="color:#ff5f27;">🧬 Data Generation</span>
-
-# In[8]:
 
 
 def get_statistics(feature):
@@ -163,15 +109,10 @@ def get_statistics(feature):
     return lower_value,upper_value
 
 
-# In[9]:
-
-
 statistics = {col:get_statistics(df_weather[col]) for col in df_weather.columns[1:]}
 
 date_window = 24*60*60*1000
 
-
-# In[10]:
 
 
 def generate_observation(statistics):
@@ -192,18 +133,12 @@ def append_generated_data(df,amount = 1,date_window = date_window,statistics=sta
     return df
 
 
-# In[11]:
-## <span style="color:#ff5f27;">👩🏻‍⚖️ 🪄 Validation and Insertion of Generated Data</span>
-
 def add_indexes(df,indexes=None):
     if indexes is None:
         return df.reset_index()
     df.reset_index(inplace = True)
     df['index'] = df['index'] + indexes.max() + 1
     return df
-
-
-# In[12]:
 
 
 generated_data = generate_data(df_weather,50)
@@ -215,9 +150,6 @@ except:
     generated_data = add_indexes(generated_data)
 
 generated_data.head()
-
-
-# In[13]:
 
 
 feature_group.insert(generated_data)
