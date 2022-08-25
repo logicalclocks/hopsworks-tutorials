@@ -9,4 +9,10 @@ miniconda/
 **/certfile
 **/keyfile
 **/tmp*
-.env
+**/*__pycache__
+**/*.env
+**/*.pkl
+**/**predict_example.py
+miniconda/
+.installed
+
