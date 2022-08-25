@@ -3,6 +3,10 @@ import hopsworks
 import joblib
 import pandas as pd
 import numpy as np
+import folium
+from streamlit_folium import st_folium
+import json
+import time
 
 
 progress_bar = st.sidebar.header('⚙️ Working Progress')
@@ -99,50 +103,108 @@ def process_input_vector(pickup_latitude, pickup_longitude, dropoff_latitude, dr
 
 st.write(36 * "-")
 st.header('\n🧩 Interactive predictions...')
-st.subheader("🔺 Please enter the coordinates of the pick-up:")
+st.subheader("🔺 Please enter the coordinates of the pick-up (click on the map and wait couple of seconds):")
 # st.write("**🌇 NYC coordinates: Latitude - (40.5, 41.8), Longitude - (-74.5, -72.8)**")
 
-pickup_latitude = st.slider(
-     'Pick-up Latitude',
-     40.5, 41.8)
-pickup_longitude = st.slider(
-     'ick-up Longitude',
-     -74.5, -72.8)
+my_map = folium.Map(location=[41, -73.5], zoom_start=8)
 
-st.subheader("🔻 Please enter the coordinates of the destination:")
-dropoff_latitude = st.slider(
-     'Destination Latitude',
-     40.5, 41.8)
-dropoff_longitude = st.slider(
-     'Destination Longitude',
-     -74.5, -72.8)
+my_map.add_child(folium.LatLngPopup())
 
-passenger_count = st.selectbox(
-     '👥 Please enter the number of passengers:',
-     (1, 2, 3, 4))
+coordinates = json.load(open("temp_coordinates.json"))
 
-map_df = pd.DataFrame(
-        [[pickup_latitude, pickup_longitude], [dropoff_latitude, dropoff_longitude]],
-        columns=['lat', 'lon'])
+# folium.Marker(
+#       location=[lat, long],
+#       popup="text",
+#    ).add_to(my_map)
 
-st.map(map_df)
+res_map = st_folium(my_map, height=300, width=600)
+
+
 progress_bar.progress(30)
 
-st.write(36 * "-")
-st.header('\n🤖 Feature Engineering...')
-data = process_input_vector(pickup_latitude, pickup_longitude, dropoff_latitude, dropoff_longitude)
-st.dataframe(data)
-progress_bar.progress(60)
+try:
+    new_lat, new_long = res_map["last_clicked"]["lat"], res_map["last_clicked"]["lng"]
 
-st.write(36 * "-")
-st.header('\n🧠 Making price prediction for your trip...')
-model = get_model()
-progress_bar.progress(75)
-preds = model.predict(data)[0]
+    # lets rewrite lat and long for the older coordinate
+    if coordinates["c1"]["time_clicked"] > coordinates["c2"]["time_clicked"]:
+        target = "c2"
 
-st.header(f"Prediction: \n**{preds}**")
-progress_bar.progress(100)
+    else:
+        target = "c1"
 
-st.subheader('\n🎉 📈 🤝 App Finished Successfully 🤝 📈 🎉')
+    coordinates[target] = {
+    "lat": new_lat,
+    "long": new_long,
+    "time_clicked": time.time()
+    }
+
+    pickup_latitude, pickup_longitude = coordinates["c1"]["lat"], coordinates["c1"]["long"]
+    dropoff_latitude, dropoff_longitude = coordinates["c2"]["lat"], coordinates["c2"]["long"]
+
+    # display selected points
+    col1, col2 = st.columns(2)
+    with col1:
+        st.write("🟡 Pick-up coordinates:")
+        st.write(f"Latitude: {pickup_latitude}")
+        st.write(f"Longitude: {pickup_longitude}")
+    with col2:
+        st.write("🔵 Destination coordinates:")
+        st.write(f"Latitude: {dropoff_latitude}")
+        st.write(f"Longitude: {dropoff_longitude}")
+
+
+    json.dump(coordinates, open("temp_coordinates.json", "w" ))
+
+
+###############################################################
+# sliders instead of map
+# pickup_latitude = st.slider(
+#      'Pick-up Latitude',
+#      40.5, 41.8)
+# pickup_longitude = st.slider(
+#      'ick-up Longitude',
+#      -74.5, -72.8)
+#
+# st.subheader("🔻 Please enter the coordinates of the destination:")
+# dropoff_latitude = st.slider(
+#      'Destination Latitude',
+#      40.5, 41.8)
+# dropoff_longitude = st.slider(
+#      'Destination Longitude',
+#      -74.5, -72.8)
+################################################################
+
+    passenger_count = st.selectbox(
+         '👥 Please enter the number of passengers:',
+         (1, 2, 3, 4))
+
+    # this code will display streamlit map with two selected points
+    # map_df = pd.DataFrame(
+    #         [[pickup_latitude, pickup_longitude], [dropoff_latitude, dropoff_longitude]],
+    #         columns=['lat', 'lon'])
+    # st.map(map_df)
+
+    progress_bar.progress(45)
+
+    st.write(36 * "-")
+    st.header('\n🤖 Feature Engineering...')
+    data = process_input_vector(pickup_latitude, pickup_longitude, dropoff_latitude, dropoff_longitude)
+    st.dataframe(data)
+    progress_bar.progress(60)
+
+    st.write(36 * "-")
+    st.header('\n🧠 Making price prediction for your trip...')
+    model = get_model()
+    progress_bar.progress(75)
+    preds = model.predict(data)[0]
+
+    st.subheader(f"Prediction: **{str(preds)}**")
+    progress_bar.progress(100)
+
+    st.subheader('\n🎉 📈 🤝 App Finished Successfully 🤝 📈 🎉')
+
+
+except:
+    pass
 
 st.button("Re-run")
