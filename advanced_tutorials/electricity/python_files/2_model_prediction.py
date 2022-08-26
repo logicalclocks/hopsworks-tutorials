@@ -84,4 +84,4 @@ ax.set_xlabel('Date',fontsize = 15)
 ax.set_ylabel('Demand',fontsize = 15)
 ax.set_title('Predicted Demand of Electricity from January 2015 to October 2020',fontsize = 20)
 
-plt.savefig('images/model_preds.png')
+plt.savefig('advanced_tutorials/electricity/images/model_preds.png')
