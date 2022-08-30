@@ -9,7 +9,8 @@
 
 
 ## Prerequisite
-To run this tutorial, you simply need a Hopsworks account, if you do not have one, simply get to [app.hopsworks.ai](https://app.hopsworks.ai) and create an account. In the notebook you will be prompted with a link to the API token to connect to your account.
+To run this tutorial, you need an account on Hopsworks. You can create a new account at  [app.hopsworks.ai](https://app.hopsworks.ai).
+In the notebook you will be prompted with a link to generate an API token to interact with your Hopsworks account.
 
 #  <span style="font-width:bold; font-size: 3rem; color:#1EB182;">Hopsworks: Main Concepts</span>
 You may refere to the concept documentation on [docs.hopsworks.ai](https://docs.hopsworks.ai/concepts/) for an extensive overview of all the concepts and abstraction in the feature store.
