@@ -8,15 +8,9 @@
 3. How to train a model from the feature store.
 
 
-# Pre-requisite
-<span style="font-width:bold; font-size: 1.4rem;">Before you start, you need to create an account on Hopsworks.ai, and launch a cluster on your own infrastructure or our own. You will then be able to create a project and clone this repository. You need to do the following steps, in order, before starting with the first notebook: </span>
-
-1.  Create a project on Hopsworks.
-2. In user settings (near your user name) got to **Account settings** and **git providers**
-Add a Github token with the whole repo scope selected to allow you to clone the repository. 
-3. Once your account configured, go to **project Settings** > **Git**. 
-Here you can simple clone the repository (be mindful; you need to copy the url in the "code" dropdown in Github). You can choose any folder.
-4. Once the repository is cloned you can launch a Jupyter to run the notebooks. 
+## Prerequisite
+To run this tutorial, you need an account on Hopsworks. You can create a new account at  [app.hopsworks.ai](https://app.hopsworks.ai).
+In the notebook you will be prompted with a link to generate an API token to interact with your Hopsworks account.
 
 #  <span style="font-width:bold; font-size: 3rem; color:#1EB182;">Hopsworks: Main Concepts</span>
 You may refere to the concept documentation on [docs.hopsworks.ai](https://docs.hopsworks.ai/concepts/) for an extensive overview of all the concepts and abstraction in the feature store.
