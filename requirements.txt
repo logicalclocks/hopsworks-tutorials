@@ -4,3 +4,4 @@ pandas
 numpy
 matplotlib
 scikit-learn
+bs4
