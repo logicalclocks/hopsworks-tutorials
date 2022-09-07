@@ -1,0 +1,320 @@
+2022-09-07 20:12:40,456 INFO    StreamThr :34075 [internal.py:wandb_internal():90] W&B internal server running at pid: 34075, started at: 2022-09-07 20:12:40.454988
+2022-09-07 20:12:40,458 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: status
+2022-09-07 20:12:40,461 DEBUG   SenderThread:34075 [sender.py:send_request():316] send_request: status
+2022-09-07 20:12:40,467 DEBUG   SenderThread:34075 [sender.py:send():302] send: header
+2022-09-07 20:12:40,467 INFO    WriterThread:34075 [datastore.py:open_for_write():75] open: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/run-7kf7i6gh.wandb
+2022-09-07 20:12:40,494 DEBUG   SenderThread:34075 [sender.py:send():302] send: run
+2022-09-07 20:12:41,482 INFO    SenderThread:34075 [dir_watcher.py:__init__():216] watching files in: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files
+2022-09-07 20:12:41,482 INFO    SenderThread:34075 [sender.py:_start_run_threads():913] run started: 7kf7i6gh with start time 1662574360.445466
+2022-09-07 20:12:41,483 DEBUG   SenderThread:34075 [sender.py:send():302] send: summary
+2022-09-07 20:12:41,483 INFO    SenderThread:34075 [sender.py:_save_file():1156] saving file wandb-summary.json with policy end
+2022-09-07 20:12:41,484 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: check_version
+2022-09-07 20:12:41,485 DEBUG   SenderThread:34075 [sender.py:send_request():316] send_request: check_version
+2022-09-07 20:12:41,668 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: run_start
+2022-09-07 20:12:41,669 DEBUG   HandlerThread:34075 [meta.py:__init__():35] meta init
+2022-09-07 20:12:41,669 DEBUG   HandlerThread:34075 [meta.py:__init__():50] meta init done
+2022-09-07 20:12:41,669 DEBUG   HandlerThread:34075 [meta.py:probe():216] probe
+2022-09-07 20:12:41,671 DEBUG   HandlerThread:34075 [meta.py:_setup_git():206] setup git
+2022-09-07 20:12:41,697 DEBUG   HandlerThread:34075 [meta.py:_setup_git():213] setup git done
+2022-09-07 20:12:41,698 DEBUG   HandlerThread:34075 [meta.py:_save_pip():54] save pip
+2022-09-07 20:12:41,699 DEBUG   HandlerThread:34075 [meta.py:_save_pip():68] save pip done
+2022-09-07 20:12:41,699 DEBUG   HandlerThread:34075 [meta.py:_save_conda():75] save conda
+2022-09-07 20:12:42,485 INFO    Thread-12 :34075 [dir_watcher.py:_on_file_created():275] file/dir created: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/conda-environment.yaml
+2022-09-07 20:12:42,486 INFO    Thread-12 :34075 [dir_watcher.py:_on_file_created():275] file/dir created: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/requirements.txt
+2022-09-07 20:12:42,486 INFO    Thread-12 :34075 [dir_watcher.py:_on_file_created():275] file/dir created: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/wandb-summary.json
+2022-09-07 20:12:47,962 DEBUG   HandlerThread:34075 [meta.py:_save_conda():85] save conda done
+2022-09-07 20:12:47,962 DEBUG   HandlerThread:34075 [meta.py:probe():254] probe done
+2022-09-07 20:12:47,967 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: stop_status
+2022-09-07 20:12:47,968 DEBUG   SenderThread:34075 [sender.py:send_request():316] send_request: stop_status
+2022-09-07 20:12:48,218 DEBUG   SenderThread:34075 [sender.py:send():302] send: telemetry
+2022-09-07 20:12:48,218 DEBUG   SenderThread:34075 [sender.py:send():302] send: files
+2022-09-07 20:12:48,219 INFO    SenderThread:34075 [sender.py:_save_file():1156] saving file wandb-metadata.json with policy now
+2022-09-07 20:12:48,505 INFO    Thread-12 :34075 [dir_watcher.py:_on_file_modified():292] file/dir modified: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/conda-environment.yaml
+2022-09-07 20:12:48,506 INFO    Thread-12 :34075 [dir_watcher.py:_on_file_created():275] file/dir created: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/output.log
+2022-09-07 20:12:48,506 INFO    Thread-12 :34075 [dir_watcher.py:_on_file_created():275] file/dir created: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/wandb-metadata.json
+2022-09-07 20:12:49,177 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: partial_history
+2022-09-07 20:12:49,177 DEBUG   SenderThread:34075 [sender.py:send():302] send: history
+2022-09-07 20:12:49,178 DEBUG   SenderThread:34075 [sender.py:send():302] send: summary
+2022-09-07 20:12:49,179 INFO    SenderThread:34075 [sender.py:_save_file():1156] saving file wandb-summary.json with policy end
+2022-09-07 20:12:49,191 INFO    Thread-16 :34075 [upload_job.py:push():138] Uploaded file /var/folders/k2/vg1fnttx4t12m4qw721f8mbr0000gn/T/tmp1j7vg76cwandb/38ba8whz-wandb-metadata.json
+2022-09-07 20:12:49,196 DEBUG   SenderThread:34075 [sender.py:send():302] send: config
+2022-09-07 20:12:49,479 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: log_artifact
+2022-09-07 20:12:49,479 DEBUG   SenderThread:34075 [sender.py:send_request():316] send_request: log_artifact
+2022-09-07 20:12:49,488 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: partial_history
+2022-09-07 20:12:49,506 INFO    Thread-12 :34075 [dir_watcher.py:_on_file_modified():292] file/dir modified: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/wandb-summary.json
+2022-09-07 20:12:49,506 INFO    Thread-12 :34075 [dir_watcher.py:_on_file_created():275] file/dir created: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/media/table/feature_importances_1_bad7cbf187fe3584217d.table.json
+2022-09-07 20:12:49,506 INFO    Thread-12 :34075 [dir_watcher.py:_on_file_created():275] file/dir created: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/media/table
+2022-09-07 20:12:49,506 INFO    Thread-12 :34075 [dir_watcher.py:_on_file_created():275] file/dir created: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/media
+2022-09-07 20:12:49,795 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: log_artifact
+2022-09-07 20:12:49,804 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: partial_history
+2022-09-07 20:12:50,272 INFO    Thread-17 :34075 [upload_job.py:push():138] Uploaded file /var/folders/k2/vg1fnttx4t12m4qw721f8mbr0000gn/T/tmp1j7vg76cwandb/8pl7a4qx-media/table/feature_importances_1_bad7cbf187fe3584217d.table.json
+2022-09-07 20:12:50,275 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: log_artifact
+2022-09-07 20:12:50,285 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: partial_history
+2022-09-07 20:12:50,507 INFO    Thread-12 :34075 [dir_watcher.py:_on_file_modified():292] file/dir modified: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/output.log
+2022-09-07 20:12:50,507 INFO    Thread-12 :34075 [dir_watcher.py:_on_file_created():275] file/dir created: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/media/table/confusion_matrix_2_3b67bc8caabb8e82ad82.table.json
+2022-09-07 20:12:50,508 INFO    Thread-12 :34075 [dir_watcher.py:_on_file_created():275] file/dir created: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/media/table/summary_metrics_3_ef7546364c139e746b09.table.json
+2022-09-07 20:12:50,508 INFO    Thread-12 :34075 [dir_watcher.py:_on_file_modified():292] file/dir modified: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/media/table
+2022-09-07 20:12:50,522 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: log_artifact
+2022-09-07 20:12:50,531 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: partial_history
+2022-09-07 20:12:51,253 INFO    Thread-18 :34075 [upload_job.py:push():138] Uploaded file /var/folders/k2/vg1fnttx4t12m4qw721f8mbr0000gn/T/tmp1j7vg76cwandb/2wezfgmb-media/table/confusion_matrix_2_3b67bc8caabb8e82ad82.table.json
+2022-09-07 20:12:51,255 INFO    Thread-19 :34075 [upload_job.py:push():138] Uploaded file /var/folders/k2/vg1fnttx4t12m4qw721f8mbr0000gn/T/tmp1j7vg76cwandb/1921bz3o-media/table/summary_metrics_3_ef7546364c139e746b09.table.json
+2022-09-07 20:12:51,256 INFO    Thread-21 :34075 [upload_job.py:push():96] Uploaded file /Users/davitbzhalava/.cache/wandb/artifacts/obj/md5/16/a9a145f2bd0dba8b6180e741b5bba8
+2022-09-07 20:12:51,513 INFO    Thread-12 :34075 [dir_watcher.py:_on_file_modified():292] file/dir modified: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/output.log
+2022-09-07 20:12:51,513 INFO    Thread-12 :34075 [dir_watcher.py:_on_file_created():275] file/dir created: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/media/table/class_proportions_4_e956633a464a273a404a.table.json
+2022-09-07 20:12:51,513 INFO    Thread-12 :34075 [dir_watcher.py:_on_file_modified():292] file/dir modified: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/media/table
+2022-09-07 20:12:51,653 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: log_artifact
+2022-09-07 20:12:51,662 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: partial_history
+2022-09-07 20:12:52,518 INFO    Thread-12 :34075 [dir_watcher.py:_on_file_created():275] file/dir created: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/media/table/calibration_curve_5_68f67bcd809ae6b55d65.table.json
+2022-09-07 20:12:52,518 INFO    Thread-12 :34075 [dir_watcher.py:_on_file_modified():292] file/dir modified: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/media/table
+2022-09-07 20:12:53,612 INFO    SenderThread:34075 [sender.py:send_request_log_artifact():1207] logged artifact run-7kf7i6gh-feature_importances - {'id': 'QXJ0aWZhY3Q6MTg3OTg1MDA2', 'digest': 'da16d3083a7ddff2d049d767e089fdc4', 'state': 'PENDING', 'aliases': [], 'artifactSequence': {'id': 'QXJ0aWZhY3RDb2xsZWN0aW9uOjI3NjIyMjk1', 'latestArtifact': None}, 'version': 'latest'}
+2022-09-07 20:12:53,614 DEBUG   SenderThread:34075 [sender.py:send():302] send: files
+2022-09-07 20:12:53,614 INFO    SenderThread:34075 [sender.py:_save_file():1156] saving file media/table/feature_importances_1_bad7cbf187fe3584217d.table.json with policy now
+2022-09-07 20:12:53,615 DEBUG   SenderThread:34075 [sender.py:send():302] send: history
+2022-09-07 20:12:53,615 DEBUG   SenderThread:34075 [sender.py:send():302] send: summary
+2022-09-07 20:12:53,618 INFO    SenderThread:34075 [sender.py:_save_file():1156] saving file wandb-summary.json with policy end
+2022-09-07 20:12:53,619 DEBUG   SenderThread:34075 [sender.py:send():302] send: config
+2022-09-07 20:12:53,619 DEBUG   SenderThread:34075 [sender.py:send_request():316] send_request: log_artifact
+2022-09-07 20:12:53,817 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: log_artifact
+2022-09-07 20:12:53,828 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: partial_history
+2022-09-07 20:12:54,079 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: log_artifact
+2022-09-07 20:12:54,089 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: partial_history
+2022-09-07 20:12:54,342 INFO    Thread-23 :34075 [upload_job.py:push():138] Uploaded file /var/folders/k2/vg1fnttx4t12m4qw721f8mbr0000gn/T/tmp1j7vg76cwandb/p8lc308z-media/table/calibration_curve_5_68f67bcd809ae6b55d65.table.json
+2022-09-07 20:12:54,364 INFO    Thread-22 :34075 [upload_job.py:push():138] Uploaded file /var/folders/k2/vg1fnttx4t12m4qw721f8mbr0000gn/T/tmp1j7vg76cwandb/235ooxqb-media/table/class_proportions_4_e956633a464a273a404a.table.json
+2022-09-07 20:12:54,372 INFO    Thread-24 :34075 [upload_job.py:push():138] Uploaded file /var/folders/k2/vg1fnttx4t12m4qw721f8mbr0000gn/T/tmp1j7vg76cwandb/88z7svhr-media/table/feature_importances_1_bad7cbf187fe3584217d.table.json
+2022-09-07 20:12:54,524 INFO    Thread-12 :34075 [dir_watcher.py:_on_file_modified():292] file/dir modified: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/output.log
+2022-09-07 20:12:54,524 INFO    Thread-12 :34075 [dir_watcher.py:_on_file_modified():292] file/dir modified: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/wandb-summary.json
+2022-09-07 20:12:54,524 INFO    Thread-12 :34075 [dir_watcher.py:_on_file_created():275] file/dir created: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/media/table/roc_6_a5752716029b179bd353.table.json
+2022-09-07 20:12:54,525 INFO    Thread-12 :34075 [dir_watcher.py:_on_file_created():275] file/dir created: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/media/table/precision_recall_7_1ee55aae3391b0e56ab2.table.json
+2022-09-07 20:12:54,525 INFO    Thread-12 :34075 [dir_watcher.py:_on_file_created():275] file/dir created: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/fraud.model.pkl
+2022-09-07 20:12:54,526 INFO    Thread-12 :34075 [dir_watcher.py:_on_file_modified():292] file/dir modified: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/media/table
+2022-09-07 20:12:54,530 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: log_artifact
+2022-09-07 20:12:54,535 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: poll_exit
+2022-09-07 20:12:55,351 INFO    Thread-25 :34075 [upload_job.py:push():138] Uploaded file /var/folders/k2/vg1fnttx4t12m4qw721f8mbr0000gn/T/tmp1j7vg76cwandb/2uc57p0t-media/table/roc_6_a5752716029b179bd353.table.json
+2022-09-07 20:12:55,353 INFO    Thread-26 :34075 [upload_job.py:push():138] Uploaded file /var/folders/k2/vg1fnttx4t12m4qw721f8mbr0000gn/T/tmp1j7vg76cwandb/2nhgnp71-media/table/precision_recall_7_1ee55aae3391b0e56ab2.table.json
+2022-09-07 20:12:55,400 INFO    Thread-28 :34075 [upload_job.py:push():96] Uploaded file /Users/davitbzhalava/.cache/wandb/artifacts/obj/md5/a7/de21facf196d15bf8dbea205c35233
+2022-09-07 20:12:56,742 INFO    SenderThread:34075 [sender.py:send_request_log_artifact():1207] logged artifact run-7kf7i6gh-confusion_matrix - {'id': 'QXJ0aWZhY3Q6MTg3OTg1MDQw', 'digest': '87069ddeabc1fb3e743bd3e1088ffacd', 'state': 'PENDING', 'aliases': [], 'artifactSequence': {'id': 'QXJ0aWZhY3RDb2xsZWN0aW9uOjI3NjIyMzAx', 'latestArtifact': None}, 'version': 'latest'}
+2022-09-07 20:12:56,743 DEBUG   SenderThread:34075 [sender.py:send():302] send: files
+2022-09-07 20:12:56,743 INFO    SenderThread:34075 [sender.py:_save_file():1156] saving file media/table/confusion_matrix_2_3b67bc8caabb8e82ad82.table.json with policy now
+2022-09-07 20:12:56,743 DEBUG   SenderThread:34075 [sender.py:send():302] send: history
+2022-09-07 20:12:56,743 DEBUG   SenderThread:34075 [sender.py:send():302] send: summary
+2022-09-07 20:12:56,745 INFO    SenderThread:34075 [sender.py:_save_file():1156] saving file wandb-summary.json with policy end
+2022-09-07 20:12:56,745 DEBUG   SenderThread:34075 [sender.py:send():302] send: config
+2022-09-07 20:12:56,746 DEBUG   SenderThread:34075 [sender.py:send_request():316] send_request: log_artifact
+2022-09-07 20:12:57,523 INFO    Thread-29 :34075 [upload_job.py:push():138] Uploaded file /var/folders/k2/vg1fnttx4t12m4qw721f8mbr0000gn/T/tmp1j7vg76cwandb/1djjrjqv-media/table/confusion_matrix_2_3b67bc8caabb8e82ad82.table.json
+2022-09-07 20:12:57,528 INFO    Thread-12 :34075 [dir_watcher.py:_on_file_modified():292] file/dir modified: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/wandb-summary.json
+2022-09-07 20:12:58,421 INFO    Thread-31 :34075 [upload_job.py:push():96] Uploaded file /Users/davitbzhalava/.cache/wandb/artifacts/obj/md5/61/c957bb59fffbb64d5609977b59b9a2
+2022-09-07 20:12:58,531 INFO    Thread-12 :34075 [dir_watcher.py:_on_file_modified():292] file/dir modified: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/output.log
+2022-09-07 20:12:59,610 INFO    SenderThread:34075 [sender.py:send_request_log_artifact():1207] logged artifact run-7kf7i6gh-summary_metrics - {'id': 'QXJ0aWZhY3Q6MTg3OTg1MDYz', 'digest': '7624c48f72ae523491d8aaf09b24084c', 'state': 'PENDING', 'aliases': [], 'artifactSequence': {'id': 'QXJ0aWZhY3RDb2xsZWN0aW9uOjI3NjIyMzA4', 'latestArtifact': None}, 'version': 'latest'}
+2022-09-07 20:12:59,610 DEBUG   SenderThread:34075 [sender.py:send():302] send: files
+2022-09-07 20:12:59,610 INFO    SenderThread:34075 [sender.py:_save_file():1156] saving file media/table/summary_metrics_3_ef7546364c139e746b09.table.json with policy now
+2022-09-07 20:12:59,611 DEBUG   SenderThread:34075 [sender.py:send():302] send: history
+2022-09-07 20:12:59,611 DEBUG   SenderThread:34075 [sender.py:send():302] send: summary
+2022-09-07 20:12:59,613 INFO    SenderThread:34075 [sender.py:_save_file():1156] saving file wandb-summary.json with policy end
+2022-09-07 20:12:59,614 DEBUG   SenderThread:34075 [sender.py:send():302] send: config
+2022-09-07 20:12:59,614 DEBUG   SenderThread:34075 [sender.py:send_request():316] send_request: log_artifact
+2022-09-07 20:12:59,641 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: poll_exit
+2022-09-07 20:13:00,446 INFO    Thread-32 :34075 [upload_job.py:push():138] Uploaded file /var/folders/k2/vg1fnttx4t12m4qw721f8mbr0000gn/T/tmp1j7vg76cwandb/2j2ic77a-media/table/summary_metrics_3_ef7546364c139e746b09.table.json
+2022-09-07 20:13:00,534 INFO    Thread-12 :34075 [dir_watcher.py:_on_file_modified():292] file/dir modified: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/output.log
+2022-09-07 20:13:00,534 INFO    Thread-12 :34075 [dir_watcher.py:_on_file_modified():292] file/dir modified: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/wandb-summary.json
+2022-09-07 20:13:01,289 INFO    Thread-34 :34075 [upload_job.py:push():96] Uploaded file /Users/davitbzhalava/.cache/wandb/artifacts/obj/md5/21/9c4664f95fdb324014c1ad5ba94b49
+2022-09-07 20:13:02,723 INFO    SenderThread:34075 [sender.py:send_request_log_artifact():1207] logged artifact run-7kf7i6gh-class_proportions - {'id': 'QXJ0aWZhY3Q6MTg3OTg1MDk0', 'digest': 'b6977df0ddb74972a38e3ab3f219b17f', 'state': 'PENDING', 'aliases': [], 'artifactSequence': {'id': 'QXJ0aWZhY3RDb2xsZWN0aW9uOjI3NjIyMzEy', 'latestArtifact': None}, 'version': 'latest'}
+2022-09-07 20:13:02,723 DEBUG   SenderThread:34075 [sender.py:send():302] send: files
+2022-09-07 20:13:02,723 INFO    SenderThread:34075 [sender.py:_save_file():1156] saving file media/table/class_proportions_4_e956633a464a273a404a.table.json with policy now
+2022-09-07 20:13:02,724 DEBUG   SenderThread:34075 [sender.py:send():302] send: history
+2022-09-07 20:13:02,724 DEBUG   SenderThread:34075 [sender.py:send():302] send: summary
+2022-09-07 20:13:02,726 INFO    SenderThread:34075 [sender.py:_save_file():1156] saving file wandb-summary.json with policy end
+2022-09-07 20:13:02,726 DEBUG   SenderThread:34075 [sender.py:send():302] send: config
+2022-09-07 20:13:02,726 DEBUG   SenderThread:34075 [sender.py:send_request():316] send_request: log_artifact
+2022-09-07 20:13:03,439 INFO    Thread-35 :34075 [upload_job.py:push():138] Uploaded file /var/folders/k2/vg1fnttx4t12m4qw721f8mbr0000gn/T/tmp1j7vg76cwandb/1m0ll09p-media/table/class_proportions_4_e956633a464a273a404a.table.json
+2022-09-07 20:13:03,546 INFO    Thread-12 :34075 [dir_watcher.py:_on_file_modified():292] file/dir modified: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/wandb-summary.json
+2022-09-07 20:13:04,428 INFO    Thread-37 :34075 [upload_job.py:push():96] Uploaded file /Users/davitbzhalava/.cache/wandb/artifacts/obj/md5/f3/4a75de322d5518a9c8dd7b687ad848
+2022-09-07 20:13:04,549 INFO    Thread-12 :34075 [dir_watcher.py:_on_file_modified():292] file/dir modified: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/output.log
+2022-09-07 20:13:04,743 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: poll_exit
+2022-09-07 20:13:05,897 INFO    SenderThread:34075 [sender.py:send_request_log_artifact():1207] logged artifact run-7kf7i6gh-calibration_curve - {'id': 'QXJ0aWZhY3Q6MTg3OTg1MTE3', 'digest': 'b9f6780e97b5f4890634ffd3ff55e797', 'state': 'PENDING', 'aliases': [], 'artifactSequence': {'id': 'QXJ0aWZhY3RDb2xsZWN0aW9uOjI3NjIyMzE0', 'latestArtifact': None}, 'version': 'latest'}
+2022-09-07 20:13:05,897 DEBUG   SenderThread:34075 [sender.py:send():302] send: files
+2022-09-07 20:13:05,897 INFO    SenderThread:34075 [sender.py:_save_file():1156] saving file media/table/calibration_curve_5_68f67bcd809ae6b55d65.table.json with policy now
+2022-09-07 20:13:05,898 DEBUG   SenderThread:34075 [sender.py:send():302] send: history
+2022-09-07 20:13:05,898 DEBUG   SenderThread:34075 [sender.py:send():302] send: summary
+2022-09-07 20:13:05,900 INFO    SenderThread:34075 [sender.py:_save_file():1156] saving file wandb-summary.json with policy end
+2022-09-07 20:13:05,901 DEBUG   SenderThread:34075 [sender.py:send():302] send: telemetry
+2022-09-07 20:13:05,901 DEBUG   SenderThread:34075 [sender.py:send():302] send: config
+2022-09-07 20:13:05,901 DEBUG   SenderThread:34075 [sender.py:send_request():316] send_request: log_artifact
+2022-09-07 20:13:06,556 INFO    Thread-12 :34075 [dir_watcher.py:_on_file_modified():292] file/dir modified: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/wandb-summary.json
+2022-09-07 20:13:06,623 INFO    Thread-38 :34075 [upload_job.py:push():138] Uploaded file /var/folders/k2/vg1fnttx4t12m4qw721f8mbr0000gn/T/tmp1j7vg76cwandb/2zf8ompq-media/table/calibration_curve_5_68f67bcd809ae6b55d65.table.json
+2022-09-07 20:13:07,637 INFO    Thread-40 :34075 [upload_job.py:push():96] Uploaded file /Users/davitbzhalava/.cache/wandb/artifacts/obj/md5/1c/bc0851335420b266eaa0608c35c000
+2022-09-07 20:13:08,563 INFO    Thread-12 :34075 [dir_watcher.py:_on_file_modified():292] file/dir modified: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/output.log
+2022-09-07 20:13:08,969 INFO    SenderThread:34075 [sender.py:send_request_log_artifact():1207] logged artifact run-7kf7i6gh-roc - {'id': 'QXJ0aWZhY3Q6MTg3OTg1MTM4', 'digest': '4423f9379e7f7b18c7d756fee4f05df9', 'state': 'PENDING', 'aliases': [], 'artifactSequence': {'id': 'QXJ0aWZhY3RDb2xsZWN0aW9uOjI3NjIyMzE4', 'latestArtifact': None}, 'version': 'latest'}
+2022-09-07 20:13:08,969 DEBUG   SenderThread:34075 [sender.py:send():302] send: files
+2022-09-07 20:13:08,969 INFO    SenderThread:34075 [sender.py:_save_file():1156] saving file media/table/roc_6_a5752716029b179bd353.table.json with policy now
+2022-09-07 20:13:08,970 DEBUG   SenderThread:34075 [sender.py:send():302] send: history
+2022-09-07 20:13:08,970 DEBUG   SenderThread:34075 [sender.py:send():302] send: summary
+2022-09-07 20:13:08,971 INFO    SenderThread:34075 [sender.py:_save_file():1156] saving file wandb-summary.json with policy end
+2022-09-07 20:13:08,971 DEBUG   SenderThread:34075 [sender.py:send():302] send: config
+2022-09-07 20:13:08,971 DEBUG   SenderThread:34075 [sender.py:send_request():316] send_request: log_artifact
+2022-09-07 20:13:09,567 INFO    Thread-12 :34075 [dir_watcher.py:_on_file_modified():292] file/dir modified: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/wandb-summary.json
+2022-09-07 20:13:09,745 INFO    Thread-41 :34075 [upload_job.py:push():138] Uploaded file /var/folders/k2/vg1fnttx4t12m4qw721f8mbr0000gn/T/tmp1j7vg76cwandb/1z71jsxe-media/table/roc_6_a5752716029b179bd353.table.json
+2022-09-07 20:13:09,849 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: poll_exit
+2022-09-07 20:13:10,573 INFO    Thread-12 :34075 [dir_watcher.py:_on_file_modified():292] file/dir modified: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/output.log
+2022-09-07 20:13:10,677 INFO    Thread-43 :34075 [upload_job.py:push():96] Uploaded file /Users/davitbzhalava/.cache/wandb/artifacts/obj/md5/c3/f06860d98d27aff9ecc5faddb230e5
+2022-09-07 20:13:11,913 INFO    SenderThread:34075 [sender.py:send_request_log_artifact():1207] logged artifact run-7kf7i6gh-precision_recall - {'id': 'QXJ0aWZhY3Q6MTg3OTg1MTYz', 'digest': '6dff79d5d587fa9a95f8a160da2d49f4', 'state': 'PENDING', 'aliases': [], 'artifactSequence': {'id': 'QXJ0aWZhY3RDb2xsZWN0aW9uOjI3NjIyMzIy', 'latestArtifact': None}, 'version': 'latest'}
+2022-09-07 20:13:12,213 DEBUG   SenderThread:34075 [sender.py:send():302] send: files
+2022-09-07 20:13:12,213 INFO    SenderThread:34075 [sender.py:_save_file():1156] saving file media/table/precision_recall_7_1ee55aae3391b0e56ab2.table.json with policy now
+2022-09-07 20:13:12,213 DEBUG   SenderThread:34075 [sender.py:send():302] send: history
+2022-09-07 20:13:12,214 DEBUG   SenderThread:34075 [sender.py:send():302] send: summary
+2022-09-07 20:13:12,214 INFO    SenderThread:34075 [sender.py:_save_file():1156] saving file wandb-summary.json with policy end
+2022-09-07 20:13:12,215 DEBUG   SenderThread:34075 [sender.py:send():302] send: telemetry
+2022-09-07 20:13:12,215 DEBUG   SenderThread:34075 [sender.py:send():302] send: files
+2022-09-07 20:13:12,215 INFO    SenderThread:34075 [sender.py:_save_file():1156] saving file fraud.model.pkl with policy live
+2022-09-07 20:13:12,215 DEBUG   SenderThread:34075 [sender.py:send_request():316] send_request: log_artifact
+2022-09-07 20:13:12,581 INFO    Thread-12 :34075 [dir_watcher.py:_on_file_modified():292] file/dir modified: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/config.yaml
+2022-09-07 20:13:12,581 INFO    Thread-12 :34075 [dir_watcher.py:_on_file_modified():292] file/dir modified: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/wandb-summary.json
+2022-09-07 20:13:12,998 INFO    Thread-44 :34075 [upload_job.py:push():138] Uploaded file /var/folders/k2/vg1fnttx4t12m4qw721f8mbr0000gn/T/tmp1j7vg76cwandb/2xawre0h-media/table/precision_recall_7_1ee55aae3391b0e56ab2.table.json
+2022-09-07 20:13:13,311 INFO    Thread-45 :34075 [upload_job.py:push():138] Uploaded file /var/folders/k2/vg1fnttx4t12m4qw721f8mbr0000gn/T/tmp1j7vg76cwandb/1ckgnd05-fraud.model.pkl
+2022-09-07 20:13:14,590 INFO    Thread-12 :34075 [dir_watcher.py:_on_file_modified():292] file/dir modified: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/output.log
+2022-09-07 20:13:14,704 INFO    Thread-47 :34075 [upload_job.py:push():96] Uploaded file /Users/davitbzhalava/.cache/wandb/artifacts/obj/md5/5c/ea13c33b4e3d3897448763d192986f
+2022-09-07 20:13:14,955 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: poll_exit
+2022-09-07 20:13:16,526 INFO    SenderThread:34075 [sender.py:send_request_log_artifact():1207] logged artifact RandomForestClassifier - {'id': 'QXJ0aWZhY3Q6MTg3OTg1MTc4', 'digest': 'b976b4108b316dc696d352c5ea6af177', 'state': 'PENDING', 'aliases': [], 'artifactSequence': {'id': 'QXJ0aWZhY3RDb2xsZWN0aW9uOjI3NjIyMjA3', 'latestArtifact': {'id': 'QXJ0aWZhY3Q6MTg3OTg0ODcy', 'versionIndex': 1}}, 'version': 'latest'}
+2022-09-07 20:13:16,526 DEBUG   SenderThread:34075 [sender.py:send():302] send: telemetry
+2022-09-07 20:13:16,526 DEBUG   SenderThread:34075 [sender.py:send():302] send: exit
+2022-09-07 20:13:16,526 INFO    SenderThread:34075 [sender.py:send_exit():438] handling exit code: 0
+2022-09-07 20:13:16,526 INFO    SenderThread:34075 [sender.py:send_exit():440] handling runtime: 12
+2022-09-07 20:13:16,528 INFO    SenderThread:34075 [sender.py:_save_file():1156] saving file wandb-summary.json with policy end
+2022-09-07 20:13:16,529 INFO    SenderThread:34075 [sender.py:send_exit():446] send defer
+2022-09-07 20:13:16,529 DEBUG   SenderThread:34075 [sender.py:send_request():316] send_request: poll_exit
+2022-09-07 20:13:16,530 DEBUG   SenderThread:34075 [sender.py:send_request():316] send_request: poll_exit
+2022-09-07 20:13:16,530 DEBUG   SenderThread:34075 [sender.py:send_request():316] send_request: poll_exit
+2022-09-07 20:13:16,530 DEBUG   SenderThread:34075 [sender.py:send_request():316] send_request: poll_exit
+2022-09-07 20:13:16,530 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: defer
+2022-09-07 20:13:16,531 DEBUG   SenderThread:34075 [sender.py:send():302] send: stats
+2022-09-07 20:13:16,532 INFO    HandlerThread:34075 [handler.py:handle_request_defer():164] handle defer: 0
+2022-09-07 20:13:16,532 DEBUG   SenderThread:34075 [sender.py:send_request():316] send_request: poll_exit
+2022-09-07 20:13:16,533 DEBUG   SenderThread:34075 [sender.py:send_request():316] send_request: defer
+2022-09-07 20:13:16,533 INFO    SenderThread:34075 [sender.py:send_request_defer():455] handle sender defer: 0
+2022-09-07 20:13:16,534 INFO    SenderThread:34075 [sender.py:transition_state():459] send defer: 1
+2022-09-07 20:13:16,534 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: defer
+2022-09-07 20:13:16,534 INFO    HandlerThread:34075 [handler.py:handle_request_defer():164] handle defer: 1
+2022-09-07 20:13:16,597 INFO    Thread-12 :34075 [dir_watcher.py:_on_file_modified():292] file/dir modified: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/wandb-summary.json
+2022-09-07 20:13:16,632 DEBUG   SenderThread:34075 [sender.py:send_request():316] send_request: defer
+2022-09-07 20:13:16,632 INFO    SenderThread:34075 [sender.py:send_request_defer():455] handle sender defer: 1
+2022-09-07 20:13:16,632 INFO    SenderThread:34075 [sender.py:transition_state():459] send defer: 2
+2022-09-07 20:13:16,632 DEBUG   SenderThread:34075 [sender.py:send():302] send: stats
+2022-09-07 20:13:16,632 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: defer
+2022-09-07 20:13:16,632 INFO    HandlerThread:34075 [handler.py:handle_request_defer():164] handle defer: 2
+2022-09-07 20:13:16,632 DEBUG   SenderThread:34075 [sender.py:send_request():316] send_request: defer
+2022-09-07 20:13:16,633 INFO    SenderThread:34075 [sender.py:send_request_defer():455] handle sender defer: 2
+2022-09-07 20:13:16,633 INFO    SenderThread:34075 [sender.py:transition_state():459] send defer: 3
+2022-09-07 20:13:16,633 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: defer
+2022-09-07 20:13:16,633 INFO    HandlerThread:34075 [handler.py:handle_request_defer():164] handle defer: 3
+2022-09-07 20:13:16,633 DEBUG   SenderThread:34075 [sender.py:send_request():316] send_request: defer
+2022-09-07 20:13:16,633 INFO    SenderThread:34075 [sender.py:send_request_defer():455] handle sender defer: 3
+2022-09-07 20:13:16,633 INFO    SenderThread:34075 [sender.py:transition_state():459] send defer: 4
+2022-09-07 20:13:16,634 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: defer
+2022-09-07 20:13:16,634 INFO    HandlerThread:34075 [handler.py:handle_request_defer():164] handle defer: 4
+2022-09-07 20:13:16,634 DEBUG   SenderThread:34075 [sender.py:send():302] send: summary
+2022-09-07 20:13:16,635 INFO    SenderThread:34075 [sender.py:_save_file():1156] saving file wandb-summary.json with policy end
+2022-09-07 20:13:16,635 DEBUG   SenderThread:34075 [sender.py:send_request():316] send_request: defer
+2022-09-07 20:13:16,635 INFO    SenderThread:34075 [sender.py:send_request_defer():455] handle sender defer: 4
+2022-09-07 20:13:16,635 INFO    SenderThread:34075 [sender.py:transition_state():459] send defer: 5
+2022-09-07 20:13:16,635 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: defer
+2022-09-07 20:13:16,635 INFO    HandlerThread:34075 [handler.py:handle_request_defer():164] handle defer: 5
+2022-09-07 20:13:16,635 DEBUG   SenderThread:34075 [sender.py:send_request():316] send_request: defer
+2022-09-07 20:13:16,635 INFO    SenderThread:34075 [sender.py:send_request_defer():455] handle sender defer: 5
+2022-09-07 20:13:16,642 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: poll_exit
+2022-09-07 20:13:17,603 INFO    Thread-12 :34075 [dir_watcher.py:_on_file_modified():292] file/dir modified: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/wandb-summary.json
+2022-09-07 20:13:17,885 INFO    SenderThread:34075 [sender.py:transition_state():459] send defer: 6
+2022-09-07 20:13:17,886 DEBUG   SenderThread:34075 [sender.py:send_request():316] send_request: poll_exit
+2022-09-07 20:13:17,886 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: defer
+2022-09-07 20:13:17,886 INFO    HandlerThread:34075 [handler.py:handle_request_defer():164] handle defer: 6
+2022-09-07 20:13:17,887 DEBUG   SenderThread:34075 [sender.py:send_request():316] send_request: defer
+2022-09-07 20:13:17,887 INFO    SenderThread:34075 [sender.py:send_request_defer():455] handle sender defer: 6
+2022-09-07 20:13:17,990 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: poll_exit
+2022-09-07 20:13:18,607 INFO    Thread-12 :34075 [dir_watcher.py:_on_file_modified():292] file/dir modified: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/config.yaml
+2022-09-07 20:13:19,206 INFO    SenderThread:34075 [sender.py:transition_state():459] send defer: 7
+2022-09-07 20:13:19,206 DEBUG   SenderThread:34075 [sender.py:send_request():316] send_request: poll_exit
+2022-09-07 20:13:19,207 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: defer
+2022-09-07 20:13:19,207 INFO    HandlerThread:34075 [handler.py:handle_request_defer():164] handle defer: 7
+2022-09-07 20:13:19,208 DEBUG   SenderThread:34075 [sender.py:send_request():316] send_request: defer
+2022-09-07 20:13:19,208 INFO    SenderThread:34075 [sender.py:send_request_defer():455] handle sender defer: 7
+2022-09-07 20:13:19,208 INFO    SenderThread:34075 [dir_watcher.py:finish():362] shutting down directory watcher
+2022-09-07 20:13:19,310 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: poll_exit
+2022-09-07 20:13:19,613 INFO    SenderThread:34075 [dir_watcher.py:_on_file_modified():292] file/dir modified: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/output.log
+2022-09-07 20:13:19,613 INFO    SenderThread:34075 [dir_watcher.py:finish():392] scan: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files
+2022-09-07 20:13:19,613 INFO    SenderThread:34075 [dir_watcher.py:finish():406] scan save: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/requirements.txt requirements.txt
+2022-09-07 20:13:19,614 INFO    SenderThread:34075 [dir_watcher.py:finish():406] scan save: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/output.log output.log
+2022-09-07 20:13:19,617 INFO    SenderThread:34075 [dir_watcher.py:finish():406] scan save: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/config.yaml config.yaml
+2022-09-07 20:13:19,619 INFO    SenderThread:34075 [dir_watcher.py:finish():406] scan save: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/wandb-summary.json wandb-summary.json
+2022-09-07 20:13:19,622 INFO    SenderThread:34075 [dir_watcher.py:finish():406] scan save: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/conda-environment.yaml conda-environment.yaml
+2022-09-07 20:13:19,626 INFO    SenderThread:34075 [dir_watcher.py:finish():406] scan save: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/fraud.model.pkl fraud.model.pkl
+2022-09-07 20:13:19,627 INFO    SenderThread:34075 [dir_watcher.py:finish():406] scan save: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/wandb-metadata.json wandb-metadata.json
+2022-09-07 20:13:19,631 INFO    SenderThread:34075 [dir_watcher.py:finish():406] scan save: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/media/table/confusion_matrix_2_3b67bc8caabb8e82ad82.table.json media/table/confusion_matrix_2_3b67bc8caabb8e82ad82.table.json
+2022-09-07 20:13:19,631 INFO    SenderThread:34075 [dir_watcher.py:finish():406] scan save: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/media/table/roc_6_a5752716029b179bd353.table.json media/table/roc_6_a5752716029b179bd353.table.json
+2022-09-07 20:13:19,631 INFO    SenderThread:34075 [dir_watcher.py:finish():406] scan save: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/media/table/calibration_curve_5_68f67bcd809ae6b55d65.table.json media/table/calibration_curve_5_68f67bcd809ae6b55d65.table.json
+2022-09-07 20:13:19,631 INFO    SenderThread:34075 [dir_watcher.py:finish():406] scan save: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/media/table/summary_metrics_3_ef7546364c139e746b09.table.json media/table/summary_metrics_3_ef7546364c139e746b09.table.json
+2022-09-07 20:13:19,631 INFO    SenderThread:34075 [dir_watcher.py:finish():406] scan save: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/media/table/feature_importances_1_bad7cbf187fe3584217d.table.json media/table/feature_importances_1_bad7cbf187fe3584217d.table.json
+2022-09-07 20:13:19,632 INFO    SenderThread:34075 [dir_watcher.py:finish():406] scan save: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/media/table/class_proportions_4_e956633a464a273a404a.table.json media/table/class_proportions_4_e956633a464a273a404a.table.json
+2022-09-07 20:13:19,632 INFO    SenderThread:34075 [dir_watcher.py:finish():406] scan save: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/media/table/precision_recall_7_1ee55aae3391b0e56ab2.table.json media/table/precision_recall_7_1ee55aae3391b0e56ab2.table.json
+2022-09-07 20:13:19,632 INFO    SenderThread:34075 [sender.py:transition_state():459] send defer: 8
+2022-09-07 20:13:19,632 DEBUG   SenderThread:34075 [sender.py:send_request():316] send_request: poll_exit
+2022-09-07 20:13:19,633 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: defer
+2022-09-07 20:13:19,633 INFO    HandlerThread:34075 [handler.py:handle_request_defer():164] handle defer: 8
+2022-09-07 20:13:19,633 DEBUG   SenderThread:34075 [sender.py:send_request():316] send_request: defer
+2022-09-07 20:13:19,633 INFO    SenderThread:34075 [sender.py:send_request_defer():455] handle sender defer: 8
+2022-09-07 20:13:19,633 INFO    SenderThread:34075 [file_pusher.py:finish():171] shutting down file pusher
+2022-09-07 20:13:19,740 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: poll_exit
+2022-09-07 20:13:19,740 DEBUG   SenderThread:34075 [sender.py:send_request():316] send_request: poll_exit
+2022-09-07 20:13:19,845 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: poll_exit
+2022-09-07 20:13:19,845 DEBUG   SenderThread:34075 [sender.py:send_request():316] send_request: poll_exit
+2022-09-07 20:13:19,953 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: poll_exit
+2022-09-07 20:13:19,953 DEBUG   SenderThread:34075 [sender.py:send_request():316] send_request: poll_exit
+2022-09-07 20:13:20,056 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: poll_exit
+2022-09-07 20:13:20,057 DEBUG   SenderThread:34075 [sender.py:send_request():316] send_request: poll_exit
+2022-09-07 20:13:20,165 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: poll_exit
+2022-09-07 20:13:20,165 DEBUG   SenderThread:34075 [sender.py:send_request():316] send_request: poll_exit
+2022-09-07 20:13:20,271 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: poll_exit
+2022-09-07 20:13:20,271 DEBUG   SenderThread:34075 [sender.py:send_request():316] send_request: poll_exit
+2022-09-07 20:13:20,380 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: poll_exit
+2022-09-07 20:13:20,380 DEBUG   SenderThread:34075 [sender.py:send_request():316] send_request: poll_exit
+2022-09-07 20:13:20,487 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: poll_exit
+2022-09-07 20:13:20,488 DEBUG   SenderThread:34075 [sender.py:send_request():316] send_request: poll_exit
+2022-09-07 20:13:20,596 INFO    Thread-51 :34075 [upload_job.py:push():138] Uploaded file /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/wandb-summary.json
+2022-09-07 20:13:20,596 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: poll_exit
+2022-09-07 20:13:20,596 DEBUG   SenderThread:34075 [sender.py:send_request():316] send_request: poll_exit
+2022-09-07 20:13:20,599 INFO    Thread-50 :34075 [upload_job.py:push():138] Uploaded file /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/config.yaml
+2022-09-07 20:13:20,601 INFO    Thread-49 :34075 [upload_job.py:push():138] Uploaded file /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/output.log
+2022-09-07 20:13:20,603 INFO    Thread-48 :34075 [upload_job.py:push():138] Uploaded file /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/requirements.txt
+2022-09-07 20:13:20,684 INFO    Thread-52 :34075 [upload_job.py:push():138] Uploaded file /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/files/conda-environment.yaml
+2022-09-07 20:13:20,703 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: poll_exit
+2022-09-07 20:13:20,704 DEBUG   SenderThread:34075 [sender.py:send_request():316] send_request: poll_exit
+2022-09-07 20:13:20,811 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: poll_exit
+2022-09-07 20:13:20,812 DEBUG   SenderThread:34075 [sender.py:send_request():316] send_request: poll_exit
+2022-09-07 20:13:20,889 INFO    Thread-11 :34075 [sender.py:transition_state():459] send defer: 9
+2022-09-07 20:13:20,889 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: defer
+2022-09-07 20:13:20,890 INFO    HandlerThread:34075 [handler.py:handle_request_defer():164] handle defer: 9
+2022-09-07 20:13:20,890 DEBUG   SenderThread:34075 [sender.py:send_request():316] send_request: defer
+2022-09-07 20:13:20,890 INFO    SenderThread:34075 [sender.py:send_request_defer():455] handle sender defer: 9
+2022-09-07 20:13:20,916 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: poll_exit
+2022-09-07 20:13:21,136 INFO    SenderThread:34075 [sender.py:transition_state():459] send defer: 10
+2022-09-07 20:13:21,136 DEBUG   SenderThread:34075 [sender.py:send_request():316] send_request: poll_exit
+2022-09-07 20:13:21,137 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: defer
+2022-09-07 20:13:21,137 INFO    HandlerThread:34075 [handler.py:handle_request_defer():164] handle defer: 10
+2022-09-07 20:13:21,137 DEBUG   SenderThread:34075 [sender.py:send_request():316] send_request: defer
+2022-09-07 20:13:21,137 INFO    SenderThread:34075 [sender.py:send_request_defer():455] handle sender defer: 10
+2022-09-07 20:13:21,138 INFO    SenderThread:34075 [sender.py:transition_state():459] send defer: 11
+2022-09-07 20:13:21,138 DEBUG   SenderThread:34075 [sender.py:send():302] send: final
+2022-09-07 20:13:21,138 DEBUG   SenderThread:34075 [sender.py:send():302] send: footer
+2022-09-07 20:13:21,138 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: defer
+2022-09-07 20:13:21,139 INFO    HandlerThread:34075 [handler.py:handle_request_defer():164] handle defer: 11
+2022-09-07 20:13:21,139 DEBUG   SenderThread:34075 [sender.py:send_request():316] send_request: defer
+2022-09-07 20:13:21,139 INFO    SenderThread:34075 [sender.py:send_request_defer():455] handle sender defer: 11
+2022-09-07 20:13:21,240 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: poll_exit
+2022-09-07 20:13:21,241 DEBUG   SenderThread:34075 [sender.py:send_request():316] send_request: poll_exit
+2022-09-07 20:13:21,241 INFO    SenderThread:34075 [file_pusher.py:join():176] waiting for file pusher
+2022-09-07 20:13:21,821 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: sampled_history
+2022-09-07 20:13:21,823 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: get_summary
+2022-09-07 20:13:21,825 DEBUG   HandlerThread:34075 [handler.py:handle_request():141] handle_request: shutdown
+2022-09-07 20:13:21,825 INFO    HandlerThread:34075 [handler.py:finish():810] shutting down handler
+2022-09-07 20:13:22,139 INFO    WriterThread:34075 [datastore.py:close():279] close: /Users/davitbzhalava/hops/hopsworks-tutorials/integrations/wandb/wandb/run-20220907_201240-7kf7i6gh/run-7kf7i6gh.wandb
+2022-09-07 20:13:22,716 INFO    SenderThread:34075 [sender.py:finish():1312] shutting down sender
+2022-09-07 20:13:22,716 INFO    SenderThread:34075 [file_pusher.py:finish():171] shutting down file pusher
+2022-09-07 20:13:22,716 INFO    SenderThread:34075 [file_pusher.py:join():176] waiting for file pusher
+2022-09-07 20:13:26,379 INFO    MainThread:34075 [internal.py:handle_exit():80] Internal process exited

@@ -1,0 +1,21 @@
+{
+    "os": "macOS-10.16-x86_64-i386-64bit",
+    "python": "3.8.13",
+    "heartbeatAt": "2022-09-07T18:12:41.669917",
+    "startedAt": "2022-09-07T18:12:40.418239",
+    "docker": null,
+    "cpu_count": 16,
+    "cuda": null,
+    "args": null,
+    "state": "running",
+    "program": "integrations/wandb/3_model_training.ipynb",
+    "root": "/Users/davitbzhalava/hops/hopsworks-tutorials",
+    "git": {
+        "remote": "https://github.com/davitbzh/hopsworks-tutorials.git",
+        "commit": "9ba021ff814ba6749b2bad50c927de22ef1822c2"
+    },
+    "email": "davit.bzhalava@gmail.com",
+    "host": "MacBook-Pro-som-tillhor-Davit.local",
+    "username": "davitbzhalava",
+    "executable": "/Users/davitbzhalava/hops/hopsworks-tutorials/miniconda/envs/hopsworks/bin/python"
+}
