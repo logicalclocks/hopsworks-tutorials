@@ -3,7 +3,7 @@ name: electricity-price-prediction
 on:
   workflow_dispatch:
   schedule:
-    - cron: '15 23 * * *'
+    - cron: '30 21 * * *'
 
 jobs:
   test_schedule:
