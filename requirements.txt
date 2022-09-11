@@ -1,0 +1,8 @@
+hsfs[python]
+hopsworks
+pandas
+numpy
+matplotlib
+scikit-learn
+nbconvert
+tensorflow
