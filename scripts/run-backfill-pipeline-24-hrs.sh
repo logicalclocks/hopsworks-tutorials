@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "$PWD"
+
 set -e
 
 echo "Running feature backfill pipeline"
