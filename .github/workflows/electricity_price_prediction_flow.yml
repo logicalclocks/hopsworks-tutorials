@@ -1,9 +1,9 @@
-name: data_flow
+name: electricity-price-prediction
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: '30 */6 * * *'
+    - cron: '15 23 * * *'
 
 jobs:
   test_schedule:
@@ -25,11 +25,11 @@ jobs:
       - name: execute python workflows from bash script
         env:
           HOPSWORKS_API_KEY: ${{ secrets.HOPSWORKS_API_KEY }}
-        run: ./scripts/data_flow.sh
+        run: ./scripts/run-batch-prediction.sh
         
         
       - name: github pages update
-        uses: stefanzweifel/git-auto-commit-action@v4
+        uses: davbzh/git-auto-commit-action@v4
         with:
           commit_message: "Prediction Plot Update"
       
@@ -95,3 +95,4 @@ jobs:
 #          commit_message: "Automatic commit of latest_lahinch.png"
 #          force: false
 #          target_branch: gh-pages
+
