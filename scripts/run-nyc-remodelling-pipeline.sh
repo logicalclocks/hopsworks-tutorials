@@ -3,9 +3,9 @@
 set -e
 echo "$PWD"
 
-cd advanced_tutorials/nyc_taxi_fares/python_files
+cd advanced_tutorials/nyc_taxi_fares
 
 
 echo "Remodelling pipeline starts."
 
-python3 3_model_training.py
+jupyter nbconvert --to notebook --execute 4_model_training_and_registration.ipynb
