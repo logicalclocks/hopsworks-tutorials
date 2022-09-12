@@ -4,9 +4,7 @@ set -e
 
 echo "$PWD"
 
-cd advanced_tutorials/nyc_taxi_fares/python_files
+cd advanced_tutorials/nyc_taxi_fares
 
-echo "New rides data ingestion pipeline starts"
-python3 1.1_rides_fg.py
-echo "New fares data ingestion pipeline starts"
-python3 1.2_fares_fg.py
+echo "Data generation and ingestion pipeline starts"
+jupyter nbconvert --to notebook --execute 2_features_pipeline.ipynb

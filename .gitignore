@@ -21,8 +21,3 @@ miniconda/
 iris/iris_model
 **/**.pkl
 
-integrations/fraud_batch/artifacts/
-integrations/fraud_batch/config.yaml
-integrations/fraud_batch/fraud.model*
-integrations/fraud_batch/wandb-metadata.json
-integrations/fraud_batch/wandb/

@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 parsedatetime
+=======
+>>>>>>> 54a938c206933b382fdda4b3d42ca8156085be92
 hsfs[python]
 hopsworks
 scikit-learn
