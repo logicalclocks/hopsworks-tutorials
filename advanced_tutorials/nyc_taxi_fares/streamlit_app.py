@@ -8,6 +8,8 @@ from streamlit_folium import st_folium
 import json
 import time
 
+from functions import *
+
 
 progress_bar = st.sidebar.header('⚙️ Working Progress')
 progress_bar = st.sidebar.progress(0)
@@ -17,6 +19,13 @@ st.header('\n📡 Connecting to Hopsworks Feature Store...')
 
 project = hopsworks.login()
 fs = project.get_feature_store()
+
+rides_fg = fs.get_or_create_feature_group(name="rides_fg",
+                                          version=1) 
+
+fares_fg = fs.get_or_create_feature_group(name="fares_fg",
+                                          version=1) 
+
 progress_bar.progress(20)
 st.subheader("Successfully connected!✔️")
 
@@ -55,50 +64,26 @@ def get_model():
 
 
 def process_input_vector(pickup_latitude, pickup_longitude, dropoff_latitude, dropoff_longitude):
-    df = pd.DataFrame.from_dict({ "pickup_datetime": [np.random.randint(1600000000, 1610000000)],
-                                          "pickup_longitude": [pickup_longitude],
-                                          "dropoff_longitude": [dropoff_longitude],
-                                          "pickup_latitude": [pickup_latitude],
-                                          "dropoff_latitude": [dropoff_latitude],
-                                          "passenger_count": [np.random.randint(1, 5)]
-                                         })
-     # returns distance in miles
-    def distance(lat1, lon1, lat2, lon2):
-        p = 0.017453292519943295 # Pi/180
-        a = 0.5 - np.cos((lat2 - lat1) * p)/2 + np.cos(lat1 * p) * np.cos(lat2 * p) * (1 - np.cos((lon2 - lon1) * p)) / 2
-        return 0.6213712 * 12742 * np.arcsin(np.sqrt(a))
+    df = pd.DataFrame.from_dict({
+        "ride_id": [secrets.token_hex(nbytes=16)],
+        "pickup_datetime": [np.random.randint(1600000000, 1610000000)],
+        "pickup_longitude": [pickup_longitude],
+        "dropoff_longitude": [dropoff_longitude],
+        "pickup_latitude": [pickup_latitude],
+        "dropoff_latitude": [dropoff_latitude],
+        "passenger_count": [np.random.randint(1, 5)],
+        "tolls": [np.random.randint(0, 6)],
+        "taxi_id": [np.random.randint(1, 201)],
+        "driver_id": [np.random.randint(1, 201)]
+    })
+    
+    df = calculate_distance_features(df)
+    df = calculate_datetime_features(df)
+                                               
+    for col in ["passenger_count", "taxi_id", "driver_id"]:
+        df[col] = df[col].astype("int64")
 
-    df["distance"] = distance(df["pickup_latitude"], df["pickup_longitude"],
-                            df["dropoff_latitude"], df["dropoff_longitude"])
-
-    # Distances to nearby airports
-    jfk = (-73.7781, 40.6413)
-    ewr = (-74.1745, 40.6895)
-    lgr = (-73.8740, 40.7769)
-
-    df['pickup_distance_to_jfk'] = distance(jfk[1], jfk[0],
-                                         df['pickup_latitude'], df['pickup_longitude'])
-    df['dropoff_distance_to_jfk'] = distance(jfk[1], jfk[0],
-                                           df['dropoff_latitude'], df['dropoff_longitude'])
-    df['pickup_distance_to_ewr'] = distance(ewr[1], ewr[0],
-                                          df['pickup_latitude'], df['pickup_longitude'])
-    df['dropoff_distance_to_ewr'] = distance(ewr[1], ewr[0],
-                                           df['dropoff_latitude'], df['dropoff_longitude'])
-    df['pickup_distance_to_lgr'] = distance(lgr[1], lgr[0],
-                                          df['pickup_latitude'], df['pickup_longitude'])
-    df['dropoff_distance_to_lgr'] = distance(lgr[1], lgr[0],
-                                           df['dropoff_latitude'], df['dropoff_longitude'])
-
-    df["pickup_datetime"] = (pd.to_datetime(df["pickup_datetime"],unit='ms'))
-
-    df['year'] = df.pickup_datetime.apply(lambda t: t.year)
-    df['weekday'] = df.pickup_datetime.apply(lambda t: t.weekday())
-    df['hour'] = df.pickup_datetime.apply(lambda t: t.hour)
-    df["pickup_datetime"] = df["pickup_datetime"].values.astype(np.int64) // 10 ** 6
-
-    return df.drop(columns=['pickup_latitude', 'pickup_longitude',
-                            'dropoff_latitude', 'dropoff_longitude',
-                            'pickup_datetime'])
+    return df
 
 
 st.write(36 * "-")
@@ -178,33 +163,65 @@ try:
          '👥 Please enter the number of passengers:',
          (1, 2, 3, 4))
 
-    # this code will display streamlit map with two selected points
-    # map_df = pd.DataFrame(
-    #         [[pickup_latitude, pickup_longitude], [dropoff_latitude, dropoff_longitude]],
-    #         columns=['lat', 'lon'])
-    # st.map(map_df)
-
     progress_bar.progress(45)
-
+    
+    import time
+    time.sleep(4)
+    
     st.write(36 * "-")
     st.header('\n🤖 Feature Engineering...')
-    data = process_input_vector(pickup_latitude, pickup_longitude, dropoff_latitude, dropoff_longitude)
-    st.dataframe(data)
+    df = process_input_vector(pickup_latitude, pickup_longitude, dropoff_latitude, dropoff_longitude)
+    
+    # X features
+    X = df.drop(columns=['ride_id', 'taxi_id', 'driver_id', 'pickup_latitude', 'pickup_longitude',
+                         'dropoff_latitude', 'dropoff_longitude', 'pickup_datetime'])
+
+    st.dataframe(X)
     progress_bar.progress(60)
 
     st.write(36 * "-")
     st.header('\n🧠 Making price prediction for your trip...')
     model = get_model()
     progress_bar.progress(75)
-    preds = model.predict(data)[0]
+    prediction = model.predict(X)[0]
 
-    st.subheader(f"Prediction: **{str(preds)}**")
+    st.subheader(f"Prediction: **{str(prediction)}**")
+    
+    progress_bar.progress(85)
+    
+    st.write(36 * "-")
+    st.write(36 * "-")
+    
+    st.write("⬆️ Inserting a new data to the 'rides' Feature Group...")
+    print("Inserting into RIDES FG.")
+    rides_cols = ['ride_id', 'pickup_datetime', 'pickup_longitude', 'dropoff_longitude',
+                  'pickup_latitude', 'dropoff_latitude', 'passenger_count', 'taxi_id',
+                  'driver_id', 'distance', 'pickup_distance_to_jfk',
+                  'dropoff_distance_to_jfk', 'pickup_distance_to_ewr',
+                  'dropoff_distance_to_ewr', 'pickup_distance_to_lgr',
+                  'dropoff_distance_to_lgr', 'year', 'weekday', 'hour']
+    
+    rides_fg.insert(df[rides_cols])
+    progress_bar.progress(93)
+    
+    st.write("⬆️ Inserting a new data to the 'fares' Feature Group...")
+    print("Inserting into FARES FG.")
+    fares_cols = ['tolls', 'taxi_id', 'driver_id', 'ride_id']
+    
+    df_fares = df[fares_cols]
+    df_fares["total_fare"] = prediction
+    for col in ["tolls", "total_fare"]:
+        df_fares[col] = df_fares[col].astype("double")
+        
+    fares_fg.insert(df_fares)
+    
     progress_bar.progress(100)
 
     st.subheader('\n🎉 📈 🤝 App Finished Successfully 🤝 📈 🎉')
 
 
-except:
+except Exception as err:
+    print(err)
     pass
 
 st.button("Re-run")
