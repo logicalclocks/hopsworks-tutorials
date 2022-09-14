@@ -3,7 +3,7 @@
 .idea
 hops
 
-**/__pycache__
+__pycache__
 **/**/artifacts/
 **/**/config.yaml
 **/**/**.model*
