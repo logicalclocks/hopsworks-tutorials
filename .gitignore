@@ -2,8 +2,8 @@
 .DS_Store
 .idea
 hops
-__pycache__
 
+**/__pycache__
 **/**/artifacts/
 **/**/config.yaml
 **/**/**.model*
@@ -20,5 +20,5 @@ miniconda/
 **/keyfile
 **/tmp*
 iris/iris_model
-**/**.pkl
+
 
