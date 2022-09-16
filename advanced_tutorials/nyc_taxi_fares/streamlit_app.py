@@ -15,7 +15,7 @@ progress_bar = st.sidebar.header('⚙️ Working Progress')
 progress_bar = st.sidebar.progress(0)
 st.title('🚖NYC Taxi Fares Project🚖')
 st.write(36 * "-")
-st.header('\n📡 Connecting to Hopsworks Feature Store...')
+st.subheader('\n📡 Connecting to Hopsworks Feature Store...')
 
 project = hopsworks.login()
 fs = project.get_feature_store()
@@ -27,7 +27,7 @@ fares_fg = fs.get_or_create_feature_group(name="fares_fg",
                                           version=1) 
 
 progress_bar.progress(20)
-st.subheader("Successfully connected!✔️")
+st.write("Successfully connected!✔️")
 
 def get_random_map_points(n):
     res = list()
@@ -87,8 +87,8 @@ def process_input_vector(pickup_latitude, pickup_longitude, dropoff_latitude, dr
 
 
 st.write(36 * "-")
-st.header('\n🧩 Interactive predictions...')
-st.subheader("🔺 Please enter the coordinates of the pick-up (click on the map and wait couple of seconds):")
+st.subheader('\n🧩 Interactive predictions...')
+st.write("🔺 Please enter the coordinates of the pick-up (click on the map and wait couple of seconds):")
 # st.write("**🌇 NYC coordinates: Latitude - (40.5, 41.8), Longitude - (-74.5, -72.8)**")
 
 my_map = folium.Map(location=[41, -73.5], zoom_start=8)
@@ -97,10 +97,6 @@ my_map.add_child(folium.LatLngPopup())
 
 coordinates = json.load(open("temp_coordinates.json"))
 
-# folium.Marker(
-#       location=[lat, long],
-#       popup="text",
-#    ).add_to(my_map)
 
 res_map = st_folium(my_map, height=300, width=600)
 
@@ -118,9 +114,9 @@ try:
         target = "c1"
 
     coordinates[target] = {
-    "lat": new_lat,
-    "long": new_long,
-    "time_clicked": time.time()
+        "lat": new_lat,
+        "long": new_long,
+        "time_clicked": time.time()
     }
 
     pickup_latitude, pickup_longitude = coordinates["c1"]["lat"], coordinates["c1"]["long"]
@@ -165,11 +161,8 @@ try:
 
     progress_bar.progress(45)
     
-    import time
-    time.sleep(4)
-    
     st.write(36 * "-")
-    st.header('\n🤖 Feature Engineering...')
+    st.subheader('\n🤖 Feature Engineering...')
     df = process_input_vector(pickup_latitude, pickup_longitude, dropoff_latitude, dropoff_longitude)
     
     # X features
@@ -180,7 +173,7 @@ try:
     progress_bar.progress(60)
 
     st.write(36 * "-")
-    st.header('\n🧠 Making price prediction for your trip...')
+    st.subheader('\n🧠 Making price prediction for your trip...')
     model = get_model()
     progress_bar.progress(75)
     prediction = model.predict(X)[0]
@@ -190,35 +183,34 @@ try:
     progress_bar.progress(85)
     
     st.write(36 * "-")
-    st.write(36 * "-")
     
-    st.write("⬆️ Inserting a new data to the 'rides' Feature Group...")
-    print("Inserting into RIDES FG.")
-    rides_cols = ['ride_id', 'pickup_datetime', 'pickup_longitude', 'dropoff_longitude',
-                  'pickup_latitude', 'dropoff_latitude', 'passenger_count', 'taxi_id',
-                  'driver_id', 'distance', 'pickup_distance_to_jfk',
-                  'dropoff_distance_to_jfk', 'pickup_distance_to_ewr',
-                  'dropoff_distance_to_ewr', 'pickup_distance_to_lgr',
-                  'dropoff_distance_to_lgr', 'year', 'weekday', 'hour']
+    if st.button('📡 Insert this new data to Hopsworks Feature Store'):    
+        st.write("⬆️ Inserting a new data to the 'rides' Feature Group...")
+        print("Inserting into RIDES FG.")
+        rides_cols = ['ride_id', 'pickup_datetime', 'pickup_longitude', 'dropoff_longitude',
+                      'pickup_latitude', 'dropoff_latitude', 'passenger_count', 'taxi_id',
+                      'driver_id', 'distance', 'pickup_distance_to_jfk',
+                      'dropoff_distance_to_jfk', 'pickup_distance_to_ewr',
+                      'dropoff_distance_to_ewr', 'pickup_distance_to_lgr',
+                      'dropoff_distance_to_lgr', 'year', 'weekday', 'hour']
+
+        rides_fg.insert(df[rides_cols])
+        progress_bar.progress(93)
+
+        st.write("⬆️ Inserting a new data to the 'fares' Feature Group...")
+        print("Inserting into FARES FG.")
+        fares_cols = ['tolls', 'taxi_id', 'driver_id', 'ride_id']
+
+        df_fares = df[fares_cols]
+        df_fares["total_fare"] = prediction
+        for col in ["tolls", "total_fare"]:
+            df_fares[col] = df_fares[col].astype("double")
+
+        fares_fg.insert(df_fares)
     
-    rides_fg.insert(df[rides_cols])
-    progress_bar.progress(93)
-    
-    st.write("⬆️ Inserting a new data to the 'fares' Feature Group...")
-    print("Inserting into FARES FG.")
-    fares_cols = ['tolls', 'taxi_id', 'driver_id', 'ride_id']
-    
-    df_fares = df[fares_cols]
-    df_fares["total_fare"] = prediction
-    for col in ["tolls", "total_fare"]:
-        df_fares[col] = df_fares[col].astype("double")
+        st.subheader('\n🎉 📈 🤝 App Finished Successfully 🤝 📈 🎉')
         
-    fares_fg.insert(df_fares)
-    
     progress_bar.progress(100)
-
-    st.subheader('\n🎉 📈 🤝 App Finished Successfully 🤝 📈 🎉')
-
 
 except Exception as err:
     print(err)

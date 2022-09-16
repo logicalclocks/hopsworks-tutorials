@@ -41,7 +41,10 @@ def generate_rides_data(n_records):
                                          })
         
         res = pd.concat([temp_df, res], ignore_index=True)
-        
+    
+    coord_cols = ['pickup_longitude','dropoff_latitude','dropoff_longitude','pickup_latitude']
+    res[coord_cols] = res[coord_cols].astype("float")
+
     return res
 
 
