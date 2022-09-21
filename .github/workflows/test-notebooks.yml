@@ -2,8 +2,6 @@ name: test-hopsworks-tutorials
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '11 11 * * *'
 
 jobs:
   test_schedule:
