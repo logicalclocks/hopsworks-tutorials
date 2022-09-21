@@ -4,10 +4,8 @@ set -e
 
 jupyter nbconvert --to notebook --execute scripts/cleanup-tutorials.ipynb
 
-jupyter nbconvert --to notebook --execute quickstart.ipynb
 
 # fraud batch
-jupyter nbconvert --to notebook --execute quickstart.ipynb
 
 jupyter nbconvert --to notebook --execute fraud_batch/1_feature_groups.ipynb 
 jupyter nbconvert --to notebook --execute fraud_batch/2_feature_view_creation.ipynb
@@ -35,4 +33,6 @@ jupyter nbconvert --to notebook --execute integrations/wandb/1_feature_groups.ip
 jupyter nbconvert --to notebook --execute integrations/wandb/2_feature_view_creation.ipynb
 jupyter nbconvert --to notebook --execute integrations/wandb/3_model_training.ipynb
 
+# Quickstart
 
+jupyter nbconvert --to notebook --execute quickstart.ipynb
