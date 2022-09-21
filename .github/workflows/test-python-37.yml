@@ -1,4 +1,4 @@
-name: test-hopsworks-tutorials
+name: test-tutorials-python-37
 
 on:
   workflow_dispatch:
