@@ -1,3 +1,5 @@
+[![hopsworks-tutorials](https://github.com/jimdowling/hopsworks-tutorials/actions/workflows/test-notebooks.yml/badge.svg)](https://github.com/jimdowling/hopsworks-tutorials/actions/workflows/test-notebooks.yml)
+
 # Hopsworks Tutorials
 We are happy to welcome you to our collection of tutorials dedicated to exploring the fundamentals of Hopsworks and Machine Learning development. In addition to offering different types of use cases and common subjects in the field, it facilitates navigation and use of models in a production environment using Hopsworks Feature Store.
 
