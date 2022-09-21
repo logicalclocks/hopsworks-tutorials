@@ -1,4 +1,4 @@
-name: iris-feature-and-prediction-pipelines
+name: test-hopsworks-tutorials
 
 on:
   workflow_dispatch:
