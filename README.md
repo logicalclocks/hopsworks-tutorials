@@ -1,5 +1,7 @@
 [![hopsworks-tutorials](https://github.com/logicalclocks/hopsworks-tutorials/actions/workflows/test-python-37.yml/badge.svg)](https://github.com/logicalclocks/hopsworks-tutorials/actions/workflows/test-python-37.yml)
+
 [![hopsworks-tutorials](https://github.com/logicalclocks/hopsworks-tutorials/actions/workflows/test-python-38.yml/badge.svg)](https://github.com/logicalclocks/hopsworks-tutorials/actions/workflows/test-python-38.yml)
+
 [![hopsworks-tutorials](https://github.com/logicalclocks/hopsworks-tutorials/actions/workflows/test-python-39.yml/badge.svg)](https://github.com/logicalclocks/hopsworks-tutorials/actions/workflows/test-python-39.yml)
 
 # Hopsworks Tutorials
