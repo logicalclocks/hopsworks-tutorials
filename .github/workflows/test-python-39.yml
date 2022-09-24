@@ -16,7 +16,7 @@ jobs:
       - name: setup python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.9.7'
+          python-version: '3.9.9'
           
       - name: install python packages
         run: |
@@ -25,7 +25,6 @@ jobs:
           
       - name: execute python workflows from bash script
         env: 
-          HOPSWORKS_API_KEY: ${{ secrets.HOPSWORKS_API_KEY }}
+          HOPSWORKS_API_KEY: ${{ secrets.HOPSWORKS_API_KEY_39 }}
         run: ./scripts/test-notebooks.sh
-
 
