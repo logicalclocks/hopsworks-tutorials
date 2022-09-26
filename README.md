@@ -1,3 +1,9 @@
+[![hopsworks-tutorials](https://github.com/logicalclocks/hopsworks-tutorials/actions/workflows/test-python-37.yml/badge.svg)](https://github.com/logicalclocks/hopsworks-tutorials/actions/workflows/test-python-37.yml)
+
+[![hopsworks-tutorials](https://github.com/logicalclocks/hopsworks-tutorials/actions/workflows/test-python-38.yml/badge.svg)](https://github.com/logicalclocks/hopsworks-tutorials/actions/workflows/test-python-38.yml)
+
+[![hopsworks-tutorials](https://github.com/logicalclocks/hopsworks-tutorials/actions/workflows/test-python-39.yml/badge.svg)](https://github.com/logicalclocks/hopsworks-tutorials/actions/workflows/test-python-39.yml)
+
 # Hopsworks Tutorials
 We are happy to welcome you to our collection of tutorials dedicated to exploring the fundamentals of Hopsworks and Machine Learning development. In addition to offering different types of use cases and common subjects in the field, it facilitates navigation and use of models in a production environment using Hopsworks Feature Store.
 
