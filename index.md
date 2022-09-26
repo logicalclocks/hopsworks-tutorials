@@ -4,4 +4,4 @@
 
 ## 🚀 🔮 Model Prediction
 
-![model_preds](advanced_tutorials/electricity/images/model_preds.png)
+![model_preds](images/model_preds.png)
