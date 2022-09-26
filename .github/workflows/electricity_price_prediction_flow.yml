@@ -26,10 +26,9 @@ jobs:
         env:
           HOPSWORKS_API_KEY: ${{ secrets.HOPSWORKS_API_KEY }}
         run: ./scripts/run-batch-prediction.sh
-        
-        
+
       - name: github pages update
-        uses: davbzh/git-auto-commit-action@v4
+        uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: "Prediction Plot Update"
       
