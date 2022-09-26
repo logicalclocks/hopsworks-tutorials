@@ -43,7 +43,7 @@ jobs:
       
           # Optional glob pattern of files which should be added to the commit
           # Defaults to all (.)
-          file_pattern: .
+          file_pattern: images/model_preds.png
       
           # Optional. Local file path to the repository.
           # Defaults to the root of the repository.
