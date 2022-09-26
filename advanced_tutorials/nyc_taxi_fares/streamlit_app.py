@@ -20,10 +20,10 @@ st.subheader('\n📡 Connecting to Hopsworks Feature Store...')
 project = hopsworks.login()
 fs = project.get_feature_store()
 
-rides_fg = fs.get_or_create_feature_group(name="rides_fg",
+rides_fg = fs.get_or_create_feature_group(name="nyc_taxi_rides",
                                           version=1) 
 
-fares_fg = fs.get_or_create_feature_group(name="fares_fg",
+fares_fg = fs.get_or_create_feature_group(name="nyc_taxi_fares",
                                           version=1) 
 
 progress_bar.progress(20)
@@ -53,8 +53,8 @@ def get_model():
             SORT_METRICS_BY="max"
             # get best model based on custom metrics
             model = mr.get_best_model("nyc_taxi_fares_model",
-                                           EVALUATION_METRIC,
-                                           SORT_METRICS_BY)
+                                      EVALUATION_METRIC,
+                                      SORT_METRICS_BY)
             model_dir = model.download()
             model = joblib.load(model_dir + "/model.pkl")
 
