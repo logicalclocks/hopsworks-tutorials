@@ -26,10 +26,9 @@ jobs:
         env:
           HOPSWORKS_API_KEY: ${{ secrets.HOPSWORKS_API_KEY }}
         run: ./scripts/run-batch-prediction.sh
-        
-        
+
       - name: github pages update
-        uses: davitbzh/git-auto-commit-action@v1
+        uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: "Prediction Plot Update"
       
@@ -44,7 +43,7 @@ jobs:
       
           # Optional glob pattern of files which should be added to the commit
           # Defaults to all (.)
-          file_pattern: .
+          file_pattern: images/model_preds.png
       
           # Optional. Local file path to the repository.
           # Defaults to the root of the repository.
