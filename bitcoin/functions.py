@@ -50,10 +50,12 @@ def timestamp_2_time(x):
     dt_obj = dt_obj.timestamp() * 1000
     return int(dt_obj)
 
+
 def get_client():
     BINANCE_API_KEY = os.getenv("BINANCE_API_KEY")
     BINANCE_API_SECRET = os.getenv("BINANCE_API_SECRET")
     return Client(api_key=BINANCE_API_KEY, api_secret=BINANCE_API_SECRET)
+
 
 def get_data(since_this_date=None, until_this_date=datetime.datetime.now(), number_of_days_ago=None, crypto_pair="BTCUSDT"):
     client = get_client()
@@ -76,7 +78,7 @@ def get_data(since_this_date=None, until_this_date=datetime.datetime.now(), numb
     return df.drop(['closeTime','ignore'],axis = 1)
 
 
-def parse_btc_data(last_date=None, number_of_days_ago=None):
+def parse_btc_data(last_date=None, number_of_days_ago=5):
     df = get_data(since_this_date=last_date, until_this_date=datetime.datetime.now(),
                   number_of_days_ago=number_of_days_ago + 1)
     df.index.name = 'date'
@@ -90,21 +92,26 @@ def parse_btc_data(last_date=None, number_of_days_ago=None):
     df['unix'] = pd.to_datetime(df.date).apply(timestamp_2_time)
     return df
 
+
 def moving_average(df,window = 7):
     df[f'mean_{window}_days'] = df['close'].rolling(window = window).mean()
     return df
+
 
 def moving_std(df,window):
     df[f'std_{window}_days'] = df.close.rolling(window = window).std()
     return df
 
+
 def exponential_moving_average(df, window):
     df[f'exp_mean_{window}_days'] = df.close.ewm(span = window).mean()
     return df
 
+
 def exponential_moving_std(df, window):
     df[f'exp_std_{window}_days'] = df.close.ewm(span = window).std()
     return df
+
 
 def momentum_price(df,window):
     '''
@@ -112,6 +119,7 @@ def momentum_price(df,window):
     '''
     df[f'momentum_{window}_days'] = df.close.diff(window)
     return df
+
 
 def rate_of_change(df,window):
     '''
@@ -121,6 +129,7 @@ def rate_of_change(df,window):
     N = df.close.shift(window - 1)
     df[f'rate_of_change_{window}_days'] = (M / N) * 100
     return df
+
 
 def strength_index(df, period):
     '''
@@ -143,6 +152,7 @@ def strength_index(df, period):
     df[f'strength_index_{period}_days'] = 100 - 100 / (1 + rs)
     return df    
 
+
 def process_btc_data(df):
     df = moving_average(df,7)
     df = moving_average(df,14)
@@ -160,7 +170,11 @@ def process_btc_data(df):
     df.date = pd.to_datetime(df.date) 
     return df
 
-import plotly.graph_objs as go
+
+
+#################################################################
+# plots
+
 
 def get_price_plot(data):
     fig = go.Figure()
@@ -210,45 +224,10 @@ def get_volume_plot(data):
 
     return fig
 
-def get_historical_plot(df):  
-    fig = go.Figure()
 
-    trace1 = go.Scatter(
-        x=df['date'],
-        y=df['close'].astype(float),
-        mode='lines',
-        name='Close'
-    )
+# plots section is over
+#################################################################
 
-    layout = dict(
-        title='Historical Bitcoin Prices',
-        xaxis=dict(
-            rangeselector=dict(
-                buttons=list([
-                    dict(count=1,
-                        label='1 month',
-                        step='month',
-                        stepmode='backward'),
-                    dict(count=1,
-                        label='1 year',
-                        step='year',
-                        stepmode='backward'),
-                    dict(step='all')
-                ])
-            ),
-            rangeslider=dict(
-                visible=True
-            ),
-            type='date'
-        )
-    )
-
-    fig.add_trace(trace1)
-    fig.update_layout(layout)
-    fig.update_traces(hovertemplate='Data: %{x} <br>Price: %{y}') 
-    fig.update_yaxes(fixedrange=False)
-
-    return fig
 
 def get_api():
     TWITTER_API_KEY = os.getenv("TWITTER_API_KEY")
@@ -262,6 +241,7 @@ def get_api():
     api = tweepy.API(authentificate, wait_on_rate_limit=True)
 
     return api
+
 
 twitter_accounts = ['APompliano', 'AltcoinSara', 'BVBTC', 'BitBoy_Crypto',
                      'CamiRusso', 'CryptoCred', 'CryptoWendyO', 'ErikVoorhees',
