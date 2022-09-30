@@ -3,6 +3,7 @@
 .idea
 hops
 **/.hw_api_key
+**/.env
 **/*.pkl
 **/**predict_example.py
 miniconda/
