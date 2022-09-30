@@ -10,21 +10,25 @@ import time
 
 from functions import *
 
+def print_fancy_header(text, font_size=24):
+    res = f'<span style="color:#ff5f27; font-size: {font_size}px;">{text}</span>'
+    st.markdown(res, unsafe_allow_html=True )
+
 
 progress_bar = st.sidebar.header('⚙️ Working Progress')
 progress_bar = st.sidebar.progress(0)
 st.title('🚖NYC Taxi Fares Project🚖')
 st.write(36 * "-")
-st.subheader('\n📡 Connecting to Hopsworks Feature Store...')
+print_fancy_header('\n📡 Connecting to Hopsworks Feature Store...')
 
 project = hopsworks.login()
 fs = project.get_feature_store()
 
 rides_fg = fs.get_or_create_feature_group(name="nyc_taxi_rides",
-                                          version=1) 
+                                          version=1)
 
 fares_fg = fs.get_or_create_feature_group(name="nyc_taxi_fares",
-                                          version=1) 
+                                          version=1)
 
 progress_bar.progress(20)
 st.write("Successfully connected!✔️")
@@ -76,10 +80,10 @@ def process_input_vector(pickup_latitude, pickup_longitude, dropoff_latitude, dr
         "taxi_id": [np.random.randint(1, 201)],
         "driver_id": [np.random.randint(1, 201)]
     })
-    
+
     df = calculate_distance_features(df)
     df = calculate_datetime_features(df)
-                                               
+
     for col in ["passenger_count", "taxi_id", "driver_id"]:
         df[col] = df[col].astype("int64")
 
@@ -87,13 +91,19 @@ def process_input_vector(pickup_latitude, pickup_longitude, dropoff_latitude, dr
 
 
 st.write(36 * "-")
-st.subheader('\n🧩 Interactive predictions...')
-st.write("🔺 Please enter the coordinates of the pick-up (click on the map and wait couple of seconds):")
+print_fancy_header('\n🧩 Enter the the pick-up and dropoff coordinates...')
+st.write("🔺 Click on the map and wait couple of seconds:")
 # st.write("**🌇 NYC coordinates: Latitude - (40.5, 41.8), Longitude - (-74.5, -72.8)**")
 
 my_map = folium.Map(location=[41, -73.5], zoom_start=8)
 
 my_map.add_child(folium.LatLngPopup())
+folium.TileLayer('Stamen Terrain').add_to(my_map)
+folium.TileLayer('Stamen Toner').add_to(my_map)
+folium.TileLayer('Stamen Water Color').add_to(my_map)
+folium.TileLayer('cartodbpositron').add_to(my_map)
+folium.TileLayer('cartodbdark_matter').add_to(my_map)
+folium.LayerControl().add_to(my_map)
 
 coordinates = json.load(open("temp_coordinates.json"))
 
@@ -146,7 +156,7 @@ try:
 #      'ick-up Longitude',
 #      -74.5, -72.8)
 #
-# st.subheader("🔻 Please enter the coordinates of the destination:")
+# print_fancy_header("🔻 Please enter the coordinates of the destination:")
 # dropoff_latitude = st.slider(
 #      'Destination Latitude',
 #      40.5, 41.8)
@@ -160,11 +170,11 @@ try:
          (1, 2, 3, 4))
 
     progress_bar.progress(45)
-    
+
     st.write(36 * "-")
-    st.subheader('\n🤖 Feature Engineering...')
+    print_fancy_header('\n🤖 Feature Engineering...')
     df = process_input_vector(pickup_latitude, pickup_longitude, dropoff_latitude, dropoff_longitude)
-    
+
     # X features
     X = df.drop(columns=['ride_id', 'taxi_id', 'driver_id', 'pickup_latitude', 'pickup_longitude',
                          'dropoff_latitude', 'dropoff_longitude', 'pickup_datetime'])
@@ -173,18 +183,18 @@ try:
     progress_bar.progress(60)
 
     st.write(36 * "-")
-    st.subheader('\n🧠 Making price prediction for your trip...')
+    print_fancy_header('\n🧠 Making price prediction for your trip...')
     model = get_model()
     progress_bar.progress(75)
     prediction = model.predict(X)[0]
 
     st.subheader(f"Prediction: **{str(prediction)}**")
-    
+
     progress_bar.progress(85)
-    
+
     st.write(36 * "-")
-    
-    if st.button('📡 Insert this new data to Hopsworks Feature Store'):    
+
+    if st.button('📡 Insert this new data to Hopsworks Feature Store'):
         st.write("⬆️ Inserting a new data to the 'rides' Feature Group...")
         print("Inserting into RIDES FG.")
         rides_cols = ['ride_id', 'pickup_datetime', 'pickup_longitude', 'dropoff_longitude',
@@ -207,9 +217,9 @@ try:
             df_fares[col] = df_fares[col].astype("double")
 
         fares_fg.insert(df_fares)
-    
-        st.subheader('\n🎉 📈 🤝 App Finished Successfully 🤝 📈 🎉')
-        
+
+        print_fancy_header('\n🎉 📈 🤝 App Finished Successfully 🤝 📈 🎉')
+
     progress_bar.progress(100)
 
 except Exception as err:
