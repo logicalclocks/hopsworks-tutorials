@@ -1,6 +1,7 @@
 .ipynb_checkpoints
 .DS_Store
 .idea
+.__pycache__
 hops
 **/.hw_api_key
 **/*.pkl
