@@ -22,6 +22,7 @@
 ## Feature Pipeline
 ![electricity_pipe.png](electricity_pipe.png)
 
+
 ## Prerequisites
 To run this tutorial, you need an account on Hopsworks. You can create a new account at  [app.hopsworks.ai](https://app.hopsworks.ai).
 In the notebook you will be prompted with a link to generate an API token to interact with your Hopsworks account.
