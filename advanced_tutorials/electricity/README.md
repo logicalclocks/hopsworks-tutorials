@@ -1,16 +1,40 @@
-# <span style="font-width:bold; font-size: 3rem; color:#1EB182;"><img src="../images/icon102.png" width="38px"></img> **Hopsworks Feature Store** </span><span style="font-width:bold; font-size: 3rem; color:#333;">Quick Start - Fraud Tutorial</span>
+# <span style="font-width:bold; font-size: 3rem; color:#1EB182;"><img src="../../images/icon102.png" width="38px"></img> **Hopsworks Feature Store** </span><span style="font-width:bold; font-size: 3rem; color:#333;">Advanced Tutorial - NYC Taxi Fares</span>
 
-<span style="font-width:bold; font-size: 1.4rem;"> This is a quick-start of the Hopsworks Feature Store; using a fraud use case you will load data into the feature store, create two feature groups from which we will make a training dataset, and train a model. This is a <b>batch use case</b>, it will give you a high-level view of how to use our python APIs and the UI to navigate the feature groups. </span>
 
-## **🗒️ This Quick introduction is divided into 3 parts:**
-1. How to load, engineer and create feature groups,
-2. How to create training datasets,
-3. How to train a model from the feature store.
 
+<span style="font-width:bold; font-size: 1.4rem;">
+  This is an <b>advanced example</b> of the Hopsworks Feature Store usage; you are tasked with predicting the electricity prices in several Swedish cities based on weather conditions, previous prices, and Swedish holidays.
+
+  You will load starting data into the feature store, create three feature groups from which we will make a feature view and training datasets, and train a model to predict the future electricity prices.
+  Also, you will design a data-parsing and Feature Store insertion pipeline, that will be running once a time using <b>GitHub actions</b>.
+
+   This is a <b>batch use case</b>, it will give you a high-level view of how to use our python APIs and the UI to navigate the feature groups.
+ </span>
+
+## **🗒️ This whole tutorial is divided into 5 parts:**
+1. How to backfill Features to the Feature Store,
+2. How to create a feature pipeline,
+3. How to train Training Data & Feature views,
+4. How to train a model and upload it to the Model Registry,
+5. Using model to make batch predictions.
+
+
+## Feature Pipeline
+![electricity_pipe.png](electricity_pipe.png)
 
 ## Prerequisites
 To run this tutorial, you need an account on Hopsworks. You can create a new account at  [app.hopsworks.ai](https://app.hopsworks.ai).
 In the notebook you will be prompted with a link to generate an API token to interact with your Hopsworks account.
+
+
+## Data
+You will parse electricity prices in Sweden per day from  [Nord Pool](https://www.nordpoolgroup.com/) and different meteorological observations from [Swedish Meteorological and Hydrological Institute](https://www.smhi.se/).
+See corresponding functions in the [functions.py](https://github.com/logicalclocks/hopsworks-tutorials/blob/master/advanced_tutorials/electricity/functions.py).
+
+
+## Prediction example
+![model_predictions_example.png](model_predictions_example.png)
+___
 
 #  <span style="font-width:bold; font-size: 3rem; color:#1EB182;">Hopsworks: Main Concepts</span>
 You may refer to the concept documentation on [docs.hopsworks.ai](https://docs.hopsworks.ai/concepts/)  for an extensive overview of all the concepts and abstractions in the feature store.
