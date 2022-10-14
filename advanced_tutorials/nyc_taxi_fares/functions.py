@@ -1,10 +1,10 @@
+import joblib
+import secrets
+
 import numpy as np
 import pandas as pd
 
-import secrets
-
 import hopsworks
-
 
 # rides data functions
 ##########################################################################
@@ -24,11 +24,11 @@ def generate_rides_data(n_records):
                   'driver_id']
 
     res = pd.DataFrame(columns=rides_cols)
-    
+
     for i in range(1, n_records + 1):
         generated_values = list()
-     
-        
+
+
         temp_df = pd.DataFrame.from_dict({"ride_id": [secrets.token_hex(nbytes=16)],
                                           "pickup_datetime": [np.random.randint(15778836, 16100000) * 100000],
                                           "pickup_longitude": [round(np.random.uniform(-74.5, -72.8), 5)],
@@ -39,9 +39,9 @@ def generate_rides_data(n_records):
                                           "taxi_id": [np.random.randint(1, 201)],
                                           "driver_id": [np.random.randint(1, 201)]
                                          })
-        
+
         res = pd.concat([temp_df, res], ignore_index=True)
-    
+
     coord_cols = ['pickup_longitude','dropoff_latitude','dropoff_longitude','pickup_latitude']
     res[coord_cols] = res[coord_cols].astype("float")
 
@@ -85,7 +85,7 @@ def calculate_datetime_features(df):
     df['weekday'] = df.pickup_datetime.apply(lambda t: t.weekday())
     df['hour'] = df.pickup_datetime.apply(lambda t: t.hour)
     df["pickup_datetime"] = df["pickup_datetime"].values.astype(np.int64) // 10 ** 6
-    
+
     return df
 
 
@@ -94,20 +94,72 @@ def calculate_datetime_features(df):
 def generate_fares_data(n_records):
     fares_cols = ['taxi_id', 'driver_id',
                   'tolls', 'total_fare']
-    
+
     res = pd.DataFrame(columns=fares_cols)
-    
+
     for i in range(1, n_records + 1):
         generated_values = list()
-     
-        
+
+
         temp_df = pd.DataFrame.from_dict({"total_fare": [np.random.randint(3, 250)],
                                           "tolls": [np.random.randint(0, 6)],
                                           "taxi_id": [np.random.randint(1, 201)],
                                           "driver_id": [np.random.randint(1, 201)]
                                          })
-        
+
         res = pd.concat([temp_df, res], ignore_index=True)
-        
-        
+
+
     return res
+
+
+
+# streamlit functions
+##########################################################################
+def get_model():
+    # load our Model
+    import os
+    TARGET_FILE = "model.pkl"
+    list_of_files = [os.path.join(dirpath,filename) for dirpath,
+                     _,
+                     filenames in os.walk('.') for filename in filenames if filename == TARGET_FILE]
+
+    if list_of_files:
+        model_path = list_of_files[0]
+        model = joblib.load(model_path)
+    else:
+        if not os.path.exists(TARGET_FILE):
+            mr = project.get_model_registry()
+            EVALUATION_METRIC="mae"  # or r2_score
+            SORT_METRICS_BY="max"
+            # get best model based on custom metrics
+            model = mr.get_best_model("nyc_taxi_fares_model",
+                                      EVALUATION_METRIC,
+                                      SORT_METRICS_BY)
+            model_dir = model.download()
+            model = joblib.load(model_dir + "/model.pkl")
+
+    return model
+
+
+def process_input_vector(pickup_latitude, pickup_longitude, dropoff_latitude, dropoff_longitude):
+    df = pd.DataFrame.from_dict({
+        "ride_id": [secrets.token_hex(nbytes=16)],
+        "pickup_datetime": [np.random.randint(1600000000, 1610000000)],
+        "pickup_longitude": [pickup_longitude],
+        "dropoff_longitude": [dropoff_longitude],
+        "pickup_latitude": [pickup_latitude],
+        "dropoff_latitude": [dropoff_latitude],
+        "passenger_count": [np.random.randint(1, 5)],
+        "tolls": [np.random.randint(0, 6)],
+        "taxi_id": [np.random.randint(1, 201)],
+        "driver_id": [np.random.randint(1, 201)]
+    })
+
+    df = calculate_distance_features(df)
+    df = calculate_datetime_features(df)
+
+    for col in ["passenger_count", "taxi_id", "driver_id"]:
+        df[col] = df[col].astype("int64")
+
+    return df
