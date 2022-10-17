@@ -19,7 +19,7 @@
 2. How to create a feature pipeline,
 3. How to create Feature views & Training Datasets,
 4. How to train a model and upload it to the Model Registry,
-5. Streamlit app.
+5. Deploy Streamlit app.
 
 
 ## Prerequisites
