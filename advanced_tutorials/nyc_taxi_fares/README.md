@@ -15,10 +15,10 @@
  </span>
 
 ## **🗒️ This whole tutorial is divided into 5 parts:**
-1. How to backfill Features to the Feature Store,
-2. How to create a feature pipeline,
-3. How to create Feature views & Training Datasets,
-4. How to train a model and upload it to the Model Registry,
+1. Backfill Features to the Feature Store,
+2. Create a feature pipeline,
+3. Create Feature views & Training Datasets,
+4. Train a model and upload it to the Model Registry,
 5. Deploy Streamlit app.
 
 
