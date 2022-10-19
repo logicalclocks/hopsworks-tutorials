@@ -58,7 +58,7 @@ def get_recent_data():
     feature_view = fs.get_feature_view(name="air_quality_fv")
     data_to_display = feature_view.query.read().sort_values(by=["date", 'city'],
                                                 ascending=[False, True]).head(4)
-    X = feature_view.get_training_data(1)[0].sort_values(by=["date", "city"],
+    X = feature_view.get_batch_data().sort_values(by=["date", "city"],
                                                          ascending=[False, True]).head(4)
     X = X.drop(columns=["date"]).fillna(0)
     return data_to_display, X
