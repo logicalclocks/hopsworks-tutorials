@@ -7,6 +7,7 @@ from calendar import monthrange
 
 import pandas as pd
 
+
 CONST_EARTH_RADIUS = 6371       # km
 CONST_EARTH_DIAMETER = 12742    # km
 ELECTRICITY_PRICE_AREAS = ["SE1", "SE2", "SE3", "SE4"]
