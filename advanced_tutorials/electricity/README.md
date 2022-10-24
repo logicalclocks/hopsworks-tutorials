@@ -22,7 +22,7 @@
 
 
 ## Feature Pipeline
-![electricity_pipe.png](electricity_pipe.png)
+![electricity_pipe.png](images/electricity_pipe.png)
 
 
 ## Prerequisites
@@ -36,4 +36,4 @@ See corresponding functions in the [functions.py](https://github.com/logicalcloc
 
 
 ## Prediction example
-![model_predictions_example.png](model_predictions_example.png)
+![model_predictions_example.png](images/model_predictions_example.png)

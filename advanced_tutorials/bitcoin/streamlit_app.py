@@ -7,7 +7,9 @@ import datetime
 
 from functions import *
 from dotenv import load_dotenv
+
 load_dotenv()
+
 
 def fancy_header(text, font_size=24):
     res = f'<span style="color:#ff5f27; font-size: {font_size}px;">{text}</span>'
@@ -102,21 +104,6 @@ else:
     st.write('Done ✅')
 
 st.write(36 * "-")
-fancy_header("🪝 Retrieving the Feature View...")
-
-@st.cache(suppress_st_warning=True)
-def get_latest_date():
-    feature_view = fs.get_feature_view(
-        name = 'bitcoin_feature_view',
-        version = 1
-    )
-    latest_unix = feature_view.query.read().unix.max()
-    return latest_unix
-
-latest_date = get_latest_date()
-
-st.write('Done ✅')
-st.write(36 * "-")
 fancy_header("🤖 Model Deployment retrieval")
 
 ms = project.get_model_serving()
@@ -127,6 +114,8 @@ st.write('Done ✅')
 st.write(36 * "-")
 
 fancy_header(f'🔮 Predicting price for tomorrow...')
+
+latest_date = int(time.mktime(today.timetuple()) * 1000) # converting todays datetime to unix
 
 data = {
     "inputs": latest_date
