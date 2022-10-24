@@ -3,6 +3,8 @@
 .idea
 .__pycache__
 hops
+**/.env
+**/__pycache__
 **/.hw_api_key
 **/*.pkl
 **/**predict_example.py
