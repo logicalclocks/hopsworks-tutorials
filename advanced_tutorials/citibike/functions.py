@@ -38,7 +38,7 @@ def update_month_data(main_df, month, year):
 
     if os.path.isfile(processed_filename):
         print("Retrieving DataFrame from the existing csv file...💿")
-        return pd.concat([pd.read_csv(processed_filename), main_df])
+        return pd.concat([pd.read_csv(processed_filename, index_col=0), main_df])
 
     print('Downloading Started...⏳')
 
@@ -51,7 +51,7 @@ def update_month_data(main_df, month, year):
     file.extractall("data/")
 
     print("Retrieving DataFrame from the csv file...💿")
-    print("_" * 32)
+    print("-" * 32)
 
     original_df = pd.read_csv(filename)
 
@@ -74,7 +74,7 @@ def update_month_data(main_df, month, year):
     os.remove(filename)
 
     # save processed file in csv
-    processed_df.to_csv(processed_filename)
+    processed_df.to_csv(processed_filename, index=False)
 
     return pd.concat([processed_df, main_df])
 
@@ -97,4 +97,49 @@ def get_citibike_data(start_date="04/2021", end_date="10/2022") -> pd.DataFrame:
         for month in range(1, int(end_month) + 1):
             res =  update_month_data(res, month, end_year)
 
-    return res
+    return res.reset_index(drop=True)
+
+
+################################################################################
+# Data preprocessing
+
+def moving_average(df, window=7):
+    df[f'mean_{window}_days'] = df["users_count"].rolling(window=window).mean()
+    return df
+
+
+def moving_std(df, window):
+    df[f'std_{window}_days'] = df["users_count"].rolling(window=window).std()
+    return df
+
+
+def exponential_moving_average(df, window):
+    df[f'exp_mean_{window}_days'] = df["users_count"].ewm(span=window).mean()
+    return df
+
+
+def exponential_moving_std(df, window):
+    df[f'exp_std_{window}_days'] = df["users_count"].ewm(span=window).std()
+    return df
+
+
+def rate_of_change(df, window):
+    M = df["users_count"].diff(window - 1)
+    N = df["users_count"].shift(window - 1)
+    df[f'rate_of_change_{window}_days'] = (M / N) * 100
+    return df
+
+
+def engineer_citibike_features(df):
+    res = df.copy()
+    res = moving_average(res, 7).dropna()
+    res = moving_average(res, 14).dropna()
+    res = moving_average(res, 56).dropna()
+
+
+    for i in [7, 14, 56]:
+        for func in [moving_std, exponential_moving_average,
+                     exponential_moving_std, rate_of_change
+                     ]:
+            res = func(res, i).dropna()
+    return res.reset_index(drop=True)
