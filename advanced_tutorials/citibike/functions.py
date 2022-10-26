@@ -9,6 +9,10 @@ import json
 import pandas as pd
 from tqdm import tqdm
 
+import warnings
+
+# Mute warnings
+warnings.filterwarnings("ignore")
 
 def process_df(original_df):
     res = original_df[["started_at", "start_station_id"]]
