@@ -1,18 +1,19 @@
 import math
 import requests
+from datetime import datetime
 import zipfile
-import enlighten
 from io import BytesIO
 import os
 import json
 
 import pandas as pd
-from tqdm import tqdm
-
-import warnings
 
 # Mute warnings
+import warnings
 warnings.filterwarnings("ignore")
+
+from dotenv import load_dotenv
+load_dotenv()
 
 def process_df(original_df):
     res = original_df[["started_at", "start_station_id"]]
@@ -101,7 +102,13 @@ def get_citibike_data(start_date="04/2021", end_date="10/2022") -> pd.DataFrame:
 
 
 ################################################################################
-# Data preprocessing
+# Data engineering
+
+def convert_date_to_unix(x):
+    dt_obj = datetime.strptime(str(x), '%Y-%m-%d')
+    dt_obj = dt_obj.timestamp() * 1000
+    return int(dt_obj)
+
 
 def moving_average(df, window=7):
     df[f'mean_{window}_days'] = df["users_count"].rolling(window=window).mean()
@@ -143,3 +150,28 @@ def engineer_citibike_features(df):
                      ]:
             res = func(res, i).dropna()
     return res.reset_index(drop=True)
+
+
+###############################################################################
+# Weather parsing
+
+def parse_weather_data(city, start_date, end_date, API_KEY):
+    # yyyy-MM-DD data format
+    formatted_url = f"https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/{city}/{start_date}/{end_date}?unitGroup=metric&include=days&key={API_KEY}&contentType=csv"
+    return pd.read_csv(formatted_url)
+
+
+def get_weather_data(city, start_date, end_date):
+    API_KEY = os.getenv("VISUALCROSSING_API_KEY")
+    # API_KEY = ""
+
+    res = parse_weather_data(city, start_date, end_date, API_KEY)
+    # drop redundant columns
+    res = res.drop(columns=["name", "icon", "stations", "description",
+                            "sunrise", "sunset", "preciptype", "severerisk"])
+    # OneHotEncode 'conditions' feature
+    res = pd.get_dummies(res, columns=['conditions'])
+
+    res = res.rename(columns={"datetime": "date"})
+
+    return res
