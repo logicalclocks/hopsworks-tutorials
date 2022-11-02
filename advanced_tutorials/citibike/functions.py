@@ -201,7 +201,7 @@ def decode_features(df, feature_view):
 
     import inspect
 
-    print(feature_view)
+
     td_transformation_functions = feature_view._batch_scoring_server._transformation_functions
 
     res = {}
@@ -225,7 +225,7 @@ def decode_features(df, feature_view):
     return df_res
 
 
-def get_model():
+def get_model(project, model_name):
     # load our Model
     import os
     TARGET_FILE = "model.pkl"
@@ -237,10 +237,10 @@ def get_model():
     else:
         if not os.path.exists(TARGET_FILE):
             mr = project.get_model_registry()
-            EVALUATION_METRIC="r2_score"  # or r2_score
+            EVALUATION_METRIC="r2_score"
             SORT_METRICS_BY="max"
             # get best model based on custom metrics
-            model = mr.get_best_model("MLPRegressor",
+            model = mr.get_best_model(model_name,
                                       EVALUATION_METRIC,
                                       SORT_METRICS_BY)
             model_dir = model.download()

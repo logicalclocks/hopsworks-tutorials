@@ -34,6 +34,7 @@ def get_feature_view():
         name = 'citibike_feature_view',
         version = 1
     )
+    feature_view.init_batch_scoring()
 
     return feature_view
 
@@ -44,7 +45,7 @@ st.write("Successfully connected!✔️")
 
 st.write(36 * "-")
 fancy_header('\n🪝 Retriving some useful data from Feature Store...')
-# I will to write @st.cache to cache retrieved data and
+# I have to use @st.cache to cache retrieved data and
 # do not connect and download it every time
 @st.cache(allow_output_mutation=True)
 def get_data_from_feature_groups():
@@ -84,10 +85,10 @@ st.write("✅ Done!")
 
 
 st.write(36 * "-")
-fancy_header('\n🪛 A little of Data Preprocessing...')
+fancy_header('\n🔬 Decoding our features...')
 table_df = decode_features(df_batch[["date", "users_count", "station_id"]],
                            feature_view)
-
+st.write("✅ Done!")
 # all_stations_list = ['6389.09', '6401.01', '6569.07', '6578.01', '6605.08', '6670.03',
 #                  '5238.05', '5303.08', '5484.09', '5539.06', '5561.06', '5752.07',
 #                  '5755.09', '6004.06', '6089.07', '6432.11', '6679.11', '6747.06',
@@ -126,15 +127,16 @@ stations_info_df = stations_info_df[stations_info_df.station_id.isin(selected_st
 
 
 st.write(36 * "-")
-fancy_header('\n🗺 Lets find selected stations on map...')
+fancy_header('\n🗺 You have selected these stations...')
 def get_map(stations_info_df):
     fig = px.scatter_mapbox(stations_info_df,
                             lat="lat",
                             lon="long",
-                            zoom=9.5,
-                            hover_name="station_name",
-                            height=400,
-                            width=600)
+                            zoom=11.5,
+                            hover_name="station_name"
+                            # height=600,
+                            # width=700
+                            )
 
     fig.update_layout(mapbox_style="open-street-map")
     fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
@@ -144,7 +146,7 @@ st.plotly_chart(get_map(stations_info_df))
 
 st.write(36 * "-")
 fancy_header('\n 🤖 Getting the model...')
-model = get_model()
+model = get_model(project=project, model_name="citibike_mlp_model")
 st.write("✅ Done!")
 
 st.write(36 * "-")
@@ -166,8 +168,12 @@ table_df = table_df.sort_values("date")
 table_date_max = table_df["date"].max()
 
 for station in selected_stations:
-    pred_value = table_df[(table_df.date == table_date_max) & (table_df.station_id == station)]\
-                         ["users_count_next_day"].tolist()[0]
+    try:
+        pred_value = table_df[(table_df.date == table_date_max) & (table_df.station_id == station)]\
+                             ["users_count_next_day"].tolist()[0]
+    except IndexError:
+        pred_value = 0
+
     new_row = {"date": "Tomorrow (Prediction)",
                "users_count": pred_value,
                "station_id": station,
@@ -186,7 +192,6 @@ rect = alt.Chart(table_df).mark_rect().encode(alt.X('Station address'),
                                               alt.Y('Date'),
                                               alt.Color('# of usecases')
                                              )
-
 text = rect.mark_text(baseline='middle').encode(text='# of usecases', color=alt.value('red'))
 
 layer = alt.layer(
