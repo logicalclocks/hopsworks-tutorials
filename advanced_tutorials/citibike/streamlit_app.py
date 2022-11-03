@@ -133,7 +133,8 @@ def get_map(stations_info_df):
                             lat="lat",
                             lon="long",
                             zoom=11.5,
-                            hover_name="station_name"
+                            hover_name="station_name",
+                            size=[10] * len(selected_stations)
                             # height=600,
                             # width=700
                             )
