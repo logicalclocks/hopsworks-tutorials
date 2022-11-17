@@ -1,32 +1,32 @@
 # <span style="font-width:bold; font-size: 3rem; color:#1EB182;"><img src="../images/icon102.png" width="38px"></img> **Hopsworks Feature Store** </span><span style="font-width:bold; font-size: 3rem; color:#333;">Quick Start - Fraud Tutorial</span>
 
-<span style="font-width:bold; font-size: 1.4rem;"> This is a quick-start of the Hopsworks Feature Store; using a fraud use case we will load data into the feature store, create two feature groups from which we will make a training dataset and train a model.  This is a batch use case, it will give you a high level view on how to use our python APIs and the UI to navigate the feature groups. </span>
+<span style="font-width:bold; font-size: 1.4rem;"> This is a quick-start of the Hopsworks Feature Store; using a fraud use case you will load data into the feature store, create two feature groups from which we will make a training dataset, and train a model. This is a <b>batch use case</b>, it will give you a high-level view of how to use our python APIs and the UI to navigate the feature groups. </span>
 
-## **🗒️ This Quick introduction is divided in 3 parts:** 
-1. How to load, engineer and create feature groups, 
+## **🗒️ This Quick introduction is divided into 3 parts:**
+1. How to load, engineer and create feature groups,
 2. How to create training datasets,
 3. How to train a model from the feature store.
 
 
-## Prerequisite
+## Prerequisites
 To run this tutorial, you need an account on Hopsworks. You can create a new account at  [app.hopsworks.ai](https://app.hopsworks.ai).
 In the notebook you will be prompted with a link to generate an API token to interact with your Hopsworks account.
 
 #  <span style="font-width:bold; font-size: 3rem; color:#1EB182;">Hopsworks: Main Concepts</span>
-You may refere to the concept documentation on [docs.hopsworks.ai](https://docs.hopsworks.ai/concepts/) for an extensive overview of all the concepts and abstraction in the feature store.
-Below are the the concepts covered in this quick start; 
+You may refer to the concept documentation on [docs.hopsworks.ai](https://docs.hopsworks.ai/concepts/)  for an extensive overview of all the concepts and abstractions in the feature store.
+Below are the concepts covered in this quick-start;
 
 ## Feature Store
 
 The [Feature Store](https://www.hopsworks.ai/feature-store) is a data management system that allows data scientists and data engineers to efficiently collaborate on projects.
 
-An organization might have separate data pipelines for each and every model they train. In many cases this results in duplicate work, as the pipelines typically share some preprocessing steps in common. Consequently, changes in some preprocessing steps would result in even more duplicate work, and potential inconsistencies between pipelines.
+An organization might have separate data pipelines for each and every model they train. In many cases, this results in duplicate work, as the pipelines typically share some preprocessing steps in common. Consequently, changes in some preprocessing steps would result in even more duplicate work, and potential inconsistencies between pipelines.
 
-Moreover, once a model has been deployed we need to make sure that online data is processed in the same way as the training data. The Feature Store streamlines the data pipeline creation process by putting all the feature engineering logic of a project in the same place. The built in version control enables them to work seamlessly with different versions of features and datasets.
+Moreover, once a model has been deployed we need to make sure that online data is processed in the same way as the training data. The Feature Store streamlines the data pipeline creation process by putting all the feature engineering logic of a project in the same place. The built-in version control enables them to work seamlessly with different versions of features and datasets.
 
 Another advantage of having a feature store set up is that you can easily do "time travel" and recreate training data as it would have looked at some point in the past. This is very useful when, for example, benchmarking recommendation systems or assessing concept drift.
 
-In short, a feature store enables data scientists to reuse features across different experiments and tasks, and to recreate datasets from a given point in time. 
+In short, a feature store enables data scientists to reuse features across different experiments and tasks and to recreate datasets from a given point in time.
 
 In Hopsworks, the `hsfs` library is the Python interface to the feature store.
 
@@ -38,9 +38,9 @@ A feature group is stored in the feature store and can exist in several versions
 
 ### Data Validation
 
-The data might not conform to the data schema we have defined. It could happen that a numerical feature is given as a string, or that a feature which should be a positive number is given as a negative number. For example, we might decide that a transaction amount must be positive.
+The data might not conform to the data schema we have defined. It could happen that a numerical feature is given as a string, or that a feature that should be a positive number is given as a negative number. For example, we might decide that a transaction amount must be positive.
 
-In Hopsworks you can define feature expectations, which ensures that the data adheres to a specified format. These expectations can be attached to a feature group either during the creation of the feature group, or after the feature group has been created.
+In Hopsworks you can define feature expectations, which ensures that the data adheres to a specified format. These expectations can be attached to a feature group either during the creation of the feature group or after the feature group has been created.
 
 ### Feature Engineering
 
