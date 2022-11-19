@@ -6,7 +6,7 @@ import zipfile
 from io import BytesIO
 import os
 import json
-
+from calendar import monthrange
 import pandas as pd
 
 # Mute warnings
@@ -19,18 +19,16 @@ load_dotenv()
 
 def select_stations_info(df):
     df_res = df[["start_station_id", "start_station_name",
-                 "start_lat", "start_lng"]].rename(
-                                                  columns={
-                                                  "start_station_id": "station_id",
-                                                  "start_station_name": "station_name",
-                                                  "start_lat": "lat",
-                                                  "start_lng": "long"}
-                                                  )
+                 "start_lat", "start_lng"]].rename(columns={"start_station_id": "station_id",
+                                                            "start_station_name": "station_name",
+                                                            "start_lat": "lat",
+                                                            "start_lng": "long"
+                                                                        })
     df_res = df_res.drop_duplicates()
     return df_res
 
 
-def process_df(original_df):
+def process_df(original_df, month, year):
     df_res = original_df[["started_at", "start_station_id"]]
     df_res.started_at = pd.to_datetime(df_res.started_at)
     df_res.started_at = df_res.started_at.dt.floor('d')
@@ -39,7 +37,12 @@ def process_df(original_df):
     df_res = df_res.rename(columns={"started_at": "date",
                                     "start_station_id": "station_id",
                                     0: "users_count"})
-    return df_res
+    # lets select only popular station - the station will be considered a
+    # popular one, if it was used every day for each month
+    days_in_month = monthrange(int(year), int(month))[1]
+    popular_stations = df_res.station_id.value_counts()[df_res.station_id.value_counts() == days_in_month].index
+    df_res = df_res[df_res.station_id.isin(popular_stations)]
+    return df_res.sort_values(by=["date", "station_id"])
 
 
 def update_month_data(main_df, month, year):
@@ -80,7 +83,7 @@ def update_month_data(main_df, month, year):
         stations_info_df = select_stations_info(original_df)
         stations_info_df.to_csv("data/stations_info.csv", index=False)
 
-    processed_df = process_df(original_df)
+    processed_df = process_df(original_df, month, year)
 
     # delete original big unprocessed file
     os.remove(filename)
@@ -154,19 +157,18 @@ def rate_of_change(df, window):
 
 def engineer_citibike_features(df):
     df_res = df.copy()
-    df_res['users_count_next_day'] = df_res.groupby('station_id')['users_count'].shift(-1)
+    df_res['prev_users_count'] = df_res.groupby('station_id')['users_count'].shift(+1)
     df_res = moving_average(df_res, 7).dropna()
     df_res = moving_average(df_res, 14).dropna()
-    df_res = moving_average(df_res, 56).dropna()
 
 
-    for i in [7, 14, 56]:
+    for i in [7, 14]:
         for func in [moving_std, exponential_moving_average,
                      exponential_moving_std, rate_of_change
                      ]:
             df_res = func(df_res, i).dropna()
     df_res = df_res.reset_index(drop=True)
-    return df_res
+    return df_res.sort_values(by=["date", "station_id"])
 
 
 ###############################################################################
@@ -186,7 +188,10 @@ def get_weather_data(city, start_date, end_date):
     # drop redundant columns
     df_res = df_res.drop(columns=["name", "icon", "stations", "description",
                                   "sunrise", "sunset", "preciptype",
-                                  "severerisk", "conditions"])
+                                  "severerisk", "conditions", "moonphase",
+                                  "cloudcover", "sealevelpressure",
+                                  "solarradiation", "winddir", "windgust",
+                                  "uvindex", "solarenergy"])
 
     df_res = df_res.rename(columns={"datetime": "date"})
 
