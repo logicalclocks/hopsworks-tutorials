@@ -90,6 +90,7 @@ celerybeat-schedule
 *.sage.py
 
 # Environments
+.hw_api_key
 .env
 .venv
 env/
