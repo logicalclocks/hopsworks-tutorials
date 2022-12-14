@@ -1,7 +1,7 @@
 import math
 import requests
 import joblib
-from datetime import datetime
+from datetime import datetime, timedelta
 import zipfile
 from io import BytesIO
 import os
@@ -16,6 +16,37 @@ warnings.filterwarnings("ignore")
 from dotenv import load_dotenv
 load_dotenv()
 
+
+###############################################################################
+# Basic functions
+
+def convert_date_to_unix(x):
+    dt_obj = datetime.strptime(str(x), '%Y-%m-%d')
+    dt_obj = dt_obj.timestamp() * 1000
+    return int(dt_obj)
+
+
+def convert_unix_to_date(x):
+    x //= 1000
+    x = datetime.fromtimestamp(x)
+    return datetime.strftime(x, "%Y-%m-%d")
+
+
+def get_next_date(date):
+    next_date = datetime.strptime(date, "%Y-%m-%d") + timedelta(days=1)
+    return datetime.strftime(next_date, "%Y-%m-%d")
+
+
+def get_last_date_in_fg(fg):
+    for col in fg.statistics.content["columns"]:
+        if col["column"] == "timestamp":
+            res = col["maximum"]
+            return convert_unix_to_date(res)
+
+
+        
+###############################################################################
+# Data basic processing
 
 def select_stations_info(df):
     df_res = df[["start_station_id", "start_station_name",
@@ -121,54 +152,52 @@ def get_citibike_data(start_date="04/2021", end_date="10/2022") -> pd.DataFrame:
 ################################################################################
 # Data engineering
 
-def convert_date_to_unix(x):
-    dt_obj = datetime.strptime(str(x), '%Y-%m-%d')
-    dt_obj = dt_obj.timestamp() * 1000
-    return int(dt_obj)
-
-
 def moving_average(df, window=7):
-    df[f'mean_{window}_days'] = df["users_count"].rolling(window=window).mean()
+    df[f'mean_{window}_days'] = df.groupby('station_id')['users_count'] \
+                                    .rolling(window=window).mean().reset_index(0,drop=True).shift(1)
     return df
+
+# def moving_average(df, window=7):
+#     df[f'mean_{window}_days'] = df["users_count"].rolling(window=window).mean()
+#     return df
 
 
 def moving_std(df, window):
-    df[f'std_{window}_days'] = df["users_count"].rolling(window=window).std()
+    df[f'std_{window}_days'] = df.groupby('station_id')['users_count'] \
+                                    .rolling(window=window).std().reset_index(0,drop=True).shift(1)
     return df
 
 
 def exponential_moving_average(df, window):
-    df[f'exp_mean_{window}_days'] = df["users_count"].ewm(span=window).mean()
+    df[f'exp_mean_{window}_days'] = df.groupby('station_id')['users_count'].ewm(span=window) \
+                                        .mean().reset_index(0,drop=True).shift(1)
     return df
 
 
 def exponential_moving_std(df, window):
-    df[f'exp_std_{window}_days'] = df["users_count"].ewm(span=window).std()
-    return df
-
-
-def rate_of_change(df, window):
-    M = df["users_count"].diff(window - 1)
-    N = df["users_count"].shift(window - 1)
-    df[f'rate_of_change_{window}_days'] = (M / N) * 100
-    df[f'rate_of_change_{window}_days'] = df[f'rate_of_change_{window}_days'].astype(float)
+    df[f'exp_std_{window}_days'] = df.groupby('station_id')['users_count'].ewm(span=window) \
+                                        .std().reset_index(0,drop=True).shift(1)
     return df
 
 
 def engineer_citibike_features(df):
     df_res = df.copy()
+    # there are duplicated rows (several records for the same day and station). get rid of it.
+    df_res = df_res.groupby(['date', 'station_id'], as_index=False)['users_count'].sum()
+    
     df_res['prev_users_count'] = df_res.groupby('station_id')['users_count'].shift(+1)
-    df_res = moving_average(df_res, 7).dropna()
-    df_res = moving_average(df_res, 14).dropna()
+    df_res = df_res.dropna()
+    df_res = moving_average(df_res, 7)
+    df_res = moving_average(df_res, 14)
 
 
     for i in [7, 14]:
         for func in [moving_std, exponential_moving_average,
-                     exponential_moving_std, rate_of_change
+                     exponential_moving_std
                      ]:
-            df_res = func(df_res, i).dropna()
+            df_res = func(df_res, i)
     df_res = df_res.reset_index(drop=True)
-    return df_res.sort_values(by=["date", "station_id"])
+    return df_res.sort_values(by=["date", "station_id"]).dropna()
 
 
 ###############################################################################
@@ -200,35 +229,6 @@ def get_weather_data(city, start_date, end_date):
 
 ###############################################################################
 # Streamlit
-def decode_features(df, feature_view):
-    """Decodes features in the input DataFrame using corresponding Hopsworks Feature Store transformation functions"""
-    df_res = df.copy()
-
-    import inspect
-
-
-    td_transformation_functions = feature_view._batch_scoring_server._transformation_functions
-
-    res = {}
-    for feature_name in td_transformation_functions:
-        if feature_name in df_res.columns:
-            td_transformation_function = td_transformation_functions[feature_name]
-            sig, foobar_locals = inspect.signature(td_transformation_function.transformation_fn), locals()
-            param_dict = dict([(param.name, param.default) for param in sig.parameters.values() if param.default != inspect._empty])
-            if td_transformation_function.name == "min_max_scaler":
-                df_res[feature_name] = df_res[feature_name].map(
-                    lambda x: x * (param_dict["max_value"] - param_dict["min_value"]) + param_dict["min_value"])
-
-            elif td_transformation_function.name == "standard_scaler":
-                df_res[feature_name] = df_res[feature_name].map(
-                    lambda x: x * param_dict['std_dev'] + param_dict["mean"])
-            elif td_transformation_function.name == "label_encoder":
-                dictionary = param_dict['value_to_index']
-                dictionary_ = {v: k for k, v in dictionary.items()}
-                df_res[feature_name] = df_res[feature_name].map(
-                    lambda x: dictionary_[x])
-    return df_res
-
 
 def get_model(project, model_name):
     # load our Model
