@@ -8,5 +8,8 @@ plotly
 Pillow
 seaborn
 xgboost
-tensorflow
 joblib==1.1.0
+textblob
+vaderSentiment
+tweepy
+tensorflow

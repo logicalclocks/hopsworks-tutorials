@@ -11,22 +11,20 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-def fancy_header(text, font_size=24):
-    res = f'<span style="color:#ff5f27; font-size: {font_size}px;">{text}</span>'
+def fancy_header(text, font_size=22, color="#ff5f27"):
+    res = f'<span style="color:{color}; font-size: {font_size}px;">{text}</span>'
     st.markdown(res, unsafe_allow_html=True )
 
 
 st.title('📈💰 Bitcoin Price Project 💰📈')
 st.write(36 * "-")
-fancy_header("📡 Connecting to Hopsworks Feature Store...")
+fancy_header("📡 Connecting to the Hopsworks Feature Store...")
 
 project = hopsworks.login()
 fs = project.get_feature_store()
 
-st.write('Done ✅')
-st.write(36 * "-")
-fancy_header('\n🔮 Retrieving Bitcoin Price Feature Group...')
-
+fancy_header(text="○ Retrieving Bitcoin Price Feature Group...",
+             font_size=18, color="#00FFFF")
 btc_price_fg = fs.get_or_create_feature_group(
     name = 'bitcoin_price',
     version = 1
@@ -42,9 +40,9 @@ fig2 = get_volume_plot(old_btc_df.sort_values(by=["date"]))
 
 st.plotly_chart(fig1)
 st.plotly_chart(fig2)
-st.write(36 * "-")
-fancy_header('\n🔮 Retrieving Tweets Feature Groups...')
 
+fancy_header(text="○ Retrieving Tweets Feature Groups...",
+             font_size=18, color="#00FFFF")
 tweets_textblob_fg = fs.get_or_create_feature_group(
     name = 'bitcoin_tweets_textblob',
     version = 1
@@ -77,14 +75,15 @@ else:
 
     st.write("Processed BTC timeseries DataFrame:")
     st.dataframe(df_bitcoin_processed.tail(3))
-    fancy_header("📤 Inserting Bitcoin data into Feature Group...")
+    fancy_header("⬆️ Inserting Bitcoin data into the Feature Group...")
 
-    btc_price_fg.insert(df_bitcoin_processed)
+    btc_price_fg.insert(df_bitcoin_processed,
+                        write_options={'wait_for_job': False})
 
     st.write('Done ✅')
     st.write(36 * "-")
     fancy_header("🧙🏼‍♂️ Parsing Tweets...")
- 
+
     df_tweets_parsed = get_last_tweets()
     df_tweets_parsed.date = pd.to_datetime(df_tweets_parsed.date)
 
@@ -96,15 +95,17 @@ else:
 
     st.dataframe(tweets_textblob.tail(3))
     st.dataframe(tweets_vader.tail(3))
-    fancy_header("📤 Inserting processed Tweets data into Feature Groups...")
+    fancy_header("⬆️ Inserting processed Tweets data into the Feature Groups...")
 
-    tweets_vader_fg.insert(tweets_vader)
-    tweets_textblob_fg.insert(tweets_textblob)
+    tweets_vader_fg.insert(tweets_vader,
+                              write_options={'wait_for_job': False})
+    tweets_textblob_fg.insert(tweets_textblob,
+                              write_options={'wait_for_job': False})
 
     st.write('Done ✅')
 
 st.write(36 * "-")
-fancy_header("🤖 Model Deployment retrieval")
+fancy_header("🤖 Starting Model Deployment...")
 
 ms = project.get_model_serving()
 deployment = ms.get_deployment("btcmodeldeployment")
