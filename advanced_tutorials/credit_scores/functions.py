@@ -7,7 +7,7 @@ def remove_nans(df):
     Function which removes missing values.
     If column has more than 20% of missing values -> remove.
     The rest missing values will be dropped by rows.
-    
+
     Args:
     -----
     df: pd.DataFrame
@@ -22,7 +22,7 @@ def remove_nans(df):
     nan_df = df.isna().sum()[df.isna().sum() > 0]
     nan_perc = (nan_df / df.shape[0] * 100).apply(int)
     cols_to_drop = nan_perc[nan_perc >= 20].index
-    df = df.drop(cols_to_drop, axis = 1).dropna()
+    df = df.drop(cols_to_drop, axis=1).dropna()
     return df
 
 
@@ -41,8 +41,8 @@ def get_subsample(df):
         10% of original DataFrame.
     
     '''
-    indexes = np.random.choice(df.index, int(df.shape[0] * 0.1), replace = False)
-    return df.loc[indexes].reset_index(drop = True)
+    indexes = np.random.choice(df.index, int(df.shape[0] * 0.1), replace=False)
+    return df.loc[indexes].reset_index(drop=True)
 
 
 def add_perc(ax, feature, Number_of_categories, hue_categories):
@@ -74,10 +74,10 @@ def add_perc(ax, feature, Number_of_categories, hue_categories):
             percentage = '{:.1f}%'.format(100 * a[(j*Number_of_categories + i)]/total)
             x = patch[(j*Number_of_categories + i)].get_x() + patch[(j*Number_of_categories + i)].get_width() / 2 - 0.15
             y = patch[(j*Number_of_categories + i)].get_y() + patch[(j*Number_of_categories + i)].get_height()
-            ax.annotate(percentage, (x, y+1500), size = 12)
+            ax.annotate(percentage, (x, y+1500), size=12)
 
 
-def generate_value(col_values:pd.Series):
+def generate_value(col_values: pd.Series):
     '''
     Function which returns a random value which is generated using probabilities of each value occurrence.
 
@@ -100,7 +100,7 @@ def generate_value(col_values:pd.Series):
     )
 
 
-def generate_observation(data:pd.DataFrame)->list:
+def generate_observation(data: pd.DataFrame) -> list:
     '''
     Function which generates a row of a dataframe.
 
@@ -116,7 +116,7 @@ def generate_observation(data:pd.DataFrame)->list:
     return [generate_value(data[column]) for column in data]
 
 
-def generate_data(data:pd.DataFrame,amount:int=10)->pd.DataFrame:
+def generate_data(data: pd.DataFrame, amount: int = 10) -> pd.DataFrame:
     '''
     Generates a new DataFrame depending on existing DataFrame's column values probabilities.
 
@@ -133,10 +133,10 @@ def generate_data(data:pd.DataFrame,amount:int=10)->pd.DataFrame:
     pd.DataFrame
         Generated DataFrame.
     '''
-    pk_existing = [pk for pk in data.columns if pk in ['sk_id_prev','sk_id_curr','sk_id_bureau']]
+    pk_existing = [pk for pk in data.columns if pk in ['sk_id_prev', 'sk_id_curr', 'sk_id_bureau']]
     pk_max = data[pk_existing].agg({'max'}).values[0]
     
     return pd.DataFrame(
-        [[*[pk + i for pk in pk_max],*generate_observation(data.drop(pk_existing,axis=1))] for i in range(amount)],
+        [[*[pk + i for pk in pk_max], *generate_observation(data.drop(pk_existing, axis=1))] for i in range(amount)],
         columns=data.columns
     )

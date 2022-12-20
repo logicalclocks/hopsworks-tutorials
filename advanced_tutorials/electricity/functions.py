@@ -1,4 +1,3 @@
-## Feature engineering functions
 import requests
 
 from math import cos, asin, sqrt, pi
@@ -76,8 +75,8 @@ def hsmi_measurment_data(measurement, period, area_name):
         parameter = 4
 
     stations_url = f"https://opendata-download-metobs.smhi.se/api/version/latest/parameter/{parameter}.json"
-    stations_resp = requests.get(url= stations_url)
-    stations_pdf = pd.DataFrame(stations_resp.json()["station"])[["name","measuringStations", "id", "latitude", "longitude", "active", "key", "updated"]]
+    stations_resp = requests.get(url=stations_url)
+    stations_pdf = pd.DataFrame(stations_resp.json()["station"])[["name", "measuringStations", "id", "latitude", "longitude", "active", "key", "updated"]]
     stations_pdf = stations_pdf[stations_pdf.active == True]
 
     # select station in STATIONS_WITHIN_DISTANCE km radius
@@ -86,10 +85,10 @@ def hsmi_measurment_data(measurement, period, area_name):
 
     if parameter in [2, 18, 5]:
         skiprows = 12
-        column_names = ["from", "to", "day", measurement,"quality", "time_slice", "comment"]
+        column_names = ["from", "to", "day", measurement, "quality", "time_slice", "comment"]
     elif parameter in [10, 16, 4, 39, 14]:
         skiprows = 11
-        column_names = ["day", "time", measurement,"quality", "time_slice", "comment"]
+        column_names = ["day", "time", measurement, "quality", "time_slice", "comment"]
 
     measurment_by_city = pd.DataFrame(columns=column_names)
     for station_id in stations_pdf.id:
@@ -97,11 +96,11 @@ def hsmi_measurment_data(measurement, period, area_name):
             url = f"https://opendata-download-metobs.smhi.se/api/version/latest/parameter/{parameter}/station/{station_id}/period/{period}/data.csv"
             try:
                 if period == "corrected-archive":
-                    pdf = pd.read_csv(url, sep=';', skiprows=skiprows, names= column_names)
+                    pdf = pd.read_csv(url, sep=';', skiprows=skiprows, names=column_names)
                 elif period == "latest-months":
-                    pdf = pd.read_csv(url, sep=';', skiprows=skiprows, names= column_names)
+                    pdf = pd.read_csv(url, sep=';', skiprows=skiprows, names=column_names)
                 elif period == "latest-day":
-                    pdf = pd.read_csv(url, sep=';', skiprows=skiprows, names= column_names)
+                    pdf = pd.read_csv(url, sep=';', skiprows=skiprows, names=column_names)
                 #pdf["area"] = area_name
                 pdf = pdf[pdf["day"] > "2020-12-31"]
                 measurment_by_city = pd.concat([measurment_by_city, pdf])
@@ -120,12 +119,12 @@ def get_week_day(date_obj):
 
 
 def all_dates_in_year(year):
-    for month in range(1, 13): # Month is always 1..12
+    for month in range(1, 13):  # Month is always 1..12
         for day in range(1, monthrange(year, month)[1] + 1):
             yield {"day": date(year, month, day).strftime("%Y-%m-%d"), "weekday": get_week_day(date(year, month, day))}
 
 
-def fetch_smhi_measurements(historical_data = False):
+def fetch_smhi_measurements(historical_data=False):
     measurements = ["mean_temp_per_day", "wind_speed", "precipitaton_type", "precipitaton_amount", "sunshine_time", "cloud_perc"]
     meteorological_measurements = pd.DataFrame(columns=["day"])
     for measurement in measurements:
@@ -168,8 +167,8 @@ def fetch_smhi_measurements(historical_data = False):
                 smhi_df.columns = ["day", f"mean_{measurement}"]
             smhi_df.columns = [smhi_df.columns[0], f"{smhi_df.columns[1]}_{area}"]
             #meteorological_measurements_per_area = pd.concat([meteorological_measurements_per_area, smhi_df])
-            meteorological_measurements_per_area = meteorological_measurements_per_area.merge(smhi_df, on=["day"], how = "outer")
-        meteorological_measurements = meteorological_measurements.merge(meteorological_measurements_per_area, on=["day"], how = "outer")
+            meteorological_measurements_per_area = meteorological_measurements_per_area.merge(smhi_df, on=["day"], how="outer")
+        meteorological_measurements = meteorological_measurements.merge(meteorological_measurements_per_area, on=["day"], how="outer")
 
     for area in ELECTRICITY_PRICE_AREAS:
         meteorological_measurements[f"precipitaton_type_{area}"] = meteorological_measurements[f"precipitaton_type_{area}"].fillna("missing")
@@ -186,7 +185,6 @@ def fetch_smhi_measurements(historical_data = False):
     return meteorological_measurements
 
 
-################################################################################
 def fetch_electricity_prices(historical=False):
     HOURLY = 10
     DAILY = 11
@@ -196,7 +194,7 @@ def fetch_electricity_prices(historical=False):
                 'endDate': datetime.now().strftime("%d-%m-%Y"),
             })
 
-    areas=['SE1', 'SE2', 'SE3', 'SE4']
+    areas = ['SE1', 'SE2', 'SE3', 'SE4']
     areas_data = {}
     areas_data[areas[0]] = {}
 
@@ -230,9 +228,9 @@ def fetch_electricity_prices(historical=False):
     SE4 = pdf[pdf.area == "SE4"].drop(["area"], axis=1)
     SE4.columns = ["day", "price_se4"]
 
-    pdf = SE1.merge(SE2, on=["day"], how = "outer")
-    pdf = pdf.merge(SE3, on=["day"], how = "outer")
-    pdf = pdf.merge(SE4, on=["day"], how = "outer")
+    pdf = SE1.merge(SE2, on=["day"], how="outer")
+    pdf = pdf.merge(SE3, on=["day"], how="outer")
+    pdf = pdf.merge(SE4, on=["day"], how="outer")
 
     pdf["timestamp"] = pdf["day"].map(lambda x: int(float(datetime.strptime(x, "%Y-%m-%d").timestamp()) * 1000))
     return pdf
