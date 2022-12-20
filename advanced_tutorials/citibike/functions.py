@@ -44,7 +44,7 @@ def get_last_date_in_fg(fg):
             return convert_unix_to_date(res)
 
 
-        
+
 ###############################################################################
 # Data basic processing
 
@@ -112,7 +112,14 @@ def update_month_data(main_df, month, year):
 
     if not os.path.isfile("data/stations_info.csv"):
         stations_info_df = select_stations_info(original_df)
-        stations_info_df.to_csv("data/stations_info.csv", index=False)
+    else:
+        present_stations_df = pd.read_csv("data/stations_info.csv")
+        stations_info_batch = select_stations_info(original_df)
+        stations_info_df = pd.concat([
+            present_stations_df,
+            stations_info_batch
+            ]).reset_index(drop=True)
+    stations_info_df.to_csv("data/stations_info.csv", index=False)
 
     processed_df = process_df(original_df, month, year)
 
@@ -137,7 +144,7 @@ def get_citibike_data(start_date="04/2021", end_date="10/2022") -> pd.DataFrame:
             df_res =  update_month_data(df_res, month, start_year)
 
     else:
-        for month in range(int(start_month), 13):
+        for month in range(int(start_month), 12 + 1):
             df_res =  update_month_data(df_res, month, start_year)
         for month in range(1, int(end_month) + 1):
             df_res =  update_month_data(df_res, month, end_year)
@@ -184,7 +191,7 @@ def engineer_citibike_features(df):
     df_res = df.copy()
     # there are duplicated rows (several records for the same day and station). get rid of it.
     df_res = df_res.groupby(['date', 'station_id'], as_index=False)['users_count'].sum()
-    
+
     df_res['prev_users_count'] = df_res.groupby('station_id')['users_count'].shift(+1)
     df_res = df_res.dropna()
     df_res = moving_average(df_res, 7)
@@ -229,11 +236,10 @@ def get_weather_data(city, start_date, end_date):
 
 ###############################################################################
 # Streamlit
-
-def get_model(project, model_name):
+def get_model(project, model_name, file_name):
     # load our Model
     import os
-    TARGET_FILE = "model.pkl"
+    TARGET_FILE = f"{file_name}.pkl"
     list_of_files = [os.path.join(dirpath,filename) for dirpath, _, filenames in os.walk('.') for filename in filenames if filename == TARGET_FILE]
 
     if list_of_files:
@@ -249,6 +255,6 @@ def get_model(project, model_name):
                                       EVALUATION_METRIC,
                                       SORT_METRICS_BY)
             model_dir = model.download()
-            model = joblib.load(model_dir + "/model.pkl")
+            model = joblib.load(model_dir + f"/{file_name}.pkl")
 
     return model

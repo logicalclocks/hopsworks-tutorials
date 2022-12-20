@@ -116,13 +116,11 @@ def generate_fares_data(n_records):
 
 # streamlit functions
 ##########################################################################
-def get_model():
+def get_model(project, model_name, file_name):
     # load our Model
     import os
-    TARGET_FILE = "model.pkl"
-    list_of_files = [os.path.join(dirpath,filename) for dirpath,
-                     _,
-                     filenames in os.walk('.') for filename in filenames if filename == TARGET_FILE]
+    TARGET_FILE = f"{file_name}.pkl"
+    list_of_files = [os.path.join(dirpath,filename) for dirpath, _, filenames in os.walk('.') for filename in filenames if filename == TARGET_FILE]
 
     if list_of_files:
         model_path = list_of_files[0]
@@ -130,14 +128,14 @@ def get_model():
     else:
         if not os.path.exists(TARGET_FILE):
             mr = project.get_model_registry()
-            EVALUATION_METRIC="mae"  # or r2_score
+            EVALUATION_METRIC="mae"
             SORT_METRICS_BY="max"
             # get best model based on custom metrics
-            model = mr.get_best_model("nyc_taxi_fares_model",
+            model = mr.get_best_model(model_name,
                                       EVALUATION_METRIC,
                                       SORT_METRICS_BY)
             model_dir = model.download()
-            model = joblib.load(model_dir + "/model.pkl")
+            model = joblib.load(model_dir + f"/{file_name}.pkl")
 
     return model
 
