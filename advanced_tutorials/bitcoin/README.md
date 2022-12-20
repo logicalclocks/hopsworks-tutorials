@@ -35,11 +35,9 @@ You will parse timeseries Bitcoin data from Binance using your own credentials, 
 
 Also, you should [contact Twitter](https://developer.twitter.com/en/docs/twitter-api/getting-started/getting-access-to-the-twitter-api) for their API-keys.
 
-<<<<<<< HEAD
-Don't forget to create an __.env__ configuration file where all the necessary environment variables will be stored:
-=======
+
 Don't forget to create an `.env` configuration file where all the necessary environment variables will be stored:
->>>>>>> 186dcfc9bdd229f5d8b65150e49a7491bbfcb8e2
+
 ![](images/api_keys_env_file.png)
 
 
