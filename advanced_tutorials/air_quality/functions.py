@@ -87,10 +87,7 @@ def get_air_quality_data(city_name):
         forecast['pm10'][0]['min'],
         forecast['pm25'][0]['avg'],
         forecast['pm25'][0]['max'],
-        forecast['pm25'][0]['min'],
-        forecast['uvi'][0]['avg'],
-        forecast['uvi'][0]['avg'],
-        forecast['uvi'][0]['avg']
+        forecast['pm25'][0]['min']
     ]
 
 def get_air_quality_df(data):
@@ -110,10 +107,7 @@ def get_air_quality_df(data):
         'pm10_min',
         'pm25_avg',
         'pm25_max',
-        'pm25_min',
-        'uvi_avg',
-        'uvi_max',
-        'uvi_min',
+        'pm25_min'
     ]
 
     new_data = pd.DataFrame(
