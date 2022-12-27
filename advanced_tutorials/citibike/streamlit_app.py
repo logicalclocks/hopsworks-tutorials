@@ -10,7 +10,7 @@ import hopsworks
 from functions import *
 
 
-def fancy_header(text, font_size=22, color="#ff5f27"):
+def print_fancy_header(text, font_size=22, color="#ff5f27"):
     res = f'<span style="color:{color}; font-size: {font_size}px;">{text}</span>'
     st.markdown(res, unsafe_allow_html=True )
 
@@ -19,7 +19,7 @@ st.title('🚲 Citibike Usage Prediction 🚲')
 
 
 st.write(36 * "-")
-fancy_header('\n📡 Connecting to Hopsworks Feature Store...')
+print_fancy_header('\n📡 Connecting to Hopsworks Feature Store...')
 
 st.write("Logging... ")
 # (Attention! If the app has stopped at this step,
@@ -44,10 +44,10 @@ feature_view = get_feature_view()
 
 
 st.write(36 * "-")
-fancy_header('\n☁️ Retriving training dataset and other data from Feature Store...')
+print_fancy_header('\n☁️ Retriving training dataset and other data from Feature Store...')
 # I use @st.experimental_memo() instead of @st.cache() to cache retrieved data
 # because @st.cache has a lot of bugs
-@st.experimental_memo()
+@st.experimental_memo(suppress_st_warning=True)
 def get_data_from_feature_store():
     st.write("🏋️ Retrieving the Training Dataset...")
     training_data, _ = feature_view.get_training_data(1)
@@ -93,10 +93,13 @@ stations_info_dict_2 = stations_info_df.set_index("station_name").to_dict()
 stations_list_names = list(map(lambda x: stations_info_dict_1["station_name"][x], stations_list))
 
 st.write(36 * "-")
-fancy_header(text='\n🏙 Please select citibike stations to process...',
+print_fancy_header(text='\n🏙 Please select citibike stations to process...',
              font_size=24, color="#00FFFF")
 with st.form("stations_selection"):
-   selected_stations_names = st.multiselect('Choose any number of stations.', stations_list_names)
+   selected_stations_names = st.multiselect(label='Choose any number of stations.',
+                                            options=stations_list_names,
+                                            # let the map show some point in NYC instead of blank screen
+                                            default=stations_list_names[5])
    # Every form must have a submit button.
    submitted = st.form_submit_button("Submit")
 
@@ -104,11 +107,10 @@ selected_stations = list(map(lambda x: stations_info_dict_2["station_id"][x], se
 
 training_data_batch = training_data.loc[training_data['station_id'].isin(selected_stations)]
 
-# table_df = table_df[table_df.station_id.isin(selected_stations)]
 stations_info_df = stations_info_df[stations_info_df.station_id.isin(selected_stations)]
 
 st.write(36 * "-")
-fancy_header('\n🗺 You have selected these stations:')
+print_fancy_header('\n🗺 You have selected these stations:')
 st.write('💡 Try to click "view Fullscreen" button on the top right corner of widget.')
 def get_map(stations_info_df):
     fig = px.scatter_mapbox(stations_info_df,
@@ -128,7 +130,7 @@ def get_map(stations_info_df):
 st.plotly_chart(get_map(stations_info_df))
 
 st.write(36 * "-")
-fancy_header(text='\n🤖💬 How many days do you want me to Predict for each selected station?',
+print_fancy_header(text='\n🤖💬 How many days do you want me to Predict for each selected station?',
              font_size=24, color="#00FFFF")
 HOW_MANY_DAYS_PREDICT = st.number_input(label='',
                                         min_value=7,
@@ -138,7 +140,7 @@ HOW_MANY_DAYS_PREDICT = st.number_input(label='',
 HOW_MANY_DAYS_PREDICT = int(HOW_MANY_DAYS_PREDICT)
 
 st.write(36 * "-")
-fancy_header('\n🇺🇸 Getting US calendar for selected dates...')
+print_fancy_header('\n🇺🇸 Getting US calendar for selected dates...')
 us_holidays_fg = fs.get_or_create_feature_group(
     name="us_holidays",
     version=1
@@ -151,12 +153,13 @@ holidays_df = us_holidays_fg.filter((us_holidays_fg.timestamp > convert_date_to_
 st.write("✅ Done!")
 
 st.write(36 * "-")
-fancy_header('\n 🤖 Getting the model...')
-regressor = get_model(project=project, model_name="citibike_xgb_regressor")
+print_fancy_header('\n 🤖 Getting the model...')
+regressor = get_model(project=project, model_name="citibike_xgb_model",
+                      file_name="citibike_xgb_model.pkl")
 st.write("✅ Done!")
 
 st.write(36 * "-")
-fancy_header('\n 🧠 Predicting...')
+print_fancy_header('\n 🧠 Predicting...')
 temp_date = last_date[:]
 
 
@@ -211,7 +214,7 @@ st.write("✅ Done!")
 st.write(res_df.tail(5))
 
 st.write(36 * "-")
-fancy_header('\n📈 Plotting our results...')
+print_fancy_header('\n📈 Plotting our results...')
 st.write('💡 Try to click "view Fullscreen" button on the top right corner of widget.')
 df_for_vizual = res_df.copy().reset_index()
 df_for_vizual.station_id = df_for_vizual.station_id.apply(
