@@ -47,7 +47,7 @@ st.write(36 * "-")
 print_fancy_header('\n☁️ Retriving training dataset and other data from Feature Store...')
 # I use @st.experimental_memo() instead of @st.cache() to cache retrieved data
 # because @st.cache has a lot of bugs
-@st.experimental_memo()
+@st.experimental_memo(suppress_st_warning=True)
 def get_data_from_feature_store():
     st.write("🏋️ Retrieving the Training Dataset...")
     training_data, _ = feature_view.get_training_data(1)
@@ -96,7 +96,10 @@ st.write(36 * "-")
 print_fancy_header(text='\n🏙 Please select citibike stations to process...',
                    font_size=24, color="#00FFFF")
 with st.form("stations_selection"):
-   selected_stations_names = st.multiselect('Choose any number of stations.', stations_list_names)
+   selected_stations_names = st.multiselect(label='Choose any number of stations.',
+                                            options=stations_list_names,
+                                            # let the map show some point in NYC instead of blank screen
+                                            default=stations_list_names[5])
    # Every form must have a submit button.
    submitted = st.form_submit_button("Submit")
 
@@ -104,7 +107,6 @@ selected_stations = list(map(lambda x: stations_info_dict_2["station_id"][x], se
 
 training_data_batch = training_data.loc[training_data['station_id'].isin(selected_stations)]
 
-# table_df = table_df[table_df.station_id.isin(selected_stations)]
 stations_info_df = stations_info_df[stations_info_df.station_id.isin(selected_stations)]
 
 st.write(36 * "-")
@@ -153,7 +155,7 @@ st.write("✅ Done!")
 st.write(36 * "-")
 print_fancy_header('\n 🤖 Getting the model...')
 regressor = get_model(project=project, model_name="citibike_xgb_model",
-                      file_name="citibike_xgb_model")
+                      file_name="citibike_xgb_model.pkl")
 st.write("✅ Done!")
 
 st.write(36 * "-")

@@ -238,15 +238,13 @@ def get_weather_data(city, start_date, end_date):
 # Streamlit
 def get_model(project, model_name, file_name):
     # load our Model
-    import os
-    TARGET_FILE = f"{file_name}.pkl"
-    list_of_files = [os.path.join(dirpath,filename) for dirpath, _, filenames in os.walk('.') for filename in filenames if filename == TARGET_FILE]
+    list_of_files = [os.path.join(dirpath,filename) for dirpath, _, filenames in os.walk('.') for filename in filenames if filename == file_name]
 
     if list_of_files:
         model_path = list_of_files[0]
         model = joblib.load(model_path)
     else:
-        if not os.path.exists(TARGET_FILE):
+        if not os.path.exists(file_name):
             mr = project.get_model_registry()
             EVALUATION_METRIC="r2_score"
             SORT_METRICS_BY="max"
@@ -255,6 +253,6 @@ def get_model(project, model_name, file_name):
                                       EVALUATION_METRIC,
                                       SORT_METRICS_BY)
             model_dir = model.download()
-            model = joblib.load(model_dir + f"/{file_name}.pkl")
+            model = joblib.load(model_dir + f"/{file_name}")
 
     return model
