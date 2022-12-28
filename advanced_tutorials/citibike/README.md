@@ -32,6 +32,8 @@ Also, you obviously need to have [streamlit](https://docs.streamlit.io/library/g
 You will parse weather data so you should get an API key from [VisualCrossing](https://www.visualcrossing.com/). You can use [this link](https://www.visualcrossing.com/weather-api).
 
 Don't forget to create an `.env` configuration file where all the necessary environment variables will be stored:
+> `VISUALCROSSING_API_KEY = "YOUR_API_KEY"`
+
 ![](images/api_keys_env_file.png)
 
 ## Streamlit run
