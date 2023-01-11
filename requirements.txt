@@ -1,4 +1,8 @@
 faker
+Pandas
+numpy
+xgboost
+python-dotenv
 parsedatetime
 hsfs[python]
 hopsworks
@@ -10,3 +14,4 @@ seaborn
 xgboost
 tensorflow
 joblib==1.1.0
+streamlit
