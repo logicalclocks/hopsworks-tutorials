@@ -1,4 +1,8 @@
 faker
+Pandas
+numpy
+xgboost
+python-dotenv
 parsedatetime
 hsfs[python]
 hopsworks
@@ -13,3 +17,4 @@ textblob
 vaderSentiment
 tweepy
 tensorflow
+
