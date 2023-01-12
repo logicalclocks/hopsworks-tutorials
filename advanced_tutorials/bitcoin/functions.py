@@ -6,9 +6,6 @@ import seaborn as sns
 from unicorn_binance_rest_api.manager import BinanceRestApiManager as Client
 import os
 
-from statsmodels.tsa.seasonal import seasonal_decompose
-import statsmodels.api as sm
-
 from plotly import tools
 from plotly.offline import init_notebook_mode, iplot
 import plotly.graph_objs as go
@@ -52,7 +49,7 @@ def get_client():
 
 def get_data(since_this_date=None, until_this_date=datetime.datetime.now(), number_of_days_ago=None, crypto_pair="BTCUSDT"):
     client = get_client()
-    
+
     # Calculate the timestamps for the binance api function
     if since_this_date:
         since_this_date += datetime.timedelta(days=1)
@@ -143,7 +140,7 @@ def strength_index(df, period):
     d = d.drop(d.index[:(period-1)])
     rs = u.ewm(com = period-1, adjust = False).mean() / d.ewm(com = period-1, adjust = False).mean()
     df[f'strength_index_{period}_days'] = 100 - 100 / (1 + rs)
-    return df    
+    return df
 
 
 def process_btc_data(df):
@@ -160,7 +157,7 @@ def process_btc_data(df):
                      strength_index]:
             df = func(df, i).fillna(0)
 
-    df.date = pd.to_datetime(df.date) 
+    df.date = pd.to_datetime(df.date)
     return df
 
 
@@ -181,7 +178,7 @@ def get_price_plot(data):
     )
     fig.add_trace(trace1)
     fig.update_layout(layout)
-    fig.update_traces(hovertemplate = 'Data: %{x} <br>Price: %{y}') 
+    fig.update_traces(hovertemplate = 'Data: %{x} <br>Price: %{y}')
     fig.update_yaxes(fixedrange=False)
 
     return fig
@@ -195,7 +192,7 @@ def get_volume_plot(data):
        mode = 'lines',
        name = 'Bitcoin Volume'
     )
-    
+
     layout = dict(
         title = 'Historical Bitcoin Volume',
         xaxis = dict(
@@ -208,7 +205,7 @@ def get_volume_plot(data):
 
     fig.add_trace(trace1)
     fig.update_layout(layout)
-    fig.update_traces(hovertemplate = 'Data: %{x} <br>Volume: %{y}') 
+    fig.update_traces(hovertemplate = 'Data: %{x} <br>Volume: %{y}')
 
     return fig
 
@@ -308,7 +305,7 @@ def basic_cleaning(full_text):
 
 def clean_text2(df):
     """Second cleaning using 'nltk' module. Processes 'text' feature. """
-    
+
     stop_words = nltk.corpus.stopwords.words(['english'])
     lem = nltk.WordNetLemmatizer()
 
@@ -337,9 +334,9 @@ def clean_text2(df):
 
         # Joining
         return " ".join(text_cleaned)
-    
+
     df['cleaned_tweets'] = df['text'].apply(cleaning)
-    
+
     return df
 
 
@@ -349,29 +346,29 @@ def textblob_processing(df_input):
     """
     df = df_input.copy()
     df = clean_text2(df)
-    
+
     def getSubjectivity(tweet):
         return TextBlob(tweet).sentiment.subjectivity
 
     def getPolarity(tweet):
         return TextBlob(tweet).sentiment.polarity
-    
+
     correct_dates = df['date'].copy()
     df['date'] = pd.to_datetime(df['date']).dt.strftime('%Y-%m-%d')
     df.cleaned_tweets = df.cleaned_tweets.astype(str)
-    
+
     df['subjectivity'] = df['cleaned_tweets'].apply(getSubjectivity)
     df['polarity'] = df['cleaned_tweets'].apply(getPolarity)
-    
+
     df.date = correct_dates
     df.date = pd.to_datetime(df.date)
     df = df.set_index("date")
     df = df.resample('1D').sum()
     df = df[["subjectivity", "polarity"]].reset_index()
-    
+
     df['date'] = df['date'].dt.strftime('%Y-%m-%d %H:%M:%S')
     df['unix'] = df.date.apply(timestamp_2_time)
-    
+
     return df
 
 
@@ -394,5 +391,5 @@ def vader_processing(df_input):
     df = df.reset_index()
     df['date'] = df['date'].dt.strftime('%Y-%m-%d %H:%M:%S')
     df['unix'] = df.date.apply(timestamp_2_time)
-    
+
     return df
