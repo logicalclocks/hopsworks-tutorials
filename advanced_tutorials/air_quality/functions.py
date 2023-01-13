@@ -1,7 +1,6 @@
-import os
 from datetime import datetime
 import requests
-from json import JSONDecodeError
+import os
 import joblib
 import pandas as pd
 
@@ -70,9 +69,7 @@ def get_air_json(city_name, AIR_QUALITY_API_KEY):
 def get_air_quality_data(city_name):
     AIR_QUALITY_API_KEY = os.getenv('AIR_QUALITY_API_KEY')
     json = get_air_json(city_name, AIR_QUALITY_API_KEY)
-    if json == "Invalid key":
-        print("Invalid AIR_QUALITY_API_KEY! Please check the .env file with API keys, that is located inside this project folder.")
-        return None
+    iaqi = json['iaqi']
     forecast = json['forecast']['daily']
     return [
         city_name,
@@ -129,16 +126,11 @@ def get_weather_json(city, date, WEATHER_API_KEY):
 
 def get_weather_data(city_name, date):
     WEATHER_API_KEY = os.getenv('WEATHER_API_KEY')
-    try:
-        res_json = get_weather_json(city_name, date, WEATHER_API_KEY)
-    except JSONDecodeError:
-        print("Invalid WEATHER_API_KEY! Please check the .env file with API keys, that is located inside this project folder.")
-        return None
-    
-    data = res_json['days'][0]
+    json = get_weather_json(city_name, date, WEATHER_API_KEY)
+    data = json['days'][0]
 
     return [
-        res_json['address'].capitalize(),
+        json['address'].capitalize(),
         data['datetime'],
         data['tempmax'],
         data['tempmin'],
