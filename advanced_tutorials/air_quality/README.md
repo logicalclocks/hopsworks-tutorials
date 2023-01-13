@@ -30,7 +30,7 @@ Also, you obviously need to have [streamlit](https://docs.streamlit.io/library/g
 
 
 ## Data
-You will parse Air Quality data from [World Air Quality Index](https://aqicn.org//here/) site using your own credentials, so you have to [get an API-key](https://aqicn.org/data-platform/token/) from there.
+You will parse Air Quality data from [World Air Quality Index](https://aqicn.org/api/) site using your own credentials, so you have to [get an API-key](https://aqicn.org/data-platform/token/) from there.
 
 Also, to be able parse weather data, you should get an API key from [VisualCrossing](https://www.visualcrossing.com/). You can use [this link](https://www.visualcrossing.com/weather-api).
 
