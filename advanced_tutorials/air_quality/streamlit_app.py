@@ -15,7 +15,7 @@ from functions import decode_features, get_model
 
 def fancy_header(text, font_size=24):
     res = f'<span style="color:#ff5f27; font-size: {font_size}px;">{text}</span>'
-    st.markdown(res, unsafe_allow_html=True )
+    st.markdown(res, unsafe_allow_html=True)
 
 
 st.title('⛅️Air Quality Prediction Project🌩')
@@ -28,8 +28,8 @@ fancy_header('\n📡 Connecting to Hopsworks Feature Store...')
 project = hopsworks.login()
 fs = project.get_feature_store()
 feature_view = fs.get_feature_view(
-    name = 'air_quality_fv',
-    version = 1
+    name='air_quality_fv',
+    version=1
 )
 
 st.write("Successfully connected!✔️")
@@ -56,9 +56,9 @@ data_to_display = decode_features(X, feature_view=feature_view)
 progress_bar.progress(60)
 
 st.write(36 * "-")
-fancy_header(f"🗺 Processing the map...")
+fancy_header("🗺 Processing the map...")
 
-fig = Figure(width=550,height=350)
+fig = Figure(width=550, height=350)
 
 my_map = folium.Map(location=[58, 20], zoom_start=3.71)
 fig.add_child(my_map)
@@ -131,7 +131,7 @@ preds = model.predict(X)
 cities = [city_tuple[0] for city_tuple in cities_coords.keys()]
 
 next_day_date = datetime.today() + timedelta(days=1)
-next_day = next_day_date.strftime ('%d/%m/%Y')
+next_day = next_day_date.strftime('%d/%m/%Y')
 df = pd.DataFrame(data=preds, index=cities, columns=[f"AQI Predictions for {next_day}"], dtype=int)
 
 st.sidebar.write(df)

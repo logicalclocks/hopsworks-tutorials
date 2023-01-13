@@ -42,8 +42,8 @@ def get_model(project, model_name, evaluation_metric, sort_metrics_by):
     """Retrieve desired model or download it from the Hopsworks Model Registry.
 
     In second case, it will be physically downloaded to this directory"""
-    TARGET_FILE = "model.pkl"
-    list_of_files = [os.path.join(dirpath,filename) for dirpath, _, filenames \
+    TARGET_FILE = "air_quality_model.pkl"
+    list_of_files = [os.path.join(dirpath, filename) for dirpath, _, filenames \
                      in os.walk('.') for filename in filenames if filename == TARGET_FILE]
 
     if list_of_files:
@@ -57,7 +57,7 @@ def get_model(project, model_name, evaluation_metric, sort_metrics_by):
                                       evaluation_metric,
                                       sort_metrics_by)
             model_dir = model.download()
-            model = joblib.load(model_dir + "/model.pkl")
+            model = joblib.load(model_dir + "/air_quality_model.pkl")
 
     return model
 
@@ -87,11 +87,9 @@ def get_air_quality_data(city_name):
         forecast['pm10'][0]['min'],
         forecast['pm25'][0]['avg'],
         forecast['pm25'][0]['max'],
-        forecast['pm25'][0]['min'],
-        forecast['uvi'][0]['avg'],
-        forecast['uvi'][0]['avg'],
-        forecast['uvi'][0]['avg']
+        forecast['pm25'][0]['min']
     ]
+
 
 def get_air_quality_df(data):
     col_names = [
@@ -110,10 +108,7 @@ def get_air_quality_df(data):
         'pm10_min',
         'pm25_avg',
         'pm25_max',
-        'pm25_min',
-        'uvi_avg',
-        'uvi_max',
-        'uvi_min',
+        'pm25_min'
     ]
 
     new_data = pd.DataFrame(
@@ -199,6 +194,7 @@ def get_weather_df(data):
     new_data.date = new_data.date.apply(timestamp_2_time)
 
     return new_data
+
 
 def timestamp_2_time(x):
     dt_obj = datetime.strptime(str(x), '%Y-%m-%d')
