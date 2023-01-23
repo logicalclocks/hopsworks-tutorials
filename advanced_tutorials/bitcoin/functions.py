@@ -1,27 +1,23 @@
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-
-from unicorn_binance_rest_api.manager import BinanceRestApiManager as Client
 import os
-
-from plotly import tools
-from plotly.offline import init_notebook_mode, iplot
-import plotly.graph_objs as go
-
-import warnings
-warnings.filterwarnings('ignore')
-
 import re
 import time
 import datetime
+
+import numpy as np
+import pandas as pd
+from sklearn import preprocessing
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+from plotly import tools
+from plotly.offline import init_notebook_mode, iplot
+import plotly.graph_objs as go
 
 from textblob import TextBlob
 import tweepy
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
-from sklearn import preprocessing
+from unicorn_binance_rest_api.manager import BinanceRestApiManager as Client
 
 from dotenv import load_dotenv
 
@@ -31,6 +27,10 @@ import nltk
 nltk.download('stopwords')
 nltk.download('wordnet')
 nltk.download('omw-1.4')
+
+
+import warnings
+warnings.filterwarnings('ignore')
 
 
 def timestamp_2_time(x):
@@ -214,7 +214,7 @@ def get_api():
 
     TWITTER_ACCESS_TOKEN = os.getenv("TWITTER_ACCESS_TOKEN")
     TWITTER_ACCESS_TOKEN_SECRET = os.getenv("TWITTER_ACCESS_TOKEN_SECRET")
-
+    
     authentificate = tweepy.OAuthHandler(TWITTER_API_KEY, TWITTER_API_SECRET)
     authentificate.set_access_token(TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_TOKEN_SECRET)
     api = tweepy.API(authentificate, wait_on_rate_limit=True)
@@ -251,8 +251,12 @@ def get_last_tweets(query="#btc OR #bitcoin from:", twitter_accounts=twitter_acc
     """
 
     df = pd.DataFrame(columns=["created_at", "full_text"])
-
-    api = get_api()
+    
+    try:
+        api = get_api()
+    except TypeError:
+        print("Invalid Twitter API keys! Please check the .env file with API keys, that is located inside this project folder.")
+        return None
 
     for twitter_acc in twitter_accounts:
 
