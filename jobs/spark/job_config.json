@@ -1,0 +1,23 @@
+{
+  "type": "sparkJobConfiguration",
+  "amQueue": "default",
+  "amMemory": 2048,
+  "amVCores": 1,
+  "jobType": "PYSPARK",
+  "appPath": "hdfs:///Projects/{PROJECT_NAME}/{DATASET_NAME}/{APP_FILE}",
+  "mainClass": "org.apache.spark.deploy.PythonRunner",
+  "spark.executor.instances": 1,
+  "spark.executor.cores": 1,
+  "spark.executor.memory": 2048,
+  "spark.executor.gpus": 0,
+  "spark.tensorflow.num.ps": 1,
+  "spark.dynamicAllocation.enabled": true,
+  "spark.dynamicAllocation.minExecutors": 0,
+  "spark.dynamicAllocation.maxExecutors": 1,
+  "spark.dynamicAllocation.initialExecutors": 0,
+  "spark.blacklist.enabled": false,
+  "properties": "",
+  "spark.yarn.dist.pyFiles":"hdfs:///Projects/{PROJECT_NAME}/{DATASET_NAME}/{DEPENDENCY}",
+  "appName": "{JOB_NAME}",
+  "localResources": []
+}
