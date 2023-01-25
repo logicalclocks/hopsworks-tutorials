@@ -78,10 +78,10 @@ def get_air_quality_data(city_name):
         city_name,
         json['aqi'],                 # AQI
         json['time']['s'][:10],      # Date
-        iaqi['h']['v'],
-        iaqi['p']['v'],
-        iaqi['pm10']['v'],
-        iaqi['t']['v'],
+        json['iaqi']['h']['v'],
+        json['iaqi']['p']['v'],
+        json['iaqi']['pm10']['v'],
+        json['iaqi']['t']['v'],
         forecast['o3'][0]['avg'],
         forecast['o3'][0]['max'],
         forecast['o3'][0]['min'],
