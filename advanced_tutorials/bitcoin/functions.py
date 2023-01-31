@@ -33,8 +33,17 @@ import warnings
 warnings.filterwarnings('ignore')
 
 
-def timestamp_2_time(x):
-    dt_obj = datetime.datetime.strptime(str(x), '%Y-%m-%d %H:%M:%S')
+def convert_unix_to_date(x):
+    x //= 1000
+    x = datetime.datetime.fromtimestamp(x)
+    return datetime.datetime.strftime(x, "%Y-%m-%d")
+
+
+def convert_date_to_unix(x):
+    try:
+        dt_obj = datetime.datetime.strptime(str(x), '%Y-%m-%d %H:%M:%S')
+    except:
+        dt_obj = datetime.datetime.strptime(str(x), '%Y-%m-%d')
     dt_obj = dt_obj.timestamp() * 1000
     return int(dt_obj)
 
@@ -77,7 +86,7 @@ def parse_btc_data(last_date=None, number_of_days_ago=5):
     cols.remove('trades')
     df[cols] = df[cols].apply(lambda x: x.apply(float))
     df.trades = df.trades.apply(int)
-    df['unix'] = pd.to_datetime(df.date).apply(timestamp_2_time)
+    df['unix'] = pd.to_datetime(df.date).apply(convert_date_to_unix)
     return df
 
 
@@ -145,8 +154,6 @@ def process_btc_data(df):
     df = moving_average(df,7)
     df = moving_average(df,14)
     df = moving_average(df,56).fillna(0)
-
-    df['signal'] = np.where(df['mean_7_days'] > df['mean_56_days'], 1.0, 0.0)
 
     for i in [7, 14, 56]:
         for func in [moving_std, exponential_moving_average,
@@ -369,7 +376,7 @@ def textblob_processing(df_input):
     df = df[["subjectivity", "polarity"]].reset_index()
 
     df['date'] = df['date'].dt.strftime('%Y-%m-%d %H:%M:%S')
-    df['unix'] = df.date.apply(timestamp_2_time)
+    df['unix'] = df.date.apply(convert_date_to_unix)
 
     return df
 
@@ -382,8 +389,7 @@ def vader_processing(df_input):
     df = df_input.copy()
     analyzer = SentimentIntensityAnalyzer()
     compound = []
-    for i,s in enumerate(tqdm(df['text'], position=0, leave=True)):
-        # print(i,s)
+    for s in df['text']:
         vs = analyzer.polarity_scores(str(s))
         compound.append(vs["compound"])
     df["compound"] = compound
@@ -392,6 +398,6 @@ def vader_processing(df_input):
     df = df.resample('1D').sum()
     df = df.reset_index()
     df['date'] = df['date'].dt.strftime('%Y-%m-%d %H:%M:%S')
-    df['unix'] = df.date.apply(timestamp_2_time)
+    df['unix'] = df.date.apply(convert_date_to_unix)
 
     return df
