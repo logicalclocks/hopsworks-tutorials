@@ -17,9 +17,8 @@
 ## **🗒️ This whole tutorial is divided into 5 parts:**
 1. Backfill Features to the Feature Store,
 2. Create a feature pipeline,
-3. Create Feature View & Training Datasets,
-4. Train a model and upload it to the Model Registry,
-5. Deploy Streamlit app.
+3. Create Feature View & Training Datasets, train a model and upload it to the Model Registry,
+4. Deploy Streamlit app.
 
 ## Prerequisites
 To run this tutorial, you need an account on Hopsworks. You can create a new account at  [app.hopsworks.ai](https://app.hopsworks.ai).

@@ -17,10 +17,8 @@
 ## **🗒️ This whole tutorial is divided into 5 parts:**
 1. Backfill Features to the Feature Store,
 2. Create a feature pipeline,
-3. Create Feature views & Training Datasets,
-4. Train a model and upload it to the Model Registry and run deployment,
-5. Fetch model from Model Registry and make batch predictions,
-6. Deploy Streamlit app.
+3. Create Feature view & Training Datasets, train a model, upload it to the Model Registry and make batch predictions,
+4. Deploy Streamlit app.
 
 
 ## Prerequisites
