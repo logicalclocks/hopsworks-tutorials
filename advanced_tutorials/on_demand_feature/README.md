@@ -1,6 +1,5 @@
 ## Directory Structure
 
-
 ├── LICENSE
 ├── README.md          <- README explains this Python module to both developers and users.
 │
