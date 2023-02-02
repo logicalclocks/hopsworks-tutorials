@@ -13,7 +13,7 @@ setup(
     license="Apache License 2.0",
     keywords="Hopsworks, Feature Store, Machine Learning, MLOps, DataOps",
     url="https://github.com/logicalclocks/hopsworks-tutorilas.git",
-    download_url="https://github.com/logicalclocks/custom_transformation_fn_template/releases/tag/"
+    download_url="https://github.com/logicalclocks/hopsworks-tutorila/releases/tag/"
                  + "0.1.0",
     packages=find_packages(),
     long_description=read("../README.md"),
@@ -24,5 +24,8 @@ setup(
         "License :: OSI Approved :: Apache Software License",
         "Programming Language :: Python :: 3",
         "Intended Audience :: Developers",
+    ],
+    install_requires=[
+        "geopy",
     ],
 )
