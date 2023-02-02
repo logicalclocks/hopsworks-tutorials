@@ -16,7 +16,7 @@ setup(
     download_url="https://github.com/logicalclocks/custom_transformation_fn_template/releases/tag/"
                  + "0.1.0",
     packages=find_packages(),
-    long_description=read("../README.md"),
+    long_description=read("README.md"),
     long_description_content_type="text/markdown",
     classifiers=[
         "Development Status :: 5 - Production/Stable",
