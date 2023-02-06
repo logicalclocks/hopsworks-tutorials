@@ -34,7 +34,22 @@ You will parse timeseries Bitcoin data from Binance using your own credentials, 
 Also, you should [contact Twitter](https://developer.twitter.com/en/docs/twitter-api/getting-started/getting-access-to-the-twitter-api) for their API-keys.
 
 
-Don't forget to create an `.env` configuration file where all the necessary environment variables will be stored:
+#### Create an `.env` configuration file inside this directory where all the necessary environment variables will be stored:
+
+`TWITTER_API_KEY = "YOUR_API_KEY"`
+
+`TWITTER_API_SECRET = "YOUR_API_KEY"`
+
+`TWITTER_ACCESS_TOKEN = "YOUR_API_KEY"`
+
+`TWITTER_ACCESS_TOKEN_SECRET = "YOUR_API_KEY"`
+
+
+`BINANCE_API_KEY = "YOUR_API_KEY"`
+
+`BINANCE_API_SECRET = "YOUR_API_KEY"`
+
+> If you done it after you run a notebook, restart the Python Kernel for that notebook (because `functions.py` does not have these variables in his namespace).
 
 ![](images/api_keys_env_file.png)
 
