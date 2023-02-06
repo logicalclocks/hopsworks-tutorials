@@ -1,1 +1,2 @@
 geopy
+git+https://github.com/davitbzh/hopsworks-tutorials@ondemand_ft_example#egg=on_demand_feature&subdirectory=advanced_tutorials/on_demand_feature/on_demand_feature
