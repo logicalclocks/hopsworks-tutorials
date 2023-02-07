@@ -1,0 +1,2 @@
+geopy
+git+https://github.com/logicalclocks/hopsworks-tutorials@master#egg=on_demand_feature&subdirectory=advanced_tutorials/on_demand_feature/on_demand_feature

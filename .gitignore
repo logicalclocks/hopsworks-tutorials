@@ -128,3 +128,8 @@ target/
 
 # mkdocs intemediate files
 docs/generated
+
+miniconda
+.installed
+**.pkl
+**predict_example.py
