@@ -24,15 +24,11 @@ if [ ! -f ./.installed ] | [ ! -d ./miniconda ]; then
     ./miniconda/bin/conda config --set sat_solver pycryptosat
     ./miniconda/bin/conda update conda -y -q
     ./miniconda/bin/conda create --prefix ./miniconda/envs/hopsworks python=3.8 -y
-    ./miniconda/envs/hopsworks/bin/pip install jupyterlab==2.3.2 jupyter scikit-learn==1.0.2 matplotlib==3.5.2 seaborn==0.11.2 streamlit==1.11.0 plotly==5.9.0 xgboost tensorflow sqlalchemy==1.4.46 geopy
+    ./miniconda/envs/hopsworks/bin/pip install jupyterlab==2.3.2 jupyter scikit-learn==1.0.2 matplotlib==3.5.2 seaborn==0.11.2 streamlit==1.11.0 plotly==5.9.0 xgboost tensorflow
 
-    ./miniconda/envs/hopsworks/bin/pip install 'git+https://github.com/davitbzh/hopsworks-tutorials@ondemand_ft_example#egg=on_demand_feature&subdirectory=advanced_tutorials/on_demand_feature/on_demand_feature'
 
     # Installing hopsworks should be the last pip install
-    # Install HSML
-    ./miniconda/envs/hopsworks/bin/pip install "git+https://github.com/logicalclocks/feature-store-api@master#egg=hsfs[python]&subdirectory=python"
-    # Install HOPSWORKS
-    ./miniconda/envs/hopsworks/bin/pip install "git+https://github.com/logicalclocks/hopsworks-api@main#egg=hopsworks&subdirectory=python"
+    ./miniconda/envs/hopsworks/bin/pip install hopsworks --no-cache-dir
     touch ./.installed
 fi
 
