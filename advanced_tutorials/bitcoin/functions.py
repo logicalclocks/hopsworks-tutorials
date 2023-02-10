@@ -2,6 +2,7 @@ import os
 import re
 import time
 import datetime
+import inspect
 
 import numpy as np
 import pandas as pd
@@ -401,3 +402,31 @@ def vader_processing(df_input):
     df['unix'] = df.date.apply(convert_date_to_unix)
 
     return df
+
+
+def decode_features(df, feature_view, training_dataset_version=1):
+    """Decodes features using corresponding transformation functions from passed Feature View object.
+        !!! Columns names in passed DataFrame should be the same as column names in transformation fucntions mappers."""
+    df_res = df.copy()
+    
+    feature_view.init_batch_scoring(training_dataset_version=1)
+    td_transformation_functions = feature_view._batch_scoring_server._transformation_functions    
+
+    res = {}
+    for feature_name in td_transformation_functions:
+        if feature_name in df_res.columns:
+            td_transformation_function = td_transformation_functions[feature_name]
+            sig, foobar_locals = inspect.signature(td_transformation_function.transformation_fn), locals()
+            param_dict = dict([(param.name, param.default) for param in sig.parameters.values() if param.default != inspect._empty])
+            if td_transformation_function.name == "min_max_scaler":
+                df_res[feature_name] = df_res[feature_name].map(
+                    lambda x: x * (param_dict["max_value"] - param_dict["min_value"]) + param_dict["min_value"])
+            elif td_transformation_function.name == "standard_scaler":
+                df_res[feature_name] = df_res[feature_name].map(
+                    lambda x: x * param_dict['std_dev'] + param_dict["mean"])
+            elif td_transformation_function.name == "label_encoder":
+                dictionary = param_dict['value_to_index']
+                dictionary_ = {v: k for k, v in dictionary.items()}
+                df_res[feature_name] = df_res[feature_name].map(
+                    lambda x: dictionary_[x])
+    return df_res
