@@ -217,7 +217,7 @@ def parse_weather_data(city, start_date, end_date, API_KEY):
 
 
 def get_weather_data(city, start_date, end_date):
-    API_KEY = os.getenv("VISUALCROSSING_API_KEY")
+    API_KEY = os.getenv("WEATHER_API_KEY")
     # API_KEY = ""
 
     df_res = parse_weather_data(city, start_date, end_date, API_KEY)

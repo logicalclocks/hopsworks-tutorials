@@ -26,25 +26,6 @@ def remove_nans(df):
     return df
 
 
-def get_subsample(df):
-    '''
-    Function which randomly selects 10% of input data
-    
-    Args:
-    -----
-    df: pd.DataFrame
-        DataFrame from which we will get 10% subsample.
-        
-    Returns:
-    --------
-    pd.DataFrame
-        10% of original DataFrame.
-    
-    '''
-    indexes = np.random.choice(df.index, int(df.shape[0] * 0.1), replace=False)
-    return df.loc[indexes].reset_index(drop=True)
-
-
 def add_perc(ax, feature, Number_of_categories, hue_categories):
     '''
     Function which adds percentages grouped by hue column to the top of bars.
