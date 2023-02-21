@@ -34,6 +34,9 @@ import warnings
 warnings.filterwarnings('ignore')
 
 
+#######################################################################
+# BITCOIN PART
+
 def convert_unix_to_date(x):
     x //= 1000
     x = datetime.datetime.fromtimestamp(x)
@@ -55,20 +58,27 @@ def get_client():
     return Client(api_key=BINANCE_API_KEY, api_secret=BINANCE_API_SECRET)
 
 
-def get_data(since_this_date=None, until_this_date=datetime.datetime.now(), number_of_days_ago=None, crypto_pair="BTCUSDT"):
+def get_data(start_date=None, end_date=None,
+             number_of_days_ago=None,
+             crypto_pair="BTCUSDT"):
+    
     client = get_client()
 
     # Calculate the timestamps for the binance api function
-    if since_this_date:
-        since_this_date += datetime.timedelta(days=1)
     if number_of_days_ago:
-        until_this_date = datetime.datetime.now()
-        since_this_date = until_this_date - datetime.timedelta(days=number_of_days_ago)
+        end_date = datetime.datetime.now()
+        start_date = end_date - datetime.timedelta(days=number_of_days_ago)
+        
     # Execute the query from binance - timestamps must be converted to strings !
-    candle = client.get_historical_klines(crypto_pair, Client.KLINE_INTERVAL_1DAY, str(since_this_date), str(until_this_date))
+    candle = client.get_historical_klines(crypto_pair,
+                                          Client.KLINE_INTERVAL_1DAY,
+                                          str(start_date), str(end_date))
 
     # Create a dataframe to label all the columns returned by binance so we work with them later.
-    df = pd.DataFrame(candle, columns=['dateTime', 'open', 'high', 'low', 'close', 'volume', 'closeTime', 'quoteAssetVolume', 'numberOfTrades', 'takerBuyBaseVol', 'takerBuyQuoteVol', 'ignore'])
+    df = pd.DataFrame(candle, columns=['dateTime', 'open', 'high', 'low', 'close',
+                                       'volume', 'closeTime', 'quoteAssetVolume', 'numberOfTrades',
+                                       'takerBuyBaseVol', 'takerBuyQuoteVol', 'ignore'])
+    
     # as timestamp is returned in ms, let us convert this back to proper timestamps.
     df.dateTime = pd.to_datetime(df.dateTime, unit='ms').dt.strftime("%Y-%m-%d %H:%M:%S")
     df.set_index('dateTime', inplace=True)
@@ -76,9 +86,21 @@ def get_data(since_this_date=None, until_this_date=datetime.datetime.now(), numb
     return df.drop(['closeTime','ignore'],axis = 1)
 
 
-def parse_btc_data(last_date=None, number_of_days_ago=5):
-    df = get_data(since_this_date=last_date, until_this_date=datetime.datetime.now(),
-                  number_of_days_ago=number_of_days_ago + 1)
+def parse_btc_data(start_date=None, end_date=None, number_of_days_ago=None):
+    today = str(datetime.date.today())
+    if start_date and not end_date:
+        end_date = today
+    elif end_date in ["today", "now"]:
+        end_date = today
+
+    if number_of_days_ago:
+        df = get_data(number_of_days_ago=number_of_days_ago + 1,
+                      crypto_pair="BTCUSDT")
+    elif start_date and end_date:
+        df = get_data(start_date=start_date,
+                      end_date=end_date,
+                      crypto_pair="BTCUSDT")
+    
     df.index.name = 'date'
     df.reset_index(inplace = True)
     df.columns = [*df.columns[:6],'quote_av','trades','tb_base_av','tb_quote_av']
@@ -216,6 +238,9 @@ def get_volume_plot(data):
     return fig
 
 
+#######################################################################
+# TWITTER PART
+
 def get_api():
     TWITTER_API_KEY = os.getenv("TWITTER_API_KEY")
     TWITTER_API_SECRET = os.getenv("TWITTER_API_SECRET")
@@ -231,15 +256,15 @@ def get_api():
 
 
 twitter_accounts = ['APompliano', 'AltcoinSara', 'BVBTC', 'BitBoy_Crypto',
-                     'CamiRusso', 'CryptoCred', 'CryptoWendyO', 'ErikVoorhees',
-                     'Excellion', 'IvanOnTech', 'KennethBosak', 'LayahHeilpern',
-                     'Matt_Hougan', 'Natbrunell', 'Nicholas_Merten', 'RAFAELA_RIGO_',
-                     'SBF_FTX', 'SatoshiLite', 'SheldonEvans', 'TimDraper',
-                     'ToneVays', 'VitalikButerin', 'WhalePanda', 'aantonop',
-                     'aantop', 'adam3us', 'bgarlinghouse', 'bhorowitz', 'brockpierce',
-                     'cz_binance', 'danheld', 'elonmusk', 'ethereumJoseph',
-                     'girlgone_crypto', 'justinsuntron', 'officialmcafee',
-                     'rogerkver', 'saylor', 'thebrianjung']
+                    'CamiRusso', 'CryptoCred', 'CryptoWendyO', 'ErikVoorhees',
+                    'Excellion', 'IvanOnTech', 'KennethBosak', 'LayahHeilpern',
+                    'Matt_Hougan', 'Natbrunell', 'Nicholas_Merten', 'RAFAELA_RIGO_',
+                    'SBF_FTX', 'SatoshiLite', 'SheldonEvans', 'TimDraper',
+                    'ToneVays', 'VitalikButerin', 'WhalePanda', 'aantonop',
+                    'aantop', 'adam3us', 'bgarlinghouse', 'bhorowitz', 'brockpierce',
+                    'cz_binance', 'danheld', 'elonmusk', 'ethereumJoseph',
+                    'girlgone_crypto', 'justinsuntron', 'officialmcafee',
+                    'rogerkver', 'saylor', 'thebrianjung']
 
 
 def get_last_tweets(query="#btc OR #bitcoin from:", twitter_accounts=twitter_accounts, n_tweets=1000):
