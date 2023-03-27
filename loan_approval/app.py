@@ -8,6 +8,10 @@ import pandas as pd
 from features import loans
 import requests
 
+fv_version=2
+model_version=11
+td_version=1
+
 key=""
 with open("api-key.txt", "r") as f:
     key = f.read().rstrip()
@@ -31,7 +35,7 @@ start_time = time.time()
 # change model version to try out the model with feature view with transformers
 version=10
 mr = project.get_model_registry()
-model = mr.get_model("lending_model", version=version)
+model = mr.get_model("lending_model", version=model_version)
 model_dir = model.download()
 model = joblib.load(model_dir + "/lending_model.pkl")
 
@@ -43,8 +47,8 @@ print("Download model version {}: %s seconds ---".format(version) % (time.time()
 start_time = time.time()
 
 # change to 'version=2' to try out the feature view with transformers, instead of sklearn transformers
-fv = fs.get_feature_view("loans_applicants", version=1)
-fv.init_serving(training_dataset_version=1)
+fv = fs.get_feature_view("loans_applicants", version=fv_version)
+fv.init_serving(training_dataset_version=td_version)
 
 # -
 
