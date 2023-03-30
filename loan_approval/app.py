@@ -15,8 +15,8 @@ td_version=1
 key=""
 with open("api-key.txt", "r") as f:
     key = f.read().rstrip()
-os.environ['HOPSWORKS_PROJECT']="deloitte"
-os.environ['HOPSWORKS_HOST']="6a525ee0-91d8-11ed-9cc8-9fe82dc2b6fd.cloud.hopsworks.ai"
+os.environ['HOPSWORKS_PROJECT']="loan_approval"
+os.environ['HOPSWORKS_HOST']="staging.cloud.hopsworks.ai"
 os.environ['HOPSWORKS_API_KEY']=key
 
 # +
@@ -32,14 +32,10 @@ print("Login Hopsworks %s seconds ---" % (time.time() - start_time))
 
 # +
 start_time = time.time()
-# change model version to try out the model with feature view with transformers
-version=10
 mr = project.get_model_registry()
 model = mr.get_model("lending_model", version=model_version)
 model_dir = model.download()
 model = joblib.load(model_dir + "/lending_model.pkl")
-
-#fv = model.get_feature_view()
 
 print("Download model version {}: %s seconds ---".format(version) % (time.time() - start_time))
 
@@ -50,19 +46,13 @@ start_time = time.time()
 fv = fs.get_feature_view("loans_applicants", version=fv_version)
 fv.init_serving(training_dataset_version=td_version)
 
+print("Initialized feature view %s seconds ---" % (time.time() - start_time))
 # -
 
 purpose = ['vacation', 'debt_consolidation', 'credit_card','home_improvement', 'small_business', 'major_purchase', 'other',
        'medical', 'wedding', 'car', 'moving', 'house', 'educational','renewable_energy']
 term = [' 36 months', ' 60 months']
 
-
-# +
-
-print("Initialized feature view %s seconds ---" % (time.time() - start_time))
-
-
-# -
 
 def approve_loan(id, term, purpose, zip_code, loan_amnt, int_rate):
     start_time = time.time()
