@@ -8,15 +8,17 @@ import pandas as pd
 from features import loans
 import requests
 
-fv_version=2
-model_version=11
+fv_version=1
+model_version=12
 td_version=1
 
 key=""
 with open("api-key.txt", "r") as f:
     key = f.read().rstrip()
-os.environ['HOPSWORKS_PROJECT']="loan_approval"
-os.environ['HOPSWORKS_HOST']="staging.cloud.hopsworks.ai"
+os.environ['HOPSWORKS_PROJECT']="deloitte"
+# os.environ['HOPSWORKS_PROJECT']="loan_approval"
+# os.environ['HOPSWORKS_HOST']="staging.cloud.hopsworks.ai"
+os.environ['HOPSWORKS_HOST']="6a525ee0-91d8-11ed-9cc8-9fe82dc2b6fd.cloud.hopsworks.ai"
 os.environ['HOPSWORKS_API_KEY']=key
 
 # +
@@ -37,7 +39,7 @@ model = mr.get_model("lending_model", version=model_version)
 model_dir = model.download()
 model = joblib.load(model_dir + "/lending_model.pkl")
 
-print("Download model version {}: %s seconds ---".format(version) % (time.time() - start_time))
+print("Download model version {}: %s seconds ---".format(model_version) % (time.time() - start_time))
 
 # +
 start_time = time.time()
