@@ -1,0 +1,18 @@
+{
+  "type" : "record",
+  "name" : "SourceTransaction",
+  "namespace" : "io.hops.examples.flink.examples",
+  "fields" : [ {
+    "name" : "tid",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "datetime",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "cc_num",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "amount",
+    "type" : [ "null", "double" ]
+  } ]
+}

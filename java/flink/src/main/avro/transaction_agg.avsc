@@ -1,0 +1,35 @@
+{
+  "type" : "record",
+  "name" : "TransactionAgg",
+  "namespace" : "io.hops.examples.flink.examples",
+  "fields": [
+    {
+      "name": "cc_num",
+      "type": [
+        "null",
+        "long"
+      ]
+    },
+    {
+      "name": "num_trans_per_10m",
+      "type": [
+        "null",
+        "long"
+      ]
+    },
+    {
+      "name": "avg_amt_per_10m",
+      "type": [
+        "null",
+        "double"
+      ]
+    },
+    {
+      "name": "stdev_amt_per_10m",
+      "type": [
+        "null",
+        "double"
+      ]
+    }
+  ]
+}
