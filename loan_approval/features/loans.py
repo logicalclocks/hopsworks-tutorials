@@ -42,10 +42,8 @@ def fill_mort_acc(total_acc, mort_acc, total_acc_avg):
 
 # On-Demand feature function
 def zipcode(zip_code):
-    print("zip code: {}".format(zip_code))
     zip_code=int(zip_code)
     l=len(str(zip_code))
-    print("zip code len is {}".format(l))
     if l==5:
         return str(zip_code)
     return "0"
