@@ -9,17 +9,16 @@ from features import loans
 import requests
 
 fv_version=1
-model_version=12
+model_version=1
 td_version=1
 
-key=""
-with open("api-key.txt", "r") as f:
-    key = f.read().rstrip()
-os.environ['HOPSWORKS_PROJECT']="deloitte"
+# +
+# key=""
+# with open("api-key.txt", "r") as f:
+#     key = f.read().rstrip()
 # os.environ['HOPSWORKS_PROJECT']="loan_approval"
 # os.environ['HOPSWORKS_HOST']="staging.cloud.hopsworks.ai"
-os.environ['HOPSWORKS_HOST']="6a525ee0-91d8-11ed-9cc8-9fe82dc2b6fd.cloud.hopsworks.ai"
-os.environ['HOPSWORKS_API_KEY']=key
+# os.environ['HOPSWORKS_API_KEY']=key
 
 # +
 import time
