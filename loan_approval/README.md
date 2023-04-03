@@ -2,7 +2,8 @@
 
 Includes:
 
- * Model-dependent transformations (sklearn pipelines, feature view transformations)
+ * Feature pipeline
+ * Model-dependent transformations with sklearn pipelines
  * Batch inference program
- * Interactive UI with Gradio that uses the model to predict if a loan should be approved or not
+ * app.py (interactive UI with Gradio that uses the model to predict if a loan should be approved or not)
 
