@@ -1,7 +1,7 @@
-package io.hops.examples.flink.fraud;
+package com.hopsworks.tutorials.flink.fraud;
 
-import io.hops.examples.flink.examples.SourceTransaction;
-import io.hops.examples.flink.examples.TransactionAgg;
+import com.hopsworks.tutorials.flink.SourceTransaction;
+import com.hopsworks.tutorials.flink.TransactionAgg;
 import org.apache.flink.api.common.functions.AggregateFunction;
 import org.apache.flink.api.java.tuple.Tuple4;
 

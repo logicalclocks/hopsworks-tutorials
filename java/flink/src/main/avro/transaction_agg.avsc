@@ -1,7 +1,7 @@
 {
   "type" : "record",
   "name" : "TransactionAgg",
-  "namespace" : "io.hops.examples.flink.examples",
+  "namespace" : "com.hopsworks.tutorials.flink",
   "fields": [
     {
       "name": "cc_num",

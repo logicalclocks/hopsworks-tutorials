@@ -29,17 +29,16 @@ Sample(s) showing how to use [Google Cloud Pub/Sub] with [Google Cloud Dataflow]
 1. Set your `GOOGLE_APPLICATION_CREDENTIALS` environment variable to point to your service account key file. and 
    Create a Cloud Storage bucket.
 
-   ```bash
-   
+   ```bash   
    export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
    export PATH=$PATH:$JAVA_HOME/Contents/Commands
 
-   export GOOGLE_APPLICATION_CREDENTIALS=/Users/davitbzhalava/.config/gcloud/application_default_credentials.json
-   export BUCKET_NAME=davit-eunorth-streaming
+   export GOOGLE_APPLICATION_CREDENTIALS=[PATH_TO_YOUR_CREDENTIALS_FILE]
+   export BUCKET_NAME=[NAME_OF_YOUR_BUCKET]
    export PROJECT_NAME=$(gcloud config get-value project)
-   export REGION=europe-west1
-   export SERVICE_ACCOUNT=hopsworks-ai@hops-20.iam.gserviceaccount.com
-
+   export REGION=[NAME_OF_REGION]
+   export SERVICE_ACCOUNT=[NAME_OF_SERVICE_ACCOUNT]
+   
    gsutil mb gs://$BUCKET_NAME
    ```
 
@@ -55,16 +54,14 @@ The following instructions will help you prepare your development environment.
 1. Clone the `hopsworks-tutorials` repository.
 
     ```bash
-    git clone https://github.com/logicalclocks/hopsworks-tutorials.git
+    git clone https://github.com/davitbzh/hopsworks-tutorials.git
+    cd ./hopsworks-tutorials/java/beam
+    git checkout beam_flink
     ```
 
-1. Navigate to the sample code directory.
-
-   ```bash
-   cd hopsworks-tutorials/java/beam
-   ```
-
 ## Streaming Analytics
+On Hopsworks cluser execute
+- `setup/1_create_taxi_feature_group.ipynb` to create feature groups
 
 ### Google Cloud Pub/Sub to Google Cloud Storage
 The following example will run a streaming pipeline. It will read messages from a Pub/Sub topic, Hopsworks Feature store
@@ -82,26 +79,52 @@ The following example will run a streaming pipeline. It will read messages from 
 
 
 ```bash
+HOPSWORKS_HOST=[HOPSWOKRKS_CLUSTER_HOST]
+HOPSWORKS_API_KEY=[HOPSWORKS_API_KEY]
+HOPSWOERKS_PROJECT_NAME=[HOPSWOERKS_PROJECT_NAME]
+FEATURE_GROUP_NAME=[FEATURE_GROUP_NAME]
+FEATURE_GROUP_VERSION=[FEATURE_GROUP_VERSION]
+
+# this is publicly available google topic you can subscribe to
+SOURCE_TOPIC=projects/pubsub-public-data/topics/taxirides-realtime
+
 mvn compile exec:java \
-  -Dexec.mainClass=io.hops.examples.beam.TaxiRideInsertStream \
+  -Dexec.mainClass=com.hopsworks.tutorials.beam.TaxiRideInsertStream \
   -Dexec.cleanupDaemonThreads=false \
   -Dexec.args="\
-    --hopsworksHost="3de2b490-ce4b-11ed-bafa-654da80d5ced.cloud.hopsworks.ai" \
-    --hopsworksApi="pBKTZxnElPr71rnV.Z38La4X8J9ouAspRaFPodKsuwQVcgJUpxvjf3nCxlr4He90Gb1D7QXpw6VKGlwDS" \
-    --hopsworksProject="pr_test" \
-    --featureGroupName="taxi_ride" \
-    --featureGroupVersion=7 \
-    --inputTopic="projects/pubsub-public-data/topics/taxirides-realtime" \
+    --hopsworksHost=$HOPSWORKS_HOST \
+    --hopsworksApi=$HOPSWORKS_API_KEY \
+    --hopsworksProject=$HOPSWOERKS_PROJECT_NAME \
+    --featureGroupName=$FEATURE_GROUP_NAME \
+    --featureGroupVersion=$FEATURE_GROUP_VERSION \
+    --inputTopic=$SOURCE_TOPIC \
     --project=$PROJECT_NAME \
     --region=$REGION \
     --gcpTempLocation=gs://$BUCKET_NAME/temp \
     --runner=DataflowRunner"
 ```
 
+#### Start backfill job for offline FG
+From Hopsworks jobs UI start backfill job "$FEATURE_GROUP_NAME_$FEATURE_GROUP_VERSION_offline_fg_backfill"
 
-After the job has been submitted, you can check its status in the [GCP Console Dataflow page].
-You can also check the output to your GCS bucket using the command line below or in the [GCP Console Storage page]. You may need to wait a few minutes for the files to appear.
+## Cleanup
 
-```bash
-gsutil ls gs://$BUCKET_NAME/samples/
-```
+1. `Ctrl+C` to stop the program in your terminal. Note that this does not actually stop the job if you use `DataflowRunner`. Skip 3 if you use the `DirectRunner`.
+
+1. Stop the Dataflow job in [GCP Console Dataflow page]. Cancel the job instead of draining it. This may take some minutes.
+
+1. To avoid incurring charges to your GCP account make sure to delete all VMs created by DataflowRunner.
+
+1. To avoid incurring charges to your GCP account for the resources created in this tutorial:
+
+    ```bash
+    # Delete only the files created by this sample.
+    gsutil -m rm -rf "gs://$BUCKET_NAME/output*"
+    gsutil -m rm -rf "gs://$BUCKET_NAME/samples/output*"
+    gsutil -m rm -rf "gs://$BUCKET_NAME/samples"
+    gsutil -m rm -rf "gs://$BUCKET_NAME/temp/*"
+    gsutil -m rm -rf "gs://$BUCKET_NAME/temp"
+    
+    # [optional] Remove the Cloud Storage bucket.
+    gsutil rb gs://$BUCKET_NAME
+    ```

@@ -2,11 +2,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <parent>
+    <artifactId>hopsworks-tutorials</artifactId>
+    <groupId>com.hopsworks.tutorials</groupId>
+    <version>3.2.0-SNAPSHOT</version>
+  </parent>
+
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.example</groupId>
-  <artifactId>beam-online-fs</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <artifactId>beam</artifactId>
 
   <properties>
     <beam.version>2.46.0</beam.version>
@@ -36,8 +41,6 @@
     <json.version>20200518</json.version>
     <google-http-client.version>1.38.0</google-http-client.version>
     <google-auto-service.version>1.0-rc7</google-auto-service.version>
-
-    <hsfs.version>3.2.0-SNAPSHOT</hsfs.version>
   </properties>
 
   <repositories>
@@ -52,28 +55,7 @@
         <enabled>true</enabled>
       </snapshots>
     </repository>
-
-    <repository>
-      <id>Hops</id>
-      <name>Hops Repo</name>
-      <url>https://archiva.hops.works/repository/Hops/</url>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </repository>
-
   </repositories>
-
-  <distributionManagement>
-    <repository>
-      <id>Hops</id>
-      <name>Hops Repo</name>
-      <url>https://archiva.hops.works/repository/Hops/</url>
-    </repository>
-  </distributionManagement>
 
 
   <build>

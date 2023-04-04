@@ -34,6 +34,7 @@ def setup_cluster(jobs_api, args):
             "taskmanager.numberOfTaskSlots": args.slots,
             "taskmanager.heap.size": args.task_manager_mbs,
             "jobType": "FLINK",
+            "appPath": ""
         }
 
         return jobs_api.create_job(args.job, flink_cluster_config)

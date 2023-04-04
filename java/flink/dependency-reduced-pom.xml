@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <parent>
-    <artifactId>hops-examples-flink</artifactId>
-    <groupId>io.hops</groupId>
+    <artifactId>hopsworks-tutorials</artifactId>
+    <groupId>com.hopsworks.tutorials</groupId>
     <version>3.2.0-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
@@ -14,7 +14,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>io.hops.examples.flink.examples.TransactionFraudExample</mainClass>
+              <mainClass>com.hopsworks.tutorials.flink.TransactionFraudExample</mainClass>
             </manifest>
           </archive>
         </configuration>
@@ -79,15 +79,6 @@
       </plugin>
     </plugins>
   </build>
-  <repositories>
-    <repository>
-      <releases />
-      <snapshots />
-      <id>Hops</id>
-      <name>Hops Repo</name>
-      <url>https://archiva.hops.works/repository/Hops/</url>
-    </repository>
-  </repositories>
   <dependencies>
     <dependency>
       <groupId>com.google.guava</groupId>
@@ -132,13 +123,6 @@
       <scope>provided</scope>
     </dependency>
   </dependencies>
-  <distributionManagement>
-    <repository>
-      <id>Hops</id>
-      <name>Hops Repo</name>
-      <url>https://archiva.hops.works/repository/Hops/</url>
-    </repository>
-  </distributionManagement>
   <properties>
     <scala.base>2.11</scala.base>
     <avro.version>1.10.1</avro.version>

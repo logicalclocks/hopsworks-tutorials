@@ -1,21 +1,21 @@
-package io.hops.examples.flink.examples;
+package com.hopsworks.tutorials.flink;
 
+import com.hopsworks.tutorials.flink.fraud.TransactionCountAggregate;
+import com.hopsworks.tutorials.flink.fraud.TransactionsDeserializer;
+import com.hopsworks.tutorials.flink.utils.Utils;
 import com.logicalclocks.hsfs.flink.FeatureStore;
 import com.logicalclocks.hsfs.flink.HopsworksConnection;
 import com.logicalclocks.hsfs.flink.StreamFeatureGroup;
 
-import io.hops.examples.flink.fraud.TransactionCountAggregate;
-import io.hops.examples.flink.fraud.TransactionsDeserializer;
-import io.hops.examples.flink.utils.Utils;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
+
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.connector.kafka.source.KafkaSource;
 import org.apache.flink.connector.kafka.source.enumerator.initializer.OffsetsInitializer;
-
 import org.apache.flink.connector.kafka.source.reader.deserializer.KafkaRecordDeserializationSchema;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
@@ -29,11 +29,9 @@ public class TransactionFraudExample {
   
   private Utils customUtils = new Utils();
   
-  public void run(String featureGroupName, Integer featureGroupVersion, String sourceTopic, Integer windowLength,
-    String transactionFraudExample)
+  public void run(String featureGroupName, Integer featureGroupVersion, String sourceTopic, Integer windowLength)
     throws Exception {
     
-    String windowType = "tumbling";
     Duration maxOutOfOrderness = Duration.ofSeconds(60);
     
     // define flink env
@@ -63,7 +61,8 @@ public class TransactionFraudExample {
       .withTimestampAssigner((event, timestamp) -> event.getDatetime());
     
     // aggregate stream and return DataStream<TransactionAgg>
-    DataStream<TransactionAgg> aggregationStream = env.fromSource(transactionSource, customWatermark, "Transaction Kafka Source")
+    DataStream<TransactionAgg> aggregationStream =
+      env.fromSource(transactionSource, customWatermark, "Transaction Kafka Source")
       .rescale()
       .rebalance()
       .keyBy(r -> r.getCcNum())
@@ -73,7 +72,8 @@ public class TransactionFraudExample {
     // insert stream
     featureGroup.insertStream(aggregationStream);
 
-    env.execute("Window aggregation of " + windowType);
+    env.execute("Feature pipeline for Feature Group " + featureGroupName + " with version "
+      + featureGroupVersion);
   }
   
   public static void main(String[] args) throws Exception {
@@ -103,12 +103,6 @@ public class TransactionFraudExample {
       .hasArg()
       .build());
     
-    options.addOption(Option.builder("featureNameWindowLength")
-      .argName("featureNameWindowLength")
-      .required(true)
-      .hasArg()
-      .build());
-    
     CommandLineParser parser = new DefaultParser();
     CommandLine commandLine = parser.parse(options, args);
     
@@ -116,10 +110,8 @@ public class TransactionFraudExample {
     Integer featureGroupVersion = Integer.parseInt(commandLine.getOptionValue("featureGroupVersion"));
     String sourceTopic = commandLine.getOptionValue("sourceTopic");
     Integer windowLength = Integer.parseInt(commandLine.getOptionValue("windowLength"));
-    String featureNameWindowLength = commandLine.getOptionValue("featureNameWindowLength");
     
     TransactionFraudExample transactionFraudExample = new TransactionFraudExample();
-    transactionFraudExample.run(featureGroupName, featureGroupVersion, sourceTopic, windowLength,
-      featureNameWindowLength);
+    transactionFraudExample.run(featureGroupName, featureGroupVersion, sourceTopic, windowLength);
   }
 }

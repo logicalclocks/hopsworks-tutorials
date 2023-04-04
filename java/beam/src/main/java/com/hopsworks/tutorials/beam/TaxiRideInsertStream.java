@@ -1,4 +1,4 @@
-package io.hops.examples.beam;
+package com.hopsworks.tutorials.beam;
 
 import com.logicalclocks.hsfs.beam.FeatureStore;
 import com.logicalclocks.hsfs.beam.HopsworksConnection;
@@ -61,7 +61,7 @@ public class TaxiRideInsertStream {
     StreamFeatureGroup featureGroup = fs.getStreamFeatureGroup(options.getFeatureGroupName(),
       options.getFeatureGroupVersion());
   
-    Pipeline p = Pipeline.create(options);
+    Pipeline p = Pipeline.create();
   
     Schema schema =
       Schema.of(
@@ -72,7 +72,7 @@ public class TaxiRideInsertStream {
         Field.nullable("latitude", FieldType.DOUBLE),
         Field.nullable("meter_reading", FieldType.DOUBLE),
         Field.nullable("meter_increment", FieldType.DOUBLE),
-        Field.nullable("passenger_count", FieldType.DOUBLE)
+        Field.nullable("passenger_count", FieldType.INT32)
       );
 
     p

@@ -1,4 +1,4 @@
-package io.hops.examples.flink.utils;
+package com.hopsworks.tutorials.flink.utils;
 
 import com.logicalclocks.hsfs.FeatureStoreException;
 import com.logicalclocks.hsfs.flink.HopsworksConnection;

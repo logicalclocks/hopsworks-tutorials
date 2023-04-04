@@ -1,7 +1,7 @@
-package io.hops.examples.flink.fraud;
+package com.hopsworks.tutorials.flink.fraud;
 
-import io.hops.examples.flink.examples.SourceTransaction;
-import io.hops.examples.flink.utils.Utils;
+import com.hopsworks.tutorials.flink.utils.Utils;
+import com.hopsworks.tutorials.flink.SourceTransaction;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
