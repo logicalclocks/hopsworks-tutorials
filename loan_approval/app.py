@@ -9,8 +9,8 @@ from features import loans
 import requests
 
 fv_version=1
-model_version=3
-td_version=2
+model_version=1
+td_version=1
 
 # +
 import time
@@ -54,23 +54,23 @@ def approve_loan(id, term, purpose, zip_code, loan_amnt, int_rate):
         raise Exception('Invalid zip code. It should have 5 digits')
     
     y_pred = 1
-    try:    
-        arr = fv.get_feature_vector(entry = {"id": id}, passed_features={"term": term, 
-                                                                 "purpose": purpose,
-                                                                 "zip_code": validated_zip_code,
-                                                                 "loan_amnt": loan_amnt, 
-                                                                 "int_rate": int_rate
-                                                                })
-        print("Received Feature Vector: {}".format(arr))
+#     try:    
+    arr = fv.get_feature_vector({"id": id}, passed_features={"term": term, 
+                                                             "purpose": purpose,
+                                                             "zip_code": validated_zip_code,
+                                                             "loan_amnt": loan_amnt, 
+                                                             "int_rate": int_rate
+                                                            })
+    print("Received Feature Vector: {}".format(arr))
 
 
-        y_pred = model.predict(np.asarray(arr).reshape(1, -1)) 
+    y_pred = model.predict(np.asarray(arr).reshape(1, -1)) 
 
 
-        print("Prediction: {}".format(y_pred))
-        print("Prediction time %s seconds ---" % (time.time() - start_time))    
-    except:
-        print("continue")
+    print("Prediction: {}".format(y_pred))
+    print("Prediction time %s seconds ---" % (time.time() - start_time))    
+#     except:
+#         print("continue")
     # We add '[0]' to the result of the transformed 'res', because 'res' is a list, and we only want 
     # the first element.
     loan_res_url = "https://icl-blog.s3.ap-southeast-1.amazonaws.com/uploads/2015/01/loan_approved.jpg"
@@ -93,7 +93,7 @@ demo = gr.Interface(
         gr.Number(label="int_rate"),
         ],
     examples=[
-        [2222, "36 months","home_improvement", 45725, 5000, 4.5],
+        [2, "36 months","home_improvement", 45725, 5000, 4.5],
     ],
     outputs=gr.Image(type="pil"))
 
