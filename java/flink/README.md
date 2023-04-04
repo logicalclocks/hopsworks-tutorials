@@ -3,8 +3,8 @@
 #### Step 1:
 ```bash
 git clone https://github.com/davitbzh/hopsworks-tutorials.git
-cd ./hopsworks-tutorials/java
 git checkout beam_flink
+cd ./hopsworks-tutorials/java
 mvn clean package
 ```
 

@@ -55,8 +55,8 @@ The following instructions will help you prepare your development environment.
 
     ```bash
     git clone https://github.com/davitbzh/hopsworks-tutorials.git
-    cd ./hopsworks-tutorials/java/beam
     git checkout beam_flink
+    cd ./hopsworks-tutorials/java/beam
     ```
 
 ## Streaming Analytics
