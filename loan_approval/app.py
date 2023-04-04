@@ -9,16 +9,8 @@ from features import loans
 import requests
 
 fv_version=1
-model_version=1
-td_version=1
-
-# +
-# key=""
-# with open("api-key.txt", "r") as f:
-#     key = f.read().rstrip()
-# os.environ['HOPSWORKS_PROJECT']="loan_approval"
-# os.environ['HOPSWORKS_HOST']="staging.cloud.hopsworks.ai"
-# os.environ['HOPSWORKS_API_KEY']=key
+model_version=3
+td_version=2
 
 # +
 import time
@@ -28,7 +20,6 @@ project = hopsworks.login()
 fs = project.get_feature_store()
 
 print("Login Hopsworks %s seconds ---" % (time.time() - start_time))
-
 
 
 # +
@@ -43,8 +34,7 @@ print("Download model version {}: %s seconds ---".format(model_version) % (time.
 # +
 start_time = time.time()
 
-# change to 'version=2' to try out the feature view with transformers, instead of sklearn transformers
-fv = fs.get_feature_view("loans_applicants", version=fv_version)
+fv = fs.get_feature_view("loans_approvals", version=fv_version)
 fv.init_serving(training_dataset_version=td_version)
 
 print("Initialized feature view %s seconds ---" % (time.time() - start_time))
@@ -62,23 +52,25 @@ def approve_loan(id, term, purpose, zip_code, loan_amnt, int_rate):
     validated_zip_code = loans.zipcode(zip_code)
     if validated_zip_code == 0:
         raise Exception('Invalid zip code. It should have 5 digits')
-        
-        
-    arr = fv.get_feature_vector({"id": id}, passed_features={"term": term, 
-                                                             "purpose": purpose,
-                                                             "zip_code": validated_zip_code,
-                                                             "loan_amnt": loan_amnt, 
-                                                             "int_rate": int_rate
-                                                            })
-    print("Received Feature Vector: {}".format(arr))
-
-
-    y_pred = model.predict(np.asarray(arr).reshape(1, -1)) 
-
-
-    print("Prediction: {}".format(y_pred))
-    print("Prediction time %s seconds ---" % (time.time() - start_time))    
     
+    y_pred = 1
+    try:    
+        arr = fv.get_feature_vector(entry = {"id": id}, passed_features={"term": term, 
+                                                                 "purpose": purpose,
+                                                                 "zip_code": validated_zip_code,
+                                                                 "loan_amnt": loan_amnt, 
+                                                                 "int_rate": int_rate
+                                                                })
+        print("Received Feature Vector: {}".format(arr))
+
+
+        y_pred = model.predict(np.asarray(arr).reshape(1, -1)) 
+
+
+        print("Prediction: {}".format(y_pred))
+        print("Prediction time %s seconds ---" % (time.time() - start_time))    
+    except:
+        print("continue")
     # We add '[0]' to the result of the transformed 'res', because 'res' is a list, and we only want 
     # the first element.
     loan_res_url = "https://icl-blog.s3.ap-southeast-1.amazonaws.com/uploads/2015/01/loan_approved.jpg"

@@ -8,14 +8,7 @@ def home_ownership(home_ownership: str)-> str:
     return home_ownership
 
 
-def home_ownership2(home_ownership: pd.Series)-> pd.Series:
-    home_ownership = home_ownership.str.replace("ANY", "OTHER")
-    home_ownership = home_ownership.str.replace("NONE", "OTHER")
-    return home_ownership
-
-
 def pub_rec(number):
-    
     if number == 0.0:
         return 0
     else:
