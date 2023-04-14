@@ -12,102 +12,16 @@
   <artifactId>flink</artifactId>
 
   <properties>
-    <lombok.version>1.18.10</lombok.version>
-    <flink.version>1.14.3</flink.version>
-    <kafka.version>2.2.0</kafka.version>
-    <jodatime.version>2.10.2</jodatime.version>
-    <scala.base>2.11</scala.base>
-    <avro.version>1.10.1</avro.version>
-    <slf4j.version>1.7.30</slf4j.version>
-    <log4j.version>1.2.17</log4j.version>
-    <guava.version>14.0.1</guava.version>
-    <awssdk.version>2.10.40</awssdk.version>
-    <json.version>20190722</json.version>
-    <httpclient.version>4.5.6</httpclient.version>
-    <httpcore.version>4.4.13</httpcore.version>
-    <handy.version>2.1.8</handy.version>
+    <flink.version>1.17.0.0</flink.version>
+    <avro.version>1.11.0</avro.version>
   </properties>
 
   <dependencies>
     <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <version>${lombok.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>com.google.guava</groupId>
-      <artifactId>guava</artifactId>
-      <version>${guava.version}</version>
+      <groupId>org.apache.flink</groupId>
+      <artifactId>flink-streaming-java</artifactId>
+      <version>${flink.version}</version>
       <scope>provided</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>software.amazon.awssdk</groupId>
-      <artifactId>ssm</artifactId>
-      <version>${awssdk.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.apache.httpcomponents</groupId>
-          <artifactId>*</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-
-    <dependency>
-      <groupId>software.amazon.awssdk</groupId>
-      <artifactId>sts</artifactId>
-      <version>${awssdk.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.apache.httpcomponents</groupId>
-          <artifactId>*</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-
-    <dependency>
-      <groupId>software.amazon.awssdk</groupId>
-      <artifactId>secretsmanager</artifactId>
-      <version>${awssdk.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.apache.httpcomponents</groupId>
-          <artifactId>*</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-
-
-    <dependency>
-      <groupId>org.apache.flink</groupId>
-      <artifactId>flink-streaming-java_${scala.base}</artifactId>
-      <version>${flink.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.apache.flink</groupId>
-          <artifactId>flink-shaded-hadoop2</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-
-    <!-- Table ecosystem -->
-    <dependency>
-      <groupId>org.apache.flink</groupId>
-      <artifactId>flink-table-api-java-bridge_${scala.base}</artifactId>
-      <version>${flink.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.apache.flink</groupId>
-          <artifactId>flink-shaded-hadoop2</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.flink</groupId>
-      <artifactId>flink-table-planner_${scala.base}</artifactId>
-      <version>${flink.version}</version>
       <exclusions>
         <exclusion>
           <groupId>org.apache.flink</groupId>
@@ -119,15 +33,15 @@
     <!-- connector dependencies -->
     <dependency>
       <groupId>org.apache.flink</groupId>
-      <artifactId>flink-connector-kafka_${scala.base}</artifactId>
+      <artifactId>flink-connector-kafka</artifactId>
       <version>${flink.version}</version>
+      <scope>provided</scope>
       <exclusions>
         <exclusion>
           <groupId>org.apache.flink</groupId>
           <artifactId>flink-shaded-hadoop2</artifactId>
         </exclusion>
       </exclusions>
-      <!-- <scope>provided</scope> -->
     </dependency>
 
     <!-- https://mvnrepository.com/artifact/org.apache.flink/flink-avro -->
@@ -135,85 +49,34 @@
       <groupId>org.apache.flink</groupId>
       <artifactId>flink-avro</artifactId>
       <version>${flink.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.apache.flink</groupId>
-          <artifactId>flink-shaded-hadoop2</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.flink</groupId>
-      <artifactId>flink-statebackend-rocksdb_${scala.base}</artifactId>
-      <version>${flink.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.apache.flink</groupId>
-          <artifactId>flink-shaded-hadoop2</artifactId>
-        </exclusion>
-      </exclusions>
       <scope>provided</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>joda-time</groupId>
-      <artifactId>joda-time</artifactId>
-      <version>${jodatime.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.apache.flink</groupId>
+          <artifactId>flink-shaded-hadoop2</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>
       <groupId>org.apache.avro</groupId>
       <artifactId>avro</artifactId>
       <version>${avro.version}</version>
+      <scope>provided</scope>
     </dependency>
 
     <dependency>
       <groupId>com.logicalclocks</groupId>
       <artifactId>hsfs-flink</artifactId>
       <version>${project.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-log4j12</artifactId>
-      <version>${slf4j.version}</version>
       <scope>provided</scope>
     </dependency>
 
     <dependency>
-      <groupId>log4j</groupId>
-      <artifactId>log4j</artifactId>
-      <version>${log4j.version}</version>
-      <scope>provided</scope>
+      <groupId>commons-codec</groupId>
+      <artifactId>commons-codec</artifactId>
+      <version>1.15</version>
     </dependency>
-
-    <dependency>
-      <groupId>org.apache.httpcomponents</groupId>
-      <artifactId>httpclient</artifactId>
-      <version>${httpclient.version}</version>
-      <scope>provided</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.httpcomponents</groupId>
-      <artifactId>httpcore</artifactId>
-      <version>${httpcore.version}</version>
-      <scope>provided</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>com.damnhandy</groupId>
-      <artifactId>handy-uri-templates</artifactId>
-      <version>${handy.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.json</groupId>
-      <artifactId>json</artifactId>
-      <version>${json.version}</version>
-    </dependency>
-
   </dependencies>
 
   <build>

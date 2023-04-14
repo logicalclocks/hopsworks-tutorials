@@ -81,15 +81,9 @@
   </build>
   <dependencies>
     <dependency>
-      <groupId>com.google.guava</groupId>
-      <artifactId>guava</artifactId>
-      <version>14.0.1</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
       <groupId>org.apache.flink</groupId>
-      <artifactId>flink-statebackend-rocksdb_2.11</artifactId>
-      <version>1.14.3</version>
+      <artifactId>flink-streaming-java</artifactId>
+      <version>1.17.0.0</version>
       <scope>provided</scope>
       <exclusions>
         <exclusion>
@@ -99,44 +93,44 @@
       </exclusions>
     </dependency>
     <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-log4j12</artifactId>
-      <version>1.7.30</version>
+      <groupId>org.apache.flink</groupId>
+      <artifactId>flink-connector-kafka</artifactId>
+      <version>1.17.0.0</version>
+      <scope>provided</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>flink-shaded-hadoop2</artifactId>
+          <groupId>org.apache.flink</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.flink</groupId>
+      <artifactId>flink-avro</artifactId>
+      <version>1.17.0.0</version>
+      <scope>provided</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>flink-shaded-hadoop2</artifactId>
+          <groupId>org.apache.flink</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.avro</groupId>
+      <artifactId>avro</artifactId>
+      <version>1.11.0</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>log4j</groupId>
-      <artifactId>log4j</artifactId>
-      <version>1.2.17</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.httpcomponents</groupId>
-      <artifactId>httpclient</artifactId>
-      <version>4.5.6</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.httpcomponents</groupId>
-      <artifactId>httpcore</artifactId>
-      <version>4.4.13</version>
+      <groupId>com.logicalclocks</groupId>
+      <artifactId>hsfs-flink</artifactId>
+      <version>3.2.0-SNAPSHOT</version>
       <scope>provided</scope>
     </dependency>
   </dependencies>
   <properties>
-    <scala.base>2.11</scala.base>
-    <avro.version>1.10.1</avro.version>
-    <json.version>20190722</json.version>
-    <lombok.version>1.18.10</lombok.version>
-    <flink.version>1.14.3</flink.version>
-    <httpclient.version>4.5.6</httpclient.version>
-    <slf4j.version>1.7.30</slf4j.version>
-    <httpcore.version>4.4.13</httpcore.version>
-    <guava.version>14.0.1</guava.version>
-    <kafka.version>2.2.0</kafka.version>
-    <log4j.version>1.2.17</log4j.version>
-    <awssdk.version>2.10.40</awssdk.version>
-    <jodatime.version>2.10.2</jodatime.version>
-    <handy.version>2.1.8</handy.version>
+    <avro.version>1.11.0</avro.version>
+    <flink.version>1.17.0.0</flink.version>
   </properties>
 </project>

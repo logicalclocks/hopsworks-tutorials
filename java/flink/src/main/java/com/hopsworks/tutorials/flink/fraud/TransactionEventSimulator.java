@@ -1,7 +1,7 @@
 package com.hopsworks.tutorials.flink.fraud;
 
 import com.hopsworks.tutorials.flink.SourceTransaction;
-import org.apache.flink.calcite.shaded.org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.flink.streaming.api.functions.source.SourceFunction;
 import org.apache.flink.streaming.api.watermark.Watermark;
 
