@@ -18,7 +18,7 @@ def fancy_header(text, font_size=24):
     st.markdown(res, unsafe_allow_html=True )
 
 
-st.title('⛅️Air Quality Prediction Project🌩')
+st.title('⛅️ Air Quality Prediction Project 🌩')
 
 progress_bar = st.sidebar.header('⚙️ Working Progress')
 progress_bar = st.sidebar.progress(0)
