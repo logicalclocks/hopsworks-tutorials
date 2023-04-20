@@ -23,7 +23,6 @@
       <groupId>com.logicalclocks</groupId>
       <artifactId>hsfs-flink</artifactId>
       <version>${project.version}</version>
-      <scope>provided</scope>
     </dependency>
 
     <dependency>
