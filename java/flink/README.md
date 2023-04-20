@@ -149,5 +149,5 @@ primary key(s). To save historical data for batch data analysis or model trainin
 You can do this from Hopsworks jobs UI or run the following command: Find job named 
 
 ```bash
-python3 ./flink/backfill_job_client.py --host $HOPSWORKS_HOST --api_key $HOPSWORKS_API_KEY --project $HOPSWOERKS_PROJECT_NAME --jobname card_transactions_10m_agg_1_offline_fg_backfill"
+python3 ./flink/backfill_job_client.py --host $HOPSWORKS_HOST --api_key $HOPSWORKS_API_KEY --project $HOPSWOERKS_PROJECT_NAME --jobname card_transactions_10m_agg_1_offline_fg_backfill
 ```
