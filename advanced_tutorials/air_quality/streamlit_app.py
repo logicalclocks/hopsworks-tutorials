@@ -1,14 +1,20 @@
-import streamlit as st
-import folium
-from streamlit_folium import st_folium
-from geopy import distance
 import json
 import time
 import pickle
+import joblib
+
 import hopsworks 
+import streamlit as st
+from geopy import distance
+
+import plotly.express as px
+import folium
+from streamlit_folium import st_folium
 
 from functions import *
 import features.air_quality
+
+
 
 def print_fancy_header(text, font_size=22, color="#ff5f27"):
     res = f'<span style="color:{color}; font-size: {font_size}px;">{text}</span>'
@@ -35,6 +41,18 @@ def get_batch_data_from_fs(td_version, date_threshold):
 
     batch_data = feature_view.get_batch_data(start_time=date_threshold)
     return batch_data
+
+
+@st.cache_data()
+def download_model(name="air_quality_xgboost_model",
+                   version=1):
+    mr = project.get_model_registry()
+    retrieved_model = mr.get_model(
+        name="air_quality_xgboost_model",
+        version=1
+    )
+    saved_model_dir = retrieved_model.download()
+    return saved_model_dir
 
 
 @st.cache_data()
@@ -78,6 +96,34 @@ def parse_weather(last_dates_dict, today):
     return df_weather_update
 
 
+def plot_pm2_5(df):
+    # create figure with plotly express
+    fig = px.line(df, x='date', y='pm2_5', color='city_name')
+
+    # customize line colors and styles
+    fig.update_traces(mode='lines+markers')
+    fig.update_layout({
+        'plot_bgcolor': 'rgba(0, 0, 0, 0)',
+        'paper_bgcolor': 'rgba(0, 0, 0, 0)',
+        'legend_title': 'City',
+        'legend_font': {'size': 12},
+        'legend_bgcolor': 'rgba(0, 0, 0, 0)',
+        'xaxis': {'title': 'Date'},
+        'yaxis': {'title': 'PM2.5'},
+        'shapes': [{
+            'type': 'line',
+            'x0': datetime.datetime.now().strftime('%Y-%m-%d'),
+            'y0': 0,
+            'x1': datetime.datetime.now().strftime('%Y-%m-%d'),
+            'y1': df['pm2_5'].max(),
+            'line': {'color': 'black', 'width': 2, 'dash': 'dashdot'}
+        }]
+    })
+
+    # show plot
+    st.plotly_chart(fig, use_container_width=True)
+
+
 with open('target_cities.json') as json_file:
     target_cities = json.load(json_file)
 
@@ -97,9 +143,9 @@ st.write("✅ Logged in successfully!")
 
 feature_view = get_feature_view()
 
-# I am going to load data for of last 30 days (for feature engineering)
+# I am going to load data for of last 60 days (for feature engineering)
 today = datetime.date.today()
-date_threshold = today - datetime.timedelta(days=30)
+date_threshold = today - datetime.timedelta(days=60)
 
 st.write(3 * "-")
 print_fancy_header('\n☁️ Retriving batch data from Feature Store...')
@@ -108,91 +154,118 @@ batch_data = get_batch_data_from_fs(td_version=1,
 
 st.write("Batch data:")
 st.write(batch_data.sample(5))
-
 st.write(3 * "-")
-print_fancy_header('\n🌫 Parsing Air Quality data (PM2.5)')
+
 last_dates_dict = batch_data[["date", "city_name"]].groupby("city_name").max()
 last_dates_dict.date = last_dates_dict.date.astype(str)
-
 # here is a dictionary with city names as keys and last updated date as values
 last_dates_dict = last_dates_dict.to_dict()["date"]   
 
-df_aq_raw = parse_aq_data(last_dates_dict, today)
-
-# we need the previous data to calculate aggregation functions
-df_aq_update = pd.concat([
-    batch_data[df_aq_raw.columns],
-    df_aq_raw
-]).reset_index(drop=True)
-df_aq_update = df_aq_update.drop_duplicates(subset=['city_name', 'date'])
-
-st.write(df_aq_update.sample(3))
-
-print_fancy_header(text='\n🛠 Feature Engineering',
-                   font_size=18, color="#FDF4F5")
-
-###
-df_aq_update['date'] = pd.to_datetime(df_aq_update['date'])
-features.air_quality.shift_pm_2_5(df_aq_update, days=7) # add features about 7 previous PM2.5 values
-
-features.air_quality.moving_average(df_aq_update, 7)
-features.air_quality.moving_average(df_aq_update, 14)
-features.air_quality.moving_average(df_aq_update, 28)
-
-for i in [7, 14, 28]:
-    for func in [features.air_quality.moving_std,
-                 features.air_quality.exponential_moving_average,
-                 features.air_quality.exponential_moving_std
-                 ]:
-        func(df_aq_update, i)
-        
-
-df_aq_update = df_aq_update.sort_values(by=["date", "pm2_5"]).dropna()
-df_aq_update = df_aq_update.reset_index(drop=True)
+if str(today) == max(last_dates_dict.values()):
+    print_fancy_header("\n ⏱ Everything is up-to-date!")
+else:
+    print_fancy_header('\n🌫 Parsing Air Quality data (PM2.5)')
 
 
-features.air_quality.year(df_aq_update)
-features.air_quality.day_of_month(df_aq_update)
-features.air_quality.month(df_aq_update)
-features.air_quality.day_of_week(df_aq_update)
-features.air_quality.is_weekend(df_aq_update)
-features.air_quality.sin_day_of_year(df_aq_update)
-features.air_quality.cos_day_of_year(df_aq_update)
-features.air_quality.sin_day_of_week(df_aq_update)
-features.air_quality.cos_day_of_week(df_aq_update)
+    df_aq_raw = parse_aq_data(last_dates_dict, today)
 
-st.write("df_aq_update.isna().sum().sum():")
-st.write(df_aq_update.isna().sum().sum())
+    # we need the previous data to calculate aggregation functions
+    df_aq_update = pd.concat([
+        batch_data[df_aq_raw.columns],
+        df_aq_raw
+    ]).reset_index(drop=True)
+    df_aq_update = df_aq_update.drop_duplicates(subset=['city_name', 'date'])
 
-###
+    st.write(df_aq_update.tail(7))
 
-st.write(3 * "-")
-print_fancy_header('\n🌦 Parsing Weather data')
+    print_fancy_header(text='\n🛠 Feature Engineering the PM2.5',
+                       font_size=18, color="#FDF4F5")
 
-df_weather_update = parse_weather(last_dates_dict, today)
-st.write(df_weather_update)
+    ###
+    df_aq_update['date'] = pd.to_datetime(df_aq_update['date'])
+    features.air_quality.shift_pm_2_5(df_aq_update, days=7) # add features about 7 previous PM2.5 values
 
-###############################
-df_aq_update.date = pd.to_datetime(df_aq_update.date)
-df_weather_update.date = pd.to_datetime(df_weather_update.date)
+    features.air_quality.moving_average(df_aq_update, 7)
+    features.air_quality.moving_average(df_aq_update, 14)
+    features.air_quality.moving_average(df_aq_update, 28)
 
-df_aq_update["unix_time"] = df_aq_update["date"].apply(convert_date_to_unix)
-df_weather_update["unix_time"] = df_weather_update["date"].apply(convert_date_to_unix)
-
-df_aq_update.date = df_aq_update.date.astype(str)
-df_weather_update.date = df_weather_update.date.astype(str)
+    for i in [7, 14, 28]:
+        for func in [features.air_quality.moving_std,
+                     features.air_quality.exponential_moving_average,
+                     features.air_quality.exponential_moving_std
+                     ]:
+            func(df_aq_update, i)
 
 
-##################
+    df_aq_update = df_aq_update.sort_values(by=["date", "pm2_5"]).dropna()
+    df_aq_update = df_aq_update.reset_index(drop=True)
+
+
+    features.air_quality.year(df_aq_update)
+    features.air_quality.day_of_month(df_aq_update)
+    features.air_quality.month(df_aq_update)
+    features.air_quality.day_of_week(df_aq_update)
+    features.air_quality.is_weekend(df_aq_update)
+    features.air_quality.sin_day_of_year(df_aq_update)
+    features.air_quality.cos_day_of_year(df_aq_update)
+    features.air_quality.sin_day_of_week(df_aq_update)
+    features.air_quality.cos_day_of_week(df_aq_update)
+    
+    st.write(df_aq_update.groupby("city_name").max().tail(7))
+    st.write("✅ Success!")
+    ###
+
+    st.write(3 * "-")
+    print_fancy_header('\n🌤📆  Parsing Weather data')
+
+    df_weather_update = parse_weather(last_dates_dict, today)
+    st.write(df_weather_update.groupby("city_name").max().tail(7))
+    st.write("✅ Successfully parsed!")
+
+    df_aq_update.date = df_aq_update.date.astype(str)
+    df_weather_update.date = df_weather_update.date.astype(str)
+    
+    st.write("\n")
+    if st.button('📡 Upload the new data to Hopsworks Feature Store'):
+        st.write("Connecting to feature groups...")
+        air_quality_fg = fs.get_or_create_feature_group(
+            name = 'air_quality',
+            version = 1
+        )
+        weather_fg = fs.get_or_create_feature_group(
+            name = 'weather',
+            version = 1
+        )
+
+        df_aq_update.date = pd.to_datetime(df_aq_update.date)
+        df_weather_update.date = pd.to_datetime(df_weather_update.date)
+
+        df_aq_update["unix_time"] = df_aq_update["date"].apply(convert_date_to_unix)
+        df_weather_update["unix_time"] = df_weather_update["date"].apply(convert_date_to_unix)
+
+        df_aq_update.date = df_aq_update.date.astype(str)
+        df_weather_update.date = df_weather_update.date.astype(str)
+
+        air_quality_fg.insert(df_aq_update,
+                              write_options={'wait_for_job': False})
+        st.write("Created job to insert parsed PM2.5 data into FS...")
+        print("Inserting into air_quality fg.")
+
+        weather_fg.insert(df_weather_update,
+                          write_options={'wait_for_job': False})
+        st.write("Created job to insert parsed weather data into FS...")
+        print("Inserting into weather fg.")
+            
+
+st.write(3 * '-')
+st.write("\n")
+print_fancy_header(text="🖍 Select the cities using the form below. \
+                         Click the 'Submit' button at the bottom of the form to continue.",
+                   font_size=22)
 dict_for_streamlit = {}
 for continent in target_cities:
         for city_name, coords in target_cities[continent].items():
             dict_for_streamlit[city_name] = coords
-
-
-print_fancy_header(text="🖍 Select the cities using the form below. \
-                         Click the 'Submit' button at the bottom of the form to continue.",
-                   font_size=22)
 selected_cities_full_list = []
 
 with st.form(key="user_inputs"):
@@ -234,42 +307,140 @@ with st.form(key="user_inputs"):
     except Exception as err:
         print(err)
         pass
+    
+    print_fancy_header(text='\n🧮 How many days do you want me to predict?',
+                 font_size=18, color="#00FFFF")
+    HOW_MANY_DAYS_PREDICT = st.number_input(label='',
+                                            min_value=3,
+                                            max_value=16,
+                                            step=1,
+                                            value=7)
+    HOW_MANY_DAYS_PREDICT = int(HOW_MANY_DAYS_PREDICT)
 
     submit_button = st.form_submit_button(label='Submit')
 
-st.write('Selected cities:', selected_cities_full_list)
+if submit_button:
+    st.write('Selected cities:', selected_cities_full_list)
 
-######################## MODELING MODELING MODELING MODELING
-# for city in selected_cities_full_list:
-#     st.write(dict_for_streamlit[city])
+    st.write(3*'-')
+    if str(today) == max(last_dates_dict.values()):
+        dataset = batch_data
+    else:
+        # batch_data.to_csv("debug/batch_data.csv", index=False)
+        # df_weather_update.to_csv("debug/df_weather_update.csv", index=False)
+        # df_aq_update.to_csv("debug/df_aq_update.csv", index=False)
+        updates = df_weather_update.merge(df_aq_update, on=['city_name', 'date'])
+        dataset = pd.concat([batch_data, updates]).drop(columns=['unix_time']).reset_index(drop=True)
+        # dataset = dataset.drop_duplicates(subset=['city_name', 'date'])
 
+    dataset = dataset.sort_values(by=["city_name", "date"])
 
-
-
-######################## MODELING MODELING MODELING MODELING
-
-if st.button('📡 Upload the new data to Hopsworks Feature Store'):
-    st.write("Connecting to feature groups...")
-    air_quality_fg = fs.get_or_create_feature_group(
-        name = 'air_quality',
-        version = 1
+    saved_model_dir = download_model(
+        name="air_quality_xgboost_model",
+        version=1
     )
-    weather_fg = fs.get_or_create_feature_group(
-        name = 'weather',
-        version = 1
+
+    retrieved_xgboost_model = joblib.load(saved_model_dir + "/xgboost_regressor.pkl")
+    retrieved_encoder = joblib.load(saved_model_dir + "/label_encoder.pkl")
+
+    print_fancy_header("\n🧬 Modeling")
+    st.write("\n")
+    print_fancy_header(text='\n🤖 Getting the model...',
+                       font_size=18, color="#FDF4F5")
+
+
+    saved_model_dir = download_model(
+        name="air_quality_xgboost_model",
+        version=1
     )
+    st.write("\n")
+    st.write("✅ Model was downloaded and cached.")
     
-    air_quality_fg.insert(df_aq_update,
-                          write_options={'wait_for_job': False})
-    st.write("Created job to insert parsed PM2.5 data into FS...")
-    print("Inserting into air_quality fg.")
+    regressor = joblib.load(saved_model_dir + "/xgboost_regressor.pkl")
+    encoder = joblib.load(saved_model_dir + "/label_encoder.pkl")
 
-    weather_fg.insert(df_weather_update,
-                      write_options={'wait_for_job': False})
-    st.write("Created job to insert parsed weather data into FS...")
-    print("Inserting into weather fg.")
+    print_fancy_header(text='\n🧠 Predicting...',
+                       font_size=18, color="#FDF4F5")
+    
+    
+    for city_name in selected_cities_full_list:
+        st.write(f"Processing {city_name}...")
+        temp_date = datetime.date.today()
+        for i in range(HOW_MANY_DAYS_PREDICT):
+            temp_date += datetime.timedelta(days=1)
+
+            df_aq_temp = pd.DataFrame(columns=dataset.columns, data=[[-1] * dataset.shape[1]])
+            df_aq_temp['date'] = temp_date
+            df_aq_temp['city_name'] = city_name
+            
+            df_aq_temp = pd.concat([dataset, df_aq_temp], axis=0).reset_index(drop=True)
+
+            df_aq_temp['date'] = pd.to_datetime(df_aq_temp['date'])
+            features.air_quality.shift_pm_2_5(df_aq_temp, days=7) # add features about 7 previous PM2.5 values
+
+            features.air_quality.moving_average(df_aq_temp, 7)
+            features.air_quality.moving_average(df_aq_temp, 14)
+            features.air_quality.moving_average(df_aq_temp, 28)
+
+            for i in [7, 14, 28]:
+                for func in [features.air_quality.moving_std,
+                             features.air_quality.exponential_moving_average,
+                             features.air_quality.exponential_moving_std
+                             ]:
+                    func(df_aq_temp, i)
+
+            df_aq_temp = df_aq_temp.sort_values(by=["date", "pm2_5"]).dropna()
+            df_aq_temp = df_aq_temp.reset_index(drop=True)
+
+            features.air_quality.year(df_aq_temp)
+            features.air_quality.day_of_month(df_aq_temp)
+            features.air_quality.month(df_aq_temp)
+            features.air_quality.day_of_week(df_aq_temp)
+            features.air_quality.is_weekend(df_aq_temp)
+            features.air_quality.sin_day_of_year(df_aq_temp)
+            features.air_quality.cos_day_of_year(df_aq_temp)
+            features.air_quality.sin_day_of_week(df_aq_temp)
+            features.air_quality.cos_day_of_week(df_aq_temp)
+
+            # we need only the last row (one city, one day)
+            df_aq_temp = df_aq_temp[df_aq_temp['city_name'] == city_name].tail(1)
+
+            # get weather data for this specific day
+            coordinates = dict_for_streamlit[city_name]
+            df_weather_temp = get_weather_data_from_open_meteo(city_name=city_name,
+                                                               coordinates=coords,
+                                                               start_date=str(temp_date),
+                                                               end_date=str(temp_date),
+                                                               forecast=True)
+
+            df_aq_temp = df_aq_temp.drop(columns=df_weather_temp.columns[2:])
+
+            X = df_aq_temp.merge(df_weather_temp, on=["city_name", "date"])
+            encoded = encoder.transform(X['city_name'])
+
+            # Convert the output to a dense array and concatenate with the original data
+            X = pd.concat([X, pd.DataFrame(encoded)], axis=1)
+            X = X.rename(columns={0: 'city_name_encoded'})
+
+            feature_names = regressor.get_booster().feature_names
+            X = X[feature_names]
+
+            preds_temp = regressor.predict(X)
+
+            df_temp = X.copy()
+            df_temp['pm2_5'] = round(preds_temp[0], 1)
+            df_temp['city_name'] = city_name
+            df_temp['date'] = str(temp_date)
+            df_temp = df_temp.drop(columns=['city_name_encoded'])
+
+            # update dataset variable
+            dataset = pd.concat([dataset, df_temp])
 
 
-st.write(36 * "-")
-st.subheader('\n🎉 📈 🤝 App Finished Successfully 🤝 📈 🎉')
-st.button("Re-run")
+
+    plot_pm2_5(dataset[dataset['city_name'].isin(selected_cities_full_list)])
+    ######################## MODELING MODELING MODELING MODELING
+
+    st.write(36 * "-")
+    st.subheader('\n🎉 📈 🤝 App Finished Successfully 🤝 📈 🎉')
+    st.button("Re-run")
