@@ -344,7 +344,8 @@ if submit_button:
     retrieved_xgboost_model = joblib.load(saved_model_dir + "/xgboost_regressor.pkl")
     retrieved_encoder = joblib.load(saved_model_dir + "/label_encoder.pkl")
 
-    print_fancy_header("\n🧬 Modeling")
+    print_fancy_header("\n🧬 Modeling",
+                       font_size=22)
     st.write("\n")
     print_fancy_header(text='\n🤖 Getting the model...',
                        font_size=18, color="#FDF4F5")
@@ -360,9 +361,8 @@ if submit_button:
     regressor = joblib.load(saved_model_dir + "/xgboost_regressor.pkl")
     encoder = joblib.load(saved_model_dir + "/label_encoder.pkl")
 
-    print_fancy_header(text='\n🧠 Predicting...',
+    print_fancy_header(text='\n🧠 Predicting PM2.5 for selected cities...',
                        font_size=18, color="#FDF4F5")
-    
     
     for city_name in selected_cities_full_list:
         st.write(f"Processing {city_name}...")
@@ -437,10 +437,7 @@ if submit_button:
             # update dataset variable
             dataset = pd.concat([dataset, df_temp])
 
-
-
     plot_pm2_5(dataset[dataset['city_name'].isin(selected_cities_full_list)])
-    ######################## MODELING MODELING MODELING MODELING
 
     st.write(36 * "-")
     st.subheader('\n🎉 📈 🤝 App Finished Successfully 🤝 📈 🎉')
