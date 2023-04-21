@@ -73,7 +73,7 @@ if __name__=="__main__":
     fs = project.get_feature_store()
     print("✅ Logged in successfully!")
 
-    feature_view = fs.get_or_create_feature_view(
+    feature_view = fs.get_feature_view(
         name='air_quality_fv',
         version=1
     )
