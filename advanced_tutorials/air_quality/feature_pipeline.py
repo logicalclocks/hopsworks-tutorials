@@ -56,14 +56,15 @@ def parse_weather(last_dates_dict, today):
     start_of_cell = time.time()
     
     print("Parsing started...")
-    # for continent in target_cities:
-    for city_name, coords in target_cities[continent].items():
-        df_ = get_weather_data_from_open_meteo(city_name=city_name,
-                                               coordinates=coords,
-                                               start_date=last_dates_dict[city_name],
-                                               end_date=str(today),
-                                               forecast=True)
-        df_weather_update = pd.concat([df_weather_update, df_]).reset_index(drop=True)
+    # I want it to run only in the single gh actions pipeline
+    for continent_ in target_cities:
+        for city_name, coords in target_cities[continent_].items():
+            df_ = get_weather_data_from_open_meteo(city_name=city_name,
+                                                   coordinates=coords,
+                                                   start_date=last_dates_dict[city_name],
+                                                   end_date=str(today),
+                                                   forecast=True)
+            df_weather_update = pd.concat([df_weather_update, df_]).reset_index(drop=True)
 
     end_of_cell = time.time()
     print(f"Parsed new weather data for ALL cities up to {str(today)}.")
@@ -119,42 +120,46 @@ if __name__=="__main__":
     print(df_aq_update.groupby("city_name").max().tail(7))
     print("✅ Success!")
     ###
+    if continent == "EU":
+        print(3 * "-")
+        print('\n🌤📆  Parsing Weather data')
 
-    print(3 * "-")
-    print('\n🌤📆  Parsing Weather data')
+        df_weather_update = parse_weather(last_dates_dict, today)
+        print(df_weather_update.groupby("city_name").max().tail(7))
+        print("✅ Successfully parsed!")
 
-    df_weather_update = parse_weather(last_dates_dict, today)
-    print(df_weather_update.groupby("city_name").max().tail(7))
-    print("✅ Successfully parsed!")
-
+        df_weather_update.date = df_weather_update.date.astype(str)
+        
     df_aq_update.date = df_aq_update.date.astype(str)
-    df_weather_update.date = df_weather_update.date.astype(str)
+    
     
     print("Connecting to feature groups...")
     air_quality_fg = fs.get_or_create_feature_group(
         name = 'air_quality',
         version = 1
     )
-    weather_fg = fs.get_or_create_feature_group(
-        name = 'weather',
-        version = 1
-    )
 
     df_aq_update.date = pd.to_datetime(df_aq_update.date)
-    df_weather_update.date = pd.to_datetime(df_weather_update.date)
-
     df_aq_update["unix_time"] = df_aq_update["date"].apply(convert_date_to_unix)
-    df_weather_update["unix_time"] = df_weather_update["date"].apply(convert_date_to_unix)
-
     df_aq_update.date = df_aq_update.date.astype(str)
-    df_weather_update.date = df_weather_update.date.astype(str)
+    
 
     air_quality_fg.insert(df_aq_update,
                           write_options={'wait_for_job': False})
     print("Created job to insert parsed PM2.5 data into FS...")
     print("Inserting into air_quality fg.")
 
-    weather_fg.insert(df_weather_update,
+    if continent == "EU":
+        weather_fg = fs.get_or_create_feature_group(
+            name = 'weather',
+            version = 1
+        )
+        
+        df_weather_update.date = pd.to_datetime(df_weather_update.date)
+        df_weather_update["unix_time"] = df_weather_update["date"].apply(convert_date_to_unix)
+        df_weather_update.date = df_weather_update.date.astype(str)
+        
+        weather_fg.insert(df_weather_update,
                       write_options={'wait_for_job': False})
-    print("Created job to insert parsed weather data into FS...")
-    print("Inserting into weather fg.")
+        print("Created job to insert parsed weather data into FS...")
+        print("Inserting into weather fg.")
