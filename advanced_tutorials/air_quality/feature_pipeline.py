@@ -32,7 +32,7 @@ def parse_aq_data(last_dates_dict, today):
     start_of_cell = time.time()
     df_aq_raw = pd.DataFrame()
     
-    st.write("Parsing started...")
+    print("Parsing started...")
     for continent in target_cities:
         for city_name, coords in target_cities[continent].items():
             df_ = get_aqi_data_from_open_meteo(city_name=city_name,
@@ -42,8 +42,8 @@ def parse_aq_data(last_dates_dict, today):
             df_aq_raw = pd.concat([df_aq_raw, df_]).reset_index(drop=True)
     end_of_cell = time.time()
     print("-" * 64)
-    st.write(f"Parsed new PM2.5 data for ALL locations up to {str(today)}.")
-    st.write(f"Took {round(end_of_cell - start_of_cell, 2)} sec.\n")
+    print(f"Parsed new PM2.5 data for ALL locations up to {str(today)}.")
+    print(f"Took {round(end_of_cell - start_of_cell, 2)} sec.\n")
     return df_aq_raw
 
 
@@ -51,7 +51,7 @@ def parse_weather(last_dates_dict, today):
     df_weather_update = pd.DataFrame()
     start_of_cell = time.time()
     
-    st.write("Parsing started...")
+    print("Parsing started...")
     for continent in target_cities:
         for city_name, coords in target_cities[continent].items():
             df_ = get_weather_data_from_open_meteo(city_name=city_name,
@@ -73,12 +73,16 @@ if __name__=="__main__":
     fs = project.get_feature_store()
     print("✅ Logged in successfully!")
 
-    feature_view = get_feature_view()
+    feature_view = fs.get_or_create_feature_view(
+        name='air_quality_fv',
+        version=1
+    )
 
     # I am going to load data for of last 60 days (for feature engineering)
     today = datetime.date.today()
     date_threshold = today - datetime.timedelta(days=60)
     
+    print("Getting the batch data...")
     batch_data = get_batch_data_from_fs(td_version=1,
                                         date_threshold=date_threshold)
 
@@ -101,8 +105,7 @@ if __name__=="__main__":
 
     print(df_aq_update.tail(7))
 
-    print_fancy_header(text='\n🛠 Feature Engineering the PM2.5',
-                       font_size=18, color="#FDF4F5")
+    print('\n🛠 Feature Engineering the PM2.5')
 
     ###
     df_aq_update['date'] = pd.to_datetime(df_aq_update['date'])
@@ -139,7 +142,7 @@ if __name__=="__main__":
     ###
 
     print(3 * "-")
-    print_fancy_header('\n🌤📆  Parsing Weather data')
+    print('\n🌤📆  Parsing Weather data')
 
     df_weather_update = parse_weather(last_dates_dict, today)
     print(df_weather_update.groupby("city_name").max().tail(7))
