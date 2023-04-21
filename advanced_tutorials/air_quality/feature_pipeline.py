@@ -6,7 +6,6 @@ import json
 import hopsworks
 
 from functions import *
-import features.air_quality
 
 import warnings
 warnings.filterwarnings("ignore")
@@ -114,33 +113,8 @@ if __name__=="__main__":
 
     ###
     df_aq_update['date'] = pd.to_datetime(df_aq_update['date'])
-    features.air_quality.shift_pm_2_5(df_aq_update, days=7) # add features about 7 previous PM2.5 values
-
-    features.air_quality.moving_average(df_aq_update, 7)
-    features.air_quality.moving_average(df_aq_update, 14)
-    features.air_quality.moving_average(df_aq_update, 28)
-
-    for i in [7, 14, 28]:
-        for func in [features.air_quality.moving_std,
-                     features.air_quality.exponential_moving_average,
-                     features.air_quality.exponential_moving_std
-                     ]:
-            func(df_aq_update, i)
-
-
-    df_aq_update = df_aq_update.sort_values(by=["date", "pm2_5"]).dropna()
-    df_aq_update = df_aq_update.reset_index(drop=True)
-
-
-    features.air_quality.year(df_aq_update)
-    features.air_quality.day_of_month(df_aq_update)
-    features.air_quality.month(df_aq_update)
-    features.air_quality.day_of_week(df_aq_update)
-    features.air_quality.is_weekend(df_aq_update)
-    features.air_quality.sin_day_of_year(df_aq_update)
-    features.air_quality.cos_day_of_year(df_aq_update)
-    features.air_quality.sin_day_of_week(df_aq_update)
-    features.air_quality.cos_day_of_week(df_aq_update)
+    feature_engineer_aq(df_aq_update)
+    df_aq_update = df_aq_update.dropna()
     
     print(df_aq_update.groupby("city_name").max().tail(7))
     print("✅ Success!")

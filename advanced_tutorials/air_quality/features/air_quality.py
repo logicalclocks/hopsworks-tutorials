@@ -34,19 +34,19 @@ def exponential_moving_std(df, window):
 
 def year(df):
     # Extract year, month, and day of the week from the 'date' column
-    df['year'] = df['date'].dt.year
+    df['year'] = int(df['date'].dt.year)
 
 
 def day_of_month(df):
-    df['day_of_month'] = df['date'].dt.day
+    df['day_of_month'] = int(df['date'].dt.day)
 
 
 def month(df):
-    df['month'] = df['date'].dt.month
+    df['month'] = int(df['date'].dt.month)
 
 
 def day_of_week(df):
-    df['day_of_week'] = df['date'].dt.dayofweek
+    df['day_of_week'] = int(df['date'].dt.dayofweek)
 
 
 def is_weekend(df):
