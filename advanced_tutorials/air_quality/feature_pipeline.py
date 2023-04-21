@@ -15,7 +15,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-with open('target_cities.json') as json_file:
+file_path = os.path.join(os.getcwd(), 'advanced_tutorials', 'air_quality', 'target_cities.json')
+with open(file_path) as json_file:
     target_cities = json.load(json_file)
 
 

@@ -363,9 +363,9 @@ if submit_button:
 
     print_fancy_header(text='\n🧠 Predicting PM2.5 for selected cities...',
                        font_size=18, color="#FDF4F5")
-    
+    st.write("")
     for city_name in selected_cities_full_list:
-        st.write(f"Processing {city_name}...")
+        st.write(f"\t * {city_name}...")
         temp_date = datetime.date.today()
         for i in range(HOW_MANY_DAYS_PREDICT):
             temp_date += datetime.timedelta(days=1)
@@ -436,9 +436,12 @@ if submit_button:
 
             # update dataset variable
             dataset = pd.concat([dataset, df_temp])
-
+    
+    st.write("")
+    print_fancy_header(text="📈Results 📉",
+                       font_size=22)
     plot_pm2_5(dataset[dataset['city_name'].isin(selected_cities_full_list)])
 
-    st.write(36 * "-")
+    st.write(3 * "-")
     st.subheader('\n🎉 📈 🤝 App Finished Successfully 🤝 📈 🎉')
     st.button("Re-run")
