@@ -28,4 +28,4 @@ jobs:
       - name: execute Feature Pipeline
         env: 
           HOPSWORKS_API_KEY: ${{ secrets.HOPSWORKS_API_KEY }}
-        run: python ./advanced_tutorials/air_quality/feature_pipeline.py
+        run: python ./feature_pipeline.py
