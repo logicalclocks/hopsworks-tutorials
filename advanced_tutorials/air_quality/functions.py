@@ -87,9 +87,11 @@ def get_air_quality_from_eea(city_name: str,
 
     # observations endpoint
     base_url = "https://fme.discomap.eea.europa.eu/fmedatastreaming/AirQualityDownload/AQData_Extract.fmw?"
-
-    response = requests.get(base_url, params=params)
-
+    try:
+        response = requests.get(base_url, params=params)
+    except ConnectionError:
+        response = requests.get(base_url, params=params)
+        
     response.encoding = response.apparent_encoding
     csv_links = response.text.split("\r\n")
     
@@ -270,7 +272,10 @@ def get_weather_data_from_open_meteo(city_name: str,
         # historical observations endpoint
         base_url = 'https://archive-api.open-meteo.com/v1/archive'  
         
-    response = requests.get(base_url, params=params)
+    try:
+        response = requests.get(base_url, params=params)
+    except ConnectionError:
+        response = requests.get(base_url, params=params)
     
     response_json = response.json()    
     res_df = pd.DataFrame(response_json["daily"])  
