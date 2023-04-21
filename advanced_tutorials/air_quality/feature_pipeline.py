@@ -14,6 +14,11 @@ warnings.filterwarnings("ignore")
 from dotenv import load_dotenv
 load_dotenv()
 
+import os
+
+# Get the value of the PARAMETER environment variable
+continent = os.environ.get('CONTINENT')
+
 
 file_path = os.path.join(os.getcwd(), 'advanced_tutorials', 'air_quality', 'target_cities.json')
 with open(file_path) as json_file:
@@ -33,13 +38,13 @@ def parse_aq_data(last_dates_dict, today):
     df_aq_raw = pd.DataFrame()
     
     print("Parsing started...")
-    for continent in target_cities:
-        for city_name, coords in target_cities[continent].items():
-            df_ = get_aqi_data_from_open_meteo(city_name=city_name,
-                                               coordinates=coords,
-                                               start_date=last_dates_dict[city_name],
-                                               end_date=str(today))
-            df_aq_raw = pd.concat([df_aq_raw, df_]).reset_index(drop=True)
+    # for continent in target_cities:
+    for city_name, coords in target_cities[continent].items():
+        df_ = get_aqi_data_from_open_meteo(city_name=city_name,
+                                           coordinates=coords,
+                                           start_date=last_dates_dict[city_name],
+                                           end_date=str(today))
+        df_aq_raw = pd.concat([df_aq_raw, df_]).reset_index(drop=True)
     end_of_cell = time.time()
     print("-" * 64)
     print(f"Parsed new PM2.5 data for ALL locations up to {str(today)}.")
@@ -52,14 +57,14 @@ def parse_weather(last_dates_dict, today):
     start_of_cell = time.time()
     
     print("Parsing started...")
-    for continent in target_cities:
-        for city_name, coords in target_cities[continent].items():
-            df_ = get_weather_data_from_open_meteo(city_name=city_name,
-                                                   coordinates=coords,
-                                                   start_date=last_dates_dict[city_name],
-                                                   end_date=str(today),
-                                                   forecast=True)
-            df_weather_update = pd.concat([df_weather_update, df_]).reset_index(drop=True)
+    # for continent in target_cities:
+    for city_name, coords in target_cities[continent].items():
+        df_ = get_weather_data_from_open_meteo(city_name=city_name,
+                                               coordinates=coords,
+                                               start_date=last_dates_dict[city_name],
+                                               end_date=str(today),
+                                               forecast=True)
+        df_weather_update = pd.concat([df_weather_update, df_]).reset_index(drop=True)
 
     end_of_cell = time.time()
     print(f"Parsed new weather data for ALL cities up to {str(today)}.")

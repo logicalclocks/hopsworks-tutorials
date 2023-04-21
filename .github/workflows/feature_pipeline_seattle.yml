@@ -1,4 +1,4 @@
-name: air_quality_feature_pipeline
+name: air_quality_feature_pipeline_seattle
 
 on:
   workflow_dispatch:
@@ -19,7 +19,7 @@ jobs:
         uses: actions/setup-python@v3
         with:
           python-version: '3.8'
-          working-directory: ./
+          working-directory: ./advanced_tutorials/air_quality/
           
       - name: install python packages
         run:
@@ -28,4 +28,5 @@ jobs:
       - name: execute Feature Pipeline
         env: 
           HOPSWORKS_API_KEY: ${{ secrets.HOPSWORKS_API_KEY }}
-        run: python ./advanced_tutorials/air_quality/feature_pipeline.py
+          CONTINENT: "Seattle"
+        run: python ./advanced_tutorials/air_quality/feature_pipeline_seattle.py

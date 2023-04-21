@@ -312,12 +312,12 @@ with st.form(key="user_inputs"):
                  font_size=18, color="#00FFFF")
     options = [3, 7, 10, 14]
     
-#     st.write('<style>div.row-widget.stRadio > div{flex-direction:row;justify-content: center;} </style>', unsafe_allow_html=True)
+    st.write('<style>div.row-widget.stRadio > div{flex-direction:row;justify-content: center;} </style>', unsafe_allow_html=True)
 
-#     st.write('<style>div.st-bf{flex-direction:column;} div.st-ag{padding-left:2px;}</style>',
-#              unsafe_allow_html=True)
+    st.write('<style>div.st-bf{flex-direction:column;} div.st-ag{padding-left:2px;}</style>',
+             unsafe_allow_html=True)
 
-    HOW_MANY_DAYS_PREDICT = st.radio("", options, index=1)
+    HOW_MANY_DAYS_PREDICT = st.radio("", options)
 
     HOW_MANY_DAYS_PREDICT = int(HOW_MANY_DAYS_PREDICT)
 
