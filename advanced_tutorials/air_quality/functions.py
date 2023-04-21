@@ -9,32 +9,34 @@ from geopy.geocoders import Nominatim
 import features.air_quality
 
 def feature_engineer_aq(df):
-    features.air_quality.shift_pm_2_5(df, days=7) # add features about 7 previous PM2.5 values
+    df_res = df.copy()
+    features.air_quality.shift_pm_2_5(df_res, days=7) # add features about 7 previous PM2.5 values
 
-    features.air_quality.moving_average(df, 7)
-    features.air_quality.moving_average(df, 14)
-    features.air_quality.moving_average(df, 28)
+    features.air_quality.moving_average(df_res, 7)
+    features.air_quality.moving_average(df_res, 14)
+    features.air_quality.moving_average(df_res, 28)
 
     for i in [7, 14, 28]:
         for func in [features.air_quality.moving_std,
                      features.air_quality.exponential_moving_average,
                      features.air_quality.exponential_moving_std
                      ]:
-            func(df, i)
+            func(df_res, i)
 
 
-    df = df.sort_values(by=["date", "pm2_5"]).dropna()
-    df = df.reset_index(drop=True)
+    df_res = df_res.sort_values(by=["date", "pm2_5"]).dropna()
+    df_res = df_res.reset_index(drop=True)
 
-    features.air_quality.year(df)
-    features.air_quality.day_of_month(df)
-    features.air_quality.month(df)
-    features.air_quality.day_of_week(df)
-    features.air_quality.is_weekend(df)
-    features.air_quality.sin_day_of_year(df)
-    features.air_quality.cos_day_of_year(df)
-    features.air_quality.sin_day_of_week(df)
-    features.air_quality.cos_day_of_week(df)
+    features.air_quality.year(df_res)
+    features.air_quality.day_of_month(df_res)
+    features.air_quality.month(df_res)
+    features.air_quality.day_of_week(df_res)
+    features.air_quality.is_weekend(df_res)
+    features.air_quality.sin_day_of_year(df_res)
+    features.air_quality.cos_day_of_year(df_res)
+    features.air_quality.sin_day_of_week(df_res)
+    features.air_quality.cos_day_of_week(df_res)
+    return df_res
     
 
 def convert_date_to_unix(x):
