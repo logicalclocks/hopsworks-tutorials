@@ -4,7 +4,6 @@ import time
 import requests
 import pandas as pd
 import json
-import ast
 
 from geopy.geocoders import Nominatim
 

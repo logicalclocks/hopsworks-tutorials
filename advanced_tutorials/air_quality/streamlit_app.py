@@ -310,11 +310,15 @@ with st.form(key="user_inputs"):
     
     print_fancy_header(text='\n🧮 How many days do you want me to predict?',
                  font_size=18, color="#00FFFF")
-    HOW_MANY_DAYS_PREDICT = st.number_input(label='',
-                                            min_value=3,
-                                            max_value=16,
-                                            step=1,
-                                            value=7)
+    options = [3, 7, 10, 14]
+    
+#     st.write('<style>div.row-widget.stRadio > div{flex-direction:row;justify-content: center;} </style>', unsafe_allow_html=True)
+
+#     st.write('<style>div.st-bf{flex-direction:column;} div.st-ag{padding-left:2px;}</style>',
+#              unsafe_allow_html=True)
+
+    HOW_MANY_DAYS_PREDICT = st.radio("", options, index=1)
+
     HOW_MANY_DAYS_PREDICT = int(HOW_MANY_DAYS_PREDICT)
 
     submit_button = st.form_submit_button(label='Submit')
@@ -329,10 +333,14 @@ if submit_button:
         # batch_data.to_csv("debug/batch_data.csv", index=False)
         # df_weather_update.to_csv("debug/df_weather_update.csv", index=False)
         # df_aq_update.to_csv("debug/df_aq_update.csv", index=False)
+        
         updates = df_weather_update.merge(df_aq_update, on=['city_name', 'date'])
         dataset = pd.concat([batch_data, updates]).drop(columns=['unix_time']).reset_index(drop=True)
-        # dataset = dataset.drop_duplicates(subset=['city_name', 'date'])
-
+        
+        # dataset.to_csv("debug/dataset.csv", index=False)
+    batch_data.to_csv("debug/batch_data.csv", index=False)
+    
+    dataset = dataset.drop_duplicates(subset=['city_name', 'date'])
     dataset = dataset.sort_values(by=["city_name", "date"])
 
     saved_model_dir = download_model(
