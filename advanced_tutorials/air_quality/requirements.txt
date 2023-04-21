@@ -1,3 +1,0 @@
-hopsworks==3.0.*
-geopy
-python-dotenv

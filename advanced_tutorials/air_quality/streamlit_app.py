@@ -116,7 +116,7 @@ def plot_pm2_5(df):
             'y0': 0,
             'x1': datetime.datetime.now().strftime('%Y-%m-%d'),
             'y1': df['pm2_5'].max(),
-            'line': {'color': 'black', 'width': 2, 'dash': 'dashdot'}
+            'line': {'color': 'red', 'width': 2, 'dash': 'dashdot'}
         }]
     })
 
@@ -329,16 +329,9 @@ if submit_button:
     st.write(3*'-')
     if str(today) == max(last_dates_dict.values()):
         dataset = batch_data
-    else:
-        # batch_data.to_csv("debug/batch_data.csv", index=False)
-        # df_weather_update.to_csv("debug/df_weather_update.csv", index=False)
-        # df_aq_update.to_csv("debug/df_aq_update.csv", index=False)
-        
+    else:        
         updates = df_weather_update.merge(df_aq_update, on=['city_name', 'date'])
-        dataset = pd.concat([batch_data, updates]).drop(columns=['unix_time']).reset_index(drop=True)
-        
-        # dataset.to_csv("debug/dataset.csv", index=False)
-    batch_data.to_csv("debug/batch_data.csv", index=False)
+        dataset = pd.concat([batch_data, updates]).drop(columns=['unix_time']).reset_index(drop=True)     
     
     dataset = dataset.drop_duplicates(subset=['city_name', 'date'])
     dataset = dataset.sort_values(by=["city_name", "date"])
