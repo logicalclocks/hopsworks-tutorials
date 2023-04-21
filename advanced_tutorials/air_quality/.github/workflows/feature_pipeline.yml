@@ -1,10 +1,10 @@
-name: feature_pipeline
+name: air_quality_feature_pipeline
 
 on:
   workflow_dispatch:
- push:
-   branches:
-     - 'air_quality_2.0'
+  push:
+    branches:
+      - 'air_quality_2.0'
   schedule:
     - cron: '0 0 * * *' # Runs every day at midnight
 
