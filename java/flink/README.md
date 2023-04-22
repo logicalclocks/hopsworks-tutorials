@@ -2,10 +2,10 @@
 
 ## Introduction
 In this guide you will learn how to create Real-Time Feature Engineering pipeline and write real time features in to 
-the Hopsworks features store. This guide covers creating a 
+the Hopsworks features store. This guide covers
 
 - computing real time features with Apache Flink. 
-- writing real time features to Hopsworks's online feature store using `hsfs-flink` library. 
+- writing real time features into the Hopsworks's online feature store using `hsfs-flink` library. 
 
 You will also 
 - create feature group using the HSFS APIs.
@@ -33,7 +33,7 @@ Currently, Flink support for Hopsworks feature store is experimental and only wr
 that Feature group metadata needs to be registered in Hopsworks Feature store before you can write real time features computed 
 by Flink.
 
-Full documentation how to create feature feature group using the HSFS APIs can be found [here](https://docs.hopsworks.ai/3.1/user_guides/fs/feature_group/create/).
+Full documentation how to create feature group using the HSFS APIs can be found [here](https://docs.hopsworks.ai/3.1/user_guides/fs/feature_group/create/).
 
 This tutorial comes with notebook with a code to create feature groups:
 - `. /hopsworks-tutorials/java/flink/setup/1_create_feature_groups.ipynb`
@@ -79,8 +79,8 @@ python3 ./flink/jobs_flink_client.py --host $HOPSWORKS_HOST --api_key $HOPSWORKS
 Flink is used for feature engineering when you need very fresh features computed in real-time. Flink pipelines 
 provide native support for aggregations, with dimensionality reduction algorithms and transformations.
 
-Currently, Flink pipelines for Hopsworks Feature store are supported in Java. Hopsworks Feature expects that your 
-aggregation result is encapsulated in POJO class and that this POJO has the same schema as the feature group 
+Currently, Flink pipelines for Hopsworks Feature store are supported in Java only. Hopsworks Feature Store expects that 
+your aggregation result is encapsulated in POJO class and that has the same schema as the feature group 
 you are writing into. In database terms this POJO class corresponds to one row.
 
 For example when you executed code in notebook `1_create_feature_groups.ipynb` you created feature group 
@@ -134,19 +134,19 @@ public class TransactionTenMinAgg {
 In the `com.hopsworks.tutorials.flink.TransactionFraudExample` you will find end to end code how to:
 - read from source topic.
 - perform time window based aggregation.
-- get feature group handle and write to real time features computed by flink in to the online feature store.  
+- get feature group handle and write real time features computed by flink in to the online feature store.  
 
-To submit flink feature aggregation pipeline that computes aggregates on 10 minute window and writes to `card_transactions_10m_agg`
+To submit flink pipeline that computes aggregates on 10 minute window and writes to `card_transactions_10m_agg`
 feature group execute the following command.
 
 ```bash
 python3 ./flink/jobs_flink_client.py --host $HOPSWORKS_HOST --api_key $HOPSWORKS_API_KEY --project $HOPSWOERKS_PROJECT_NAME --job transactionConsumer --jar ./flink/target/flink-3.3.0-SNAPSHOT.jar --main "com.hopsworks.tutorials.flink.TransactionFraudExample" --job_arguments "-featureGroupName card_transactions_10m_agg -featureGroupVersion 1 -sourceTopic credit_card_transactions -windowLength 10"
 ```
 
-#### Backfill feature data to offline FG
-Above pipeline writes real time features to online feature store. Online feature store latest values per 
+#### Backfill feature data to offline feature group
+Above pipeline writes real time features to online feature store which stores the latest values per 
 primary key(s). To save historical data for batch data analysis or model training you need to start backfill job.
-You can do this from Hopsworks jobs UI or run the following command: Find job named 
+You can do this from Hopsworks jobs UI or run the following command: 
 
 ```bash
 python3 ./flink/backfill_job_client.py --host $HOPSWORKS_HOST --api_key $HOPSWORKS_API_KEY --project $HOPSWOERKS_PROJECT_NAME --jobname card_transactions_10m_agg_1_offline_fg_backfill
