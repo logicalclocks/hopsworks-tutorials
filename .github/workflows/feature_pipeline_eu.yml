@@ -6,7 +6,7 @@ on:
     branches:
       - 'air_quality_2.0'
   schedule:
-    - cron: '0 0 * * *' # Runs every day at midnight
+    - cron: '0 15 * * *' # Runs every day at midnight.
 
 jobs:
   test_schedule:
