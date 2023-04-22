@@ -1,4 +1,4 @@
-# Real time feature computation using Apache Beam and Hopsworks Feature Store
+# Real time feature computation using Apache Beam, Google Cloud Dataflow and Hopsworks Feature Store
 
 ## Introduction
 In this guide you will learn how to create Real-Time Feature Engineering pipeline and write real time features in to
@@ -39,9 +39,9 @@ Currently, Beam support for Hopsworks feature store is experimental and only wri
 that Feature group metadata needs to be registered in Hopsworks Feature store before you can write real time features computed
 by Beam.
 
-Full documentation how to create feature feature group using the HSFS APIs can be found [here](https://docs.hopsworks.ai/3.1/user_guides/fs/feature_group/create/).
+Full documentation how to create feature group using HSFS APIs can be found [here](https://docs.hopsworks.ai/3.1/user_guides/fs/feature_group/create/).
 
-This tutorial comes with notebook with a code to create feature groups:
+This tutorial comes with notebook to create feature group:
 - `. /hopsworks-tutorials/java/beam/setup/1_create_taxi_feature_group.ipynb`
 
 You can execute this notebook directly on Hopsworks cluster. Follow the documentation how to run [spark notebooks](https://docs.hopsworks.ai/3.1/user_guides/projects/jupyter/spark_notebook/)
@@ -54,8 +54,8 @@ use publicly available topic `projects/pubsub-public-data/topics/taxirides-realt
 ## Start Beam/DataFlow streaming pipeline:
 
 ### Google Cloud Pub/Sub to Google Cloud Storage
-Now you ready to run a streaming pipeline using Beam and Google Cloud Dataflow. For this you need For this you need to 
-have Hopsworks cluster host address and [api key](https://docs.hopsworks.ai/3.1/user_guides/projects/api_key/create_api_key/)
+Now you ready to run a streaming pipeline using Beam and Google Cloud Dataflow. For this you need to
+have Hopsworks cluster host address, hopsworks project name and [api key](https://docs.hopsworks.ai/3.1/user_guides/projects/api_key/create_api_key/)
 
 Once you have the above define environment variables:
 
@@ -71,7 +71,7 @@ FEATURE_GROUP_NAME=taxi_ride
 FEATURE_GROUP_VERSION=1
 ```
 
-As we mentioned above your beam pipeline will read raw data from  publicly available `taxirides-realtime
+As we mentioned above your beam pipeline will read raw data from  publicly available `taxirides-realtime` topic 
 ```bash
 SOURCE_TOPIC=projects/pubsub-public-data/topics/taxirides-realtime
 ```
@@ -156,7 +156,7 @@ mvn compile exec:java \
 ```
 
 #### Backfill feature data to offline FG
-Above pipeline writes real time features to online feature store. Online feature store latest values per primary key(s). 
+Above pipeline writes real time features to online feature store that stores the latest values per primary key(s). 
 To save historical data for batch data analysis or model training you need to start backfill job. You can do this 
 from Hopsworks jobs UI or CLI. 
 
