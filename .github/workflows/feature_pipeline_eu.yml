@@ -2,14 +2,11 @@ name: air_quality_feature_pipeline_eu
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - 'air_quality_2.0'
   schedule:
-    - cron: '0 15 * * *' # Runs every day at midnight.
+    - cron: '0 13 * * *'
 
 jobs:
-  test_schedule:
+  aqi_project_schedule:
     runs-on: ubuntu-latest
     steps:
       - name: checkout repo content

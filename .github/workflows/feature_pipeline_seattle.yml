@@ -2,11 +2,8 @@ name: air_quality_feature_pipeline_seattle
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - 'air_quality_2.0'
   schedule:
-    - cron: '0 16 * * *' # Runs at 01:00.
+    - cron: '0 14 * * *'
 
 jobs:
   test_schedule:
