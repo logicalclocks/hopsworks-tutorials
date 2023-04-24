@@ -1,33 +1,28 @@
-import pandas as pd
+import os
+import re
+import time
+import datetime
+import inspect
+
 import numpy as np
+import pandas as pd
+from sklearn import preprocessing
+
 import matplotlib.pyplot as plt
 import seaborn as sns
-
-from unicorn_binance_rest_api.manager import BinanceRestApiManager as Client
-import os
-
 from plotly import tools
 from plotly.offline import init_notebook_mode, iplot
 import plotly.graph_objs as go
 
-import warnings
-warnings.filterwarnings('ignore')
-
-import json
-import io
-import re
-import time
-import os.path
-import math
-from dateutil import parser
-import datetime
-from tqdm import tnrange, tqdm_notebook, tqdm
-
 from textblob import TextBlob
 import tweepy
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
-from tqdm import tnrange, tqdm_notebook, tqdm
-from sklearn import preprocessing
+
+from unicorn_binance_rest_api.manager import BinanceRestApiManager as Client
+
+from dotenv import load_dotenv
+
+load_dotenv()
 
 import nltk
 nltk.download('stopwords')
@@ -35,8 +30,24 @@ nltk.download('wordnet')
 nltk.download('omw-1.4')
 
 
-def timestamp_2_time(x):
-    dt_obj = datetime.datetime.strptime(str(x), '%Y-%m-%d %H:%M:%S')
+import warnings
+warnings.filterwarnings('ignore')
+
+
+#######################################################################
+# BITCOIN PART
+
+def convert_unix_to_date(x):
+    x //= 1000
+    x = datetime.datetime.fromtimestamp(x)
+    return datetime.datetime.strftime(x, "%Y-%m-%d")
+
+
+def convert_date_to_unix(x):
+    try:
+        dt_obj = datetime.datetime.strptime(str(x), '%Y-%m-%d %H:%M:%S')
+    except:
+        dt_obj = datetime.datetime.strptime(str(x), '%Y-%m-%d')
     dt_obj = dt_obj.timestamp() * 1000
     return int(dt_obj)
 
@@ -47,20 +58,27 @@ def get_client():
     return Client(api_key=BINANCE_API_KEY, api_secret=BINANCE_API_SECRET)
 
 
-def get_data(since_this_date=None, until_this_date=datetime.datetime.now(), number_of_days_ago=None, crypto_pair="BTCUSDT"):
+def get_data(start_date=None, end_date=None,
+             number_of_days_ago=None,
+             crypto_pair="BTCUSDT"):
+    
     client = get_client()
 
     # Calculate the timestamps for the binance api function
-    if since_this_date:
-        since_this_date += datetime.timedelta(days=1)
     if number_of_days_ago:
-        until_this_date = datetime.datetime.now()
-        since_this_date = until_this_date - datetime.timedelta(days=number_of_days_ago)
+        end_date = datetime.datetime.now()
+        start_date = end_date - datetime.timedelta(days=number_of_days_ago)
+        
     # Execute the query from binance - timestamps must be converted to strings !
-    candle = client.get_historical_klines(crypto_pair, Client.KLINE_INTERVAL_1DAY, str(since_this_date), str(until_this_date))
+    candle = client.get_historical_klines(crypto_pair,
+                                          Client.KLINE_INTERVAL_1DAY,
+                                          str(start_date), str(end_date))
 
     # Create a dataframe to label all the columns returned by binance so we work with them later.
-    df = pd.DataFrame(candle, columns=['dateTime', 'open', 'high', 'low', 'close', 'volume', 'closeTime', 'quoteAssetVolume', 'numberOfTrades', 'takerBuyBaseVol', 'takerBuyQuoteVol', 'ignore'])
+    df = pd.DataFrame(candle, columns=['dateTime', 'open', 'high', 'low', 'close',
+                                       'volume', 'closeTime', 'quoteAssetVolume', 'numberOfTrades',
+                                       'takerBuyBaseVol', 'takerBuyQuoteVol', 'ignore'])
+    
     # as timestamp is returned in ms, let us convert this back to proper timestamps.
     df.dateTime = pd.to_datetime(df.dateTime, unit='ms').dt.strftime("%Y-%m-%d %H:%M:%S")
     df.set_index('dateTime', inplace=True)
@@ -68,9 +86,21 @@ def get_data(since_this_date=None, until_this_date=datetime.datetime.now(), numb
     return df.drop(['closeTime','ignore'],axis = 1)
 
 
-def parse_btc_data(last_date=None, number_of_days_ago=5):
-    df = get_data(since_this_date=last_date, until_this_date=datetime.datetime.now(),
-                  number_of_days_ago=number_of_days_ago + 1)
+def parse_btc_data(start_date=None, end_date=None, number_of_days_ago=None):
+    today = str(datetime.date.today())
+    if start_date and not end_date:
+        end_date = today
+    elif end_date in ["today", "now"]:
+        end_date = today
+
+    if number_of_days_ago:
+        df = get_data(number_of_days_ago=number_of_days_ago + 1,
+                      crypto_pair="BTCUSDT")
+    elif start_date and end_date:
+        df = get_data(start_date=start_date,
+                      end_date=end_date,
+                      crypto_pair="BTCUSDT")
+    
     df.index.name = 'date'
     df.reset_index(inplace = True)
     df.columns = [*df.columns[:6],'quote_av','trades','tb_base_av','tb_quote_av']
@@ -79,7 +109,7 @@ def parse_btc_data(last_date=None, number_of_days_ago=5):
     cols.remove('trades')
     df[cols] = df[cols].apply(lambda x: x.apply(float))
     df.trades = df.trades.apply(int)
-    df['unix'] = pd.to_datetime(df.date).apply(timestamp_2_time)
+    df['unix'] = pd.to_datetime(df.date).apply(convert_date_to_unix)
     return df
 
 
@@ -148,8 +178,6 @@ def process_btc_data(df):
     df = moving_average(df,14)
     df = moving_average(df,56).fillna(0)
 
-    df['signal'] = np.where(df['mean_7_days'] > df['mean_56_days'], 1.0, 0.0)
-
     for i in [7, 14, 56]:
         for func in [moving_std, exponential_moving_average,
                      exponential_moving_std,
@@ -210,13 +238,16 @@ def get_volume_plot(data):
     return fig
 
 
+#######################################################################
+# TWITTER PART
+
 def get_api():
     TWITTER_API_KEY = os.getenv("TWITTER_API_KEY")
     TWITTER_API_SECRET = os.getenv("TWITTER_API_SECRET")
 
     TWITTER_ACCESS_TOKEN = os.getenv("TWITTER_ACCESS_TOKEN")
     TWITTER_ACCESS_TOKEN_SECRET = os.getenv("TWITTER_ACCESS_TOKEN_SECRET")
-
+    
     authentificate = tweepy.OAuthHandler(TWITTER_API_KEY, TWITTER_API_SECRET)
     authentificate.set_access_token(TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_TOKEN_SECRET)
     api = tweepy.API(authentificate, wait_on_rate_limit=True)
@@ -225,15 +256,15 @@ def get_api():
 
 
 twitter_accounts = ['APompliano', 'AltcoinSara', 'BVBTC', 'BitBoy_Crypto',
-                     'CamiRusso', 'CryptoCred', 'CryptoWendyO', 'ErikVoorhees',
-                     'Excellion', 'IvanOnTech', 'KennethBosak', 'LayahHeilpern',
-                     'Matt_Hougan', 'Natbrunell', 'Nicholas_Merten', 'RAFAELA_RIGO_',
-                     'SBF_FTX', 'SatoshiLite', 'SheldonEvans', 'TimDraper',
-                     'ToneVays', 'VitalikButerin', 'WhalePanda', 'aantonop',
-                     'aantop', 'adam3us', 'bgarlinghouse', 'bhorowitz', 'brockpierce',
-                     'cz_binance', 'danheld', 'elonmusk', 'ethereumJoseph',
-                     'girlgone_crypto', 'justinsuntron', 'officialmcafee',
-                     'rogerkver', 'saylor', 'thebrianjung']
+                    'CamiRusso', 'CryptoCred', 'CryptoWendyO', 'ErikVoorhees',
+                    'Excellion', 'IvanOnTech', 'KennethBosak', 'LayahHeilpern',
+                    'Matt_Hougan', 'Natbrunell', 'Nicholas_Merten', 'RAFAELA_RIGO_',
+                    'SBF_FTX', 'SatoshiLite', 'SheldonEvans', 'TimDraper',
+                    'ToneVays', 'VitalikButerin', 'WhalePanda', 'aantonop',
+                    'aantop', 'adam3us', 'bgarlinghouse', 'bhorowitz', 'brockpierce',
+                    'cz_binance', 'danheld', 'elonmusk', 'ethereumJoseph',
+                    'girlgone_crypto', 'justinsuntron', 'officialmcafee',
+                    'rogerkver', 'saylor', 'thebrianjung']
 
 
 def get_last_tweets(query="#btc OR #bitcoin from:", twitter_accounts=twitter_accounts, n_tweets=1000):
@@ -253,8 +284,12 @@ def get_last_tweets(query="#btc OR #bitcoin from:", twitter_accounts=twitter_acc
     """
 
     df = pd.DataFrame(columns=["created_at", "full_text"])
-
-    api = get_api()
+    
+    try:
+        api = get_api()
+    except TypeError:
+        print("Invalid Twitter API keys! Please check the .env file with API keys, that is located inside this project folder.")
+        return None
 
     for twitter_acc in twitter_accounts:
 
@@ -367,7 +402,7 @@ def textblob_processing(df_input):
     df = df[["subjectivity", "polarity"]].reset_index()
 
     df['date'] = df['date'].dt.strftime('%Y-%m-%d %H:%M:%S')
-    df['unix'] = df.date.apply(timestamp_2_time)
+    df['unix'] = df.date.apply(convert_date_to_unix)
 
     return df
 
@@ -380,8 +415,7 @@ def vader_processing(df_input):
     df = df_input.copy()
     analyzer = SentimentIntensityAnalyzer()
     compound = []
-    for i,s in enumerate(tqdm(df['text'], position=0, leave=True)):
-        # print(i,s)
+    for s in df['text']:
         vs = analyzer.polarity_scores(str(s))
         compound.append(vs["compound"])
     df["compound"] = compound
@@ -390,6 +424,34 @@ def vader_processing(df_input):
     df = df.resample('1D').sum()
     df = df.reset_index()
     df['date'] = df['date'].dt.strftime('%Y-%m-%d %H:%M:%S')
-    df['unix'] = df.date.apply(timestamp_2_time)
+    df['unix'] = df.date.apply(convert_date_to_unix)
 
     return df
+
+
+def decode_features(df, feature_view, training_dataset_version=1):
+    """Decodes features using corresponding transformation functions from passed Feature View object.
+        !!! Columns names in passed DataFrame should be the same as column names in transformation fucntions mappers."""
+    df_res = df.copy()
+    
+    feature_view.init_batch_scoring(training_dataset_version=1)
+    td_transformation_functions = feature_view._batch_scoring_server._transformation_functions    
+
+    res = {}
+    for feature_name in td_transformation_functions:
+        if feature_name in df_res.columns:
+            td_transformation_function = td_transformation_functions[feature_name]
+            sig, foobar_locals = inspect.signature(td_transformation_function.transformation_fn), locals()
+            param_dict = dict([(param.name, param.default) for param in sig.parameters.values() if param.default != inspect._empty])
+            if td_transformation_function.name == "min_max_scaler":
+                df_res[feature_name] = df_res[feature_name].map(
+                    lambda x: x * (param_dict["max_value"] - param_dict["min_value"]) + param_dict["min_value"])
+            elif td_transformation_function.name == "standard_scaler":
+                df_res[feature_name] = df_res[feature_name].map(
+                    lambda x: x * param_dict['std_dev'] + param_dict["mean"])
+            elif td_transformation_function.name == "label_encoder":
+                dictionary = param_dict['value_to_index']
+                dictionary_ = {v: k for k, v in dictionary.items()}
+                df_res[feature_name] = df_res[feature_name].map(
+                    lambda x: dictionary_[x])
+    return df_res

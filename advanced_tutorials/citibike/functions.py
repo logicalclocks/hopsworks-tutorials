@@ -112,7 +112,14 @@ def update_month_data(main_df, month, year):
 
     if not os.path.isfile("data/stations_info.csv"):
         stations_info_df = select_stations_info(original_df)
-        stations_info_df.to_csv("data/stations_info.csv", index=False)
+    else:
+        present_stations_df = pd.read_csv("data/stations_info.csv")
+        stations_info_batch = select_stations_info(original_df)
+        stations_info_df = pd.concat([
+            present_stations_df,
+            stations_info_batch
+            ]).reset_index(drop=True)
+    stations_info_df.to_csv("data/stations_info.csv", index=False)
 
     processed_df = process_df(original_df, month, year)
 
@@ -137,7 +144,7 @@ def get_citibike_data(start_date="04/2021", end_date="10/2022") -> pd.DataFrame:
             df_res =  update_month_data(df_res, month, start_year)
 
     else:
-        for month in range(int(start_month), 13):
+        for month in range(int(start_month), 12 + 1):
             df_res =  update_month_data(df_res, month, start_year)
         for month in range(1, int(end_month) + 1):
             df_res =  update_month_data(df_res, month, end_year)
@@ -210,7 +217,7 @@ def parse_weather_data(city, start_date, end_date, API_KEY):
 
 
 def get_weather_data(city, start_date, end_date):
-    API_KEY = os.getenv("VISUALCROSSING_API_KEY")
+    API_KEY = os.getenv("WEATHER_API_KEY")
     # API_KEY = ""
 
     df_res = parse_weather_data(city, start_date, end_date, API_KEY)

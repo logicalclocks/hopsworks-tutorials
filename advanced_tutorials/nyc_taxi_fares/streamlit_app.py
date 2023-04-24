@@ -11,14 +11,14 @@ import time
 from functions import *
 
 
-def print_fancy_header(text, font_size=24, color="#ff5f27"):
+def print_fancy_header(text, font_size=22, color="#ff5f27"):
     res = f'<span style="color:{color}; font-size: {font_size}px;">{text}</span>'
     st.markdown(res, unsafe_allow_html=True )
 
 
 st.title('🚖NYC Taxi Fares Project🚖')
 st.write(36 * "-")
-print_fancy_header('\n📡 Connecting to Hopsworks Feature Store...')
+print_fancy_header('\n📡 Connecting to the Hopsworks Feature Store...')
 
 project = hopsworks.login()
 fs = project.get_feature_store()
@@ -32,29 +32,30 @@ st.write("Successfully connected!✔️")
 
 
 with st.form(key="user_inputs"):
-    print_fancy_header("👥 Please enter the number of passengers:")
+    print_fancy_header(text="👥 Please enter the number of passengers:",
+                       font_size=24, color="#00FFFF")
     passenger_count = st.selectbox(label='',
                                    options=(1, 2, 3, 4))
 
     st.write(36 * "-")
 
-    print_fancy_header('\n🚕 Enter the the pick-up and dropoff coordinates using map')
+    print_fancy_header(text='\n🚕 Enter the the pick-up and dropoff coordinates using map',
+                       font_size=24, color="#00FFFF")
     st.write("🗨 Wait for the map to load, then click on the desired pickup point to select. Now click the 'Submit' button and repeat these steps again to select the destination point.")
 
     my_map = folium.Map(location=[41, -73.5], zoom_start=8)
 
     my_map.add_child(folium.LatLngPopup())
-    folium.TileLayer('Stamen Terrain').add_to(my_map)
-    folium.TileLayer('Stamen Toner').add_to(my_map)
-    folium.TileLayer('Stamen Water Color').add_to(my_map)
-    folium.TileLayer('cartodbpositron').add_to(my_map)
-    folium.TileLayer('cartodbdark_matter').add_to(my_map)
-    folium.LayerControl().add_to(my_map)
+    # folium.TileLayer('Stamen Terrain').add_to(my_map)
+    # folium.TileLayer('Stamen Toner').add_to(my_map)
+    # folium.TileLayer('Stamen Water Color').add_to(my_map)
+    # folium.TileLayer('cartodbpositron').add_to(my_map)
+    # folium.TileLayer('cartodbdark_matter').add_to(my_map)
+    # folium.LayerControl().add_to(my_map)
 
     coordinates = json.load(open("temp_coordinates.json"))
 
     res_map = st_folium(my_map, height=300, width=600)
-
 
     try:
         new_lat, new_long = res_map["last_clicked"]["lat"], res_map["last_clicked"]["lng"]
@@ -118,15 +119,21 @@ try:
     st.dataframe(X)
 
     st.write(36 * "-")
+    print_fancy_header('\n 🤖 Getting the model...')
+    model = get_model(project=project, model_name="nyc_taxi_fares_model",
+                      file_name="nyc_taxi_fares_model")
+    st.write("✅ Done!")
+
+    st.write(36 * "-")
     print_fancy_header('\n🧠 Making price prediction for your trip...')
-    model = get_model()
+
     prediction = model.predict(X)[0]
 
     st.subheader(f"Prediction: {str(prediction)} $")
 
     st.write(36 * "-")
 
-    if st.button('📡 Insert this new data to Hopsworks Feature Store'):
+    if st.button('📡 Insert this new data to the Hopsworks Feature Store'):
         st.write("⬆️ Inserting a new data to the 'rides' Feature Group...")
         print("Inserting into RIDES FG.")
         rides_cols = ['ride_id', 'pickup_datetime', 'pickup_longitude', 'dropoff_longitude',
@@ -136,7 +143,7 @@ try:
                       'dropoff_distance_to_ewr', 'pickup_distance_to_lgr',
                       'dropoff_distance_to_lgr', 'year', 'weekday', 'hour']
 
-        rides_fg.insert(df[rides_cols])
+        rides_fg.insert(df[rides_cols], write_options={"wait_for_job": False})
 
         st.write("⬆️ Inserting a new data to the 'fares' Feature Group...")
         print("Inserting into FARES FG.")
@@ -147,9 +154,9 @@ try:
         for col in ["tolls", "total_fare"]:
             df_fares[col] = df_fares[col].astype("double")
 
-        fares_fg.insert(df_fares)
+        fares_fg.insert(df_fares, write_options={"wait_for_job": False})
 
-        print_fancy_header('\n🎉 📈 🤝 App Finished Successfully 🤝 📈 🎉')
+        st.subheader('\n🎉 📈 🤝 App Finished Successfully 🤝 📈 🎉')
 
 except Exception as err:
         print(err)

@@ -17,9 +17,8 @@
 ## **🗒️ This whole tutorial is divided into 5 parts:**
 1. Backfill Features to the Feature Store,
 2. Create a feature pipeline,
-3. Create Feature views & Training Datasets,
-4. Train a model and upload it to the Model Registry,
-5. Deploy Streamlit app.
+3. Create Feature view & Training Datasets, train a model and upload it to the Model Registry,
+4. Deploy Streamlit app.
 
 
 ## Prerequisites
@@ -34,11 +33,13 @@ You will parse Air Quality data from [World Air Quality Index](https://aqicn.org
 
 Also, to be able parse weather data, you should get an API key from [VisualCrossing](https://www.visualcrossing.com/). You can use [this link](https://www.visualcrossing.com/weather-api).
 
-Don't forget to create an `.env` configuration file where all the necessary environment variables will be stored:
+#### Create an `.env` configuration file inside this directory where all the necessary environment variables will be stored:
 
 `WEATHER_API_KEY = "YOUR_API_KEY"`
 
 `AIR_QUALITY_API_KEY = "YOUR_API_KEY"`
+
+> If you done it after you run a notebook, restart the Python Kernel for that notebook (because `functions.py` does not have these variables in his namespace).
 
 ![](images/api_keys_env_file.png)
 

@@ -94,7 +94,7 @@ stations_list_names = list(map(lambda x: stations_info_dict_1["station_name"][x]
 
 st.write(36 * "-")
 print_fancy_header(text='\n🏙 Please select citibike stations to process...',
-             font_size=24, color="#00FFFF")
+                   font_size=24, color="#00FFFF")
 with st.form("stations_selection"):
    selected_stations_names = st.multiselect(label='Choose any number of stations.',
                                             options=stations_list_names,
