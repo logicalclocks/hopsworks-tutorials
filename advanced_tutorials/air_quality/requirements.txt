@@ -3,3 +3,5 @@ geopy
 python-dotenv
 pandas
 numpy
+streamlit
+streamlit-folium
