@@ -1,0 +1,29 @@
+name: air_quality_feature_pipeline_seattle
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 14 * * *'
+
+jobs:
+  test_schedule:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v3
+
+      - name: setup python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.8'
+          working-directory: ./advanced_tutorials/air_quality/
+          
+      - name: install python packages
+        run:
+          pip install -r requirements.txt
+          
+      - name: execute Feature Pipeline
+        env: 
+          HOPSWORKS_API_KEY: ${{ secrets.HOPSWORKS_API_KEY }}
+          CONTINENT: "Seattle"
+        run: python ./advanced_tutorials/air_quality/feature_pipeline.py
