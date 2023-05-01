@@ -1,0 +1,28 @@
+{
+  "type" : "record",
+  "name" : "Embeddings",
+  "namespace" : "com.hopsworks.tutorials.flink",
+  "fields" : [ {
+    "name" : "id",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "datetime",
+    "type" : [ "null", "string" ]
+  }, {
+      "name" : "amount",
+      "type" : [ "null", "double" ]
+    }, {
+      "name": "embeddings",
+      "type": [
+        "null",
+        {
+          "type": "array",
+          "items": [
+            "null",
+            "double"
+          ]
+        }
+      ]
+    }
+  ]
+}
