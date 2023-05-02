@@ -24,7 +24,7 @@ You also need to have configured maven; java 1.8 and git.
 ## Clone tutorials repository
 ```bash
 git clone https://github.com/logicalclocks/hopsworks-tutorials
-cd ./hopsworks-tutorials/java
+cd ./hopsworks-tutorials/integrations/java
 mvn clean package
 ```
 
