@@ -30,7 +30,7 @@ You also need to have configured maven; java 1.8 and git.
 ## Clone tutorials repository
 ```bash
 git clone https://github.com/logicalclocks/hopsworks-tutorials
-cd ./hopsworks-tutorials/java
+cd ./hopsworks-tutorials/integrations/java
 mvn clean package
 ```
 
@@ -138,7 +138,7 @@ In the `com.hopsworks.tutorials.beam.TaxiRideInsertStream` you will find end to 
 To submit beam pipeline and write real time features to`taxi_ride` feature group execute the following command.
 
 ```bash
-cd ./hopsworks-tutorials/java/beam
+cd ./hopsworks-tutorials/integrations/java/beam
 mvn compile exec:java \
   -Dexec.mainClass=com.hopsworks.tutorials.beam.TaxiRideInsertStream \
   -Dexec.cleanupDaemonThreads=false \
