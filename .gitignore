@@ -133,3 +133,8 @@ miniconda
 .installed
 **.pkl
 **predict_example.py
+integrations/dbt/tests/.gitkeep
+integrations/dbt/snapshots/.gitkeep
+integrations/dbt/seeds/.gitkeep
+integrations/dbt/macros/.gitkeep
+integrations/dbt/analyses/.gitkeep
