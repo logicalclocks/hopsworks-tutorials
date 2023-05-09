@@ -1,139 +1,278 @@
-import streamlit as st
-import hopsworks
-import joblib
-import pandas as pd
-import numpy as np
-import folium
-from streamlit_folium import st_folium, folium_static
 import json
 import time
-from datetime import timedelta, datetime
-from branca.element import Figure
+import pickle
+import joblib
 
-from functions import decode_features, get_model
+import hopsworks 
+import streamlit as st
+from geopy import distance
+
+import plotly.express as px
+import folium
+from streamlit_folium import st_folium
+
+from functions import *
+import features.air_quality
 
 
-def fancy_header(text, font_size=24):
-    res = f'<span style="color:#ff5f27; font-size: {font_size}px;">{text}</span>'
-    st.markdown(res, unsafe_allow_html=True)
+
+def print_fancy_header(text, font_size=22, color="#ff5f27"):
+    res = f'<span style="color:{color}; font-size: {font_size}px;">{text}</span>'
+    st.markdown(res, unsafe_allow_html=True)  
+       
+
+# I want to cache this so streamlit would run much faster after restart (it restarts a lot)
+@st.cache_data()
+def get_feature_view():
+    st.write("Getting the Feature View...")
+    feature_view = fs.get_feature_view(
+        name = 'air_quality_fv',
+        version = 1
+    )
+    st.write("✅ Success!")
+
+    return feature_view
+    
+
+@st.cache_data()
+def get_batch_data_from_fs(td_version, date_threshold):
+    st.write(f"Retrieving the Batch data since {date_threshold}")
+    feature_view.init_batch_scoring(training_dataset_version=td_version)
+
+    batch_data = feature_view.get_batch_data(start_time=date_threshold)
+    return batch_data
 
 
-st.title('⛅️Air Quality Prediction Project🌩')
+@st.cache_data()
+def download_model(name="air_quality_xgboost_model",
+                   version=1):
+    mr = project.get_model_registry()
+    retrieved_model = mr.get_model(
+        name="air_quality_xgboost_model",
+        version=1
+    )
+    saved_model_dir = retrieved_model.download()
+    return saved_model_dir
 
-progress_bar = st.sidebar.header('⚙️ Working Progress')
-progress_bar = st.sidebar.progress(0)
-st.write(36 * "-")
-fancy_header('\n📡 Connecting to Hopsworks Feature Store...')
 
+
+def plot_pm2_5(df):
+    # create figure with plotly express
+    fig = px.line(df, x='date', y='pm2_5', color='city_name')
+
+    # customize line colors and styles
+    fig.update_traces(mode='lines+markers')
+    fig.update_layout({
+        'plot_bgcolor': 'rgba(0, 0, 0, 0)',
+        'paper_bgcolor': 'rgba(0, 0, 0, 0)',
+        'legend_title': 'City',
+        'legend_font': {'size': 12},
+        'legend_bgcolor': 'rgba(0, 0, 0, 0)',
+        'xaxis': {'title': 'Date'},
+        'yaxis': {'title': 'PM2.5'},
+        'shapes': [{
+            'type': 'line',
+            'x0': datetime.datetime.now().strftime('%Y-%m-%d'),
+            'y0': 0,
+            'x1': datetime.datetime.now().strftime('%Y-%m-%d'),
+            'y1': df['pm2_5'].max(),
+            'line': {'color': 'red', 'width': 2, 'dash': 'dashdot'}
+        }]
+    })
+
+    # show plot
+    st.plotly_chart(fig, use_container_width=True)
+
+
+with open('target_cities.json') as json_file:
+    target_cities = json.load(json_file)
+
+
+#########################
+st.title('🌫 Air Quality Prediction 🌦')
+
+st.write(3 * "-")
+print_fancy_header('\n📡 Connecting to Hopsworks Feature Store...')
+
+st.write("Logging... ")
+# (Attention! If the app has stopped at this step,
+# please enter your Hopsworks API Key in the commmand prompt.)
 project = hopsworks.login()
 fs = project.get_feature_store()
-feature_view = fs.get_feature_view(
-    name='air_quality_fv',
-    version=1
-)
+st.write("✅ Logged in successfully!")
 
-st.write("Successfully connected!✔️")
-progress_bar.progress(20)
+feature_view = get_feature_view()
 
-st.write(36 * "-")
-fancy_header('\n☁️ Getting batch data from Feature Store...')
+# I am going to load data for of last 60 days (for feature engineering)
+today = datetime.date.today()
+date_threshold = today - datetime.timedelta(days=60)
 
-start_date = datetime.now() - timedelta(days=1)
-start_time = int(start_date.timestamp()) * 1000
+st.write(3 * "-")
+print_fancy_header('\n☁️ Retriving batch data from Feature Store...')
+batch_data = get_batch_data_from_fs(td_version=1,
+                                    date_threshold=date_threshold)
 
-X = feature_view.get_batch_data(start_time=start_time)
-progress_bar.progress(50)
+st.write("Batch data:")
+st.write(batch_data.sample(5))            
 
-latest_date_unix = str(X.date.values[0])[:10]
-latest_date = time.ctime(int(latest_date_unix))
+st.write(3 * '-')
+st.write("\n")
+print_fancy_header(text="🖍 Select the cities using the form below. \
+                         Click the 'Submit' button at the bottom of the form to continue.",
+                   font_size=22)
+dict_for_streamlit = {}
+for continent in target_cities:
+        for city_name, coords in target_cities[continent].items():
+            dict_for_streamlit[city_name] = coords
+selected_cities_full_list = []
 
-st.write(f"⏱ Data for {latest_date}")
+with st.form(key="user_inputs"):
+    print_fancy_header(text='\n🗺 Here you can choose cities from the drop-down menu',
+                       font_size=20, color="#00FFFF")
+    
+    cities_multiselect = st.multiselect(label='',
+                                        options=dict_for_streamlit.keys())
+    selected_cities_full_list.extend(cities_multiselect)
+    st.write("_" * 3)
+    print_fancy_header(text="\n📌 To add a city using the interactive map, click somewhere \
+                             (for the coordinates to appear)",
+                       font_size=20, color="#00FFFF")
+    
+    my_map = folium.Map(location=[42.57, -44.092], zoom_start=2)
+    # Add markers for each city
+    for city_name, coords in dict_for_streamlit.items():
+        folium.CircleMarker(
+            location=coords
+        ).add_to(my_map)
 
-X = X.drop(columns=["date"]).fillna(0)
+    my_map.add_child(folium.LatLngPopup())
+    res_map = st_folium(my_map, width=640, height=480)
+    
+    try:
+        new_lat, new_long = res_map["last_clicked"]["lat"], res_map["last_clicked"]["lng"]
 
-data_to_display = decode_features(X, feature_view=feature_view)
+        # Calculate the distance between the clicked location and each city
+        distances = {city: distance.distance(coord, (new_lat, new_long)).km for city, coord in dict_for_streamlit.items()}
 
-progress_bar.progress(60)
+        # Find the city with the minimum distance and print its name
+        nearest_city = min(distances, key=distances.get)
+        print_fancy_header(text=f"You have selected {nearest_city} using map", font_size=18, color="#52fa23")
+        
+        selected_cities_full_list.append(nearest_city)
+        # st.write(label_encoder.transform([nearest_city])[0])
 
-st.write(36 * "-")
-fancy_header("🗺 Processing the map...")
+    except Exception as err:
+        print(err)
+        pass
+    
+    print_fancy_header(text='\n🧮 How many days do you want me to predict?',
+                 font_size=18, color="#00FFFF")
+    options = [3, 7, 10, 14]
+    
+    st.write('<style>div.row-widget.stRadio > div{flex-direction:row;justify-content: center;} </style>', unsafe_allow_html=True)
 
-fig = Figure(width=550, height=350)
+    st.write('<style>div.st-bf{flex-direction:column;} div.st-ag{padding-left:2px;}</style>',
+             unsafe_allow_html=True)
 
-my_map = folium.Map(location=[58, 20], zoom_start=3.71)
-fig.add_child(my_map)
-folium.TileLayer('Stamen Terrain').add_to(my_map)
-folium.TileLayer('Stamen Toner').add_to(my_map)
-folium.TileLayer('Stamen Water Color').add_to(my_map)
-folium.TileLayer('cartodbpositron').add_to(my_map)
-folium.TileLayer('cartodbdark_matter').add_to(my_map)
-folium.LayerControl().add_to(my_map)
+    HOW_MANY_DAYS_PREDICT = st.radio("", options)
 
-data_to_display = data_to_display[["city", "temp", "humidity",
-                                            "conditions", "aqi"]]
+    HOW_MANY_DAYS_PREDICT = int(HOW_MANY_DAYS_PREDICT)
 
-cities_coords = {("Sundsvall", "Sweden"): [62.390811, 17.306927],
-                 ("Stockholm", "Sweden"): [59.334591, 18.063240],
-                 ("Malmo", "Sweden"): [55.604981, 13.003822]}
+    submit_button = st.form_submit_button(label='Submit')
 
-if "Kyiv" in data_to_display["city"]:
-    cities_coords[("Kyiv", "Ukraine")]: [50.450001, 30.523333]
+if submit_button:
+    st.write('Selected cities:', selected_cities_full_list)
 
-data_to_display = data_to_display.set_index("city")
+    st.write(3*'-')
 
-cols_names_dict = {"temp": "Temperature",
-                   "humidity": "Humidity",
-                   "conditions": "Conditions",
-                   "aqi": "AQI"}
+    dataset = batch_data
+  
+    dataset = dataset.drop_duplicates(subset=['city_name', 'date'])
+    dataset = dataset.sort_values(by=["city_name", "date"])
 
-data_to_display = data_to_display.rename(columns=cols_names_dict)
+    saved_model_dir = download_model(
+        name="air_quality_xgboost_model",
+        version=1
+    )
 
-cols_ = ["Temperature", "Humidity", "AQI"]
-data_to_display[cols_] = data_to_display[cols_].apply(lambda x: round(x, 1))
+    retrieved_xgboost_model = joblib.load(saved_model_dir + "/xgboost_regressor.pkl")
+    retrieved_encoder = joblib.load(saved_model_dir + "/label_encoder.pkl")
 
-for city, country in cities_coords:
-    text = f"""
-            <h4 style="color:green;">{city}</h4>
-            <h5 style="color":"green">
-                <table style="text-align: right;">
-                    <tr>
-                        <th>Country:</th>
-                        <td><b>{country}</b></td>
-                    </tr>
-                    """
-    for column in data_to_display.columns:
-        text += f"""
-                    <tr>
-                        <th>{column}:</th>
-                        <td>{data_to_display.loc[city][column]}</td>
-                    </tr>"""
-    text += """</table>
-                    </h5>"""
-
-    folium.Marker(
-        cities_coords[(city, country)], popup=text, tooltip=f"<strong>{city}</strong>"
-    ).add_to(my_map)
+    print_fancy_header("\n🧬 Modeling",
+                       font_size=22)
+    st.write("\n")
+    print_fancy_header(text='\n🤖 Getting the model...',
+                       font_size=18, color="#FDF4F5")
 
 
-# call to render Folium map in Streamlit
-folium_static(my_map)
-progress_bar.progress(80)
-st.sidebar.write("-" * 36)
+    saved_model_dir = download_model(
+        name="air_quality_xgboost_model",
+        version=1
+    )
+    st.write("\n")
+    st.write("✅ Model was downloaded and cached.")
+    
+    regressor = joblib.load(saved_model_dir + "/xgboost_regressor.pkl")
+    encoder = joblib.load(saved_model_dir + "/label_encoder.pkl")
 
+    print_fancy_header(text='\n🧠 Predicting PM2.5 for selected cities...',
+                       font_size=18, color="#FDF4F5")
+    st.write("")
+    for city_name in selected_cities_full_list:
+        st.write(f"\t * {city_name}...")
+        temp_date = datetime.date.today()
+        for i in range(HOW_MANY_DAYS_PREDICT):
+            temp_date += datetime.timedelta(days=1)
 
-model = get_model(project=project,
-                  model_name="gradient_boost_model",
-                  evaluation_metric="f1_score",
-                  sort_metrics_by="max")
+            df_aq_temp = pd.DataFrame(columns=dataset.columns, data=[[-1] * dataset.shape[1]])
+            df_aq_temp['date'] = temp_date
+            df_aq_temp['city_name'] = city_name
+            
+            df_aq_temp = pd.concat([dataset, df_aq_temp], axis=0).reset_index(drop=True)
 
-preds = model.predict(X)
+            df_aq_temp['date'] = pd.to_datetime(df_aq_temp['date'])
+            
+            df_aq_temp = feature_engineer_aq(df_aq_temp)
 
-cities = [city_tuple[0] for city_tuple in cities_coords.keys()]
+            # we need only the last row (one city, one day)
+            df_aq_temp = df_aq_temp[df_aq_temp['city_name'] == city_name].tail(1)
 
-next_day_date = datetime.today() + timedelta(days=1)
-next_day = next_day_date.strftime('%d/%m/%Y')
-df = pd.DataFrame(data=preds, index=cities, columns=[f"AQI Predictions for {next_day}"], dtype=int)
+            # get weather data for this specific day
+            coordinates = dict_for_streamlit[city_name]
+            df_weather_temp = get_weather_data_from_open_meteo(city_name=city_name,
+                                                               coordinates=coords,
+                                                               start_date=str(temp_date),
+                                                               end_date=str(temp_date),
+                                                               forecast=True)
 
-st.sidebar.write(df)
-progress_bar.progress(100)
-st.button("Re-run")
+            df_aq_temp = df_aq_temp.drop(columns=df_weather_temp.columns[2:])
+
+            X = df_aq_temp.merge(df_weather_temp, on=["city_name", "date"])
+            encoded = encoder.transform(X['city_name'])
+
+            # Convert the output to a dense array and concatenate with the original data
+            X = pd.concat([X, pd.DataFrame(encoded)], axis=1)
+            X = X.rename(columns={0: 'city_name_encoded'})
+
+            feature_names = regressor.get_booster().feature_names
+            X = X[feature_names]
+
+            preds_temp = regressor.predict(X)
+
+            df_temp = X.copy()
+            df_temp['pm2_5'] = round(preds_temp[0], 1)
+            df_temp['city_name'] = city_name
+            df_temp['date'] = str(temp_date)
+            df_temp = df_temp.drop(columns=['city_name_encoded'])
+
+            # update dataset variable
+            dataset = pd.concat([dataset, df_temp])
+    
+    st.write("")
+    print_fancy_header(text="📈Results 📉",
+                       font_size=22)
+    plot_pm2_5(dataset[dataset['city_name'].isin(selected_cities_full_list)])
+
+    st.write(3 * "-")
+    st.subheader('\n🎉 📈 🤝 App Finished Successfully 🤝 📈 🎉')
+    st.button("Re-run")

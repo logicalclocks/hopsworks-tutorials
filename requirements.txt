@@ -13,4 +13,8 @@ Pillow
 seaborn
 xgboost
 joblib==1.1.0
-streamlit
+textblob
+vaderSentiment
+tweepy
+tensorflow
+geopy
