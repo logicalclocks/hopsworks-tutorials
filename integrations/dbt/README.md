@@ -2,7 +2,8 @@
 
 ### <span style='color:#ff5f27'> 🏡 Cluster setup </span>
 
-To begin with, it's necessary to set up the Dataproc cluster.
+To begin with, setup the Dataproc cluster.
+
 Code to create Dataproc cluster is present in `provision.sh` file.
 
 To make `provision.sh` file executable do the next:
@@ -54,9 +55,10 @@ Create a new profile inside your ~/.dbt/profiles.yml file.
 Update `read_bigquery_data.sql` and `data_pipeline.py` files with your information.
 
 Use the next command to run DBT models pipeline:
+
 `dbt run`
 
 You will see the next output:
 ![output](images/output.png)
 
-Check your cluster Job details to see the job logs.
+Check your cluster **Job details** to see the job logs.
