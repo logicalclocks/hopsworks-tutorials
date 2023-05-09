@@ -153,6 +153,6 @@ if __name__=="__main__":
     print("Created job to insert parsed PM2.5 data into FS...")
     print("Inserting into air_quality fg.")
 
-    weather_fg.insert(df_weather_update, wait=True)
+    weather_fg.insert(df_weather_update)
     print("Created job to insert parsed weather data into FS...")
     print("Inserting into weather fg.")
