@@ -50,6 +50,23 @@ Create a new profile inside your ~/.dbt/profiles.yml file.
      dataproc_region: {YOUR_DATAPROC_REGION} 
  ```
 
+### <span style='color:#ff5f27'>👩🏻‍🔬 Cluster Setup </span>
+
+```
+spark.hadoop.hops.ipc.server.ssl.enabled true
+spark.hadoop.fs.hopsfs.impl io.hops.hopsfs.client.HopsFileSystem
+spark.hadoop.client.rpc.ssl.enabled.protocol TLSv1.2
+spark.hadoop.hops.ssl.keystore.name keyStore.jks
+spark.hadoop.hops.rpc.socket.factory.class.default io.hops.hadoop.shaded.org.ap$
+spark.hadoop.hops.ssl.keystores.passwd.name /etc/spark/conf/material_passwd
+spark.sql.hive.metastore.jars hopsworks_jars/apache-hive/lib*
+spark.serializer org.apache.spark.serializer.KryoSerializer
+spark.hadoop.hops.ssl.hostname.verifier ALLOW_ALL
+spark.hadoop.hops.ssl.trustore.name trustStore.jks
+spark.hadoop.hive.metastore.uris thrift://172.16.4.66:9083
+```
+
+
 ### <span style='color:#ff5f27'>⚙️ DBT Launch </span>
 
 Update `read_bigquery_data.sql` and `data_pipeline.py` files with your information.
@@ -62,3 +79,7 @@ You will see the next output:
 ![output](images/output.png)
 
 Check your cluster **Job details** to see the job logs.
+
+```python
+
+```
