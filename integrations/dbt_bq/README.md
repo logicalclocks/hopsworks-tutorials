@@ -10,6 +10,12 @@ To make `provision.sh` file executable do the next:
 
 `chmod +x provision.sh`
 
+You need to configure an external Spark cluster to be able to interact with the Hopsworks Feature Store.
+
+Navigate to **Project Settings** and then **Integrations**. At the bottom of the page you will find necessary files which you need to attach to your Dataproc cluster.
+
+![output](images/sparkConfig.png)
+
 Fill in your cluster information and then use `./provision.sh` command to start the cluster creation.
 
 ### <span style='color:#ff5f27'>📡 DBT Setup </span>
@@ -24,9 +30,13 @@ Create a new profile inside your ~/.dbt/profiles.yml file.
  target: dev
  outputs:
    dev:
+     # Type of DBT connector (BigQuery, Snowflake, etc)
      type: bigquery
+     # Authentication method 
      method: service-account-json
+     # Your Google Cloud project name
      project: [your-project-id]
+     # Your BigQuery dataset name
      dataset: {YOUR_DATASET_NAME}
      threads: 1
 
@@ -45,26 +55,11 @@ Create a new profile inside your ~/.dbt/profiles.yml file.
        client_x509_cert_url: xxx
 
 
-     # for dbt Python models
+     # Your Bucket name
      gcs_bucket: {YOUR_BUCKET_NAME}
+     # Your Dataproc region
      dataproc_region: {YOUR_DATAPROC_REGION} 
  ```
-
-### <span style='color:#ff5f27'>👩🏻‍🔬 Cluster Setup </span>
-
-```
-spark.hadoop.hops.ipc.server.ssl.enabled true
-spark.hadoop.fs.hopsfs.impl io.hops.hopsfs.client.HopsFileSystem
-spark.hadoop.client.rpc.ssl.enabled.protocol TLSv1.2
-spark.hadoop.hops.ssl.keystore.name keyStore.jks
-spark.hadoop.hops.rpc.socket.factory.class.default io.hops.hadoop.shaded.org.ap$
-spark.hadoop.hops.ssl.keystores.passwd.name /etc/spark/conf/material_passwd
-spark.sql.hive.metastore.jars hopsworks_jars/apache-hive/lib*
-spark.serializer org.apache.spark.serializer.KryoSerializer
-spark.hadoop.hops.ssl.hostname.verifier ALLOW_ALL
-spark.hadoop.hops.ssl.trustore.name trustStore.jks
-spark.hadoop.hive.metastore.uris thrift://172.16.4.66:9083
-```
 
 
 ### <span style='color:#ff5f27'>⚙️ DBT Launch </span>
@@ -79,7 +74,3 @@ You will see the next output:
 ![output](images/output.png)
 
 Check your cluster **Job details** to see the job logs.
-
-```python
-
-```
