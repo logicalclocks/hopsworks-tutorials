@@ -2,13 +2,7 @@
 
 ### <span style='color:#ff5f27'> 🏡 Cluster setup </span>
 
-To begin with, setup the Dataproc cluster.
-
-Code to create Dataproc cluster is present in `provision.sh` file.
-
-To make `provision.sh` file executable do the next:
-
-`chmod +x provision.sh`
+To begin with, it's necessary to setup the Dataproc cluster.
 
 You need to configure an external Spark cluster to be able to interact with the Hopsworks Feature Store.
 
@@ -16,11 +10,17 @@ Navigate to **Project Settings** and then **Integrations**. At the bottom of the
 
 ![output](images/sparkConfig.png)
 
+Code to create Dataproc cluster is present in `provision.sh` file.
+
+To make `provision.sh` file executable do the next:
+
+`chmod +x provision.sh`
+
 Fill in your cluster information and then use `./provision.sh` command to start the cluster creation.
 
 ### <span style='color:#ff5f27'>📡 DBT Setup </span>
 
-Install the BigQuery adapter running:
+Install the BigQuery adapter running
 `pip install dbt-bigquery`
 
 Create a new profile inside your ~/.dbt/profiles.yml file.
@@ -64,7 +64,7 @@ Create a new profile inside your ~/.dbt/profiles.yml file.
 
 ### <span style='color:#ff5f27'>⚙️ DBT Launch </span>
 
-Update `read_bigquery_data.sql` and `data_pipeline.py` files with your information.
+Fill in `read_bigquery_data.sql` and `data_pipeline.py` files with your information.
 
 Use the next command to run DBT models pipeline:
 
@@ -73,4 +73,4 @@ Use the next command to run DBT models pipeline:
 You will see the next output:
 ![output](images/output.png)
 
-Check your cluster **Job details** to see the job logs.
+> To see the job logs, check your cluster **Job details**.

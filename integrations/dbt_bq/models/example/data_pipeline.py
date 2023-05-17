@@ -1,5 +1,5 @@
 # Import required packages
-import hopsworks
+import hsfs
 
 def model(dbt, session):
     # Setup cluster usage
@@ -8,39 +8,35 @@ def model(dbt, session):
         dataproc_cluster_name="YOUR_CLUSTER_NAME",
     )
 
-    # Read read_bigquery_data SQL model
+    # Read BigQuery Data
     my_sql_model_df = dbt.ref("read_bigquery_data")
 
-    # Returns Pyspark DataFrame
+    # Returns Pyspark DataFrame 
     print(type(my_sql_model_df))
 
-    # Convert PySpark DataFrame to Pandas DataFrame
-    df_pandas = my_sql_model_df.toPandas()
+    # Show first 3 rows of data
+    print(my_sql_model_df.show(3))
 
-    # Feature Engineering
-    df_pandas.reset_index(inplace=True)
-
-    # Print first 5 rows of DataFrame
-    print(df_pandas.head())
-
-    # Login to your Hopsworks project
-    project = hopsworks.login(
-        api_key_value='YOUR_HOPSWORKS_API_KEY'
+    # Setup your HSFS connection 
+    project = hsfs.connection(
+        host="YOUR_HOST",
+        project="YOUR_PROJECT_NAME",
+        api_key_value="YOUR_HOPSWORKS_API_KEY",
     )
 
-    # Get feature Store
+    # Retrieve your Feature Store
     fs = project.get_feature_store()   
 
-    # Get or create Feature Group
-    feature_group = fs.get_or_create_feature_group(
-        name = 'feature_group_name',
-        description = 'Feature Group description',
+    # Feature Group creation
+    weather_fg = fs.get_or_create_feature_group(
+        name = 'weather_fg',
+        description = 'Weather data',
         version = 1,
-        primary_key = ['pk1', 'pk2'],
+        primary_key = ['index_column'],
+        stream = True,
         online_enabled = True,
     )    
-
-    # Insert data into Feature Group
-    feature_group.insert(df_pandas)   
+    # Insert your data into Feature Group
+    weather_fg.insert(my_sql_model_df)   
 
     return my_sql_model_df
