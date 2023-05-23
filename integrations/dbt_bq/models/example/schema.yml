@@ -1,0 +1,15 @@
+
+version: 2
+
+models:
+  - name: read_bigquery_data
+    description: "Read BigQuery data"
+    columns:
+      - name: city_name
+        description: "City Name"
+        tests:
+          - not_null
+
+  - name: data_pipeline
+    description: "Insert data into Hopsworks Feature Group"
+
