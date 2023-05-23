@@ -6,15 +6,23 @@ This tutorial shows you how to perform feature engineering in DBT on BigQuery, s
 
 First, you need to setup a Dataproc (Spark) cluster that will run the Python model in our DBT workflow. The Python model will write to the online feature store in Hopsworks.
 
+Dataproc cluster needs to be deployed in the same subnet as Hopsworks or Hopsworks and Dataproc networks needs to be VPC peered so that resources in each network can communicate with each other. (You can read more about VPC-Peering [here](https://cloud.google.com/vpc/docs/vpc-peering))
+
 Navigate to **Project Settings** and then **Integrations**. At the bottom of the page you will find necessary files which you need to attach to your Dataproc cluster.
 
 ![output](images/sparkConfig.png)
+
+You need to untar the downloaded archive and upload the resulting files to your GCS bucket.
+
+In addition, upload downloaded certificates to the **client** folder where JARs are located.
 
 You can find the code to create the Dataproc cluster in `provision.sh`.
 
 To make `provision.sh` file executable, run the following command:
 
 `chmod +x provision.sh`
+
+You can find the code to configure your Spark in `configureSpark.sh`. Fill in your information and upload `configureSpark.sh` to your GCS bucket.
 
 Fill in your cluster information and then run the `./provision.sh` command.
 
