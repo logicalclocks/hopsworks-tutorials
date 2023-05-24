@@ -1,16 +1,8 @@
-import joblib
 import secrets
 
 import numpy as np
 import pandas as pd
 
-import hopsworks
-
-# rides data functions
-##########################################################################
-
-# # an example of random generated hash
-# secrets.token_hex(nbytes=16)
 
 def generate_rides_data(n_records):
     rides_cols = ['ride_id',
@@ -85,79 +77,5 @@ def calculate_datetime_features(df):
     df['weekday'] = df.pickup_datetime.apply(lambda t: t.weekday())
     df['hour'] = df.pickup_datetime.apply(lambda t: t.hour)
     df["pickup_datetime"] = df["pickup_datetime"].values.astype(np.int64) // 10 ** 6
-
-    return df
-
-
-# fares data functions
-##########################################################################
-def generate_fares_data(n_records):
-    fares_cols = ['taxi_id', 'driver_id',
-                  'tolls', 'total_fare']
-
-    res = pd.DataFrame(columns=fares_cols)
-
-    for i in range(1, n_records + 1):
-        generated_values = list()
-
-
-        temp_df = pd.DataFrame.from_dict({"total_fare": [np.random.randint(3, 250)],
-                                          "tolls": [np.random.randint(0, 6)],
-                                          "taxi_id": [np.random.randint(1, 201)],
-                                          "driver_id": [np.random.randint(1, 201)]
-                                         })
-
-        res = pd.concat([temp_df, res], ignore_index=True)
-
-
-    return res
-
-
-
-# streamlit functions
-##########################################################################
-def get_model(project, model_name, file_name):
-    # load our Model
-    import os
-    TARGET_FILE = f"{file_name}.pkl"
-    list_of_files = [os.path.join(dirpath,filename) for dirpath, _, filenames in os.walk('.') for filename in filenames if filename == TARGET_FILE]
-
-    if list_of_files:
-        model_path = list_of_files[0]
-        model = joblib.load(model_path)
-    else:
-        if not os.path.exists(TARGET_FILE):
-            mr = project.get_model_registry()
-            EVALUATION_METRIC="mae"
-            SORT_METRICS_BY="max"
-            # get best model based on custom metrics
-            model = mr.get_best_model(model_name,
-                                      EVALUATION_METRIC,
-                                      SORT_METRICS_BY)
-            model_dir = model.download()
-            model = joblib.load(model_dir + f"/{file_name}.pkl")
-
-    return model
-
-
-def process_input_vector(pickup_latitude, pickup_longitude, dropoff_latitude, dropoff_longitude):
-    df = pd.DataFrame.from_dict({
-        "ride_id": [secrets.token_hex(nbytes=16)],
-        "pickup_datetime": [np.random.randint(1600000000, 1610000000)],
-        "pickup_longitude": [pickup_longitude],
-        "dropoff_longitude": [dropoff_longitude],
-        "pickup_latitude": [pickup_latitude],
-        "dropoff_latitude": [dropoff_latitude],
-        "passenger_count": [np.random.randint(1, 5)],
-        "tolls": [np.random.randint(0, 6)],
-        "taxi_id": [np.random.randint(1, 201)],
-        "driver_id": [np.random.randint(1, 201)]
-    })
-
-    df = calculate_distance_features(df)
-    df = calculate_datetime_features(df)
-
-    for col in ["passenger_count", "taxi_id", "driver_id"]:
-        df[col] = df[col].astype("int64")
 
     return df

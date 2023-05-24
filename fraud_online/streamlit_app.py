@@ -22,8 +22,10 @@ st.title('Fraud transactions detection')
 
 st.write(36 * "-")
 print_fancy_header('\n📡 Connecting to Hopsworks Feature Store...')
+
 project = hopsworks.login()
 fs = project.get_feature_store()
+
 progress_bar.progress(35)
 
 

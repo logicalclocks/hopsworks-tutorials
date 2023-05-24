@@ -7,13 +7,61 @@ import folium
 from streamlit_folium import st_folium
 import json
 import time
+import secrets
 
-from functions import *
+from features import nyc_taxi_rides
 
 
 def print_fancy_header(text, font_size=22, color="#ff5f27"):
     res = f'<span style="color:{color}; font-size: {font_size}px;">{text}</span>'
     st.markdown(res, unsafe_allow_html=True )
+
+def get_model(project, model_name, file_name):
+    # load our Model
+    import os
+    TARGET_FILE = f"{file_name}.pkl"
+    list_of_files = [os.path.join(dirpath,filename) for dirpath, _, filenames in os.walk('.') for filename in filenames if filename == TARGET_FILE]
+
+    if list_of_files:
+        model_path = list_of_files[0]
+        model = joblib.load(model_path)
+    else:
+        if not os.path.exists(TARGET_FILE):
+            mr = project.get_model_registry()
+            EVALUATION_METRIC="mae"
+            SORT_METRICS_BY="max"
+            # get best model based on custom metrics
+            model = mr.get_best_model(model_name,
+                                      EVALUATION_METRIC,
+                                      SORT_METRICS_BY)
+            model_dir = model.download()
+            model = joblib.load(model_dir + f"/{file_name}.pkl")
+
+    return model
+
+
+def process_input_vector(pickup_latitude, pickup_longitude, dropoff_latitude, dropoff_longitude):
+    df = pd.DataFrame.from_dict({
+        "ride_id": [secrets.token_hex(nbytes=16)],
+        "pickup_datetime": [np.random.randint(1600000000, 1610000000)],
+        "pickup_longitude": [pickup_longitude],
+        "dropoff_longitude": [dropoff_longitude],
+        "pickup_latitude": [pickup_latitude],
+        "dropoff_latitude": [dropoff_latitude],
+        "passenger_count": [np.random.randint(1, 5)],
+        "tolls": [np.random.randint(0, 6)],
+        "taxi_id": [np.random.randint(1, 201)],
+        "driver_id": [np.random.randint(1, 201)]
+    })
+
+    df = nyc_taxi_rides.calculate_distance_features(df)
+    df = nyc_taxi_rides.calculate_datetime_features(df)
+
+    for col in ["passenger_count", "taxi_id", "driver_id"]:
+        df[col] = df[col].astype("int64")
+
+    return df
+
 
 
 st.title('🚖NYC Taxi Fares Project🚖')
