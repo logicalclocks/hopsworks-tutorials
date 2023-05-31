@@ -207,113 +207,6 @@
         </dependency>
       </dependencies>
     </profile>
-
-    <profile>
-      <id>spark-runner</id>
-      <!-- Makes the SparkRunner available when running a pipeline. Additionally,
-           overrides some Spark dependencies to Beam-compatible versions. -->
-      <properties>
-        <netty.version>4.1.17.Final</netty.version>
-      </properties>
-      <dependencies>
-        <dependency>
-          <groupId>org.apache.beam</groupId>
-          <artifactId>beam-runners-spark</artifactId>
-          <version>${beam.version}</version>
-          <scope>runtime</scope>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.apache.beam/beam-sdks-java-io-hadoop-file-system -->
-        <dependency>
-          <groupId>org.apache.beam</groupId>
-          <artifactId>beam-sdks-java-io-hadoop-file-system</artifactId>
-          <version>${beam.version}</version>
-          <scope>runtime</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.spark</groupId>
-          <artifactId>spark-streaming_2.11</artifactId>
-          <version>${spark.version}</version>
-          <scope>runtime</scope>
-          <exclusions>
-            <exclusion>
-              <groupId>org.slf4j</groupId>
-              <artifactId>jul-to-slf4j</artifactId>
-            </exclusion>
-          </exclusions>
-        </dependency>
-        <dependency>
-          <groupId>com.fasterxml.jackson.module</groupId>
-          <artifactId>jackson-module-scala_2.11</artifactId>
-          <version>${jackson.version}</version>
-          <scope>runtime</scope>
-        </dependency>
-        <!-- [BEAM-3519] GCP IO exposes netty on its API surface, causing conflicts with runners -->
-        <dependency>
-          <groupId>org.apache.beam</groupId>
-          <artifactId>beam-sdks-java-io-google-cloud-platform</artifactId>
-          <version>${beam.version}</version>
-          <exclusions>
-            <exclusion>
-              <groupId>io.grpc</groupId>
-              <artifactId>grpc-netty</artifactId>
-            </exclusion>
-            <exclusion>
-              <groupId>io.netty</groupId>
-              <artifactId>netty-handler</artifactId>
-            </exclusion>
-          </exclusions>
-        </dependency>
-      </dependencies>
-    </profile>
-    <profile>
-      <id>samza-runner</id>
-      <dependencies>
-        <dependency>
-          <groupId>org.apache.beam</groupId>
-          <artifactId>beam-runners-samza</artifactId>
-          <version>${beam.version}</version>
-          <scope>runtime</scope>
-        </dependency>
-      </dependencies>
-    </profile>
-    <profile>
-      <id>nemo-runner</id>
-      <dependencies>
-        <dependency>
-          <groupId>org.apache.nemo</groupId>
-          <artifactId>nemo-compiler-frontend-beam</artifactId>
-          <version>${nemo.version}</version>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.hadoop</groupId>
-          <artifactId>hadoop-common</artifactId>
-          <version>${hadoop.version}</version>
-          <exclusions>
-            <exclusion>
-              <groupId>org.slf4j</groupId>
-              <artifactId>slf4j-api</artifactId>
-            </exclusion>
-            <exclusion>
-              <groupId>org.slf4j</groupId>
-              <artifactId>slf4j-log4j12</artifactId>
-            </exclusion>
-          </exclusions>
-        </dependency>
-      </dependencies>
-    </profile>
-
-    <profile>
-      <id>jet-runner</id>
-      <dependencies>
-        <dependency>
-          <groupId>org.apache.beam</groupId>
-          <artifactId>beam-runners-jet</artifactId>
-          <version>${beam.version}</version>
-          <scope>runtime</scope>
-        </dependency>
-      </dependencies>
-    </profile>
-
   </profiles>
 
   <dependencies>
@@ -331,34 +224,6 @@
       <version>${beam.version}</version>
     </dependency>
 
-    <!-- Dependencies below this line are specific dependencies needed by the examples code. -->
-    <dependency>
-      <groupId>com.google.api-client</groupId>
-      <artifactId>google-api-client</artifactId>
-      <version>${google-api-client.version}</version>
-      <exclusions>
-        <!-- Exclude an old version of guava that is being pulled
-             in by a transitive dependency of google-api-client -->
-        <exclusion>
-          <groupId>com.google.guava</groupId>
-          <artifactId>guava-jdk5</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-
-    <dependency>
-      <groupId>com.google.apis</groupId>
-      <artifactId>google-api-services-bigquery</artifactId>
-      <version>${bigquery.version}</version>
-      <exclusions>
-        <!-- Exclude an old version of guava that is being pulled
-             in by a transitive dependency of google-api-client -->
-        <exclusion>
-          <groupId>com.google.guava</groupId>
-          <artifactId>guava-jdk5</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
 
     <dependency>
       <groupId>com.google.http-client</groupId>
@@ -409,26 +274,6 @@
       <scope>runtime</scope>
     </dependency>
 
-    <!-- Hamcrest and JUnit are required dependencies of PAssert,
-         which is used in the main code of DebuggingWordCount example. -->
-    <dependency>
-      <groupId>org.hamcrest</groupId>
-      <artifactId>hamcrest-core</artifactId>
-      <version>${hamcrest.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.hamcrest</groupId>
-      <artifactId>hamcrest-library</artifactId>
-      <version>${hamcrest.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>${junit.version}</version>
-    </dependency>
-
     <!-- The DirectRunner is needed for unit tests. -->
     <dependency>
       <groupId>org.apache.beam</groupId>
@@ -450,66 +295,13 @@
       <!--      <scope>runtime</scope>-->
     </dependency>
 
-    <!-- https://mvnrepository.com/artifact/org.apache.beam/beam-sdks-java-extensions-sql -->
-    <!-- Needed for SQL pipelines -->
-    <dependency>
-      <groupId>org.apache.beam</groupId>
-      <artifactId>beam-sdks-java-extensions-sql</artifactId>
-      <version>${beam.version}</version>
-    </dependency>
-
-    <!-- Needed for Zeta SQL pipelines -->
-    <dependency>
-      <groupId>org.apache.beam</groupId>
-      <artifactId>beam-sdks-java-extensions-sql-zetasql</artifactId>
-      <version>${beam.version}</version>
-    </dependency>
-
-
-    <dependency>
-      <groupId>org.mockito</groupId>
-      <artifactId>mockito-core</artifactId>
-      <version>${mockito.version}</version>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.json</groupId>
-      <artifactId>json</artifactId>
-      <version>${json.version}</version>
-    </dependency>
-
-    <!-- https://mvnrepository.com/artifact/org.apache.avro/avro -->
-    <dependency>
-      <groupId>org.apache.avro</groupId>
-      <artifactId>avro</artifactId>
-      <version>${avro.version}</version>
-    </dependency>
-
     <!-- https://mvnrepository.com/artifact/com.google.auto.service/auto-service -->
     <dependency>
       <groupId>com.google.auto.service</groupId>
       <artifactId>auto-service</artifactId>
       <version>${google-auto-service.version}</version>
     </dependency>
-    <!-- https://mvnrepository.com/artifact/org.apache.beam/beam-sdks-java-io-jdbc -->
-    <dependency>
-      <groupId>org.apache.beam</groupId>
-      <artifactId>beam-sdks-java-io-jdbc</artifactId>
-      <version>${beam.version}</version>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/com.google.cloud.sql/mysql-socket-factory-connector-j-8 -->
-    <dependency>
-      <groupId>com.google.cloud.sql</groupId>
-      <artifactId>mysql-socket-factory-connector-j-8</artifactId>
-      <version>1.2.3</version>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
-    <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
-      <version>8.0.25</version>
-    </dependency>
+
     <!-- https://mvnrepository.com/artifact/org.apache.kafka/kafka-clients -->
     <dependency>
       <groupId>org.apache.kafka</groupId>
