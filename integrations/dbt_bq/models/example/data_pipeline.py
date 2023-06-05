@@ -1,42 +1,48 @@
 # Import required packages
-import hsfs
+import hopsworks
 
 def model(dbt, session):
     # Setup cluster usage
     dbt.config(
         submission_method="cluster",
-        dataproc_cluster_name="YOUR_CLUSTER_NAME",
+        dataproc_cluster_name="dbt-hops",
     )
 
-    # Read BigQuery Data
+    # Read read_bigquery_data SQL model
     my_sql_model_df = dbt.ref("read_bigquery_data")
 
-    # Returns Pyspark DataFrame 
+    # Returns Pyspark DataFrame
     print(type(my_sql_model_df))
 
-    # Show first 3 rows of data
-    print(my_sql_model_df.show(3))
+    # Convert PySpark DataFrame to Pandas DataFrame
+    df_pandas = my_sql_model_df.toPandas()
 
-    # Setup your HSFS connection 
-    project = hsfs.connection(
-        host="YOUR_HOST",
-        project="YOUR_PROJECT_NAME",
-        api_key_value="YOUR_HOPSWORKS_API_KEY",
+    # Feature Engineering
+    df_pandas.reset_index(inplace=True)
+
+    # Print first 5 rows of DataFrame
+    print(df_pandas.head())
+
+    # Login to your Hopsworks project
+    project = hopsworks.login(
+        host="staging.cloud.hopsworks.ai",                                           # DNS of your Feature Store instance
+        project="tutorials",                                                                                       # Name of your Hopsworks Feature Store project
+        api_key_value="FHQmUY0JVk5aJy6y.Iuk4WoafNKtqDmVHaVGDz7LLe68HIpqqY8seoRWqCEkVaDhC1lzIqJgz7bYDjeMQ"          # Feature store API key value 
     )
 
-    # Retrieve your Feature Store
+    # Get feature Store
     fs = project.get_feature_store()   
 
-    # Feature Group creation
-    weather_fg = fs.get_or_create_feature_group(
-        name = 'weather_fg',
-        description = 'Weather data',
+    # Get or create Feature Group
+    feature_group = fs.get_or_create_feature_group(
+        name = 'feature_group_name',
+        description = 'Feature Group description',
         version = 1,
         primary_key = ['index_column'],
-        stream = True,
         online_enabled = True,
     )    
-    # Insert your data into Feature Group
-    weather_fg.insert(my_sql_model_df)   
+
+    # Insert data into Feature Group
+    feature_group.insert(df_pandas)   
 
     return my_sql_model_df

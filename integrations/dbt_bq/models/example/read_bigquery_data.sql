@@ -22,4 +22,4 @@ SELECT
     WHEN wind_speed < 7.5 THEN 'High'
     ELSE 'Very High'
   END AS wind_speed_category
-FROM {YOUR_PROJECT_NAME}.{YOUR_DATASET_NAME}.{YOUR_TABLE_NAME}
+FROM hops-20.weather_data_demo.weather_data_demo_table
