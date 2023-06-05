@@ -1,17 +1,14 @@
 package com.hopsworks.tutorials.flink.utils;
 
 import com.logicalclocks.hsfs.FeatureStoreException;
-import com.logicalclocks.hsfs.flink.HopsworksConnection;
 import com.logicalclocks.hsfs.metadata.HopsworksClient;
 import com.logicalclocks.hsfs.metadata.HopsworksHttpClient;
 
-import java.io.IOException;
 import java.util.Properties;
 
 public class Utils {
   
-  public Properties getKafkaProperties(String topic) throws FeatureStoreException, IOException {
-    HopsworksConnection connection = HopsworksConnection.builder().build();
+  public Properties getKafkaProperties(String topic) throws FeatureStoreException {
     HopsworksHttpClient client = HopsworksClient.getInstance().getHopsworksHttpClient();
     Properties properties = new Properties();
     properties.put("bootstrap.servers", "broker.kafka.service.consul:9091");
@@ -26,8 +23,7 @@ public class Utils {
     return properties;
   }
   
-  public Properties getKafkaProperties() throws FeatureStoreException, IOException {
-    HopsworksConnection connection = HopsworksConnection.builder().build();
+  public Properties getKafkaProperties() throws FeatureStoreException {
     HopsworksHttpClient client = HopsworksClient.getInstance().getHopsworksHttpClient();
     Properties properties = new Properties();
     properties.put("bootstrap.servers", "broker.kafka.service.consul:9091");
