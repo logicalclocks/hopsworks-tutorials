@@ -10,7 +10,7 @@ def model(dbt, session):
     # Setup cluster usage
     dbt.config(
         submission_method="cluster",
-        dataproc_cluster_name="dbt-hops",
+        dataproc_cluster_name="{YOUR_DATAPROC_CLUSTER_NAME}",
     )
 
     # Read data_pipeline Python model
@@ -52,17 +52,13 @@ def model(dbt, session):
             'end_date': end_date,
             'timezone': "Europe/London"
         }
-        
-        if forecast:
-            # historical forecast endpoint
-            base_url = 'https://api.open-meteo.com/v1/forecast' 
-        else:
-            # historical observations endpoint
-            base_url = 'https://archive-api.open-meteo.com/v1/archive'  
+
+        base_url = 'https://api.open-meteo.com/v1/forecast' 
             
         try:
             response = requests.get(base_url, params=params)
         except ConnectionError:
+            base_url = 'https://archive-api.open-meteo.com/v1/archive' 
             response = requests.get(base_url, params=params)
         
         response_json = response.json()    
@@ -155,9 +151,9 @@ def model(dbt, session):
 
     # Login to your Hopsworks project
     project = hopsworks.login(
-        host="staging.cloud.hopsworks.ai",                                           # DNS of your Feature Store instance
-        project="tutorials",                                                                                       # Name of your Hopsworks Feature Store project
-        api_key_value="FHQmUY0JVk5aJy6y.Iuk4WoafNKtqDmVHaVGDz7LLe68HIpqqY8seoRWqCEkVaDhC1lzIqJgz7bYDjeMQ"          # Feature store API key value 
+        host="{YOUR_HOST}",          
+        project="{YOUR_PROJECT_NAME}",
+        api_key_value="{YOUR_HOPSWORKS_API_KEY}"
     )
 
     # Get feature Store
@@ -165,7 +161,7 @@ def model(dbt, session):
 
     # Retrieve required Feature Group
     feature_group = fs.get_or_create_feature_group(
-        name = 'feature_group_name',
+        name = '{YOUR_FEATURE_GROUP_NAME}',
         version = 1,
     )    
 

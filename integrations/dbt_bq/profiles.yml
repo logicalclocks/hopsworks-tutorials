@@ -1,31 +1,34 @@
-Data_Pipeline:
+{YOUR_PROJECT_NAME}:
   target: dev
   outputs:
     dev:
-      dataset: weather_data_demo
+      # Your BigQuery dataset name
+      dataset: {YOUR_DATASET_NAME}
       job_execution_timeout_seconds: 300
       job_retries: 1
       keyfile: /secrets/dbt_tutorial_secret
       location: US
       method: service-account
       priority: interactive
-      project: hops-20
+      # Your Google Cloud project id
+      project: {YOUR_GCP_PROJECT_ID}
       threads: 1
       type: bigquery
-      # for dbt Python models
-      gcs_bucket: maksym_gcs_bucket
-      dataproc_region: europe-central2
+      # Your Bucket name
+      gcs_bucket: {YOUR_BUCKET_NAME}
+      # Your Dataproc region
+      dataproc_region: {YOUR_DATAPROC_REGION}
 
     prod: # your production environment
       type: bigquery
       method: service-account
-      project: hops-20  # name of the project in BigQuery
-      dataset: weather_data_demo  # your dataset for production
+      project: {YOUR_GCP_PROJECT_ID}  # name of the project in BigQuery
+      dataset: {YOUR_DATASET_NAME}  # your dataset for production
       threads: 1
       keyfile: /secrets/dbt_tutorial_secret
       timeout_seconds: 300
       priority: interactive
       retries: 1
       # for dbt Python models
-      gcs_bucket: maksym_gcs_bucket
-      dataproc_region: europe-central2
+      gcs_bucket: {YOUR_BUCKET_NAME}
+      dataproc_region: {YOUR_DATAPROC_REGION}

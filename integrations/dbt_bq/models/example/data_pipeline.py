@@ -5,7 +5,7 @@ def model(dbt, session):
     # Setup cluster usage
     dbt.config(
         submission_method="cluster",
-        dataproc_cluster_name="dbt-hops",
+        dataproc_cluster_name="{YOUR_DATAPROC_CLUSTER_NAME}",
     )
 
     # Read read_bigquery_data SQL model
@@ -25,9 +25,9 @@ def model(dbt, session):
 
     # Login to your Hopsworks project
     project = hopsworks.login(
-        host="staging.cloud.hopsworks.ai",                                           # DNS of your Feature Store instance
-        project="tutorials",                                                                                       # Name of your Hopsworks Feature Store project
-        api_key_value="FHQmUY0JVk5aJy6y.Iuk4WoafNKtqDmVHaVGDz7LLe68HIpqqY8seoRWqCEkVaDhC1lzIqJgz7bYDjeMQ"          # Feature store API key value 
+        host="{YOUR_HOST}",          
+        project="{YOUR_PROJECT_NAME}",
+        api_key_value="{YOUR_HOPSWORKS_API_KEY}"
     )
 
     # Get feature Store
@@ -35,7 +35,7 @@ def model(dbt, session):
 
     # Get or create Feature Group
     feature_group = fs.get_or_create_feature_group(
-        name = 'feature_group_name',
+        name = '{YOUR_FEATURE_GROUP_NAME}',
         description = 'Feature Group description',
         version = 1,
         primary_key = ['index_column'],
