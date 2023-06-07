@@ -13,7 +13,7 @@
 
   <properties>
     <flink.version>1.14.3.1</flink.version>
-    <avro.version>1.8.2</avro.version>
+    <avro.version>1.11.0</avro.version>
     <scala.base>2.11</scala.base>
   </properties>
 

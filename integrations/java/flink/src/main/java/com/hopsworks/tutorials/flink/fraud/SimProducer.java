@@ -29,10 +29,10 @@ public class SimProducer {
   
     DataStream<SourceTransaction> simEvens =
       env.addSource(new TransactionEventSimulator(batchSize)).keyBy(r -> r.getCcNum());
-    Properties kafkaConfig = utils.getKafkaProperties(topicName);
+    Properties kafkaCinfig = utils.getKafkaProperties(topicName);
     KafkaSink<SourceTransaction> sink = KafkaSink.<SourceTransaction>builder()
-      .setKafkaProducerConfig(kafkaConfig)
-      .setBootstrapServers(kafkaConfig.getProperty("bootstrap.servers"))
+      .setKafkaProducerConfig(kafkaCinfig)
+      .setBootstrapServers(kafkaCinfig.getProperty("bootstrap.servers"))
       .setRecordSerializer(KafkaRecordSerializationSchema.builder()
         .setTopic(topicName)
         .setValueSerializationSchema(new TransactionEventKafkaSync())
