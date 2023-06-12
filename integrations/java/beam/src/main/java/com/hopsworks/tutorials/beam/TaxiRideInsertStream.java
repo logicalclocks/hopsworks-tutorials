@@ -60,8 +60,6 @@ public class TaxiRideInsertStream {
     StreamFeatureGroup featureGroup = fs.getStreamFeatureGroup(options.getFeatureGroupName(),
       options.getFeatureGroupVersion());
   
-    Pipeline p = Pipeline.create();
-  
     Schema schema =
       Schema.of(
         Field.nullable("ride_id", FieldType.STRING),
@@ -73,7 +71,9 @@ public class TaxiRideInsertStream {
         Field.nullable("meter_increment", FieldType.DOUBLE),
         Field.nullable("passenger_count", FieldType.INT32)
       );
-
+  
+    // define pipeline and feature computation engine
+    Pipeline p = Pipeline.create();
     p
       .apply("ReadFromPubSub", PubsubIO.readStrings().fromTopic(options.getInputTopic()))
       .apply("Parse JSON to Beam Rows", JsonToRow.withSchema(schema))

@@ -91,8 +91,7 @@ export REGION=REPLACE_WITH_NAME_OF_REGION
 ```
 
 ### Real time feature engineering in Beam/DataFlow
-Beam is used for feature engineering when you need very fresh features computed in real-time. Beam/DataFlow pipelines
-provide native support for aggregations, with dimensionality reduction algorithms and transformations.
+Apache Beam is a powerful and flexible unified programming model for batch and streaming data processing pipelines.
 
 Currently, Beam pipelines for Hopsworks Feature store are supported only in Java. Hopsworks Feature Store expects that 
 your aggregation result is encapsulated in `org.apache.beam.sdk.values.Row` class and that it has the same schema as 
