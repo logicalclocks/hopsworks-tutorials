@@ -14,7 +14,7 @@
   <artifactId>beam</artifactId>
 
   <properties>
-    <beam.version>2.47.0</beam.version>
+    <beam.version>2.48.0</beam.version>
 
     <google-api-client.version>1.31.4</google-api-client.version>
     <guava.version>25.1-jre</guava.version>
