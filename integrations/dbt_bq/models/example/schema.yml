@@ -3,13 +3,12 @@ version: 2
 
 models:
   - name: read_bigquery_data
-    description: "Read BigQuery data"
-    columns:
-      - name: city_name
-        description: "City Name"
-        tests:
-          - not_null
+    description: "Reads data from BigQuery"
 
   - name: data_pipeline
-    description: "Insert data into Hopsworks Feature Group"
+    description: "Creates a Feature Group populated with data from BigQuery table"
+
+  - name: schedule_pipeline
+    description: "Parses todays data and inserts into existing feature group"
+ 
 
