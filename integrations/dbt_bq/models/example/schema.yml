@@ -6,9 +6,9 @@ models:
     description: "Reads data from BigQuery"
 
   - name: data_pipeline
-    description: "Creates a Feature Group populated with data from BigQuery table"
+    description: "Parse Weather data"
 
-  - name: schedule_pipeline
-    description: "Parses todays data and inserts into existing feature group"
+  - name: big_query_insert
+    description: "Inserts parsed data into BigQuery"
  
 
