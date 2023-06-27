@@ -12,14 +12,12 @@ Here you can check the data schema ⬇️
 
 1. How to backfill Features to the Feature Store.
 2. How to create a feature pipeline.
-3. How to create Feature views & Training Datasets.
-4. How to train a model and upload it to the Model Registry.
-5. How to fetch model from Model Registry and make batch predictions.
+3. How to create Feature View & Training Datasets, train a model and upload it to the Model Registry.
 
 
 You will load data into the **Feature Store**, create `Feature Groups` from which you will make a `Feature View` and `Training Dataset`.
 
-Then you will train a model to predict clients' repayment abilities. 
+Then you will train a model to predict clients' repayment abilities.
 
 Also, you will design a data-generation pipeline, that will be running once a time using **GitHub Actions** and insert a new generated data into existing `Feature Groups`.
 
@@ -29,4 +27,3 @@ This is a batch use case, it will give you a high-level view of how to use our P
 
 To run this tutorial, you need an account on Hopsworks. You can create a new account at  [app.hopsworks.ai](https://app.hopsworks.ai).
 In the notebook you will be prompted with a link to generate an API token to interact with your Hopsworks account.
-

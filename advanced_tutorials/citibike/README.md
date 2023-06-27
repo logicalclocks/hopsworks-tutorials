@@ -17,9 +17,8 @@
 ## **🗒️ This whole tutorial is divided into 5 parts:**
 1. Backfill Features to the Feature Store,
 2. Create a feature pipeline,
-3. Create Feature View & Training Datasets,
-4. Train a model and upload it to the Model Registry,
-5. Deploy Streamlit app.
+3. Create Feature View & Training Datasets, train a model and upload it to the Model Registry,
+4. Deploy Streamlit app.
 
 ## Prerequisites
 To run this tutorial, you need an account on Hopsworks. You can create a new account at  [app.hopsworks.ai](https://app.hopsworks.ai).
@@ -31,8 +30,11 @@ Also, you obviously need to have [streamlit](https://docs.streamlit.io/library/g
 ## Data
 You will parse weather data so you should get an API key from [VisualCrossing](https://www.visualcrossing.com/). You can use [this link](https://www.visualcrossing.com/weather-api).
 
-Don't forget to create an `.env` configuration file where all the necessary environment variables will be stored:
-> `VISUALCROSSING_API_KEY = "YOUR_API_KEY"`
+#### Create an `.env` configuration file inside this directory where all the necessary environment variables will be stored:
+
+`WEATHER_API_KEY = "YOUR_API_KEY"`
+
+> If you done it after you run a notebook, restart the Python Kernel for this notebook (because `functions.py` does not have these variables in his namespace).
 
 ![](images/api_keys_env_file.png)
 
