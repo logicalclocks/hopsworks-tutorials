@@ -20,26 +20,19 @@ def header(text):
 project = hopsworks.login()
 fs = project.get_feature_store()
 
-st.write(fs)
 header('🪄 Retrieving Feature View...')
 
+feature_view = fs.get_feature_view(
+    name="churn_feature_view",
+    version=1
+    )
 
-@st.cache(allow_output_mutation=True, suppress_st_warning=True)
-def retrive_feature_view(fs=fs):
-    feature_view = fs.get_feature_view(
-        name="churn_feature_view",
-        version=1
-        )
-    return feature_view
-
-
-feature_view = retrive_feature_view()
 st.text('Done ✅')
 header('⚙️ Reading DataFrames from Feature View...')
 
-
-@st.cache(allow_output_mutation=True, suppress_st_warning=True)
+@st.cache_data()
 def retrive_data(feature_view=feature_view):
+    feature_view.init_batch_scoring(1)
     batch_data = feature_view.get_batch_data()
     batch_data.drop('customerid', axis=1, inplace=True)
     df_all = feature_view.query.read()
@@ -54,7 +47,7 @@ st.text(f'Shape: {df_all.shape}')
 header('🔮 Model Retrieving...')
 
 
-@st.cache(allow_output_mutation=True, suppress_st_warning=True)
+@st.cache_data()
 def get_model(project=project):
     mr = project.get_model_registry()
     model = mr.get_model("churnmodel", version=1)
@@ -103,7 +96,7 @@ header('👨🏻‍🎨 Prediction Visualizing...')
 feature_names = batch_data.columns
 
 feature_importance = pd.DataFrame(feature_names, columns=["feature"])
-feature_importance["importance"] = pow(math.e, model.coef_[0])
+feature_importance["importance"] = model.feature_importances_
 feature_importance = feature_importance.sort_values(by=["importance"], ascending=False)
 
 fig_importance = px.bar(
