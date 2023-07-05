@@ -12,8 +12,7 @@ import folium
 from streamlit_folium import st_folium
 
 from functions import *
-import features.air_quality
-
+from features import air_quality
 
 
 def print_fancy_header(text, font_size=22, color="#ff5f27"):
@@ -232,7 +231,7 @@ if submit_button:
 
             df_aq_temp['date'] = pd.to_datetime(df_aq_temp['date'])
             
-            df_aq_temp = feature_engineer_aq(df_aq_temp)
+            df_aq_temp = air_quality.feature_engineer_aq(df_aq_temp)
 
             # we need only the last row (one city, one day)
             df_aq_temp = df_aq_temp[df_aq_temp['city_name'] == city_name].tail(1)
