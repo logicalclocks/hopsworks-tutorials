@@ -12,6 +12,7 @@ import time
 
 fv_version=1
 model_version=1
+td_version=1
 
 start_time = time.time()
 
@@ -32,6 +33,7 @@ print("Download model version {}: %s seconds ---".format(model_version) % (time.
 start_time = time.time()
 
 fv = fs.get_feature_view("loans_approvals", version=fv_version)
+fv.init_serving(training_dataset_version=td_version)
 
 print("Initialized feature view %s seconds ---" % (time.time() - start_time))
 

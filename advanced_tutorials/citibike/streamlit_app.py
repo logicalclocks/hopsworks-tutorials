@@ -1,14 +1,13 @@
 from datetime import timedelta, datetime
 from random import sample
-import os
-import joblib
+
 import pandas as pd
 import plotly.express as px
 import streamlit as st
 
 import hopsworks
 
-from features import citibike, meteorological_measurements
+from functions import *
 
 
 def print_fancy_header(text, font_size=22, color="#ff5f27"):
@@ -27,10 +26,9 @@ st.write("Logging... ")
 # please enter your Hopsworks API Key in the commmand prompt.)
 project = hopsworks.login()
 fs = project.get_feature_store()
-
 st.write("✅ Logged in successfully!")
 
-@st.cache_data()
+@st.cache(allow_output_mutation=True, suppress_st_warning=True)
 def get_feature_view():
     st.write("Getting the Feature View...")
     feature_view = fs.get_feature_view(
@@ -47,18 +45,19 @@ feature_view = get_feature_view()
 
 st.write(36 * "-")
 print_fancy_header('\n☁️ Retriving training dataset and other data from Feature Store...')
-
-@st.cache_data()
+# I use @st.experimental_memo() instead of @st.cache() to cache retrieved data
+# because @st.cache has a lot of bugs
+@st.experimental_memo(suppress_st_warning=True)
 def get_data_from_feature_store():
     st.write("🏋️ Retrieving the Training Dataset...")
-    X_train, X_test, y_train, y_test = feature_view.get_train_test_split(1)
+    training_data, _ = feature_view.get_training_data(1)
 
     st.write("📅 Calculating dates to predict...")
     meteorological_measurements_fg = fs.get_or_create_feature_group(
         name="meteorological_measurements",
         version=1
     )
-    last_date = citibike.get_last_date_in_fg(meteorological_measurements_fg)
+    last_date = get_last_date_in_fg(meteorological_measurements_fg)
 
     st.write("🌆 Getting stations information...")
     citibike_stations_info_fg = fs.get_or_create_feature_group(
@@ -67,7 +66,7 @@ def get_data_from_feature_store():
         )
     stations_info_df = citibike_stations_info_fg.read()
 
-    return X_train, last_date, stations_info_df
+    return training_data, last_date, stations_info_df
 
 
 training_data, last_date, stations_info_df = get_data_from_feature_store()
@@ -149,34 +148,11 @@ us_holidays_fg = fs.get_or_create_feature_group(
 end_date = datetime.strptime(last_date, "%Y-%m-%d") + timedelta(days=HOW_MANY_DAYS_PREDICT)
 end_date = datetime.strftime(end_date, "%Y-%m-%d")
 
-holidays_df = us_holidays_fg.filter((us_holidays_fg.timestamp > citibike.convert_date_to_unix(last_date)) & \
-                                    (us_holidays_fg.timestamp <= citibike.convert_date_to_unix(end_date))).read()
+holidays_df = us_holidays_fg.filter((us_holidays_fg.timestamp > convert_date_to_unix(last_date)) & \
+                                    (us_holidays_fg.timestamp <= convert_date_to_unix(end_date))).read()
 st.write("✅ Done!")
 
 st.write(36 * "-")
-
-
-def get_model(project, model_name, file_name):
-    # load our Model
-    list_of_files = [os.path.join(dirpath,filename) for dirpath, _, filenames in os.walk('.') for filename in filenames if filename == file_name]
-
-    if list_of_files:
-        model_path = list_of_files[0]
-        model = joblib.load(model_path)
-    else:
-        if not os.path.exists(file_name):
-            mr = project.get_model_registry()
-            EVALUATION_METRIC="r2_score"
-            SORT_METRICS_BY="max"
-            # get best model based on custom metrics
-            model = mr.get_best_model(model_name,
-                                      EVALUATION_METRIC,
-                                      SORT_METRICS_BY)
-            model_dir = model.download()
-            model = joblib.load(model_dir + f"/{file_name}")
-
-    return model
-
 print_fancy_header('\n 🤖 Getting the model...')
 regressor = get_model(project=project, model_name="citibike_xgb_model",
                       file_name="citibike_xgb_model.pkl")
@@ -190,7 +166,7 @@ temp_date = last_date[:]
 
 res_df = pd.DataFrame()
 for i in range(HOW_MANY_DAYS_PREDICT):
-    temp_date = citibike.get_next_date(temp_date)
+    temp_date = get_next_date(temp_date)
 
     df_batch = pd.DataFrame({
         "date": [temp_date] * len(selected_stations),
@@ -199,14 +175,14 @@ for i in range(HOW_MANY_DAYS_PREDICT):
     })
 
     concat_df = pd.concat([training_data_batch, df_batch], axis=0).reset_index(drop=True)
-    concat_df_engineered = citibike.engineer_citibike_features(concat_df)
+    concat_df_engineered = engineer_citibike_features(concat_df)
 
 
     agg_cols = concat_df_engineered[concat_df_engineered.date == temp_date] \
                    .drop(columns=["users_count"]).reset_index(drop=True)
 
     # get weather data for this specific day
-    weather_row = meteorological_measurements.get_weather_data(city="nyc",
+    weather_row = get_weather_data(city="nyc",
                                    start_date=temp_date,
                                    end_date=temp_date)
     weather_cols = weather_row.loc[weather_row.index.repeat(agg_cols.shape[0])] \

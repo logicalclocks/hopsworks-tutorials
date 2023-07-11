@@ -69,34 +69,3 @@ def sin_day_of_week(df):
 
 def cos_day_of_week(df):
     df['cos_day_of_week'] = np.cos(2 * np.pi * df['day_of_week'] / 7)
-
-
-def feature_engineer_aq(df):
-    df_res = df.copy()
-    shift_pm_2_5(df_res, days=7) # add features about 7 previous PM2.5 values
-
-    moving_average(df_res, 7)
-    moving_average(df_res, 14)
-    moving_average(df_res, 28)
-
-    for i in [7, 14, 28]:
-        for func in [moving_std,
-                     exponential_moving_average,
-                     exponential_moving_std
-                     ]:
-            func(df_res, i)
-
-
-    df_res = df_res.sort_values(by=["date", "pm2_5"]).dropna()
-    df_res = df_res.reset_index(drop=True)
-
-    year(df_res)
-    day_of_month(df_res)
-    month(df_res)
-    day_of_week(df_res)
-    is_weekend(df_res)
-    sin_day_of_year(df_res)
-    cos_day_of_year(df_res)
-    sin_day_of_week(df_res)
-    cos_day_of_week(df_res)
-    return df_res

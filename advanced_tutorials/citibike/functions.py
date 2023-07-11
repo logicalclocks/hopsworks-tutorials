@@ -1,8 +1,11 @@
+import math
 import requests
+import joblib
 from datetime import datetime, timedelta
 import zipfile
 from io import BytesIO
 import os
+import json
 from calendar import monthrange
 import pandas as pd
 
@@ -14,10 +17,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-"""
-Basic functions
-"""
-
+###############################################################################
+# Basic functions
 
 def convert_date_to_unix(x):
     dt_obj = datetime.strptime(str(x), '%Y-%m-%d')
@@ -155,10 +156,17 @@ def get_citibike_data(start_date="04/2021", end_date="10/2022") -> pd.DataFrame:
     return df_res.reset_index(drop=True)
 
 
+################################################################################
+# Data engineering
+
 def moving_average(df, window=7):
     df[f'mean_{window}_days'] = df.groupby('station_id')['users_count'] \
                                     .rolling(window=window).mean().reset_index(0,drop=True).shift(1)
     return df
+
+# def moving_average(df, window=7):
+#     df[f'mean_{window}_days'] = df["users_count"].rolling(window=window).mean()
+#     return df
 
 
 def moving_std(df, window):
@@ -197,3 +205,54 @@ def engineer_citibike_features(df):
             df_res = func(df_res, i)
     df_res = df_res.reset_index(drop=True)
     return df_res.sort_values(by=["date", "station_id"]).dropna()
+
+
+###############################################################################
+# Weather parsing
+
+def parse_weather_data(city, start_date, end_date, API_KEY):
+    # yyyy-MM-DD data format
+    formatted_url = f"https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/{city}/{start_date}/{end_date}?unitGroup=metric&include=days&key={API_KEY}&contentType=csv"
+    return pd.read_csv(formatted_url)
+
+
+def get_weather_data(city, start_date, end_date):
+    API_KEY = os.getenv("WEATHER_API_KEY")
+    # API_KEY = ""
+
+    df_res = parse_weather_data(city, start_date, end_date, API_KEY)
+    # drop redundant columns
+    df_res = df_res.drop(columns=["name", "icon", "stations", "description",
+                                  "sunrise", "sunset", "preciptype",
+                                  "severerisk", "conditions", "moonphase",
+                                  "cloudcover", "sealevelpressure",
+                                  "solarradiation", "winddir", "windgust",
+                                  "uvindex", "solarenergy"])
+
+    df_res = df_res.rename(columns={"datetime": "date"})
+
+    return df_res
+
+
+###############################################################################
+# Streamlit
+def get_model(project, model_name, file_name):
+    # load our Model
+    list_of_files = [os.path.join(dirpath,filename) for dirpath, _, filenames in os.walk('.') for filename in filenames if filename == file_name]
+
+    if list_of_files:
+        model_path = list_of_files[0]
+        model = joblib.load(model_path)
+    else:
+        if not os.path.exists(file_name):
+            mr = project.get_model_registry()
+            EVALUATION_METRIC="r2_score"
+            SORT_METRICS_BY="max"
+            # get best model based on custom metrics
+            model = mr.get_best_model(model_name,
+                                      EVALUATION_METRIC,
+                                      SORT_METRICS_BY)
+            model_dir = model.download()
+            model = joblib.load(model_dir + f"/{file_name}")
+
+    return model
