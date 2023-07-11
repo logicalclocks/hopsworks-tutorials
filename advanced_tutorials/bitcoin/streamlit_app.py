@@ -78,8 +78,7 @@ else:
     st.dataframe(df_bitcoin_processed.tail(3))
     fancy_header("⬆️ Inserting Bitcoin data into the Feature Group...")
 
-    btc_price_fg.insert(df_bitcoin_processed,
-                        write_options={'wait_for_job': False})
+    btc_price_fg.insert(df_bitcoin_processed)
 
     st.write('Done ✅')
     st.write(36 * "-")
@@ -98,10 +97,8 @@ else:
     st.dataframe(tweets_vader.tail(3))
     fancy_header("⬆️ Inserting processed Tweets data into the Feature Groups...")
 
-    tweets_vader_fg.insert(tweets_vader,
-                              write_options={'wait_for_job': False})
-    tweets_textblob_fg.insert(tweets_textblob,
-                              write_options={'wait_for_job': False})
+    tweets_vader_fg.insert(tweets_vader)
+    tweets_textblob_fg.insert(tweets_textblob)
 
     st.write('Done ✅')
 
