@@ -149,12 +149,10 @@ if __name__=="__main__":
     df_aq_update.date = df_aq_update.date.astype(str)
     df_weather_update.date = df_weather_update.date.astype(str)
 
-    air_quality_fg.insert(df_aq_update,
-                          write_options={'wait_for_job': False})
+    air_quality_fg.insert(df_aq_update)
     print("Created job to insert parsed PM2.5 data into FS...")
     print("Inserting into air_quality fg.")
 
-    weather_fg.insert(df_weather_update,
-                      write_options={'wait_for_job': False})
+    weather_fg.insert(df_weather_update)
     print("Created job to insert parsed weather data into FS...")
     print("Inserting into weather fg.")
