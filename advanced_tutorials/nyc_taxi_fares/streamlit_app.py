@@ -191,7 +191,7 @@ try:
                       'dropoff_distance_to_ewr', 'pickup_distance_to_lgr',
                       'dropoff_distance_to_lgr', 'year', 'weekday', 'hour']
 
-        rides_fg.insert(df[rides_cols], write_options={"wait_for_job": False})
+        rides_fg.insert(df[rides_cols])
 
         st.write("⬆️ Inserting a new data to the 'fares' Feature Group...")
         print("Inserting into FARES FG.")
@@ -202,7 +202,7 @@ try:
         for col in ["tolls", "total_fare"]:
             df_fares[col] = df_fares[col].astype("double")
 
-        fares_fg.insert(df_fares, write_options={"wait_for_job": False})
+        fares_fg.insert(df_fares)
 
         st.subheader('\n🎉 📈 🤝 App Finished Successfully 🤝 📈 🎉')
 
