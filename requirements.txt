@@ -17,4 +17,4 @@ textblob
 vaderSentiment
 tweepy
 tensorflow
-
+geopy
