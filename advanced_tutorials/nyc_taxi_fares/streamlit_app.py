@@ -64,7 +64,7 @@ def process_input_vector(pickup_latitude, pickup_longitude, dropoff_latitude, dr
 
 
 
-st.title('🚖NYC Taxi Fares Project🚖')
+st.title('🚖 NYC Taxi Fares Project 🚖')
 st.write(36 * "-")
 print_fancy_header('\n📡 Connecting to the Hopsworks Feature Store...')
 
@@ -177,7 +177,7 @@ try:
 
     prediction = model.predict(X)[0]
 
-    st.subheader(f"Prediction: {str(prediction)} $")
+    st.subheader(f"Prediction: {str(round(prediction, 2))} $")
 
     st.write(36 * "-")
 
