@@ -32,14 +32,16 @@ progress_bar.progress(35)
 @st.cache_resource()
 def retrive_dataset():
     st.write(36 * "-")
+    trans_fg = fs.get_feature_group('transactions_fraud_online_fg', version=1)
+    cc_nums = trans_fg.show(5).cc_num.tolist()
     print_fancy_header('\n💾 Dataset Retrieving...')
     feature_view = fs.get_feature_view("transactions_fraud_online_fv", 1)
     X_train, X_test, y_train, y_test = feature_view.get_train_test_split(1)
 
-    return feature_view, X_train, X_test, y_train, y_test
+    return feature_view, X_train, X_test, y_train, y_test, cc_nums
 
 
-feature_view, X_train, X_test, y_train, y_test = retrive_dataset()
+feature_view, X_train, X_test, y_train, y_test, cc_nums = retrive_dataset()
 # show concatenated training dataset (label is a 'fraud_label' feature)
 st.dataframe(pd.concat([X_test.head(),(y_test.head())], axis=1))
 progress_bar.progress(55)
@@ -81,7 +83,7 @@ print_fancy_header('\n🧠 Interactive predictions...')
 with st.form(key="Selecting cc_num"):
     option = st.selectbox(
          'Select a credit card to get a fraud analysis.',
-         [4915141400146609, 4515188652242507, 4467360740682089, 4705647145380059, 4963241168009873]
+         cc_nums,
          )
     submit_button = st.form_submit_button(label='Submit')
 if submit_button:
