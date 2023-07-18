@@ -143,3 +143,4 @@ integrations/dbt/analyses/.gitkeep
 churn/churn_model/confusion_matrix.png
 fraud_batch/fraud_batch_model/confusion_matrix.png
 fraud_online/fraud_online_model/confusion_matrix.png
+advanced_tutorials/air_quality/air_quality_model/residplot.png
