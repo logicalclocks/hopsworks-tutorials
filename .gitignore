@@ -140,3 +140,4 @@ integrations/dbt/snapshots/.gitkeep
 integrations/dbt/seeds/.gitkeep
 integrations/dbt/macros/.gitkeep
 integrations/dbt/analyses/.gitkeep
+churn/churn_model/confusion_matrix.png
