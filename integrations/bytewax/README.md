@@ -4,7 +4,7 @@
 In this guide you will learn how to create a real-time feature engineering pipeline and write real-time features in to
 the Hopsworks features store. This guide covers:
 
-- computing real time features with Bytewax.
+- computing real-time features from a streaming data source (WebSockets) with Bytewax.
 - writing real time features to Hopsworks's online feature.
 
 You will also
