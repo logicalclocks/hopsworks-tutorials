@@ -31,7 +31,7 @@ pip install websocket-client
 you also need  to have Hopsworks cluster host address, hopsworks project name and 
 [api key](https://docs.hopsworks.ai/3.1/user_guides/projects/api_key/create_api_key/)
 
-Once you have the above define environment variables:
+Once you have the above, define the following environment variables:
 
 ```bash
 export HOPSWORKS_HOST=REPLACE_WITH_YOUR_HOPSWOKRKS_CLUSTER_HOST
