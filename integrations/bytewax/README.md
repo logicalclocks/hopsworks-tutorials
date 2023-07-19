@@ -1,7 +1,7 @@
 # Real time feature computation using Bytewax.
 
 ## Introduction
-In this guide you will learn how to create Real-Time Feature Engineering pipeline and write real time features in to
+In this guide you will learn how to create a real-time feature engineering pipeline and write real-time features in to
 the Hopsworks features store. This guide covers creating a
 
 - computing real time features with Bytewax.
