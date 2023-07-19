@@ -60,6 +60,7 @@ This tutorial comes with a python program to create a feature group:
 Feature pipeline needs to connect to some data source to read the data to be processed. In this tutorial you will
 subscribe to publicly available Coinbase websocket. 
 
+The feature pipeline will maintain an orderbook in real-time and then compute some very basic information about the orderbook as features. For more details on the code used in the dataflow, see the [Byetwax official guide](https://www.bytewax.io/guides/real-time-financial-exchange-order-book-application). 
 ## Start Bytewax pipeline:
 Now you are ready to run a streaming pipeline using Bytewax and write real time feature data to feature group 
 `order_book` version `1`.
