@@ -21,7 +21,7 @@ will not work for [app.hopsworks.ai](https://app.hopsworks.ai) account as submit
 You can find documentation on how to get started on [GCP](https://docs.hopsworks.ai/3.1/setup_installation/gcp/getting_started/),
 [AWS](https://docs.hopsworks.ai/3.1/setup_installation/aws/getting_started/) or on [Azure](https://docs.hopsworks.ai/3.1/setup_installation/azure/getting_started/).
 
-Install required python libraries 
+Install the required python libraries 
 ```bash
 pip install hopsworks
 pip install bytewax
