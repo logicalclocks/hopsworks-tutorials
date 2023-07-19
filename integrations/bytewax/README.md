@@ -5,7 +5,7 @@ In this guide you will learn how to create a real-time feature engineering pipel
 the Hopsworks features store. This guide covers:
 
 - computing real-time features from a streaming data source (WebSockets) with Bytewax.
-- writing real time features to Hopsworks's online feature.
+- writing real-time features to Hopsworks's online feature group via the streaming platform, Kafka.
 
 You will also
 - create feature group using the HSFS APIs.
