@@ -8,8 +8,8 @@ the Hopsworks features store. This guide covers:
 - writing real-time features to Hopsworks's online feature group via the streaming platform, Kafka.
 
 You will also
-- create feature group using the HSFS APIs.
-- Backfill feature data to offline feature group.
+- create a feature group using the HSFS APIs.
+- Backfill feature data to an offline feature group.
 
 ## Before you begin
 For the tutorials to work, you need:
