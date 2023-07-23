@@ -1,5 +1,3 @@
-import os
-
 import json
 
 from io import BytesIO
@@ -7,7 +5,6 @@ from io import BytesIO
 from datetime import datetime, timezone
 from websocket import create_connection
 
-# from bytewax.connectors.stdio import StdOutput
 from bytewax.dataflow import Dataflow
 from bytewax.inputs import PartitionedInput, StatefulSource
 from bytewax.connectors.kafka import KafkaOutput
@@ -180,10 +177,6 @@ def get_flow(feature_group_name, feature_group_version):
     # })
     flow.stateful_map("order_book", lambda: OrderBook(), OrderBook.update)
     # ('BTC-USD', (36905.39, 0.00334873, 36905.4, 1.6e-05, 0.010000000002037268))
-    flow.filter(
-        lambda x: x[-1]["spread"] / x[-1]["ask"] > 0.0001
-    )  # filter on 0.1% spread as a per
-    # flow.output("out", StdOutput())
 
     # get feature store handle
     project = hopsworks.login()
