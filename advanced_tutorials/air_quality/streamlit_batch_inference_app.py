@@ -18,7 +18,7 @@ from features import air_quality
 def print_fancy_header(text, font_size=22, color="#ff5f27"):
     res = f'<span style="color:{color}; font-size: {font_size}px;">{text}</span>'
     st.markdown(res, unsafe_allow_html=True)  
-       
+
 
 # I want to cache this so streamlit would run much faster after restart (it restarts a lot)
 @st.cache_data()
@@ -31,7 +31,7 @@ def get_feature_view():
     st.write("✅ Success!")
 
     return feature_view
-    
+
 
 @st.cache_data()
 def get_batch_data_from_fs(td_version, date_threshold):
