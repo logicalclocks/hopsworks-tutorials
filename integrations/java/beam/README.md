@@ -53,7 +53,7 @@ and [python notebooks](https://docs.hopsworks.ai/3.3/user_guides/projects/jupyte
 ## Data source
 Feature pipeline needs to connect to some data source to read the data to be processed. In this tutorial you will
 use publicly available topic `projects/pubsub-public-data/topics/taxirides-realtime`. Ensure that the associated 
-service account has the Pub/Sub admin role. 
+service account has the Pub/Sub Admin role. 
 
 ## Start Beam/DataFlow streaming pipeline:
 
