@@ -18,12 +18,15 @@ For the tutorials to work, you need:
 will not work for [app.hopsworks.ai](https://app.hopsworks.ai) account as submitting custom jobs to 
 [app.hopsworks.ai](https://app.hopsworks.ai) are not supported.
 
-You can find documentation how to get started on [GCP](https://docs.hopsworks.ai/3.1/setup_installation/gcp/getting_started/),
-[AWS](https://docs.hopsworks.ai/3.1/setup_installation/aws/getting_started/) or on [Azure](https://docs.hopsworks.ai/3.1/setup_installation/azure/getting_started/).
+You can find documentation how to get started on [GCP](https://docs.hopsworks.ai/3.3/setup_installation/gcp/getting_started/),
+[AWS](https://docs.hopsworks.ai/3.3/setup_installation/aws/getting_started/) or on [Azure](https://docs.hopsworks.ai/3.3/setup_installation/azure/getting_started/).
 
-- Google Cloud CLI
-- Google Cloud account
-- Google Cloud project enabled with Compute Engine, Dataflow, Pub/Sub and Cloud Scheduler APIs:
+Ensure that
+
+- Google Cloud CLI is installed.
+- You Have Google Cloud account
+- Google Cloud project is enabled with Compute Engine, Dataflow, Pub/Sub APIs and the associated 
+  service account has the role to utilize these APIs
 
 You also need to have configured maven; java 1.8 and git.
 
@@ -39,23 +42,24 @@ Currently, Beam support for Hopsworks feature store is experimental and only wri
 that Feature group metadata needs to be registered in Hopsworks Feature store before you can write real time features computed
 by Beam.
 
-Full documentation how to create feature group using HSFS APIs can be found [here](https://docs.hopsworks.ai/3.1/user_guides/fs/feature_group/create/).
+Full documentation how to create feature group using HSFS APIs can be found [here](https://docs.hopsworks.ai/3.3/user_guides/fs/feature_group/create/).
 
 This tutorial comes with notebook to create feature group:
 - `. /hopsworks-tutorials/java/beam/setup/1_create_taxi_feature_group.ipynb`
 
-You can execute this notebook directly on Hopsworks cluster. Follow the documentation how to run [spark notebooks](https://docs.hopsworks.ai/3.1/user_guides/projects/jupyter/spark_notebook/)
-and [python notebooks](https://docs.hopsworks.ai/3.1/user_guides/projects/jupyter/python_notebook/).
+You can execute this notebook directly on Hopsworks cluster. Follow the documentation how to run [spark notebooks](https://docs.hopsworks.ai/3.3/user_guides/projects/jupyter/spark_notebook/)
+and [python notebooks](https://docs.hopsworks.ai/3.3/user_guides/projects/jupyter/python_notebook/).
 
 ## Data source
 Feature pipeline needs to connect to some data source to read the data to be processed. In this tutorial you will
-use publicly available topic `projects/pubsub-public-data/topics/taxirides-realtime`
+use publicly available topic `projects/pubsub-public-data/topics/taxirides-realtime`. Ensure that the associated 
+service account has the Pub/Sub Subscriber role. 
 
 ## Start Beam/DataFlow streaming pipeline:
 
 ### Google Cloud Pub/Sub to Google Cloud Storage
 Now you ready to run a streaming pipeline using Beam and Google Cloud Dataflow. For this you need to
-have Hopsworks cluster host address, hopsworks project name and [api key](https://docs.hopsworks.ai/3.1/user_guides/projects/api_key/create_api_key/)
+have Hopsworks cluster host address, hopsworks project name and [api key](https://docs.hopsworks.ai/3.3/user_guides/projects/api_key/create_api_key/)
 
 Once you have the above define environment variables:
 
@@ -78,16 +82,10 @@ SOURCE_TOPIC=projects/pubsub-public-data/topics/taxirides-realtime
 
 Define required environment variables for your google cloud account:
 ```bash
-# name of GCP service account
-export SERVICE_ACCOUNT=REPLACE_WITH_YOUR__SERVICE_ACCOUNT_NAME
 # GCP application credentials file
 export GOOGLE_APPLICATION_CREDENTIALS=REPLACE_WITH_PATH_TO_YOUR_CREDENTIALS_FILE
-# GCP bucket name for Dataflow to download temporary files
-export BUCKET_NAME=REPLACE_WITH_YOUR_YOUR_BUCKET_NAME
 # Google Cloud project ID to run the pipeline on. You can get this by: gcloud config get-value project
-export PROJECT_NAME=REPLACE_WITH_YOUR_GOOGLE_PROJECT_ID 
-# Dataflow regional endpoint
-export REGION=REPLACE_WITH_NAME_OF_REGION
+export PROJECT_NAME=REPLACE_WITH_YOUR_GOOGLE_PROJECT_ID
 ```
 
 ### Real time feature engineering in Beam/DataFlow
@@ -149,8 +147,6 @@ mvn compile exec:java \
     --featureGroupVersion=$FEATURE_GROUP_VERSION \
     --inputTopic=$SOURCE_TOPIC \
     --project=$PROJECT_NAME \
-    --region=$REGION \
-    --gcpTempLocation=gs://$BUCKET_NAME/temp \
     --runner=DataflowRunner"
 ```
 
@@ -175,7 +171,3 @@ python3 ./backfill_job_client.py --host $HOPSWORKS_HOST --api_key $HOPSWORKS_API
 - Stop the Dataflow job in [GCP Console Dataflow page]. Cancel the job instead of draining it. This may take some 
   minutes.
 - make sure to delete all VMs created by DataflowRunner (if any).
-- Remove the Cloud Storage bucket.
-```bash
-gsutil rb gs://$BUCKET_NAME
-```
