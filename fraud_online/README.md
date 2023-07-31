@@ -6,7 +6,7 @@
 1. **Feature Pipeline**: How to load, engineer and create feature groups.
 2. **Training Pipeline**: How to build a feature view, training dataset split, train, save and deploy a model.
 3. **Inference Pipeline**: How to retrieve a trained model from the model registry and use it for online inference.
-4. **Streamlit App**: Build a Streamlit App fro interactive predictions.
+4. **Streamlit App**: Build a Streamlit App for interactive predictions.
 
 ## Prerequisites
 To run this tutorial, you need an account on Hopsworks. You can create a new account at  [app.hopsworks.ai](https://app.hopsworks.ai).
