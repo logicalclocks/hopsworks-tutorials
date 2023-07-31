@@ -14,11 +14,12 @@
    This is an <b>online use case</b>, you will use Hopsworks Model Registry to register the model and run online deployment, which will make prediction for you.
  </span>
 
-## **🗒️ This whole tutorial is divided into 5 parts:**
-1. Backfill Features to the Feature Store,
-2. Create a feature pipeline,
-3. Create Feature view & Training Datasets, train a model, upload it to the Model Registry and make batch predictions,
-4. Deploy Streamlit app.
+## **🗒️ This whole tutorial is divided into the next parts:**
+1. **Feature Backfill**: How to load, engineer and create feature groups.
+2. **Feature Pipeline**: How to parse new data and insert into feature groups.
+3. **Training Pipeline**: How to build a feature view, training dataset split, train a model and save it in the Model Registry.
+4. **Inference Pipeline**: How to retrieve a trained model from the model registry and use it for batch inference.
+5. Deploy a Streamlit app.
 
 
 ## Prerequisites
