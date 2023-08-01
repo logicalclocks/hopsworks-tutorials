@@ -14,7 +14,7 @@
    This is an <b>online use case</b>, you will use Hopsworks Model Registry to register the model and run online deployment, which will make prediction for you.
  </span>
 
-## **🗒️ This whole tutorial is divided into the next parts:**
+## **🗒️ This tutorial is divided into the following parts:**
 1. **Feature Backfill**: How to load, engineer and create feature groups.
 2. **Feature Pipeline**: How to parse new data and insert into feature groups.
 3. **Training Pipeline**: How to build a feature view, training dataset split, train, save and deploy a model.

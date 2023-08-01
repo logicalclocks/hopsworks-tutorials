@@ -13,7 +13,7 @@
    This is a <b>batch use case</b>, it will give you a high-level view of how to use our python APIs and the UI to navigate the feature groups.
  </span>
 
-## **🗒️ This whole tutorial is divided into the next parts:**
+## **🗒️ This tutorial is divided into the following parts:**
 1. **Feature Backfill**: How to load, engineer and create feature groups.
 2. **Feature Pipeline**: How to parse new data and insert into feature groups.
 3. **Training Pipeline**: How to build a feature view, training dataset split, train a model and save it in the Model Registry.
