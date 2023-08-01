@@ -157,3 +157,5 @@ advanced_tutorials/citibike/data/202203-citibike-tripdata_processed.csv
 advanced_tutorials/citibike/data/202202-citibike-tripdata_processed.csv
 advanced_tutorials/citibike/data/202201-citibike-tripdata_processed.csv
 advanced_tutorials/citibike/citibike_xgb_model/residplot.png
+advanced_tutorials/credit_scores/credit_scores_model/confusion_matrix.png
+advanced_tutorials/credit_scores/credit_scores_model/feature_importance.png
