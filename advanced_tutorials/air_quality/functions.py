@@ -59,10 +59,12 @@ def find_fullest_csv(csv_links: list, year: str):
     return biggest_df
 
 
-def get_air_quality_from_eea(city_name: str,
-                             pollutant: str,
-                             start_year: str,
-                             end_year: str):
+def get_air_quality_from_eea(
+    city_name: str,
+    pollutant: str,
+    start_year: str,
+    end_year: str,
+    ):
     """
     Takes city name, daterange and returns pandas DataFrame with daily air quality data.
     It parses data by 1-year batches, so please specify years, not dates. (example: "2014", "2022"...)
@@ -166,10 +168,12 @@ def get_city_code(city_name: str):
         return get_city_code(city_name)
 
     
-def get_air_quality_from_usepa(city_name: str,
-                               pollutant: str,
-                               start_date: str,
-                               end_date: str):
+def get_air_quality_from_usepa(
+    city_name: str,
+    pollutant: str,
+    start_date: str,
+    end_date: str
+    ):
     """
     Takes city name, daterange and returns pandas DataFrame with daily air quality data.
     
@@ -235,11 +239,13 @@ def make_date_intervals(start_date, end_date):
     return date_intervals
 
 ##################################### Weather Open Meteo
-def get_weather_data_from_open_meteo(city_name: str,
-                                     start_date: str,
-                                     end_date: str,
-                                     coordinates: list = None,
-                                     forecast: bool = False):
+def get_weather_data_from_open_meteo(
+    city_name: str,
+    start_date: str,
+    end_date: str,
+    coordinates: list = None,
+    forecast: bool = False,
+    ):
     """
     Takes [city name OR coordinates] and returns pandas DataFrame with weather data.
     
@@ -257,12 +263,12 @@ def get_weather_data_from_open_meteo(city_name: str,
         'latitude': latitude,
         'longitude': longitude,
         'daily': ["temperature_2m_max", "temperature_2m_min",
-                  "precipitation_sum", "rain_sum", "snowfall_sum",
-                  "precipitation_hours", "windspeed_10m_max",
-                  "windgusts_10m_max", "winddirection_10m_dominant"],
+                "precipitation_sum", "rain_sum", "snowfall_sum",
+                "precipitation_hours", "windspeed_10m_max",
+                "windgusts_10m_max", "winddirection_10m_dominant"],
+        'timezone': "Europe/London",
         'start_date': start_date,
         'end_date': end_date,
-        'timezone': "Europe/London"
     }
     
     if forecast:
@@ -309,11 +315,13 @@ def get_weather_data_from_open_meteo(city_name: str,
 
 
 ##################################### Air Quality data from Open Meteo
-def get_aqi_data_from_open_meteo(city_name: str,
-                                 start_date: str,
-                                 end_date: str,
-                                 coordinates: list = None,
-                                 pollutant: str = "pm2_5"):
+def get_aqi_data_from_open_meteo(
+    city_name: str,
+    start_date: str,
+    end_date: str,
+    coordinates: list = None,
+    pollutant: str = "pm2_5"
+    ):
     """
     Takes [city name OR coordinates] and returns pandas DataFrame with AQI data.
     
@@ -380,4 +388,3 @@ def get_aqi_data_from_open_meteo(city_name: str,
     print(f"Took {round(end_of_cell - start_of_cell, 2)} sec.\n")
     
     return res_df
-
