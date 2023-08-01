@@ -2,10 +2,11 @@
 
 <span style="font-width:bold; font-size: 1.4rem;"> This is a quick-start of the Hopsworks Feature Store; using a fraud use case you will load data into the feature store, create two feature groups from which we will make a training dataset, and train a model. This is an <b>online use case</b>, it will give you a high-level view of how to use our python APIs and the UI to navigate the feature groups, use them to create feature views, training datasets, save and deploy models using Hopsworks Feature Store. </span>
 
-## **🗒️ This Quick introduction is divided into 2 parts:**
-1. How to load, engineer and create feature groups,
-2. How to create training datasets, train, save and deploy model.
-
+## **🗒️ This tutorial is divided into the following parts:**
+1. **Feature Pipeline**: How to load, engineer and create feature groups.
+2. **Training Pipeline**: How to build a feature view, training dataset split, train, save and deploy a model.
+3. **Inference Pipeline**: How to retrieve a trained model from the model registry and use it for online inference.
+4. **Streamlit App**: Build a Streamlit App for interactive predictions.
 
 ## Prerequisites
 To run this tutorial, you need an account on Hopsworks. You can create a new account at  [app.hopsworks.ai](https://app.hopsworks.ai).

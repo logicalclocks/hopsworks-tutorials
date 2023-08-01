@@ -13,11 +13,12 @@
    This is a <b>batch use case</b>, it will give you a high-level view of how to use our python APIs and the UI to navigate the feature groups.
  </span>
 
-## **🗒️ This whole tutorial is divided into 5 parts:**
-1. Backfill Features to the Feature Store,
-2. Create a feature pipeline,
-3. Create Feature view & Training Datasets, train a model and upload it to the Model Registry,
-4. Deploy Streamlit app.
+## **🗒️ This tutorial is divided into the following parts:**
+1. **Feature Backfill**: How to load, engineer and create feature groups.
+2. **Feature Pipeline**: How to parse new data and insert into feature groups.
+3. **Training Pipeline**: How to build a feature view, training dataset split, train a model and save it in the Model Registry.
+4. **Inference Pipeline**: How to retrieve a trained model from the model registry and use it for batch inference.
+5. Deploy a Streamlit app.
 
 
 ## Prerequisites

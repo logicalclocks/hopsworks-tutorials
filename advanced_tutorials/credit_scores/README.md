@@ -8,11 +8,11 @@ Here you can check the data schema ⬇️
 
 ![data_origin](../../images/data_origin.png)
 
-## <span style="color:#ff5f27;">🗒️ This whole tutorial is divided into 5 parts:</span>
-
-1. How to backfill Features to the Feature Store.
-2. How to create a feature pipeline.
-3. How to create Feature View & Training Datasets, train a model and upload it to the Model Registry.
+## **🗒️ This tutorial is divided into the following parts:**
+1. **Feature Backfill**: How to load, engineer and create feature groups.
+2. **Feature Pipeline**: How to generate new data and insert into feature groups.
+3. **Training Pipeline**: How to build a feature view, training dataset split, train a model and save it in the Model Registry.
+4. **Inference Pipeline**: How to retrieve a trained model from the model registry and use it for batch inference.
 
 
 You will load data into the **Feature Store**, create `Feature Groups` from which you will make a `Feature View` and `Training Dataset`.
