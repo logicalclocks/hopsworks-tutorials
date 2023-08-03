@@ -148,7 +148,7 @@ class OrderBook:
                         self.bid_price = price
         return self, {
             "ticker": data["product_id"],
-            "timestamp": datetime.strptime("2023-07-17T18:03:25.947610Z", "%Y-%m-%dT%H:%M:%S.%fZ").replace(
+            "timestamp": datetime.strptime(data["time"], "%Y-%m-%dT%H:%M:%S.%fZ").replace(
                 tzinfo=timezone.utc),
             "bid": self.bid_price,
             "bid_size": self.bids[self.bid_price],

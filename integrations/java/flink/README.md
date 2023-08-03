@@ -16,8 +16,8 @@ For the tutorials to work, you need [managed.hopsworks.ai](https://managed.hopsw
 Hopsworks deployment. Note that this tutorial will not work for [app.hopsworks.ai](https://app.hopsworks.ai) account 
 as submitting custom jobs to [app.hopsworks.ai](https://app.hopsworks.ai) are not supported. 
 
-You can find documentation how to get started on [GCP](https://docs.hopsworks.ai/3.1/setup_installation/gcp/getting_started/),
-[AWS](https://docs.hopsworks.ai/3.1/setup_installation/aws/getting_started/) or on [Azure](https://docs.hopsworks.ai/3.1/setup_installation/azure/getting_started/).
+You can find documentation how to get started on [GCP](https://docs.hopsworks.ai/3.3/setup_installation/gcp/getting_started/),
+[AWS](https://docs.hopsworks.ai/3.3/setup_installation/aws/getting_started/) or on [Azure](https://docs.hopsworks.ai/3.3/setup_installation/azure/getting_started/).
 
 You also need to have configured maven; java 1.8 and git.
 
@@ -33,13 +33,13 @@ Currently, Flink support for Hopsworks feature store is experimental and only wr
 that Feature group metadata needs to be registered in Hopsworks Feature store before you can write real time features computed 
 by Flink.
 
-Full documentation how to create feature group using the HSFS APIs can be found [here](https://docs.hopsworks.ai/3.1/user_guides/fs/feature_group/create/).
+Full documentation how to create feature group using the HSFS APIs can be found [here](https://docs.hopsworks.ai/3.3/user_guides/fs/feature_group/create/).
 
 This tutorial comes with notebook with a code to create feature groups:
 - `. /hopsworks-tutorials/java/flink/setup/1_create_feature_groups.ipynb`
 
-You can execute this notebook directly on Hopsworks cluster. Follow the documentation how to run [spark notebooks](https://docs.hopsworks.ai/3.1/user_guides/projects/jupyter/spark_notebook/)
-and [python notebooks](https://docs.hopsworks.ai/3.1/user_guides/projects/jupyter/python_notebook/).
+You can execute this notebook directly on Hopsworks cluster. Follow the documentation how to run [spark notebooks](https://docs.hopsworks.ai/3.3/user_guides/projects/jupyter/spark_notebook/)
+and [python notebooks](https://docs.hopsworks.ai/3.3/user_guides/projects/jupyter/python_notebook/).
 
 ## Create Kafka topic for data source
 Feature pipeline needs to connect to some data source to read the data to be processed. In this tutorial you will 
@@ -49,15 +49,15 @@ Here is the notebook with code that sets up kafka topic on your Hopsworks cluste
 - `./hopsworks-tutorials/java/flink/setup/2_create_topic_with_schema.ipynb` to create source kafka topic
 
 ## Submit Flink Jobs:
-In this tutorial you will submit Flink job using combination of the [Hopsworks job's](https://docs.hopsworks.ai/hopsworks-api/3.1/generated/api/jobs/) and 
+In this tutorial you will submit Flink job using combination of the [Hopsworks job's](https://docs.hopsworks.ai/hopsworks-api/3.3/generated/api/jobs/) and 
 the [Flink](https://nightlies.apache.org/flink/flink-docs-release-1.17/docs/ops/rest_api/) REST APIs. You need to have Hopsworks Python library installed in your environment:
 
 ```bash
 pip install hopsworks
 ```
 
-Next you need to create [connection](https://docs.hopsworks.ai/hopsworks-api/3.1/generated/api/connection/) with 
-your Hopsworks cluster. For this you need to have Hopsworks cluster host address and [api key](https://docs.hopsworks.ai/3.1/user_guides/projects/api_key/create_api_key/)
+Next you need to create [connection](https://docs.hopsworks.ai/hopsworks-api/3.3/generated/api/connection/) with 
+your Hopsworks cluster. For this you need to have Hopsworks cluster host address and [api key](https://docs.hopsworks.ai/3.3/user_guides/projects/api_key/create_api_key/)
 
 Once you have the above define environment variables: 
 
