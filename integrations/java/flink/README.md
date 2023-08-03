@@ -62,9 +62,9 @@ your Hopsworks cluster. For this you need to have Hopsworks cluster host address
 Once you have the above define environment variables: 
 
 ```bash
-HOPSWORKS_HOST=REPLACE_WITH_YOUR_HOPSWOKRKS_CLUSTER_HOST
+HOPSWORKS_HOST=REPLACE_WITH_YOUR_HOPSWORKS_CLUSTER_HOST
 HOPSWORKS_API_KEY=REPLACE_WITH_YOUR_HOPSWORKS_API_KEY
-HOPSWOERKS_PROJECT_NAME=REPLACE_WITH_YOUR_HOPSWOERKS_PROJECT_NAME
+HOPSWORKS_PROJECT_NAME=REPLACE_WITH_YOUR_HOPSWORKS_PROJECT_NAME
 ```
 
 ### Simulate card transactions and write to source topic
@@ -72,7 +72,7 @@ Run the following command to produce raw card transactions and sync to topic `cr
 used as a source for real time feature engineering pipeline: 
 
 ```bash
-python3 ./flink/jobs_flink_client.py --host $HOPSWORKS_HOST --api_key $HOPSWORKS_API_KEY --project $HOPSWOERKS_PROJECT_NAME --job transactionSource --jar ./flink/target/flink-3.3.0-SNAPSHOT.jar --main "com.hopsworks.tutorials.flink.fraud.SimProducer" --job_arguments "-topicName credit_card_transactions -batchSize 1"
+python3 ./flink/jobs_flink_client.py --host $HOPSWORKS_HOST --api_key $HOPSWORKS_API_KEY --project $HOPSWORKS_PROJECT_NAME --job transactionSource --jar ./flink/target/flink-3.3.0-SNAPSHOT.jar --main "com.hopsworks.tutorials.flink.fraud.SimProducer" --job_arguments "-topicName credit_card_transactions -batchSize 1"
 ```
 
 ### Real time feature engineering in Flink
@@ -140,7 +140,7 @@ To submit flink pipeline that computes aggregates on 10 minute window and writes
 feature group execute the following command.
 
 ```bash
-python3 ./flink/jobs_flink_client.py --host $HOPSWORKS_HOST --api_key $HOPSWORKS_API_KEY --project $HOPSWOERKS_PROJECT_NAME --job transactionConsumer --jar ./flink/target/flink-3.3.0-SNAPSHOT.jar --main "com.hopsworks.tutorials.flink.TransactionFraudExample" --job_arguments "-featureGroupName card_transactions_10m_agg -featureGroupVersion 1 -sourceTopic credit_card_transactions -windowLength 10"
+python3 ./flink/jobs_flink_client.py --host $HOPSWORKS_HOST --api_key $HOPSWORKS_API_KEY --project $HOPSWORKS_PROJECT_NAME --job transactionConsumer --jar ./flink/target/flink-3.3.0-SNAPSHOT.jar --main "com.hopsworks.tutorials.flink.TransactionFraudExample" --job_arguments "-featureGroupName card_transactions_10m_agg -featureGroupVersion 1 -sourceTopic credit_card_transactions -windowLength 10"
 ```
 
 #### Backfill feature data to offline feature group
@@ -149,5 +149,5 @@ primary key(s). To save historical data for batch data analysis or model trainin
 You can do this from Hopsworks jobs UI or run the following command: 
 
 ```bash
-python3 ./flink/backfill_job_client.py --host $HOPSWORKS_HOST --api_key $HOPSWORKS_API_KEY --project $HOPSWOERKS_PROJECT_NAME --jobname card_transactions_10m_agg_1_offline_fg_backfill
+python3 ./flink/backfill_job_client.py --host $HOPSWORKS_HOST --api_key $HOPSWORKS_API_KEY --project $HOPSWORKS_PROJECT_NAME --jobname card_transactions_10m_agg_1_offline_fg_backfill
 ```

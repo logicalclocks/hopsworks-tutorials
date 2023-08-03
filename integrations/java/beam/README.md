@@ -64,9 +64,9 @@ have Hopsworks cluster host address, hopsworks project name and [api key](https:
 Once you have the above define environment variables:
 
 ```bash
-HOPSWORKS_HOST=REPLACE_WITH_YOUR_HOPSWOKRKS_CLUSTER_HOST
+HOPSWORKS_HOST=REPLACE_WITH_YOUR_HOPSWORKS_CLUSTER_HOST
 HOPSWORKS_API_KEY=REPLACE_WITH_YOUR_HOPSWORKS_API_KEY
-HOPSWOERKS_PROJECT_NAME=REPLACE_WITH_YOUR_HOPSWOERKS_PROJECT_NAME
+HOPSWORKS_PROJECT_NAME=REPLACE_WITH_YOUR_HOPSWORKS_PROJECT_NAME
 ```
 
 You will write real time feature data to feature group `taxi_ride` version `1`.
@@ -142,7 +142,7 @@ mvn compile exec:java \
   -Dexec.args="\
     --hopsworksHost=$HOPSWORKS_HOST \
     --hopsworksApi=$HOPSWORKS_API_KEY \
-    --hopsworksProject=$HOPSWOERKS_PROJECT_NAME \
+    --hopsworksProject=$HOPSWORKS_PROJECT_NAME \
     --featureGroupName=$FEATURE_GROUP_NAME \
     --featureGroupVersion=$FEATURE_GROUP_VERSION \
     --inputTopic=$SOURCE_TOPIC \
@@ -162,7 +162,7 @@ pip install hopsworks
 
 Then execute the following command:
 ```bash
-python3 ./backfill_job_client.py --host $HOPSWORKS_HOST --api_key $HOPSWORKS_API_KEY --project $HOPSWOERKS_PROJECT_NAME --jobname taxi_ride_1_offline_fg_backfill
+python3 ./backfill_job_client.py --host $HOPSWORKS_HOST --api_key $HOPSWORKS_API_KEY --project $HOPSWORKS_PROJECT_NAME --jobname taxi_ride_1_offline_fg_backfill
 ```
 
 ## Cleanup to avoid incurring charges to your GCP account for the resources created in this tutorial:
