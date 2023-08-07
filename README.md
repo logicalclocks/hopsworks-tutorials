@@ -62,7 +62,7 @@ In order to understand the tutorials you need to be familiar with general concep
     - [Apache Flink](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/java/flink): Real time feature computation using Apache Flink and Hopsworks Feature Store.
    
 
-## Feedbacks & Comments:
+## 📝 Feedbacks & Comments:
 We welcome feedbacks and suggestions, you can contact us on any of the following channels:
 - Our [Support Forum](https://community.hopsworks.ai/),
 - Directly on this [github repository](https://github.com/logicalclocks/hopsworks-tutorials),
