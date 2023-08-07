@@ -2,9 +2,8 @@ name: test-tutorials-python-39
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - 'master'
+  pull_request_review:
+    types: [submitted]
 
 jobs:
   test_schedule:
