@@ -35,12 +35,20 @@ In order to understand the tutorials you need to be familiar with general concep
 ## 🗄️ Table of Content:
 
 - Basic Tutorials:
-    - Churn: Predict customers that are at risk of churning.
-    - Fraud Batch: Detect Fraud Transactions (Batch use case).
+    - [QuickStart](https://github.com/logicalclocks/hopsworks-tutorials/blob/master/quickstart.ipynb): Introductory tutorial to get started quickly.
+    - [Churn](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/churn): Predict customers that are at risk of churning.
+    - [Fraud Batch](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/fraud_batch): Detect Fraud Transactions (Batch use case).
     - [Fraud Online](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/fraud_online): Detect Fraud Transactions (Online use case).
     - [Iris](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/iris): Classify iris flower species.
-    - [Loan Approval](): Predict loan approvals.
-    - [QuickStart](https://github.com/logicalclocks/hopsworks-tutorials/blob/master/quickstart.ipynb): QuickStart Tutorial.
+    - [Loan Approval](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/loan_approval): Predict loan approvals.
+- Advanced Tutorials:
+    - [Air Quality](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/advanced_tutorials/air_quality): Predict the Air Quality value (PM2.5) in Europe and USA using weather features and air quality features of the previous days.
+    - [Bitcoin](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/advanced_tutorials/bitcoin): Predict Bitcoin price using timeseries features and tweets sentiment analysis.
+    - [Citibike][https://github.com/logicalclocks/hopsworks-tutorials/tree/master/advanced_tutorials/citibike]: Predict the number of citibike users on each citibike station in the New York City.
+    - [Credit Scores](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/advanced_tutorials/credit_scores): Predict clients' repayment abilities.
+    - [Electricity](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/advanced_tutorials/electricity): Predict the electricity prices in several Swedish cities based on weather conditions, previous prices, and Swedish holidays.
+    - [NYC Taxi Fares](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/advanced_tutorials/nyc_taxi_fares): Predict the fare amount for a taxi ride in New York City given the pickup and dropoff locations.
+   
 
 ## Feedbacks & Comments:
 We welcome feedbacks and suggestions, you can contact us on any of the following channels:
