@@ -48,6 +48,18 @@ In order to understand the tutorials you need to be familiar with general concep
     - [Credit Scores](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/advanced_tutorials/credit_scores): Predict clients' repayment abilities.
     - [Electricity](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/advanced_tutorials/electricity): Predict the electricity prices in several Swedish cities based on weather conditions, previous prices, and Swedish holidays.
     - [NYC Taxi Fares](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/advanced_tutorials/nyc_taxi_fares): Predict the fare amount for a taxi ride in New York City given the pickup and dropoff locations.
+- Integrations:
+    - [BigQuery Storage Connector](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/big_query): Create an External Feature Group using BigQuery Storage Connector.
+    - [Google Cloud Storage](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/gcs): Create an External Feature Group using GCS Storage Connector.
+    - [Redshift](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/redshift): Create an External Feature Group using Redshift Storage Connector.
+    - [Snowflake](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/snowflake): Create an External Feature Group using Snowflake Storage Connector.
+    - [DBT Tutorial with BigQuery](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/dbt_bq): Perform feature engineering in DBT on BigQuery.
+    - [WandB](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/wandb): Build a machine learning model with Weights & Biases.
+    - [Great Expectations](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/great_expectations): Introduction to Great Expectations concepts and classes which are relevant for integration with the Hopsworks MLOps platform.
+    - [Monitoring](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/monitoring): How to implement feature monitoring in your production pipeline.
+    - [Bytewax](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/bytewax): Real time feature computation using Bytewax.
+    - [Apache Beam](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/java/beam): Real time feature computation using Apache Beam, Google Cloud Dataflow and Hopsworks Feature Store.
+    - [Apache Flink](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/java/flink): Real time feature computation using Apache Flink and Hopsworks Feature Store.
    
 
 ## Feedbacks & Comments:
