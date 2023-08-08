@@ -1,4 +1,4 @@
-name: test-tutorials-python-37
+name: test-tutorials-python-310
 
 on:
   workflow_dispatch:
@@ -15,7 +15,7 @@ jobs:
       - name: setup python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.7.14'
+          python-version: '3.10'
           
       - name: install python packages
         run: |
@@ -24,6 +24,6 @@ jobs:
           
       - name: execute python workflows from bash script
         env: 
-          HOPSWORKS_API_KEY: ${{ secrets.HOPSWORKS_API_KEY_37 }}
+          HOPSWORKS_API_KEY: ${{ secrets.HOPSWORKS_API_KEY_310 }}
         run: ./scripts/test-notebooks.sh
 
