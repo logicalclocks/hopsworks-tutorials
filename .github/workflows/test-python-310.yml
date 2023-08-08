@@ -2,9 +2,10 @@ name: test-tutorials-python-310
 
 on:
   workflow_dispatch:
-  pull_request_review:
-    types: [submitted]
-
+  push:
+    branches:
+      - 'master'
+      
 jobs:
   test_schedule:
     runs-on: ubuntu-latest
