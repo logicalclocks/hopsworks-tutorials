@@ -6,8 +6,11 @@ python-dotenv
 parsedatetime
 hsfs[python]
 hopsworks
+jupyter
+ipykernel
 nbconvert
 scikit-learn
+gradio
 plotly
 Pillow
 seaborn
