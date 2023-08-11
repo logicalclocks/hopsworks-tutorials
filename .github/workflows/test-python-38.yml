@@ -26,5 +26,6 @@ jobs:
       - name: execute python workflows from bash script
         env: 
           HOPSWORKS_API_KEY: ${{ secrets.HOPSWORKS_API_KEY_38 }}
+          WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
         run: ./scripts/test-notebooks.sh
 
