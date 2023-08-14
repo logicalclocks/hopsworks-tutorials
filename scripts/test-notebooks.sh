@@ -74,3 +74,31 @@ jupyter nbconvert --to notebook --execute nyc_taxi_fares/4_nyc_taxi_fares_batch_
 
 # Remove any FGs, FVs, Models, Deployments
 jupyter nbconvert --to notebook --execute ../scripts/cleanup-tutorials.ipynb
+
+# Move to transformation_functions folder
+cd transformation_functions
+
+# Keras TF
+jupyter nbconvert --to notebook --execute keras/keras_transformation_functions.ipynb
+
+# Remove any FGs, FVs, Models, Deployments
+jupyter nbconvert --to notebook --execute ../../scripts/cleanup-tutorials.ipynb
+
+# PyTorch TF
+jupyter nbconvert --to notebook --execute pytorch/pytorch_transformation_functions.ipynb
+
+# Remove any FGs, FVs, Models, Deployments
+jupyter nbconvert --to notebook --execute ../../scripts/cleanup-tutorials.ipynb
+
+# Sklearn TF
+jupyter nbconvert --to notebook --execute sklearn/sklearn_transformation_functions.ipynb
+
+# Remove any FGs, FVs, Models, Deployments
+jupyter nbconvert --to notebook --execute ../../scripts/cleanup-tutorials.ipynb
+
+# Custom TF
+python custom/transformations.py
+jupyter nbconvert --to notebook --execute custom/custom_transformation_functions.ipynb
+
+# Remove any FGs, FVs, Models, Deployments
+jupyter nbconvert --to notebook --execute ../../scripts/cleanup-tutorials.ipynb
