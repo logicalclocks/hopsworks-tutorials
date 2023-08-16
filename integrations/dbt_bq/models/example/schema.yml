@@ -5,10 +5,16 @@ models:
   - name: read_bigquery_data
     description: "Reads data from BigQuery"
 
+  - name: feature_group_creation
+    description: "Create an Online Feature Group"
+
   - name: data_pipeline
-    description: "Parse Weather data"
+    description: "Parse Data"
+
+  - name: fg_insert
+    description: "Insert parsed data into Online Feature Group"
 
   - name: big_query_insert
-    description: "Inserts parsed data into BigQuery"
+    description: "Insert parsed data into BigQuery"
  
 
