@@ -1,0 +1,76 @@
+name: test-tutorials-python
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'master'
+
+jobs:
+  test_tutorials38:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo content
+        uses: actions/checkout@v3
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+          
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          
+      - name: Execute Python workflows from bash script
+        env: 
+          HOPSWORKS_API_KEY: ${{ secrets.HOPSWORKS_API_KEY_38 }}
+          WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
+        run: ./scripts/test-notebooks.sh
+
+  test_tutorials39:
+    needs: test_tutorials38
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo content
+        uses: actions/checkout@v3
+
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+          
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          
+      - name: Execute Python workflows from bash script
+        env: 
+          HOPSWORKS_API_KEY: ${{ secrets.HOPSWORKS_API_KEY_38 }}
+          WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
+        run: ./scripts/test-notebooks.sh
+
+  test_tutorials310:
+    needs: test_tutorials39
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v3
+
+      - name: setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.10'
+          
+      - name: install python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          
+      - name: execute python workflows from bash script
+        env: 
+          HOPSWORKS_API_KEY: ${{ secrets.HOPSWORKS_API_KEY_38 }}
+          WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
+        run: ./scripts/test-notebooks.sh

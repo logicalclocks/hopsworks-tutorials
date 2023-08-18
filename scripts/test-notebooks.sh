@@ -75,8 +75,8 @@ jupyter nbconvert --to notebook --execute nyc_taxi_fares/4_nyc_taxi_fares_batch_
 # Remove any FGs, FVs, Models, Deployments
 jupyter nbconvert --to notebook --execute ../scripts/cleanup-tutorials.ipynb
 
-# Move to transformation_functions folder
-cd transformation_functions
+# Go to transformation_functions folder
+cd transformation_functions 
 
 # Keras TF
 jupyter nbconvert --to notebook --execute keras/keras_transformation_functions.ipynb
