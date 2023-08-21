@@ -10,14 +10,12 @@ jupyter
 ipykernel
 nbconvert
 scikit-learn
-gradio
 plotly
 Pillow
 seaborn
 xgboost
 joblib==1.1.0
 textblob
-vaderSentiment
-tweepy
 tensorflow
+torch
 geopy
