@@ -1,6 +1,3 @@
-# Imports
-import hsfs
-
 def model(dbt, session):
     # Setup cluster usage
     dbt.config(
