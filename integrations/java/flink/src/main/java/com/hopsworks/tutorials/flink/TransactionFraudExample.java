@@ -29,13 +29,15 @@ public class TransactionFraudExample {
   
   private Utils customUtils = new Utils();
   
-  public void run(String featureGroupName, Integer featureGroupVersion, String sourceTopic, Integer windowLength)
+  public void run(String featureGroupName, Integer featureGroupVersion, String sourceTopic, Integer windowLength,
+    Integer parallelism)
     throws Exception {
     
     Duration maxOutOfOrderness = Duration.ofSeconds(60);
     
     // define flink env
     StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+    env.setParallelism(parallelism);
     env.getConfig().enableObjectReuse();
     env.enableCheckpointing(30000);
     
@@ -102,6 +104,12 @@ public class TransactionFraudExample {
       .required(true)
       .hasArg()
       .build());
+  
+    options.addOption(Option.builder("parallelism")
+      .argName("parallelism")
+      .required(true)
+      .hasArg()
+      .build());
     
     CommandLineParser parser = new DefaultParser();
     CommandLine commandLine = parser.parse(options, args);
@@ -110,8 +118,9 @@ public class TransactionFraudExample {
     Integer featureGroupVersion = Integer.parseInt(commandLine.getOptionValue("featureGroupVersion"));
     String sourceTopic = commandLine.getOptionValue("sourceTopic");
     Integer windowLength = Integer.parseInt(commandLine.getOptionValue("windowLength"));
+    Integer parallelism = Integer.parseInt(commandLine.getOptionValue("parallelism"));
     
     TransactionFraudExample transactionFraudExample = new TransactionFraudExample();
-    transactionFraudExample.run(featureGroupName, featureGroupVersion, sourceTopic, windowLength);
+    transactionFraudExample.run(featureGroupName, featureGroupVersion, sourceTopic, windowLength, parallelism);
   }
 }
