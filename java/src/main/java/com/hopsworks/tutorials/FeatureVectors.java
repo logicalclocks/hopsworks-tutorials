@@ -3,12 +3,13 @@ package com.hopsworks.tutorials;
 import com.logicalclocks.hsfs.FeatureStore;
 import com.logicalclocks.hsfs.FeatureView;
 import com.logicalclocks.hsfs.HopsworksConnection;
+import com.logicalclocks.hsfs.SecretStore;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class FeatureVectorBenchMarks {
+public class FeatureVectors {
   
   public static void main(String[] args) throws Exception {
   
@@ -20,6 +21,7 @@ public class FeatureVectorBenchMarks {
   
     FeatureStore fs = HopsworksConnection.builder()
       .host(host)
+      .port(8181)
       .project(projectName)
       .apiKeyValue(apiKey)
       .hostnameVerification(false)

@@ -65,7 +65,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>com.hopsworks.tutorials.FeatureVectorBenchMarks</mainClass>
+              <mainClass>com.hopsworks.tutorials.FeatureVectors</mainClass>
             </manifest>
           </archive>
         </configuration>
@@ -78,7 +78,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>com.hopsworks.tutorials.FeatureVectorBenchMarks</mainClass>
+              <mainClass>com.hopsworks.tutorials.FeatureVectors</mainClass>
             </manifest>
           </archive>
           <!-- get all project dependencies -->

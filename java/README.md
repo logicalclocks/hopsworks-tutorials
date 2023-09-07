@@ -4,8 +4,6 @@
 In this tutorial you will learn how to fetch feature vectors from online feature store for near real-time model serving
 using external java application. 
 
-
-
 ## Clone tutorials repository
 This section requires maven; java 1.8 and git.
 
