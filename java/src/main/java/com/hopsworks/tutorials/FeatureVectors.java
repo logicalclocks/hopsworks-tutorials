@@ -21,7 +21,6 @@ public class FeatureVectors {
   
     FeatureStore fs = HopsworksConnection.builder()
       .host(host)
-      .port(8181)
       .project(projectName)
       .apiKeyValue(apiKey)
       .hostnameVerification(false)
