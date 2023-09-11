@@ -72,7 +72,7 @@ Run the following command to produce raw card transactions and sync to topic `cr
 used as a source for real time feature engineering pipeline: 
 
 ```bash
-python3 ./flink/jobs_flink_client.py --host $HOPSWORKS_HOST --api_key $HOPSWORKS_API_KEY --project $HOPSWORKS_PROJECT_NAME --job transactionSource --jar ./flink/target/flink-3.3.0-SNAPSHOT.jar --main "com.hopsworks.tutorials.flink.fraud.SimProducer" --job_arguments "-topicName credit_card_transactions -batchSize 1"
+python3 ./flink/jobs_flink_client.py --host $HOPSWORKS_HOST --api_key $HOPSWORKS_API_KEY --project $HOPSWORKS_PROJECT_NAME --job transactionSource --jar ./flink/target/flink-3.4.0-SNAPSHOT.jar --main "com.hopsworks.tutorials.flink.fraud.SimProducer" --job_arguments "-topicName credit_card_transactions -batchSize 1 -parallelism 1"
 ```
 
 ### Real time feature engineering in Flink
@@ -140,7 +140,7 @@ To submit flink pipeline that computes aggregates on 10 minute window and writes
 feature group execute the following command.
 
 ```bash
-python3 ./flink/jobs_flink_client.py --host $HOPSWORKS_HOST --api_key $HOPSWORKS_API_KEY --project $HOPSWORKS_PROJECT_NAME --job transactionConsumer --jar ./flink/target/flink-3.3.0-SNAPSHOT.jar --main "com.hopsworks.tutorials.flink.TransactionFraudExample" --job_arguments "-featureGroupName card_transactions_10m_agg -featureGroupVersion 1 -sourceTopic credit_card_transactions -windowLength 10"
+python3 ./flink/jobs_flink_client.py --host $HOPSWORKS_HOST --api_key $HOPSWORKS_API_KEY --project $HOPSWORKS_PROJECT_NAME --job transactionConsumer --jar ./flink/target/flink-3.4.0-SNAPSHOT.jar --main "com.hopsworks.tutorials.flink.TransactionFraudExample" --job_arguments "-featureGroupName card_transactions_10m_agg -featureGroupVersion 1 -sourceTopic credit_card_transactions -windowLength 10 -parallelism 1"
 ```
 
 #### Backfill feature data to offline feature group

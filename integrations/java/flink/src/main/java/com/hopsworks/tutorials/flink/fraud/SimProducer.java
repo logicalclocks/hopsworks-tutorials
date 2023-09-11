@@ -21,11 +21,11 @@ public class SimProducer {
   private static final Logger LOG = LoggerFactory.getLogger(SimProducer.class);
 
   Utils utils = new Utils();
-  public void run(String topicName, Integer batchSize) throws Exception {
+  public void run(String topicName, Integer batchSize, Integer parallelism) throws Exception {
     
     // set up streaming execution environment
     StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-    env.setParallelism(1);
+    env.setParallelism(parallelism);
   
     DataStream<SourceTransaction> simEvens =
       env.addSource(new TransactionEventSimulator(batchSize)).keyBy(r -> r.getCcNum());
@@ -61,14 +61,21 @@ public class SimProducer {
       .required(true)
       .hasArg()
       .build());
+  
+    options.addOption(Option.builder("parallelism")
+      .argName("parallelism")
+      .required(true)
+      .hasArg()
+      .build());
     
     CommandLineParser parser = new DefaultParser();
     CommandLine commandLine = parser.parse(options, args);
     
     String topicName = commandLine.getOptionValue("topicName");
     Integer batchSize = Integer.parseInt(commandLine.getOptionValue("batchSize"));
+    Integer parallelism = Integer.parseInt(commandLine.getOptionValue("parallelism"));
     
     SimProducer simProducer = new SimProducer();
-    simProducer.run(topicName, batchSize);
+    simProducer.run(topicName, batchSize, parallelism);
   }
 }
