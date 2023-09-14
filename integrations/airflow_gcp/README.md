@@ -12,19 +12,17 @@ Feature Pipeline consists of two steps:
 
 You will schedule your Feature Pipeline to run daily.
 
-### <span style='color:#ff5f27'> 🏡 Service Account Setup </span>
+### <span style='color:#ff5f27'>👮🏻‍♂️ Service Account Setup </span>
 
 To create a service account follow the next navigation: IAM & Admin → Service Accounts → Create Service Account.
 
-Grant your service account the next roles:
+Grant your service account the next role:
 
 - Dataflow Worker
 
 ### <span style='color:#ff5f27'> 🏡 VM instance Setup </span>
 
 You can find the code to create the VM instance in the `provision.sh`.
-
-Update `provision.sh` with your information.
 
 To make `provision.sh` file executable, run the following command:
 
@@ -95,7 +93,9 @@ pip install hopsworks
 
 To verify that the **hopsworks** library is correctly installed, use the next command:
 
-`pip show hopsworks`
+```
+pip show hopsworks
+```
 
 Great, your VM instance is ready! 📈 🎉
 
@@ -128,7 +128,9 @@ Then press the **Edit** button and add the firewall rule you created.
 
 Go back to the terminal and start the Web Server using the next command:
 
-`airflow webserver -p 8080`
+```
+airflow webserver -p 8080
+```
 
 > ⚠️ Leave your terminal running and open a new one.
 
@@ -186,5 +188,12 @@ Refresh your Airflow UI page. Now you should see newly created **Feature_Pipelin
 Activate(1) the **Feature_Pipeline** DAG and then trigger(2) it. The green circle(3) means that run was successful.
 
 ![dag_run](images/dag_run.png)
+
+In the Hopsworks UI you can see that the **Weather Feature Group** is successfully created.
+
+![fg](images/fg.png)
+
+![data_preview](images/data_preview.png)
+
 
 Congratulations! You successfully scheduled your Feature Pipeline using Airflow with GCP! 🥳 🎉
