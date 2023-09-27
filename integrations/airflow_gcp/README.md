@@ -14,9 +14,9 @@ You will schedule your Feature Pipeline to run daily.
 
 ### <span style='color:#ff5f27'>👮🏻‍♂️ Service Account Setup </span>
 
-To create a service account follow the next navigation: IAM & Admin → Service Accounts → Create Service Account.
+To create a service account in GCP console go to IAM & Admin → Service Accounts → Create Service Account.
 
-Grant your service account the next role:
+Grant your service account the following role:
 
 - Dataflow Worker
 
@@ -34,7 +34,7 @@ Now you should see your cluster. Press `SSH connect` to open a terminal.
 
 ![instance](images/instance.png)
 
-Type `python3 -V` to make sure everything is correct.
+Type `python3 -V` to make sure Python is installed (You should see your Python version).
 
 The next step is to install miniconda and create a virtual environment.
 
