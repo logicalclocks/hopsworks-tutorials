@@ -42,9 +42,9 @@ public class FeatureVectors {
     List<List<Object>> batchVector = fv.getFeatureVectors(productIdGenerator(160));
     
     // print results
+    System.out.println("Feature values from batch lookup");
     for (List<Object> vector: batchVector) {
-      System.out.println("Feature values from batch lookup");
-      vector.stream().forEach(System.out::println);
+      System.out.println("[" + Joiner.on(", ").join(vector) + "]");
     }
   }
   
