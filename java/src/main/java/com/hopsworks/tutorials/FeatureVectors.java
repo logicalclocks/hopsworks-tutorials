@@ -35,7 +35,7 @@ public class FeatureVectors {
       put("product_id", productIdGenerator());
     }});
     System.out.println("Feature values from single vector lookup");
-    singleVector.stream().forEach(System.out::println);
+    System.out.println("[" + Joiner.on(", ").join(singleVector) + "]");
   
     // batch lookup sering vector
     fv.initServing(true, true);
