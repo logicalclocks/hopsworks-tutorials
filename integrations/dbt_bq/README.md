@@ -5,10 +5,6 @@ This tutorial shows you how to perform feature engineering in DBT on BigQuery, s
 
 ![pipeline](images/pipeline.png)
 
-### <span style='color:#ff5f27'> 🔮 Hopsworks BigQuery Storage Connector Setup </span>
-
-Follow this [guide](https://docs.hopsworks.ai/3.0/user_guides/fs/storage_connector/creation/bigquery/) to set up a connection to BigQuery.
-
 ### <span style='color:#ff5f27'> 🏡 Dataproc Cluster Setup </span>
 
 First, you need to setup a Dataproc (Spark) cluster that will run the Python model in our DBT workflow. The Python model will write to the online feature store in Hopsworks.
@@ -55,7 +51,7 @@ Next, you need to set up a new project. Name it and press continue.
 
 Choose the BigQuery connection.
 
-Then upload your **Service Account JSON file**, define a Google Cloud **Storage Bucket name**, **Dataproc Region** and **Dataproc Cluster name**.
+Then upload your **Service Account JSON file**, define a Google Cloud **Storage Bucket name**, **Dataproc Region** and **Dataproc Cluster name**. Set the **Job Execution Timeout Seconds** parameter to **800**.
 
 Press **Test Connection**.
 
@@ -66,7 +62,9 @@ Great! Your project is ready!📈
 
 ### <span style='color:#ff5f27'> 🏃🏻‍♂️ Run DBT </span>
 
-Fill in `read_bigquery_data.sql`, `data_pipeline.py` files with your feature engineering code and push changes on your GitHub repository.
+Create a new branch.
+
+Fill in model files with your credentials and push changes on your GitHub repository.
 
 Use the next command in the DBT terminal to run DBT models pipeline:
 
@@ -79,11 +77,15 @@ Use the next command in the DBT terminal to run DBT models pipeline:
 
 Press the `Deploy` button at the top left corner and then press `Environments`.
 
-Create a new environment, pass environment name and BigQuery table name where DBT models will be stored. Press **Save**.
+Create a new environment, pass environment name.
 
-Press `Create Job` button.
+Press **Only run on a custom branch** and then pass your branch name.
 
-Add job name, select environment. In `Run Timeout` pass **900**.
+Pass the BigQuery table name where DBT models are stored. Press **Save**.
+
+Press `Create Job` and the `Deploy Job` button.
+
+Add job name, select environment.
 
 In `Commands` pass the next: `dbt build --select data_pipeline+`. 
 
@@ -91,6 +93,10 @@ This command will run `data_pipeline` model and all models that follow it in ord
 
 Then select `Run on Schedule` and choose the desired schedule.
 
+In **Advanced Settings** set the `Run Timeout` to **900**.
+
 Press `Save` and that's it!
+
+To run your pipeline, press the `Run Now` button.
 
 Now your feature pipeline is scheduled.

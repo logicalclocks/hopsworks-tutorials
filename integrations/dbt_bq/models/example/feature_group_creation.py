@@ -13,7 +13,10 @@ def model(dbt, session):
     my_sql_model_df = dbt.ref("read_bigquery_data")
 
     # Convert timestamp column to long type
-    my_sql_model_df = my_sql_model_df.withColumn("base_time", unix_timestamp(my_sql_model_df["base_time"]).cast("long"))
+    my_sql_model_df = my_sql_model_df.withColumn(
+        "base_time", 
+        unix_timestamp(my_sql_model_df["base_time"]).cast("long")
+        )
 
     # Pring a type of the model(Pyspark DataFrame)
     print(type(my_sql_model_df))

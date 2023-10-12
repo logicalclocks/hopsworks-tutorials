@@ -16,7 +16,7 @@ def model(dbt, session):
 
     # Write data to BigQuery table
     data_pipeline.write.format('bigquery') \
-        .option('table', 'weather_data_demo.weather_data_demo_table') \
+        .option('table', '{YOUR_DATASET_NAME}.{YOUR_TABLE_NAME}') \
         .mode('append') \
         .save()
 
