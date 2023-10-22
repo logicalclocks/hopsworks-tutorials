@@ -11,17 +11,7 @@ You will also
 - create feature group using the HSFS APIs.
 - Backfill feature data to offline feature group.
 
-## Before you begin
-For the tutorials to work, you need:
-- Hopsworks account
-[managed.hopsworks.ai](https://managed.hopsworks.ai) account or on premise Hopsworks deployment. Note that this tutorial 
-will not work for [app.hopsworks.ai](https://app.hopsworks.ai) account as submitting custom jobs to 
-[app.hopsworks.ai](https://app.hopsworks.ai) are not supported.
-
-You can find documentation how to get started on [GCP](https://docs.hopsworks.ai/3.3/setup_installation/gcp/getting_started/),
-[AWS](https://docs.hopsworks.ai/3.3/setup_installation/aws/getting_started/) or on [Azure](https://docs.hopsworks.ai/3.3/setup_installation/azure/getting_started/).
-
-Ensure that
+## Before you begin Ensure that:
 
 - Google Cloud CLI is installed.
 - You Have Google Cloud account
@@ -33,22 +23,19 @@ You also need to have configured maven; java 1.8 and git.
 ## Clone tutorials repository
 ```bash
 git clone https://github.com/logicalclocks/hopsworks-tutorials
-cd ./hopsworks-tutorials/integrations/java
+cd ./hopsworks-tutorials/integrations/java/beam
 mvn clean package
 ```
 
-## Create Feature Groups
+## Create a Feature Group
 Currently, Beam support for Hopsworks feature store is experimental and only write operation is supported. This means
 that Feature group metadata needs to be registered in Hopsworks Feature store before you can write real time features computed
-by Beam.
+by Bytewax.
 
-Full documentation how to create feature group using HSFS APIs can be found [here](https://docs.hopsworks.ai/3.3/user_guides/fs/feature_group/create/).
+Full documentation how to create feature group using HSFS APIs can be found [here](https://docs.hopsworks.ai/3.4/user_guides/fs/feature_group/create/).
 
-This tutorial comes with notebook to create feature group:
-- `. /hopsworks-tutorials/java/beam/setup/1_create_taxi_feature_group.ipynb`
-
-You can execute this notebook directly on Hopsworks cluster. Follow the documentation how to run [spark notebooks](https://docs.hopsworks.ai/3.3/user_guides/projects/jupyter/spark_notebook/)
-and [python notebooks](https://docs.hopsworks.ai/3.3/user_guides/projects/jupyter/python_notebook/).
+This tutorial comes with a python program to create a feature group:
+- `python ./setup/feature_group.py`
 
 ## Data source
 Feature pipeline needs to connect to some data source to read the data to be processed. In this tutorial you will
@@ -64,7 +51,7 @@ have Hopsworks cluster host address, hopsworks project name and [api key](https:
 Once you have the above define environment variables:
 
 ```bash
-HOPSWORKS_HOST=REPLACE_WITH_YOUR_HOPSWORKS_CLUSTER_HOST
+HOPSWORKS_HOST=app.hopsworks.ai
 HOPSWORKS_API_KEY=REPLACE_WITH_YOUR_HOPSWORKS_API_KEY
 HOPSWORKS_PROJECT_NAME=REPLACE_WITH_YOUR_HOPSWORKS_PROJECT_NAME
 ```
@@ -95,7 +82,7 @@ Currently, Beam pipelines for Hopsworks Feature store are supported only in Java
 your aggregation result is encapsulated in `org.apache.beam.sdk.values.Row` class and that it has the same schema as 
 the feature group you are writing into. 
 
-For example when you executed code in notebook `1_create_taxi_feature_group.ipynb` you created feature group
+For example when you executed python code `./setup/feature_group.py` you created feature group
 `taxi_ride` that has the following schema:
 
 ```
@@ -135,7 +122,6 @@ In the `com.hopsworks.tutorials.beam.TaxiRideInsertStream` you will find end to 
 To submit beam pipeline and write real time features to`taxi_ride` feature group execute the following command.
 
 ```bash
-cd ./hopsworks-tutorials/integrations/java/beam
 mvn compile exec:java \
   -Dexec.mainClass=com.hopsworks.tutorials.beam.TaxiRideInsertStream \
   -Dexec.cleanupDaemonThreads=false \
@@ -162,7 +148,7 @@ pip install hopsworks
 
 Then execute the following command:
 ```bash
-python3 ./backfill_job_client.py --host $HOPSWORKS_HOST --api_key $HOPSWORKS_API_KEY --project $HOPSWORKS_PROJECT_NAME --jobname taxi_ride_1_offline_fg_backfill
+python3 ./materialization_job_client.py --api_key $HOPSWORKS_API_KEY --jobname ${FEATURE_GROUP_NAME}_${FEATURE_GROUP_VERSION}_offline_fg_materialization
 ```
 
 ## Cleanup to avoid incurring charges to your GCP account for the resources created in this tutorial:
