@@ -12,31 +12,17 @@ You will also
 - Backfill feature data to an offline feature group.
 
 ## Before you begin
-For the tutorials to work, you need:
-- Hopsworks account
-[managed.hopsworks.ai](https://managed.hopsworks.ai) account or on premise Hopsworks deployment. Note that this tutorial 
-will not work for [app.hopsworks.ai](https://app.hopsworks.ai) account as submitting custom jobs to 
-[app.hopsworks.ai](https://app.hopsworks.ai) are not supported.
-
-You can find documentation on how to get started on [GCP](https://docs.hopsworks.ai/3.1/setup_installation/gcp/getting_started/),
-[AWS](https://docs.hopsworks.ai/3.1/setup_installation/aws/getting_started/) or on [Azure](https://docs.hopsworks.ai/3.1/setup_installation/azure/getting_started/).
-
-Install the required python libraries 
+For the tutorials to work, you need to Install the required python libraries 
 ```bash
 pip install hopsworks
 pip install bytewax
 pip install websocket-client
 ```
 
-you also need  to have Hopsworks cluster host address, hopsworks project name and 
-[api key](https://docs.hopsworks.ai/3.1/user_guides/projects/api_key/create_api_key/)
-
-Once you have the above, define the following environment variables:
+Once you have the above, define the following environment variable:
 
 ```bash
-export HOPSWORKS_HOST=REPLACE_WITH_YOUR_HOPSWOKRKS_CLUSTER_HOST
 export HOPSWORKS_API_KEY=REPLACE_WITH_YOUR_HOPSWORKS_API_KEY
-export HOPSWOERKS_PROJECT_NAME=REPLACE_WITH_YOUR_HOPSWOERKS_PROJECT_NAME
 ```
 
 ## Clone tutorials repository
@@ -45,12 +31,12 @@ git clone https://github.com/logicalclocks/hopsworks-tutorials
 cd ./hopsworks-tutorials/integrations/bytewax
 ```
 
-## Create Feature Groups
+## Create a Feature Group
 Currently, bytewax support for Hopsworks feature store is experimental and only write operation is supported. This means
 that Feature group metadata needs to be registered in Hopsworks Feature store before you can write real time features computed
 by Bytewax.
 
-Full documentation how to create feature group using HSFS APIs can be found [here](https://docs.hopsworks.ai/3.1/user_guides/fs/feature_group/create/).
+Full documentation how to create feature group using HSFS APIs can be found [here](https://docs.hopsworks.ai/3.4/user_guides/fs/feature_group/create/).
 
 This tutorial comes with a python program to create a feature group:
 - `python ./setup/feature_group.py`
@@ -83,5 +69,5 @@ To save historical data for batch data analysis or model training you need to st
 materialization job. 
 
 ```bash
-python3 ./materialization_job_client.py --host $HOPSWORKS_HOST --api_key $HOPSWORKS_API_KEY --project $HOPSWOERKS_PROJECT_NAME --jobname ${FEATURE_GROUP_NAME}_${FEATURE_GROUP_VERSION}_offline_fg_materialization
+python3 ./materialization_job_client.py --api_key $HOPSWORKS_API_KEY --jobname ${FEATURE_GROUP_NAME}_${FEATURE_GROUP_VERSION}_offline_fg_materialization
 ```

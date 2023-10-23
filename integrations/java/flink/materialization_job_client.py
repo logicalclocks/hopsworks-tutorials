@@ -3,21 +3,24 @@ import argparse
 
 
 def connect(args):
-    project = hopsworks.login(
-        host=args.host, port=args.port, project=args.project, api_key_value=args.api_key
-    )
+    if args.host is None or args.project is None:
+        project = hopsworks.login(api_key_value=args.api_key)
+    else:
+        project = hopsworks.login(
+            host=args.host, port=args.port, project=args.project, api_key_value=args.api_key
+        )
     return project.get_jobs_api()
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     # Hopsworks cluster configuration
-    parser.add_argument("--host", help="Hopsworks cluster host")
+    parser.add_argument("--host", help="Hopsworks cluster host", default=None)
     parser.add_argument(
         "--port", help="Port on which Hopsworks is listening on", default=443
     )
     parser.add_argument("--api_key", help="API key to authenticate with Hopsworks")
-    parser.add_argument("--project", help="Name of the Hopsworks project to connect to")
+    parser.add_argument("--project", help="Name of the Hopsworks project to connect to", default=None)
 
     # job name
     parser.add_argument(
