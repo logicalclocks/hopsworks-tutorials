@@ -1,48 +1,12 @@
 import json
 
-from io import BytesIO
-
 from datetime import datetime, timezone
 from websocket import create_connection
 
 from bytewax.dataflow import Dataflow
 from bytewax.inputs import PartitionedInput, StatefulSource
-from bytewax.connectors.kafka import KafkaOutput
-
 import hopsworks
-from hsfs import engine
-
-
-def get_feature_group_config(feature_group):
-    """
-    fetches configuration for feature group online topic
-    :param feature_group:
-    :return:
-    """
-    offline_write_options = {}
-    fg_topic_config = engine.get_instance()._get_kafka_config(offline_write_options)
-
-    _, feature_writers, writer = engine.get_instance()._init_kafka_resources(
-        feature_group, offline_write_options
-    )
-    return fg_topic_config, feature_writers, writer
-
-
-def serialize_with_key(key_payload, feature_group, feature_writers, writer):
-    key, row = key_payload
-
-    # encode complex features
-    row = engine.get_instance()._encode_complex_features(feature_writers, row)
-
-    # encode feature row
-    with BytesIO() as outf:
-        writer(row, outf)
-        encoded_row = outf.getvalue()
-
-    # assemble key
-    key = "".join([str(row[pk]) for pk in sorted(feature_group.primary_key)])
-
-    return key, encoded_row
+from hsfs_bytewax_util import KafkaOutput, serialize_with_key
 
 
 class CoinfbaseSource(StatefulSource):
@@ -54,15 +18,15 @@ class CoinfbaseSource(StatefulSource):
                 {
                     "type": "subscribe",
                     "product_ids": [product_id],
-                    "channels": ["level2"],
+                    "channels": ["level2_batch"],
                 }
             )
         )
         # The first msg is just a confirmation that we have subscribed.
         print(self.ws.recv())
 
-    def next(self):
-        return self.ws.recv()
+    def next_batch(self):
+        return [self.ws.recv()]
 
     def snapshot(self):
         return None
@@ -76,7 +40,7 @@ class CoinbaseFeedInput(PartitionedInput):
         self.product_ids = product_ids
 
     def list_parts(self):
-        return set(self.product_ids)
+        return self.product_ids
 
     def build_part(self, for_key, resume_state):
         assert resume_state is None
@@ -184,16 +148,11 @@ def get_flow(feature_group_name, feature_group_version):
 
     # get feature group and its topic configuration
     feature_group = fs.get_feature_group(feature_group_name, feature_group_version)
-    fg_topic_config, feature_writers, writer = get_feature_group_config(feature_group)
 
     # sync to feature group topic
-    flow.map(lambda x: serialize_with_key(x, feature_group, feature_writers, writer))
+    flow.map(lambda x: serialize_with_key(x, feature_group))
     flow.output(
         "out",
-        KafkaOutput(
-            brokers=[fg_topic_config['bootstrap.servers']],
-            topic=feature_group._online_topic_name,
-            add_config=fg_topic_config
-        )
+        KafkaOutput(feature_group)
     )
     return flow
