@@ -67,7 +67,7 @@ HOPSWORKS_PROJECT_NAME=REPLACE_WITH_YOUR_HOPSWORKS_PROJECT_NAME
 ### Create Source kafka topic and Feature Group
 
 ```python
-python ./flink/setup/feature_groups.py
+python ./flink/setup/feature_group.py
 python ./flink/setup/kafka_topic.py
 ```
 ### Simulate card transactions and write to source topic
@@ -143,7 +143,7 @@ To submit flink pipeline that computes aggregates on 10 minute window and writes
 feature group execute the following command.
 
 ```bash
-python3 ./flink/jobs_flink_client.py --host $HOPSWORKS_HOST --api_key $HOPSWORKS_API_KEY --project $HOPSWORKS_PROJECT_NAME --job transactionConsumer --jar ./flink/target/flink-3.4.0-SNAPSHOT.jar --main "com.hopsworks.tutorials.flink.TransactionFraudExample" --job_arguments "-featureGroupName card_transactions_10m_agg -featureGroupVersion 1 -sourceTopic credit_card_transactions -windowLength 10 -parallelism 1"
+python3 ./flink/jobs_flink_client.py --host $HOPSWORKS_HOST --api_key $HOPSWORKS_API_KEY --project $HOPSWORKS_PROJECT_NAME --job transactionConsumer --jar ./flink/target/flink-3.4.2.jar --main "com.hopsworks.tutorials.flink.TransactionFraudExample" --job_arguments "-featureGroupName card_transactions_10m_agg -featureGroupVersion 1 -sourceTopic credit_card_transactions -windowLength 10 -parallelism 1"
 ```
 
 #### Backfill feature data to offline feature group
