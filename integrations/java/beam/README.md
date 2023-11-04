@@ -51,7 +51,7 @@ have Hopsworks cluster host address, hopsworks project name and [api key](https:
 Once you have the above define environment variables:
 
 ```bash
-HOPSWORKS_HOST=app.hopsworks.ai
+HOPSWORKS_HOST=c.app.hopsworks.ai
 HOPSWORKS_API_KEY=REPLACE_WITH_YOUR_HOPSWORKS_API_KEY
 HOPSWORKS_PROJECT_NAME=REPLACE_WITH_YOUR_HOPSWORKS_PROJECT_NAME
 ```
