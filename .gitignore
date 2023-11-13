@@ -164,3 +164,4 @@ advanced_tutorials/electricity/electricity_price_model/variables/variables.data-
 advanced_tutorials/electricity/electricity_price_model/saved_model.pb
 advanced_tutorials/electricity/electricity_price_model/fingerprint.pb
 advanced_tutorials/recommender-system/transformations.py
+iris/iris_model/confusion_matrix.png
