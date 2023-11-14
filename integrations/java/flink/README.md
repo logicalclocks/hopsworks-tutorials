@@ -57,7 +57,7 @@ pip install hopsworks
 ```
 
 Next you need to create [connection](https://docs.hopsworks.ai/hopsworks-api/3.4/generated/api/connection/) with 
-your Hopsworks cluster. For this you need to have Hopsworks cluster host address and [api key](https://docs.hopsworks.ai/3.4/user_guides/projects/api_key/create_api_key/)
+your Hopsworks cluster. For this you need to have Hopsworks cluster host address and [api key](https://docs.hopsworks.ai/latest/user_guides/projects/api_key/create_api_key/)
 
 Once you have the above define environment variables: 
 
