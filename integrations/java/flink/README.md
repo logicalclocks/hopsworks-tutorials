@@ -16,8 +16,11 @@ For the tutorials to work, you need [managed.hopsworks.ai](https://managed.hopsw
 Hopsworks deployment. Note that this tutorial will not work for [app.hopsworks.ai](https://app.hopsworks.ai) account 
 as submitting custom jobs to [app.hopsworks.ai](https://app.hopsworks.ai) are not supported. 
 
-You can find documentation how to get started on [GCP](https://docs.hopsworks.ai/3.3/setup_installation/gcp/getting_started/),
-[AWS](https://docs.hopsworks.ai/3.3/setup_installation/aws/getting_started/) or on [Azure](https://docs.hopsworks.ai/3.3/setup_installation/azure/getting_started/).
+It is recommended that Hopsworks cluster has at least 1 worker node with 8 CPU cores and 512MB of RAM already up and 
+running.
+
+You can find documentation how to get started on [GCP](https://docs.hopsworks.ai/3.4/setup_installation/gcp/getting_started/),
+[AWS](https://docs.hopsworks.ai/3.4/setup_installation/aws/getting_started/) or on [Azure](https://docs.hopsworks.ai/3.4/setup_installation/azure/getting_started/).
 
 You also need to have configured maven; java 1.8 and git.
 
@@ -54,7 +57,7 @@ pip install hopsworks
 ```
 
 Next you need to create [connection](https://docs.hopsworks.ai/hopsworks-api/3.4/generated/api/connection/) with 
-your Hopsworks cluster. For this you need to have Hopsworks cluster host address and [api key](https://docs.hopsworks.ai/3.3/user_guides/projects/api_key/create_api_key/)
+your Hopsworks cluster. For this you need to have Hopsworks cluster host address and [api key](https://docs.hopsworks.ai/3.4/user_guides/projects/api_key/create_api_key/)
 
 Once you have the above define environment variables: 
 
@@ -75,7 +78,7 @@ Run the following command to produce raw card transactions and sync to topic `cr
 used as a source for real time feature engineering pipeline: 
 
 ```bash
-python3 ./flink/jobs_flink_client.py --host $HOPSWORKS_HOST --api_key $HOPSWORKS_API_KEY --project $HOPSWORKS_PROJECT_NAME --job transactionSource --jar ./flink/target/flink-3.4.0-SNAPSHOT.jar --main "com.hopsworks.tutorials.flink.fraud.SimProducer" --job_arguments "-topicName credit_card_transactions -batchSize 1 -parallelism 1"
+python3 ./flink/jobs_flink_client.py --host $HOPSWORKS_HOST --api_key $HOPSWORKS_API_KEY --project $HOPSWORKS_PROJECT_NAME --job transactionSource --jar ./flink/target/flink-3.4.2.jar --main "com.hopsworks.tutorials.flink.fraud.SimProducer" --job_arguments "-topicName credit_card_transactions -batchSize 1 -parallelism 1"
 ```
 
 ### Real time feature engineering in Flink
