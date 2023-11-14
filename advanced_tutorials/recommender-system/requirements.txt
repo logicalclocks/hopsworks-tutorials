@@ -3,3 +3,4 @@
 tensorflow-recommenders==0.7.3
 tensorflow-addons==0.20.0
 catboost #catboost==1.0.6
+opensearch-py
