@@ -20,7 +20,7 @@ It is recommended that Hopsworks cluster has at least 1 worker node with 8 CPU c
 running.
 
 You can find documentation how to get started on [GCP](https://docs.hopsworks.ai/3.4/setup_installation/gcp/getting_started/),
-[AWS](https://docs.hopsworks.ai/3.4/setup_installation/aws/getting_started/) or on [Azure](https://docs.hopsworks.ai/3.4/setup_installation/azure/getting_started/).
+[AWS](https://docs.hopsworks.ai/latest/setup_installation/aws/getting_started/) or on [Azure](https://docs.hopsworks.ai/latest/setup_installation/azure/getting_started/).
 
 You also need to have configured maven; java 1.8 and git.
 
