@@ -11,7 +11,7 @@ def connect(args):
 
 def setup_cluster(flink_cluster_api, args):
     flink_job_config = {'type': 'flinkJobConfiguration', 'amQueue': 'default', 'amMemory': args.job_manager_mbs,
-                        'amVCores': 1, 'jobmanager.heap.size': args.job_manager_mbs, 'taskmanager.numberOfTaskSlots': 4,
+                        'amVCores': 1, 'jobmanager.heap.size': args.job_manager_mbs, 'taskmanager.numberOfTaskSlots': 1,
                         'taskmanager.heap.size': args.task_manager_mbs, 'jobType': 'FLINK', "appName": args.job}
 
     # producer job
@@ -59,7 +59,11 @@ if __name__ == "__main__":
 
     # Setup Flink cluster
     flink_cluster = setup_cluster(jobs_api, args)
-    flink_cluster_execution = flink_cluster.start()
+
+    if flink_cluster._count_ongoing_executions() > 0:
+        flink_cluster_execution = jobs_api.get_cluster(args.job)
+    else:
+        flink_cluster_execution = flink_cluster.start()
 
     flink_cluster_execution.upload_jar(args.jar)
 
