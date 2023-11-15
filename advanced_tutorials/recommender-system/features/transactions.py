@@ -1,3 +1,6 @@
+import pandas as pd
+import numpy as np
+
 def prepare_transactions(df):
     df["article_id"] = df["article_id"].astype(str)
     df['t_dat'] = pd.to_datetime(df['t_dat'])
