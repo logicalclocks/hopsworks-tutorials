@@ -136,7 +136,7 @@ def get_citibike_data(start_date="04/2021", end_date="10/2022") -> pd.DataFrame:
     start_month, start_year = start_date.split("/")[0], start_date.split("/")[1]
     end_month, end_year = end_date.split("/")[0], end_date.split("/")[1]
 
-    df_res = pd.DataFrame(columns=["date", "station_id", "users_count"])
+    df_res = pd.DataFrame(columns=["date", "station_id", "count"])
 
     if start_year == end_year:
         for month in range(int(start_month), int(end_month) + 1):
@@ -148,7 +148,7 @@ def get_citibike_data(start_date="04/2021", end_date="10/2022") -> pd.DataFrame:
         for month in range(1, int(end_month) + 1):
             df_res =  update_month_data(df_res, month, end_year)
 
-    df_res["users_count"] = df_res["users_count"].astype(int)
+    df_res["count"] = df_res["count"].astype(int)
 
     print("\n✅ Done ✅")
 
@@ -156,25 +156,25 @@ def get_citibike_data(start_date="04/2021", end_date="10/2022") -> pd.DataFrame:
 
 
 def moving_average(df, window=7):
-    df[f'mean_{window}_days'] = df.groupby('station_id')['users_count'] \
+    df[f'mean_{window}_days'] = df.groupby('station_id')['count'] \
                                     .rolling(window=window).mean().reset_index(0,drop=True).shift(1)
     return df
 
 
 def moving_std(df, window):
-    df[f'std_{window}_days'] = df.groupby('station_id')['users_count'] \
+    df[f'std_{window}_days'] = df.groupby('station_id')['count'] \
                                     .rolling(window=window).std().reset_index(0,drop=True).shift(1)
     return df
 
 
 def exponential_moving_average(df, window):
-    df[f'exp_mean_{window}_days'] = df.groupby('station_id')['users_count'].ewm(span=window) \
+    df[f'exp_mean_{window}_days'] = df.groupby('station_id')['count'].ewm(span=window) \
                                         .mean().reset_index(0,drop=True).shift(1)
     return df
 
 
 def exponential_moving_std(df, window):
-    df[f'exp_std_{window}_days'] = df.groupby('station_id')['users_count'].ewm(span=window) \
+    df[f'exp_std_{window}_days'] = df.groupby('station_id')['count'].ewm(span=window) \
                                         .std().reset_index(0,drop=True).shift(1)
     return df
 
@@ -182,9 +182,9 @@ def exponential_moving_std(df, window):
 def engineer_citibike_features(df):
     df_res = df.copy()
     # there are duplicated rows (several records for the same day and station). get rid of it.
-    df_res = df_res.groupby(['date', 'station_id'], as_index=False)['users_count'].sum()
+    df_res = df_res.groupby(['date', 'station_id'], as_index=False)['count'].sum()
 
-    df_res['prev_users_count'] = df_res.groupby('station_id')['users_count'].shift(+1)
+    df_res['prev_users_count'] = df_res.groupby('station_id')['count'].shift(+1)
     df_res = df_res.dropna()
     df_res = moving_average(df_res, 7)
     df_res = moving_average(df_res, 14)

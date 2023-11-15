@@ -166,3 +166,13 @@ advanced_tutorials/electricity/electricity_price_model/fingerprint.pb
 advanced_tutorials/recommender-system/transformations.py
 iris/iris_model/confusion_matrix.png
 quickstart_fraud_model/confusion_matrix.png
+advanced_tutorials/citibike/data/202301-citibike-tripdata_processed.csv
+advanced_tutorials/citibike/data/202302-citibike-tripdata_processed.csv
+advanced_tutorials/citibike/data/202303-citibike-tripdata_processed.csv
+advanced_tutorials/citibike/data/202304-citibike-tripdata_processed.csv
+advanced_tutorials/citibike/data/202305-citibike-tripdata_processed.csv
+advanced_tutorials/citibike/data/__MACOSX/._202301-citibike-tripdata.csv
+advanced_tutorials/citibike/data/__MACOSX/._202302-citibike-tripdata.csv
+advanced_tutorials/citibike/data/__MACOSX/._202303-citibike-tripdata.csv
+advanced_tutorials/citibike/data/__MACOSX/._202304-citibike-tripdata.csv
+advanced_tutorials/citibike/data/__MACOSX/._202305-citibike-tripdata.csv
