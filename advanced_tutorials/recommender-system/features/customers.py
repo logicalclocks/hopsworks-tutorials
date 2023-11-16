@@ -1,3 +1,5 @@
+import pandas as pd
+
 def prepare_customers(df):
     df['club_member_status'].fillna('ABSENT', inplace=True)
     df.dropna(subset=['age'], inplace=True)

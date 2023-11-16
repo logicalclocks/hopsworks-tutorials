@@ -1,18 +1,14 @@
 import pandas as pd
 
-def get_ranking_dataset(df, ds_type, feature_view_articles):
+def compute_ranking_dataset(trans_fg, articles_fg, customers_fg):
     
-    def exclude_feat(s):
-        return s.endswith("_id") or s.endswith("_no") or s.endswith("_code")
+    query_features = ["customer_id", "age", "month_sin", "month_cos", "article_id"]
     
-    DS_NAME = f"ranking_{ds_type}.csv"
-    
-    df['article_id'] = df['article_id'].astype(str)
-    
-    # These are the true positive pairs.
-    query_features = ["customer_id", "age", "month_sin", "month_cos"]
+    fg_query = trans_fg.select(["month_sin", "month_cos"]).join(articles_fg.select_all(), on=["article_id"]).join(customers_fg.select(["customer_id", "age"]))
+    df = fg_query.read()
+    df = df[query_features]
 
-    positive_pairs = df[query_features + ["article_id"]].copy()
+    positive_pairs = df.copy()
     
     n_neg = len(positive_pairs)*10
 
@@ -31,7 +27,7 @@ def get_ranking_dataset(df, ds_type, feature_view_articles):
     ranking_df = pd.concat([positive_pairs, negative_pairs], ignore_index=True)
     
     # Merge with item features.
-    item_df = feature_view_articles.get_batch_data()
+    item_df = articles_fg.read()
     item_df.drop_duplicates(subset="article_id", inplace=True)
     ranking_df = ranking_df.merge(item_df, on="article_id")
     
@@ -39,10 +35,7 @@ def get_ranking_dataset(df, ds_type, feature_view_articles):
     # There are several "duplicated" categorical features in the dataset. 
     # For instance, `index_code` and `index_name` encodes the same feature, but in different formats (int, string). 
     # Therefore we have to deduplicate these features.
-
-    features_to_exclude = [col for col in ranking_df.columns if exclude_feat(col)]
-    features_to_exclude.append("prod_name")
-
-    ranking_df.drop(features_to_exclude, axis="columns", inplace=True)
+    ranking_df = ranking_df[["customer_id", "article_id", "age","month_sin", "month_cos", "product_type_name", "product_group_name", "graphical_appearance_name", "colour_group_name", "perceived_colour_value_name", 
+                             "perceived_colour_master_name","department_name", "index_name", "index_group_name","section_name", "garment_group_name", "label"]]
     
     return ranking_df
