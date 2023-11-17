@@ -62,8 +62,9 @@ def process_df(original_df, month, year):
     df_res = original_df[["started_at", "start_station_id"]]
     df_res.started_at = pd.to_datetime(df_res.started_at)
     df_res.started_at = df_res.started_at.dt.floor('d')
-    df_res = df_res.groupby(["started_at",
-                             "start_station_id"]).value_counts().reset_index()
+    df_res = (df_res.groupby(['started_at', 'start_station_id'])
+              .size()
+              .reset_index(name='users_count'))
     df_res = df_res.rename(columns={"started_at": "date",
                                     "start_station_id": "station_id",
                                     0: "users_count"})
