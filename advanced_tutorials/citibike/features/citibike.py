@@ -13,69 +13,132 @@ warnings.filterwarnings("ignore")
 from dotenv import load_dotenv
 load_dotenv()
 
-
 """
 Basic functions
 """
 
+def convert_date_to_unix(x: str) -> int:
+    """
+    Convert a date string to Unix timestamp in milliseconds.
 
-def convert_date_to_unix(x):
+    Parameters:
+        x (str): Input date string in the format '%Y-%m-%d'.
+
+    Returns:
+        int: Unix timestamp in milliseconds.
+    """
     dt_obj = datetime.strptime(str(x), '%Y-%m-%d')
     dt_obj = dt_obj.timestamp() * 1000
     return int(dt_obj)
 
 
-def convert_unix_to_date(x):
+def convert_unix_to_date(x: int) -> str:
+    """
+    Convert a Unix timestamp in milliseconds to a date string.
+
+    Parameters:
+        x (int): Unix timestamp in milliseconds.
+
+    Returns:
+        str: Date string in the format '%Y-%m-%d'.
+    """
     x //= 1000
     x = datetime.fromtimestamp(x)
     return datetime.strftime(x, "%Y-%m-%d")
 
 
-def get_next_date(date):
+def get_next_date(date: str) -> str:
+    """
+    Get the next date from the given date.
+
+    Parameters:
+        date (str): Input date string in the format '%Y-%m-%d'.
+
+    Returns:
+        str: Next date string in the format '%Y-%m-%d'.
+    """
     next_date = datetime.strptime(date, "%Y-%m-%d") + timedelta(days=1)
     return datetime.strftime(next_date, "%Y-%m-%d")
 
 
-def get_last_date_in_fg(fg):
+def get_last_date_in_fg(fg) -> str:
+    """
+    Get the last date in the given feature group.
+
+    Parameters:
+        fg: Feature group object.
+
+    Returns:
+        str: Last date string in the format '%Y-%m-%d'.
+    """
     for col in fg.statistics.content["columns"]:
         if col["column"] == "timestamp":
             res = col["maximum"]
             return convert_unix_to_date(res)
 
 
-
 ###############################################################################
 # Data basic processing
 
-def select_stations_info(df):
-    df_res = df[["start_station_id", "start_station_name",
-                 "start_lat", "start_lng"]].rename(columns={"start_station_id": "station_id",
-                                                            "start_station_name": "station_name",
-                                                            "start_lat": "lat",
-                                                            "start_lng": "long"
-                                                                        })
+def select_stations_info(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Select relevant columns for station information and remove duplicates.
+
+    Parameters:
+        df (pd.DataFrame): Input DataFrame.
+
+    Returns:
+        pd.DataFrame: DataFrame with columns 'station_id', 'station_name', 'lat', and 'long'.
+    """
+    df_res = df[["start_station_id", "start_station_name", "start_lat", "start_lng"]] \
+        .rename(columns={"start_station_id": "station_id",
+                         "start_station_name": "station_name",
+                         "start_lat": "lat",
+                         "start_lng": "long"})
     df_res = df_res.drop_duplicates()
     return df_res
 
 
-def process_df(original_df, month, year):
+def process_df(original_df: pd.DataFrame, month: str, year: str) -> pd.DataFrame:
+    """
+    Process the input DataFrame by aggregating users_count for each day and station.
+
+    Parameters:
+        original_df (pd.DataFrame): Input DataFrame with columns 'started_at' and 'start_station_id'.
+        month (str): Month as a string (e.g., "04").
+        year (str): Year as a string (e.g., "2021").
+
+    Returns:
+        pd.DataFrame: Processed DataFrame with columns 'date', 'station_id', and 'users_count'.
+    """
     df_res = original_df[["started_at", "start_station_id"]]
     df_res.started_at = pd.to_datetime(df_res.started_at)
     df_res.started_at = df_res.started_at.dt.floor('d')
-    df_res = df_res.groupby(["started_at",
-                             "start_station_id"]).value_counts().reset_index()
+    df_res = (df_res.groupby(['started_at', 'start_station_id'])
+              .size()
+              .reset_index(name='users_count'))
     df_res = df_res.rename(columns={"started_at": "date",
                                     "start_station_id": "station_id",
                                     0: "users_count"})
-    # lets select only popular station - the station will be considered a
-    # popular one, if it was used every day for each month
+    # Select only popular stations
     days_in_month = monthrange(int(year), int(month))[1]
     popular_stations = df_res.station_id.value_counts()[df_res.station_id.value_counts() == days_in_month].index
     df_res = df_res[df_res.station_id.isin(popular_stations)]
     return df_res.sort_values(by=["date", "station_id"])
 
 
-def update_month_data(main_df, month, year):
+def update_month_data(main_df: pd.DataFrame, month: str, year: str) -> pd.DataFrame:
+    """
+    Update the main DataFrame with data for a specific month and year.
+
+    Parameters:
+        main_df (pd.DataFrame): Main DataFrame to be updated.
+        month (str): Month as a string (e.g., "04").
+        year (str): Year as a string (e.g., "2021").
+
+    Returns:
+        pd.DataFrame: Updated DataFrame.
+    """
     if month < 10:
         month = f"0{month}"
     print(f"_____ Processing {month}/{year}... _____")
@@ -122,78 +185,147 @@ def update_month_data(main_df, month, year):
 
     processed_df = process_df(original_df, month, year)
 
-    # delete original big unprocessed file
+    # Delete original big unprocessed file
     os.remove(filename)
 
-    # save processed file in csv
+    # Save processed file in csv
     processed_df.to_csv(processed_filename, index=False)
 
     return pd.concat([processed_df, main_df])
 
 
-def get_citibike_data(start_date="04/2021", end_date="10/2022") -> pd.DataFrame:
+def get_citibike_data(start_date: str = "04/2021", end_date: str = "10/2022") -> pd.DataFrame:
+    """
+    Retrieve Citibike data for a specified date range.
 
+    Parameters:
+        start_date (str): Start date in the format 'MM/YYYY'.
+        end_date (str): End date in the format 'MM/YYYY'.
+
+    Returns:
+        pd.DataFrame: DataFrame with columns 'date', 'station_id', and 'users_count'.
+    """
     start_month, start_year = start_date.split("/")[0], start_date.split("/")[1]
     end_month, end_year = end_date.split("/")[0], end_date.split("/")[1]
 
-    df_res = pd.DataFrame(columns=["date", "station_id", "count"])
+    df_res = pd.DataFrame(columns=["date", "station_id", "users_count"])
 
     if start_year == end_year:
         for month in range(int(start_month), int(end_month) + 1):
-            df_res =  update_month_data(df_res, month, start_year)
+            df_res = update_month_data(df_res, month, start_year)
 
     else:
         for month in range(int(start_month), 12 + 1):
-            df_res =  update_month_data(df_res, month, start_year)
+            df_res = update_month_data(df_res, month, start_year)
         for month in range(1, int(end_month) + 1):
-            df_res =  update_month_data(df_res, month, end_year)
+            df_res = update_month_data(df_res, month, end_year)
 
-    df_res["count"] = df_res["count"].astype(int)
+    df_res["users_count"] = df_res["users_count"].astype(int)
 
     print("\n✅ Done ✅")
 
     return df_res.reset_index(drop=True)
 
 
-def moving_average(df, window=7):
-    df[f'mean_{window}_days'] = df.groupby('station_id')['count'] \
-                                    .rolling(window=window).mean().reset_index(0,drop=True).shift(1)
-    return df
+def moving_average(df: pd.DataFrame, window: int = 7) -> pd.Series:
+    """
+    Calculate the moving average for 'users_count' grouped by 'station_id' and add the result as a new column.
+
+    Parameters:
+        df (pd.DataFrame): Input DataFrame with columns 'date', 'station_id', and 'users_count'.
+        window (int): The window size for the rolling mean.
+
+    Returns:
+        pd.Series: The engineered moving average feature.
+    """
+    result = df.groupby('station_id')['users_count'].rolling(window=window).mean().reset_index(
+        0, 
+        drop=True,
+    ).shift(1)
+    return result
 
 
-def moving_std(df, window):
-    df[f'std_{window}_days'] = df.groupby('station_id')['count'] \
-                                    .rolling(window=window).std().reset_index(0,drop=True).shift(1)
-    return df
+def moving_std(df: pd.DataFrame, window: int) -> pd.Series:
+    """
+    Calculate the moving standard deviation for 'users_count' grouped by 'station_id' and add the result as a new column.
+
+    Parameters:
+        df (pd.DataFrame): Input DataFrame with columns 'date', 'station_id', and 'users_count'.
+        window (int): The window size for the rolling standard deviation.
+
+    Returns:
+        pd.Series: The engineered moving standard deviation feature.
+    """
+    result = df.groupby('station_id')['users_count'].rolling(window=window).std().reset_index(
+        0,
+        drop=True,
+    ).shift(1)
+    return result
 
 
-def exponential_moving_average(df, window):
-    df[f'exp_mean_{window}_days'] = df.groupby('station_id')['count'].ewm(span=window) \
-                                        .mean().reset_index(0,drop=True).shift(1)
-    return df
+def exponential_moving_average(df: pd.DataFrame, window: int) -> pd.Series:
+    """
+    Calculate the exponential moving average for 'users_count' grouped by 'station_id' and add the result as a new column.
+
+    Parameters:
+        df (pd.DataFrame): Input DataFrame with columns 'date', 'station_id', and 'users_count'.
+        window (int): The span parameter for exponential moving average.
+
+    Returns:
+        pd.Series: The engineered exponential moving average feature.
+    """
+    result = df.groupby('station_id')['users_count'].ewm(span=window).mean().reset_index(
+        0, 
+        drop=True,
+    ).shift(1)
+    return result
 
 
-def exponential_moving_std(df, window):
-    df[f'exp_std_{window}_days'] = df.groupby('station_id')['count'].ewm(span=window) \
-                                        .std().reset_index(0,drop=True).shift(1)
-    return df
+def exponential_moving_std(df: pd.DataFrame, window: int) -> pd.Series:
+    """
+    Calculate the exponential moving standard deviation for 'users_count' grouped by 'station_id' and add the result as a new column.
+
+    Parameters:
+        df (pd.DataFrame): Input DataFrame with columns 'date', 'station_id', and 'users_count'.
+        window (int): The span parameter for exponential moving standard deviation.
+
+    Returns:
+        pd.Series: The engineered exponential moving standard deviation feature.
+    """
+    result = df.groupby('station_id')['users_count'].ewm(span=window).std().reset_index(
+        0, 
+        drop=True,
+    ).shift(1)
+    return result
 
 
-def engineer_citibike_features(df):
+def engineer_citibike_features(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Engineer various features for Citibike data and return the resulting DataFrame.
+
+    Parameters:
+        df (pd.DataFrame): Input DataFrame with columns 'date', 'station_id', and 'users_count'.
+
+    Returns:
+        pd.DataFrame: DataFrame with engineered features including moving averages and standard deviations.
+    """
     df_res = df.copy()
-    # there are duplicated rows (several records for the same day and station). get rid of it.
-    df_res = df_res.groupby(['date', 'station_id'], as_index=False)['count'].sum()
 
-    df_res['prev_users_count'] = df_res.groupby('station_id')['count'].shift(+1)
+    # Remove duplicated rows
+    df_res = df_res.groupby(['date', 'station_id'], as_index=False)['users_count'].sum()
+
+    # Add a column for the previous day's 'users_count'
+    df_res['prev_users_count'] = df_res.groupby('station_id')['users_count'].shift(+1)
     df_res = df_res.dropna()
-    df_res = moving_average(df_res, 7)
-    df_res = moving_average(df_res, 14)
 
+    # Add moving averages with window sizes 7 and 14
+    df_res['mean_7_days'] = moving_average(df_res, 7)
+    df_res['mean_14_days'] = moving_average(df_res, 14)
 
-    for i in [7, 14]:
-        for func in [moving_std, exponential_moving_average,
-                     exponential_moving_std
-                     ]:
-            df_res = func(df_res, i)
-    df_res = df_res.reset_index(drop=True)
-    return df_res.sort_values(by=["date", "station_id"]).dropna()
+    # Add various features for window sizes 7 and 14
+    for window_size in [7, 14]:
+        for func in [moving_std, exponential_moving_average, exponential_moving_std]:
+            feature_name = f'{func.__name__}_{window_size}_days'
+            df_res[feature_name] = func(df_res, window_size)
+
+    return df_res.reset_index(drop=True).sort_values(by=["date", "station_id"]).dropna()
