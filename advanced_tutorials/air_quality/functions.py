@@ -280,10 +280,12 @@ def get_weather_data_from_open_meteo(
         
     try:
         response = requests.get(base_url, params=params)
+        time.sleep(2)
     except ConnectionError:
         response = requests.get(base_url, params=params)
     
     response_json = response.json()    
+
     res_df = pd.DataFrame(response_json["daily"])  
     res_df["city_name"] = city_name
     
