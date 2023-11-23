@@ -3,8 +3,17 @@ import numpy as np
 
 
 def haversine(long, lat, shift):
-    """Compute Haversine distance between each consecutive coordinate in (long, lat)."""
+    """
+    Compute Haversine distance between each consecutive coordinate in (long, lat).
 
+    Parameters:
+    - long: pandas Series, longitude values
+    - lat: pandas Series, latitude values
+    - shift: int, the number of positions to shift for calculating distances
+
+    Returns:
+    - numpy array, Haversine distances
+    """
     long_shifted = long.shift(shift)
     lat_shifted = lat.shift(shift)
     long_diff = long_shifted - long
@@ -18,38 +27,90 @@ def haversine(long, lat, shift):
 
 
 def time_delta(datetime_value, shift):
-    """Compute time difference between each consecutive transaction."""
+    """
+    Compute time difference between each consecutive transaction.
 
+    Parameters:
+    - datetime_value: pandas Series, datetime values
+    - shift: int, the number of positions to shift for calculating time differences
+
+    Returns:
+    - pandas Series, time differences
+    """
     time_shifted = datetime_value.shift(shift)
     return time_shifted
 
 
+def calculate_loc_delta_t_plus_1(group):
+    """
+    Calculate loc_delta_t_plus_1 for each group.
+
+    Parameters:
+    - group: pandas DataFrame group, grouped by 'cc_num'
+
+    Returns:
+    - pandas Series, loc_delta_t_plus_1 values
+    """
+    return haversine(group["longitude"], group["latitude"], 1)
+
+
+def calculate_loc_delta_t_minus_1(group):
+    """
+    Calculate loc_delta_t_minus_1 for each group.
+
+    Parameters:
+    - group: pandas DataFrame group, grouped by 'cc_num'
+
+    Returns:
+    - pandas Series, loc_delta_t_minus_1 values
+    """
+    return haversine(group["longitude"], group["latitude"], -1)
+
+
+def calculate_time_delta_t_minus_1(group):
+    """
+    Calculate time_delta_t_minus_1 for each group.
+
+    Parameters:
+    - group: pandas DataFrame group, grouped by 'cc_num'
+
+    Returns:
+    - pandas Series, time_delta_t_minus_1 values
+    """
+    return time_delta(group["datetime"], -1)
+
+
 def prepare_transactions_fraud(trans_df):
+    """
+    Prepare transaction data with engineered features for fraud detection.
+
+    Parameters:
+    - trans_df: pandas DataFrame, transaction data
+
+    Returns:
+    - pandas DataFrame, prepared transaction data with engineered features
+    """
+    # Sort values and convert latitude and longitude to radians
     trans_df.sort_values("datetime", inplace=True)
     trans_df[["longitude", "latitude"]] = trans_df[["longitude", "latitude"]].applymap(radians)
 
-    trans_df["loc_delta_t_plus_1"] = trans_df.groupby("cc_num")\
-        .apply(lambda x : haversine(x["longitude"], x["latitude"], 1))\
-        .reset_index(level=0, drop=True)\
-        .fillna(0)
+    # Calculate loc_delta_t_plus_1, loc_delta_t_minus_1, and time_delta_t_minus_1 using groupby
+    trans_df["loc_delta_t_plus_1"] = trans_df.groupby("cc_num").apply(calculate_loc_delta_t_plus_1)\
+        .reset_index(level=0, drop=True).fillna(0)
 
-    trans_df["loc_delta_t_minus_1"] = trans_df.groupby("cc_num")\
-        .apply(lambda x : haversine(x["longitude"], x["latitude"], -1))\
-        .reset_index(level=0, drop=True)\
-        .fillna(0)
+    trans_df["loc_delta_t_minus_1"] = trans_df.groupby("cc_num").apply(calculate_loc_delta_t_minus_1)\
+        .reset_index(level=0, drop=True).fillna(0)
 
-    trans_df["time_delta_t_minus_1"] = trans_df.groupby("cc_num")\
-        .apply(lambda x : time_delta(x["datetime"],  -1))\
+    trans_df["time_delta_t_minus_1"] = trans_df.groupby("cc_num").apply(calculate_time_delta_t_minus_1)\
         .reset_index(level=0, drop=True)
 
-    trans_df["time_delta_t_minus_1"] = (trans_df.time_delta_t_minus_1 - trans_df.datetime )/ np.timedelta64(1, 'D')
-    trans_df["time_delta_t_minus_1"] = trans_df.time_delta_t_minus_1.fillna(0)  
+    # Normalize time_delta_t_minus_1 to days and handle missing values
+    trans_df["time_delta_t_minus_1"] = (trans_df["time_delta_t_minus_1"] - trans_df["datetime"]) / np.timedelta64(1, 'D')
+    trans_df["time_delta_t_minus_1"] = trans_df["time_delta_t_minus_1"].fillna(0)
 
+    # Select relevant columns, drop duplicates, and reset index
     trans_df = trans_df[["tid", "datetime", "cc_num", "amount", "country", "fraud_label",
-                     "loc_delta_t_plus_1", "loc_delta_t_minus_1", "time_delta_t_minus_1"]]
-    
-    trans_df = trans_df.drop_duplicates(subset=['cc_num', 'datetime']) \
-               .reset_index(drop=True)
-    
-    return trans_df
+                         "loc_delta_t_plus_1", "loc_delta_t_minus_1", "time_delta_t_minus_1"]]
+    trans_df = trans_df.drop_duplicates(subset=['cc_num', 'datetime']).reset_index(drop=True)
 
+    return trans_df
