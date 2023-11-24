@@ -52,12 +52,16 @@ def approve_loan(id, term, purpose, zip_code, loan_amnt, int_rate):
     
     print("Id: {}".format(id))
 
-    arr = fv.get_feature_vector({"id": id}, passed_features={"term": term, 
-                                                             "purpose": purpose,
-                                                             "zip_code": validated_zip_code,
-                                                             "loan_amnt": loan_amnt, 
-                                                             "int_rate": int_rate
-                                                            })
+    arr = fv.get_feature_vector(
+        {"id": id}, 
+        passed_features={
+            "term": term, 
+            "purpose": purpose,
+            "zip_code": validated_zip_code,
+            "loan_amnt": loan_amnt, 
+            "int_rate": int_rate
+        }
+    )
     print("Received Feature Vector: {}".format(arr))
  
     cols = [f.name for f in fv.schema]

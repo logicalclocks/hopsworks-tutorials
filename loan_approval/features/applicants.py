@@ -100,7 +100,7 @@ def earliest_cr_line(earliest_cr_line):
     return earliest_cr_line.year
 
 
-def mean_mort_acc(applicants_df: pd.DataFrame) -> pd.DataFrame:
+def mean_mort_acc(applicants_df: pd.DataFrame) -> pd.Series:
     """
     Calculate the mean mortgage account number grouped by total account.
 
@@ -108,6 +108,6 @@ def mean_mort_acc(applicants_df: pd.DataFrame) -> pd.DataFrame:
     - applicants_df (pd.DataFrame): DataFrame containing applicant data.
 
     Returns:
-    - pd.DataFrame: DataFrame with the mean mortgage account number.
+    - pd.Series: Series with the mean mortgage account number.
     """
-    return applicants_df.groupby(by='total_acc').mean().mort_acc
+    return applicants_df.groupby('total_acc')['mort_acc'].mean()
