@@ -1,10 +1,11 @@
+from typing import Union
 import pandas as pd
 import numpy as np
 
 ###########################################################################################
 # Part 1: Air Quality Features
 
-def shift_pm_2_5(df, days=5):
+def shift_pm_2_5(df: pd.DataFrame, days: int = 5) -> pd.Series:
     """
     Shifts the 'pm2_5' values in the DataFrame for a specified number of days.
 
@@ -24,7 +25,7 @@ def shift_pm_2_5(df, days=5):
     return shifted_series
 
 
-def moving_average(df, window=7):
+def moving_average(df: pd.DataFrame, window: int = 7) -> pd.Series:
     """
     Calculates the moving average of 'pm2_5' values in the DataFrame.
 
@@ -38,7 +39,7 @@ def moving_average(df, window=7):
     return df.groupby('city_name')['pm2_5'].rolling(window=window).mean().reset_index(0, drop=True).shift(1)
 
 
-def moving_std(df, window):
+def moving_std(df: pd.DataFrame, window: int) -> pd.Series:
     """
     Calculates the moving standard deviation of 'pm2_5' values in the DataFrame.
 
@@ -52,7 +53,7 @@ def moving_std(df, window):
     return df.groupby('city_name')['pm2_5'].rolling(window=window).std().reset_index(0, drop=True).shift(1)
 
 
-def exponential_moving_average(df, window):
+def exponential_moving_average(df: pd.DataFrame, window: int) -> pd.Series:
     """
     Calculates the exponential moving average of 'pm2_5' values in the DataFrame.
 
@@ -66,7 +67,7 @@ def exponential_moving_average(df, window):
     return df.groupby('city_name')['pm2_5'].ewm(span=window).mean().reset_index(0, drop=True).shift(1)
 
 
-def exponential_moving_std(df, window):
+def exponential_moving_std(df: pd.DataFrame, window: int) -> pd.Series:
     """
     Calculates the exponential moving standard deviation of 'pm2_5' values in the DataFrame.
 
@@ -82,7 +83,7 @@ def exponential_moving_std(df, window):
 ###########################################################################################
 # Part 2: Date and Time Features
 
-def year(df):
+def year(df: pd.DataFrame) -> pd.Series:
     """
     Extracts the year from the 'date' column and returns it as a new feature.
 
@@ -95,7 +96,7 @@ def year(df):
     return df['date'].dt.year.astype(int)
 
 
-def day_of_month(df):
+def day_of_month(df: pd.DataFrame) -> pd.Series:
     """
     Extracts the day of the month from the 'date' column and returns it as a new feature.
 
@@ -108,7 +109,7 @@ def day_of_month(df):
     return df['date'].dt.day.astype(int)
 
 
-def month(df):
+def month(df: pd.DataFrame) -> pd.Series:
     """
     Extracts the month from the 'date' column and returns it as a new feature.
 
@@ -121,7 +122,7 @@ def month(df):
     return df['date'].dt.month.astype(int)
 
 
-def day_of_week(df):
+def day_of_week(df: pd.DataFrame) -> pd.Series:
     """
     Extracts the day of the week from the 'date' column and returns it as a new feature.
 
@@ -134,7 +135,7 @@ def day_of_week(df):
     return df['date'].dt.dayofweek.astype(int)
 
 
-def is_weekend(df):
+def is_weekend(df: pd.DataFrame) -> pd.Series:
     """
     Adds a binary feature indicating whether the day is a weekend (1) or not (0).
 
@@ -147,7 +148,7 @@ def is_weekend(df):
     return np.where(df['day_of_week'].isin([5, 6]), 1, 0)
 
 
-def sin_day_of_year(df):
+def sin_day_of_year(df: pd.DataFrame) -> pd.Series:
     """
     Calculates the sine of the day of the year and returns it as a new feature.
 
@@ -161,7 +162,7 @@ def sin_day_of_year(df):
     return np.sin(2 * np.pi * day_of_year / 365)
 
 
-def cos_day_of_year(df):
+def cos_day_of_year(df: pd.DataFrame) -> pd.Series:
     """
     Calculates the cosine of the day of the year and returns it as a new feature.
 
@@ -175,7 +176,7 @@ def cos_day_of_year(df):
     return np.cos(2 * np.pi * day_of_year / 365)
 
 
-def sin_day_of_week(df):
+def sin_day_of_week(df: pd.DataFrame) -> pd.Series:
     """
     Calculates the sine of the day of the week and returns it as a new feature.
 
@@ -188,7 +189,7 @@ def sin_day_of_week(df):
     return np.sin(2 * np.pi * df['day_of_week'] / 7)
 
 
-def cos_day_of_week(df):
+def cos_day_of_week(df: pd.DataFrame) -> pd.Series:
     """
     Calculates the cosine of the day of the week and returns it as a new feature.
 
@@ -201,7 +202,7 @@ def cos_day_of_week(df):
     return np.cos(2 * np.pi * df['day_of_week'] / 7)
 
 
-def feature_engineer_aq(df):
+def feature_engineer_aq(df: pd.DataFrame) -> pd.DataFrame:
     """
     Performs multiple feature engineering tasks on the input DataFrame related to air quality.
 
