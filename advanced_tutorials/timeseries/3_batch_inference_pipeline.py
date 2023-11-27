@@ -116,4 +116,3 @@ st.plotly_chart(fig_pred)
 
 st.write(36 * "-")
 st.subheader('\n🎉 📈 🤝 App Finished Successfully 🤝 📈 🎉')
-

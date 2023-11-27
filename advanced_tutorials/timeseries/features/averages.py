@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-def calculate_second_order_features(df):
+def calculate_second_order_features(df: pd.DataFrame) -> pd.DataFrame:
     """
     Calculate second-order features based on price data for each unique ID.
 
@@ -18,7 +18,7 @@ def calculate_second_order_features(df):
     df = df.sort_values(by=['id', 'date'])
     
     # Create a function to calculate features for each group
-    def calculate_features(group):
+    def calculate_features(group: pd.DataFrame) -> pd.DataFrame:
         # Calculate moving averages for 7 days, 14 days, and 30 days
         group['ma_7'] = group['price'].rolling(window=7).mean()
         group['ma_14'] = group['price'].rolling(window=14).mean()

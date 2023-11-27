@@ -1,19 +1,20 @@
 import pandas as pd
 import numpy as np
-from datetime import timedelta
+from datetime import date, timedelta
 import datetime
 from tqdm import tqdm 
 import plotly.express as px
 import plotly.graph_objects as go
 import plotly.colors as pc
+from typing import List, Union, Optional, Tuple, Dict
 
-
-def generate_historical_day(date, start_date, data_list):
+def generate_historical_day(date: date, start_date: date, data_list: List[Tuple[date, int, float]]) -> List[Tuple[date, int, float]]:
     """
     Generates synthetic data for a given day with different price patterns for each ID.
 
     Parameters:
     - date (datetime.date): The date for which data should be generated.
+    - start_date (datetime.date): The start date for synthetic data generation.
     - data_list (list): The list to which the generated data should be appended.
 
     Returns:
@@ -45,7 +46,7 @@ def generate_historical_day(date, start_date, data_list):
     return data_list
 
 
-def generate_historical_data(start_date=None, end_date=None):
+def generate_historical_data(start_date: Optional[date] = None, end_date: Optional[date] = None) -> pd.DataFrame:
     """
     Generates synthetic data for a range of dates with different price patterns for each ID.
 
@@ -61,7 +62,7 @@ def generate_historical_data(start_date=None, end_date=None):
     if end_date is None:
         end_date = datetime.date.today()
     
-    date_range = [start_date + datetime.timedelta(days=i) for i in range((end_date - start_date).days + 1)]
+    date_range = [start_date + timedelta(days=i) for i in range((end_date - start_date).days + 1)]
         
     data_list = []
     
@@ -75,7 +76,7 @@ def generate_historical_data(start_date=None, end_date=None):
     return df
 
 
-def generate_today():
+def generate_today() -> pd.DataFrame:
     """
     Generate random data for the current date and return it as a pandas DataFrame.
 
@@ -103,7 +104,7 @@ def generate_today():
     return df
 
 
-def to_wide_format(data):
+def to_wide_format(data: pd.DataFrame) -> pd.DataFrame:
     """
     Converts a DataFrame with time series data into wide format.
 
@@ -131,7 +132,7 @@ def to_wide_format(data):
     return pivoted_df
 
 
-def plot_historical_id(ids_to_show, data: pd.DataFrame):
+def plot_historical_id(ids_to_show: List[int], data: pd.DataFrame) -> go.Figure:
     """
     Plots time series data for a specified list of IDs.
 
@@ -173,20 +174,20 @@ def plot_historical_id(ids_to_show, data: pd.DataFrame):
 
 
 def plot_prediction_test(
-    id_to_show, 
-    X_train, 
-    X_test, 
-    y_train, 
-    y_test, 
-    train_date, 
-    test_date,
-    predictions=None
-):
+    id_to_show: int, 
+    X_train: pd.DataFrame, 
+    X_test: pd.DataFrame, 
+    y_train: Union[pd.Series, pd.DataFrame], 
+    y_test: Union[pd.Series, pd.DataFrame], 
+    train_date: pd.Series, 
+    test_date: pd.Series,
+    predictions: Optional[pd.Series] = None
+) -> go.Figure:
     """
     Plots a time series for a specific ID, showing training and test data on the same plot.
 
     Parameters:
-    - id_to_show (int or str): The ID to be displayed in the plot.
+    - id_to_show (int): The ID to be displayed in the plot.
     - X_train (pd.DataFrame): The feature data for the training set.
     - X_test (pd.DataFrame): The feature data for the test set.
     - y_train (pd.Series or pd.DataFrame): The target data for the training set.
@@ -255,16 +256,16 @@ def plot_prediction_test(
 
 
 def plot_prediction(
-    id_to_show, 
-    data,
-    week_ago,
-    predictions=None,
-):
+    id_to_show: int, 
+    data: pd.DataFrame,
+    week_ago: str,
+    predictions: Optional[pd.Series] = None,
+) -> go.Figure:
     """
     Display a time series plot for a specific ID, showcasing historical data, real prices, and predicted prices.
 
     Parameters:
-    - id_to_show (int or str): The unique identifier for the data series to be displayed.
+    - id_to_show (int): The unique identifier for the data series to be displayed.
     - data (pd.DataFrame): A DataFrame containing time series data.
     - week_ago (str): A string representing a date one week ago (in 'YYYY-MM-DD' format).
     - predictions (pd.Series or None, optional): Predicted price values for the test data. Default is None.

@@ -1,6 +1,7 @@
 import pandas as pd
+from typing import List, Union
 
-def predict_id(id_value, data, model):
+def predict_id(id_value: int, data: pd.DataFrame, model) -> Union[pd.Series, List[float]]:
     """
     Make predictions for a specific ID.
 
@@ -17,7 +18,7 @@ def predict_id(id_value, data, model):
     return preds
 
 
-def to_df(feature_vector):
+def to_df(feature_vector: Union[List[float], List[List[float]]]) -> pd.DataFrame:
     """
     Convert a list of feature vectors or a single feature vector into a Pandas DataFrame.
 
