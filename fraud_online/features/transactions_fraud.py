@@ -1,8 +1,9 @@
 from math import radians
 import numpy as np
+import pandas as pd
+from typing import Union
 
-
-def haversine(long, lat, shift):
+def haversine(long: pd.Series, lat: pd.Series, shift: int) -> np.ndarray:
     """
     Compute Haversine distance between each consecutive coordinate in (long, lat).
 
@@ -26,7 +27,7 @@ def haversine(long, lat, shift):
     return c
 
 
-def time_delta(datetime_value, shift):
+def time_delta(datetime_value: pd.Series, shift: int) -> pd.Series:
     """
     Compute time difference between each consecutive transaction.
 
@@ -41,7 +42,7 @@ def time_delta(datetime_value, shift):
     return time_shifted
 
 
-def calculate_loc_delta_t_plus_1(group):
+def calculate_loc_delta_t_plus_1(group: pd.DataFrame) -> pd.Series:
     """
     Calculate loc_delta_t_plus_1 for each group.
 
@@ -54,7 +55,7 @@ def calculate_loc_delta_t_plus_1(group):
     return haversine(group["longitude"], group["latitude"], 1)
 
 
-def calculate_loc_delta_t_minus_1(group):
+def calculate_loc_delta_t_minus_1(group: pd.DataFrame) -> pd.Series:
     """
     Calculate loc_delta_t_minus_1 for each group.
 
@@ -67,7 +68,7 @@ def calculate_loc_delta_t_minus_1(group):
     return haversine(group["longitude"], group["latitude"], -1)
 
 
-def calculate_time_delta_t_minus_1(group):
+def calculate_time_delta_t_minus_1(group: pd.DataFrame) -> pd.Series:
     """
     Calculate time_delta_t_minus_1 for each group.
 
@@ -80,7 +81,7 @@ def calculate_time_delta_t_minus_1(group):
     return time_delta(group["datetime"], -1)
 
 
-def prepare_transactions_fraud(trans_df):
+def prepare_transactions_fraud(trans_df: pd.DataFrame) -> pd.DataFrame:
     """
     Prepare transaction data with engineered features for fraud detection.
 
