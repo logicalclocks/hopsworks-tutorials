@@ -1,6 +1,7 @@
 import pandas as pd
 import datetime
 import numpy as np
+from typing import Union
 
 def home_ownership(home_ownership: str) -> str:
     """
@@ -17,12 +18,12 @@ def home_ownership(home_ownership: str) -> str:
     return home_ownership
 
 
-def pub_rec(number):
+def pub_rec(number: float) -> int:
     """
     Transform the public record number.
 
     Parameters:
-    - number: The original public record number.
+    - number (float): The original public record number.
 
     Returns:
     - int: Transformed public record number (0 or 1).
@@ -33,15 +34,15 @@ def pub_rec(number):
         return 1
 
 
-def mort_acc(number):
+def mort_acc(number: float) -> Union[int, float]:
     """
     Transform the mortgage account number.
 
     Parameters:
-    - number: The original mortgage account number.
+    - number (float): The original mortgage account number.
 
     Returns:
-    - int: Transformed mortgage account number (0, 1, or the original number).
+    - Union[int, float]: Transformed mortgage account number (0, 1, or the original number).
     """
     if number == 0.0:
         return 0
@@ -51,15 +52,15 @@ def mort_acc(number):
         return number
 
 
-def pub_rec_bankruptcies(number):
+def pub_rec_bankruptcies(number: float) -> Union[int, float]:
     """
     Transform the public record bankruptcies number.
 
     Parameters:
-    - number: The original public record bankruptcies number.
+    - number (float): The original public record bankruptcies number.
 
     Returns:
-    - int: Transformed public record bankruptcies number (0, 1, or the original number).
+    - Union[int, float]: Transformed public record bankruptcies number (0, 1, or the original number).
     """
     if number == 0.0:
         return 0
@@ -69,14 +70,14 @@ def pub_rec_bankruptcies(number):
         return number
 
 
-def fill_mort_acc(total_acc, mort_acc, total_acc_avg):
+def fill_mort_acc(total_acc: float, mort_acc: float, total_acc_avg: pd.Series) -> float:
     """
     Fill missing values in mortgage account based on total account average.
 
     Parameters:
-    - total_acc: Total account number.
-    - mort_acc: Original mortgage account number.
-    - total_acc_avg: Average mortgage account number based on total account.
+    - total_acc (float): Total account number.
+    - mort_acc (float): Original mortgage account number.
+    - total_acc_avg (pd.Series): Average mortgage account number based on total account.
 
     Returns:
     - float: Filled mortgage account number.
@@ -87,12 +88,12 @@ def fill_mort_acc(total_acc, mort_acc, total_acc_avg):
         return mort_acc
 
 
-def earliest_cr_line(earliest_cr_line):
+def earliest_cr_line(earliest_cr_line: datetime.date) -> int:
     """
     Transform the earliest credit line date to the year.
 
     Parameters:
-    - earliest_cr_line: The original earliest credit line date.
+    - earliest_cr_line (datetime.date): The original earliest credit line date.
 
     Returns:
     - int: The year of the earliest credit line.

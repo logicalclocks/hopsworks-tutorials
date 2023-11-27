@@ -1,8 +1,9 @@
 import pandas as pd
 import datetime
 import numpy as np
+from typing import Union
 
-def zipcode(address):
+def zipcode(address: Union[str, int]) -> str:
     """
     Transform the address to a standardized zip code.
 
