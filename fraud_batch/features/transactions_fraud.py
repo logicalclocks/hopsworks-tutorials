@@ -1,7 +1,8 @@
 import pandas as pd
 import numpy as np
+from typing import Union, Tuple
 
-def get_age_at_transaction(trans_df, profiles_df):
+def get_age_at_transaction(trans_df: pd.DataFrame, profiles_df: pd.DataFrame) -> pd.DataFrame:
     """
     Calculate the age at transaction and add a new column 'age_at_transaction' to the DataFrame.
 
@@ -18,7 +19,7 @@ def get_age_at_transaction(trans_df, profiles_df):
     return trans_df
 
 
-def get_days_until_card_expires(trans_df, credit_cards_df):
+def get_days_until_card_expires(trans_df: pd.DataFrame, credit_cards_df: pd.DataFrame) -> pd.DataFrame:
     """
     Calculate the days until the card expires and add a new column 'days_until_card_expires' to the DataFrame.
 
@@ -36,7 +37,7 @@ def get_days_until_card_expires(trans_df, credit_cards_df):
     return trans_df
 
 
-def haversine(long, lat):
+def haversine(long: pd.Series, lat: pd.Series) -> pd.Series:
     """
     Compute Haversine distance between each consecutive coordinate in (long, lat).
 

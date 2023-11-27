@@ -1,11 +1,11 @@
 import pandas as pd
 
-def get_window_aggs_df(window_len, trans_df):
+def get_window_aggs_df(window_len: int, trans_df: pd.DataFrame) -> pd.DataFrame:
     """
     Calculate various window aggregates based on transaction data.
 
     Parameters:
-    - window_len (str): Window length for rolling calculations.
+    - window_len (int): Window length for rolling calculations.
     - trans_df (pd.DataFrame): DataFrame containing transaction data.
 
     Returns:
