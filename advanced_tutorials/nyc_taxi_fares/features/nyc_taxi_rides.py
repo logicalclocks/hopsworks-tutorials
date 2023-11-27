@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 
 
-def generate_rides_data(n_records):
+def generate_rides_data(n_records: int) -> pd.DataFrame:
     """
     Generate a DataFrame with simulated ride data.
 
@@ -47,7 +47,7 @@ def generate_rides_data(n_records):
     return res
 
 
-def calculate_distance(lat1, lon1, lat2, lon2):
+def calculate_distance(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
     """
     Calculate the distance between two sets of coordinates in miles.
 
@@ -66,7 +66,7 @@ def calculate_distance(lat1, lon1, lat2, lon2):
     return 0.6213712 * 12742 * np.arcsin(np.sqrt(a))
 
 
-def calculate_distance_features(df):
+def calculate_distance_features(df: pd.DataFrame) -> pd.DataFrame:
     """
     Calculate additional distance-related features for a DataFrame of ride data.
 
@@ -100,7 +100,7 @@ def calculate_distance_features(df):
     return df
 
 
-def calculate_datetime_features(df):
+def calculate_datetime_features(df: pd.DataFrame) -> pd.DataFrame:
     """
     Extract and calculate additional datetime-related features for a DataFrame of ride data.
 

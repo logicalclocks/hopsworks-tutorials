@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-def generate_fares_data(n_records):
+def generate_fares_data(n_records: int) -> pd.DataFrame:
     """
     Generate a DataFrame with simulated taxi fare data.
 
