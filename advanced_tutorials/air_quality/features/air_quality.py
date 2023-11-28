@@ -5,236 +5,240 @@ import numpy as np
 ###########################################################################################
 # Part 1: Air Quality Features
 
-def shift_pm_2_5(df: pd.DataFrame, days: int = 5) -> pd.Series:
+def shift_pm_2_5(df: pd.DataFrame, days: int = 5) -> pd.DataFrame:
     """
-    Shifts the 'pm2_5' values in the DataFrame for a specified number of days.
+    Shift the 'pm2_5' values in the DataFrame by a specified number of days for each city.
 
-    Args:
-        df (pd.DataFrame): Input DataFrame containing 'date', 'city_name', and 'pm2_5' columns.
-        days (int): Number of days to shift the 'pm2_5' values.
+    Parameters:
+    - df (pd.DataFrame): DataFrame containing air quality data.
+    - days (int): Number of days to shift the 'pm2_5' values. Default is 5.
 
     Returns:
-        pd.Series: Series with shifted 'pm2_5' values.
+    - pd.DataFrame: DataFrame with additional columns for shifted 'pm2_5' values.
     """
-    # Convert 'pm2_5' column to numeric to handle potential non-numeric values
-    df['pm2_5'] = pd.to_numeric(df['pm2_5'], errors='coerce')
-
-    # Group by 'city_name' and transform to shift 'pm2_5' values within each group
-    shifted_series = df.groupby('city_name')['pm2_5'].transform(lambda x: x.shift(days))
-
-    return shifted_series
+    for shift_value in range(1, days + 1):
+        df[f'pm_2_5_previous_{shift_value}_day'] = df.groupby('city_name')['pm2_5'].shift(shift_value)
+    df = df.dropna()
+    return df
 
 
-def moving_average(df: pd.DataFrame, window: int = 7) -> pd.Series:
+def moving_average(df: pd.DataFrame, window: int = 7) -> pd.DataFrame:
     """
-    Calculates the moving average of 'pm2_5' values in the DataFrame.
+    Calculate the moving average of 'pm2_5' values for each city over a specified window.
 
-    Args:
-        df (pd.DataFrame): Input DataFrame containing 'date', 'city_name', and 'pm2_5' columns.
-        window (int): Size of the moving average window.
+    Parameters:
+    - df (pd.DataFrame): DataFrame containing air quality data.
+    - window (int): Size of the moving average window. Default is 7.
 
     Returns:
-        pd.Series: Series with the moving average of 'pm2_5' values.
+    - pd.DataFrame: DataFrame with an additional column for the moving average.
     """
-    return df.groupby('city_name')['pm2_5'].rolling(window=window).mean().reset_index(0, drop=True).shift(1)
+    df[f'mean_{window}_days'] = df.groupby('city_name')['pm2_5'] \
+                                    .rolling(window=window).mean().reset_index(0, drop=True).shift(1)
+    return df
 
 
-def moving_std(df: pd.DataFrame, window: int) -> pd.Series:
+def moving_std(df: pd.DataFrame, window: int) -> pd.DataFrame:
     """
-    Calculates the moving standard deviation of 'pm2_5' values in the DataFrame.
+    Calculate the moving standard deviation of 'pm2_5' values for each city over a specified window.
 
-    Args:
-        df (pd.DataFrame): Input DataFrame containing 'date', 'city_name', and 'pm2_5' columns.
-        window (int): Size of the moving standard deviation window.
+    Parameters:
+    - df (pd.DataFrame): DataFrame containing air quality data.
+    - window (int): Size of the moving standard deviation window.
 
     Returns:
-        pd.Series: Series with the moving standard deviation of 'pm2_5' values.
+    - pd.DataFrame: DataFrame with an additional column for the moving standard deviation.
     """
-    return df.groupby('city_name')['pm2_5'].rolling(window=window).std().reset_index(0, drop=True).shift(1)
+    df[f'std_{window}_days'] = df.groupby('city_name')['pm2_5'] \
+                                    .rolling(window=window).std().reset_index(0, drop=True).shift(1)
+    return df
 
 
-def exponential_moving_average(df: pd.DataFrame, window: int) -> pd.Series:
+def exponential_moving_average(df: pd.DataFrame, window: int) -> pd.DataFrame:
     """
-    Calculates the exponential moving average of 'pm2_5' values in the DataFrame.
+    Calculate the exponential moving average of 'pm2_5' values for each city over a specified window.
 
-    Args:
-        df (pd.DataFrame): Input DataFrame containing 'date', 'city_name', and 'pm2_5' columns.
-        window (int): Span of the exponential moving average.
+    Parameters:
+    - df (pd.DataFrame): DataFrame containing air quality data.
+    - window (int): Span of the exponential moving average window.
 
     Returns:
-        pd.Series: Series with the exponential moving average of 'pm2_5' values.
+    - pd.DataFrame: DataFrame with an additional column for the exponential moving average.
     """
-    return df.groupby('city_name')['pm2_5'].ewm(span=window).mean().reset_index(0, drop=True).shift(1)
+    df[f'exp_mean_{window}_days'] = df.groupby('city_name')['pm2_5'].ewm(span=window) \
+                                        .mean().reset_index(0, drop=True).shift(1)
+    return df
 
 
-def exponential_moving_std(df: pd.DataFrame, window: int) -> pd.Series:
+def exponential_moving_std(df: pd.DataFrame, window: int) -> pd.DataFrame:
     """
-    Calculates the exponential moving standard deviation of 'pm2_5' values in the DataFrame.
+    Calculate the exponential moving standard deviation of 'pm2_5' values for each city over a specified window.
 
-    Args:
-        df (pd.DataFrame): Input DataFrame containing 'date', 'city_name', and 'pm2_5' columns.
-        window (int): Span of the exponential moving standard deviation.
+    Parameters:
+    - df (pd.DataFrame): DataFrame containing air quality data.
+    - window (int): Span of the exponential moving standard deviation window.
 
     Returns:
-        pd.Series: Series with the exponential moving standard deviation of 'pm2_5' values.
+    - pd.DataFrame: DataFrame with an additional column for the exponential moving standard deviation.
     """
-    return df.groupby('city_name')['pm2_5'].ewm(span=window).std().reset_index(0, drop=True).shift(1)
+    df[f'exp_std_{window}_days'] = df.groupby('city_name')['pm2_5'].ewm(span=window) \
+                                        .std().reset_index(0, drop=True).shift(1)
+    return df
 
 ###########################################################################################
 # Part 2: Date and Time Features
 
-def year(df: pd.DataFrame) -> pd.Series:
+def year(date_column: pd.Series) -> pd.Series:
     """
     Extracts the year from the 'date' column and returns it as a new feature.
 
-    Args:
-        df (pd.DataFrame): Input DataFrame containing a 'date' column.
+    Parameters:
+    - date_column (pd.Series): Series containing date values.
 
     Returns:
-        pd.Series: Series with the 'year' feature.
+    - pd.Series: Series with the 'year' feature.
     """
-    return df['date'].dt.year.astype(int)
+    return date_column.dt.year.astype(int)
 
 
-def day_of_month(df: pd.DataFrame) -> pd.Series:
+def day_of_month(date_column: pd.Series) -> pd.Series:
     """
     Extracts the day of the month from the 'date' column and returns it as a new feature.
 
-    Args:
-        df (pd.DataFrame): Input DataFrame containing a 'date' column.
+    Parameters:
+    - date_column (pd.Series): Series containing date values.
 
     Returns:
-        pd.Series: Series with the 'day_of_month' feature.
+    - pd.Series: Series with the 'day_of_month' feature.
     """
-    return df['date'].dt.day.astype(int)
+    return date_column.dt.day.astype(int)
 
 
-def month(df: pd.DataFrame) -> pd.Series:
+def month(date_column: pd.Series) -> pd.Series:
     """
     Extracts the month from the 'date' column and returns it as a new feature.
 
-    Args:
-        df (pd.DataFrame): Input DataFrame containing a 'date' column.
+    Parameters:
+    - date_column (pd.Series): Series containing date values.
 
     Returns:
-        pd.Series: Series with the 'month' feature.
+    - pd.Series: Series with the 'month' feature.
     """
-    return df['date'].dt.month.astype(int)
+    return date_column.dt.month.astype(int)
 
 
-def day_of_week(df: pd.DataFrame) -> pd.Series:
+def day_of_week(date_column: pd.Series) -> pd.Series:
     """
     Extracts the day of the week from the 'date' column and returns it as a new feature.
 
-    Args:
-        df (pd.DataFrame): Input DataFrame containing a 'date' column.
+    Parameters:
+    - date_column (pd.Series): Series containing date values.
 
     Returns:
-        pd.Series: Series with the 'day_of_week' feature.
+    - pd.Series: Series with the 'day_of_week' feature.
     """
-    return df['date'].dt.dayofweek.astype(int)
+    return date_column.dt.dayofweek.astype(int)
 
 
-def is_weekend(df: pd.DataFrame) -> pd.Series:
+def is_weekend(day_of_week_col: pd.Series) -> pd.Series:
     """
     Adds a binary feature indicating whether the day is a weekend (1) or not (0).
 
-    Args:
-        df (pd.DataFrame): Input DataFrame containing a 'day_of_week' column.
+    Parameters:
+    - day_of_week_col (pd.Series): Series containing day of the week values.
 
     Returns:
-        pd.Series: Series with the 'is_weekend' feature.
+    - pd.Series: Series with the 'is_weekend' feature.
     """
-    return np.where(df['day_of_week'].isin([5, 6]), 1, 0)
+    return np.where(day_of_week_col.isin([5, 6]), 1, 0)
 
 
-def sin_day_of_year(df: pd.DataFrame) -> pd.Series:
+def sin_day_of_year(date_column: pd.Series) -> pd.Series:
     """
     Calculates the sine of the day of the year and returns it as a new feature.
 
-    Args:
-        df (pd.DataFrame): Input DataFrame containing a 'date' column.
+    Parameters:
+    - date_column (pd.Series): Series containing date values.
 
     Returns:
-        pd.Series: Series with the 'sin_day_of_year' feature.
+    - pd.Series: Series with the 'sin_day_of_year' feature.
     """
-    day_of_year = df['date'].dt.dayofyear
+    day_of_year = date_column.dt.dayofyear
     return np.sin(2 * np.pi * day_of_year / 365)
 
 
-def cos_day_of_year(df: pd.DataFrame) -> pd.Series:
+def cos_day_of_year(date_column: pd.Series) -> pd.Series:
     """
     Calculates the cosine of the day of the year and returns it as a new feature.
 
-    Args:
-        df (pd.DataFrame): Input DataFrame containing a 'date' column.
+    Parameters:
+    - date_column (pd.Series): Series containing date values.
 
     Returns:
-        pd.Series: Series with the 'cos_day_of_year' feature.
+    - pd.Series: Series with the 'cos_day_of_year' feature.
     """
-    day_of_year = df['date'].dt.dayofyear
+    day_of_year = date_column.dt.dayofyear
     return np.cos(2 * np.pi * day_of_year / 365)
 
 
-def sin_day_of_week(df: pd.DataFrame) -> pd.Series:
+def sin_day_of_week(day_of_week_col: pd.Series) -> pd.Series:
     """
     Calculates the sine of the day of the week and returns it as a new feature.
 
-    Args:
-        df (pd.DataFrame): Input DataFrame containing a 'day_of_week' column.
+    Parameters:
+    - day_of_week_col (pd.Series): Series containing day of the week values.
 
     Returns:
-        pd.Series: Series with the 'sin_day_of_week' feature.
+    - pd.Series: Series with the 'sin_day_of_week' feature.
     """
-    return np.sin(2 * np.pi * df['day_of_week'] / 7)
+    return np.sin(2 * np.pi * day_of_week_col / 7)
 
 
-def cos_day_of_week(df: pd.DataFrame) -> pd.Series:
+def cos_day_of_week(day_of_week_col: pd.Series) -> pd.Series:
     """
     Calculates the cosine of the day of the week and returns it as a new feature.
 
-    Args:
-        df (pd.DataFrame): Input DataFrame containing a 'day_of_week' column.
+    Parameters:
+    - day_of_week_col (pd.Series): Series containing day of the week values.
 
     Returns:
-        pd.Series: Series with the 'cos_day_of_week' feature.
+    - pd.Series: Series with the 'cos_day_of_week' feature.
     """
-    return np.cos(2 * np.pi * df['day_of_week'] / 7)
+    return np.cos(2 * np.pi * day_of_week_col / 7)
 
 
 def feature_engineer_aq(df: pd.DataFrame) -> pd.DataFrame:
     """
     Performs multiple feature engineering tasks on the input DataFrame related to air quality.
 
-    Args:
-        df (pd.DataFrame): Input DataFrame containing 'date', 'city_name', and 'pm2_5' columns.
+    Parameters:
+    - df (pd.DataFrame): Input DataFrame containing 'date', 'city_name', and 'pm2_5' columns.
 
     Returns:
-        pd.DataFrame: DataFrame with additional engineered features.
+    - pd.DataFrame: DataFrame with additional engineered features.
     """
     df_res = df.copy()
 
-    df_res['pm_2_5_shifted'] = shift_pm_2_5(df_res, days=7)
-    df_res['mean_7_days'] = moving_average(df_res, window=7)
-    df_res['mean_14_days'] = moving_average(df_res, window=14)
-    df_res['mean_28_days'] = moving_average(df_res, window=28)
+    df_res = shift_pm_2_5(df_res, days=7) 
+    df_res = moving_average(df_res, 7)
+    df_res = moving_average(df_res, 14)
+    df_res = moving_average(df_res, 28)
 
     for i in [7, 14, 28]:
-        df_res[f'std_{i}_days'] = moving_std(df_res, window=i)
-        df_res[f'exp_mean_{i}_days'] = exponential_moving_average(df_res, window=i)
-        df_res[f'exp_std_{i}_days'] = exponential_moving_std(df_res, window=i)
+        for func in [moving_std, exponential_moving_average, exponential_moving_std]:
+            df_res = func(df_res, i)
 
     df_res = df_res.sort_values(by=["date", "pm2_5"]).dropna()
     df_res = df_res.reset_index(drop=True)
 
-    df_res['year'] = year(df_res)
-    df_res['day_of_month'] = day_of_month(df_res)
-    df_res['month'] = month(df_res)
-    df_res['day_of_week'] = day_of_week(df_res)
-    df_res['is_weekend'] = is_weekend(df_res)
-    df_res['sin_day_of_year'] = sin_day_of_year(df_res)
-    df_res['cos_day_of_year'] = cos_day_of_year(df_res)
-    df_res['sin_day_of_week'] = sin_day_of_week(df_res)
-    df_res['cos_day_of_week'] = cos_day_of_week(df_res)
+    df_res['year'] = year(df_res['date'])
+    df_res['day_of_month'] = day_of_month(df_res['date'])
+    df_res['month'] = month(df_res['date'])
+    df_res['day_of_week'] = day_of_week(df_res['date'])
+    df_res['is_weekend'] = is_weekend(df_res['day_of_week'])
+    df_res['sin_day_of_year'] = sin_day_of_year(df_res['date'])
+    df_res['cos_day_of_year'] = cos_day_of_year(df_res['date'])
+    df_res['sin_day_of_week'] = sin_day_of_week(df_res['day_of_week'])
+    df_res['cos_day_of_week'] = cos_day_of_week(df_res['day_of_week'])
 
     return df_res
