@@ -42,7 +42,7 @@ def time_delta(datetime_value: pd.Series, shift: int) -> pd.Series:
     return time_shifted
 
 
-def calculate_loc_delta_t_plus_1(group: pd.DataFrame) -> pd.Series:
+def calculate_loc_delta_t_plus_1(df: pd.DataFrame) -> pd.DataFrame:
     """
     Calculate loc_delta_t_plus_1 for each group.
 
@@ -52,10 +52,13 @@ def calculate_loc_delta_t_plus_1(group: pd.DataFrame) -> pd.Series:
     Returns:
     - pandas Series, loc_delta_t_plus_1 values
     """
-    return haversine(group["longitude"], group["latitude"], 1)
+    df["loc_delta_t_plus_1"] = df.groupby("cc_num").apply(
+        lambda x: haversine(x["longitude"], x["latitude"], 1)
+        ).reset_index(level=0, drop=True).fillna(0)
+    return df
 
 
-def calculate_loc_delta_t_minus_1(group: pd.DataFrame) -> pd.Series:
+def calculate_loc_delta_t_minus_1(df: pd.DataFrame) -> pd.DataFrame:
     """
     Calculate loc_delta_t_minus_1 for each group.
 
@@ -65,10 +68,13 @@ def calculate_loc_delta_t_minus_1(group: pd.DataFrame) -> pd.Series:
     Returns:
     - pandas Series, loc_delta_t_minus_1 values
     """
-    return haversine(group["longitude"], group["latitude"], -1)
+    df["loc_delta_t_minus_1"] = df.groupby("cc_num").apply(
+        lambda x: haversine(x["longitude"], x["latitude"], -1)
+        ).reset_index(level=0, drop=True).fillna(0)
+    return df
 
 
-def calculate_time_delta_t_minus_1(group: pd.DataFrame) -> pd.Series:
+def calculate_time_delta_t_minus_1(df: pd.DataFrame) -> pd.DataFrame:
     """
     Calculate time_delta_t_minus_1 for each group.
 
@@ -78,7 +84,9 @@ def calculate_time_delta_t_minus_1(group: pd.DataFrame) -> pd.Series:
     Returns:
     - pandas Series, time_delta_t_minus_1 values
     """
-    return time_delta(group["datetime"], -1)
+    df["time_delta_t_minus_1"] = df.groupby("cc_num").apply(lambda x: time_delta(x["datetime"], -1))\
+        .reset_index(level=0, drop=True)
+    return df
 
 
 def prepare_transactions_fraud(trans_df: pd.DataFrame) -> pd.DataFrame:
@@ -96,14 +104,11 @@ def prepare_transactions_fraud(trans_df: pd.DataFrame) -> pd.DataFrame:
     trans_df[["longitude", "latitude"]] = trans_df[["longitude", "latitude"]].applymap(radians)
 
     # Calculate loc_delta_t_plus_1, loc_delta_t_minus_1, and time_delta_t_minus_1 using groupby
-    trans_df["loc_delta_t_plus_1"] = trans_df.groupby("cc_num").apply(calculate_loc_delta_t_plus_1)\
-        .reset_index(level=0, drop=True).fillna(0)
+    trans_df = calculate_loc_delta_t_plus_1(trans_df)
 
-    trans_df["loc_delta_t_minus_1"] = trans_df.groupby("cc_num").apply(calculate_loc_delta_t_minus_1)\
-        .reset_index(level=0, drop=True).fillna(0)
+    trans_df = calculate_loc_delta_t_minus_1(trans_df)
 
-    trans_df["time_delta_t_minus_1"] = trans_df.groupby("cc_num").apply(calculate_time_delta_t_minus_1)\
-        .reset_index(level=0, drop=True)
+    trans_df = calculate_time_delta_t_minus_1(trans_df)
 
     # Normalize time_delta_t_minus_1 to days and handle missing values
     trans_df["time_delta_t_minus_1"] = (trans_df["time_delta_t_minus_1"] - trans_df["datetime"]) / np.timedelta64(1, 'D')
