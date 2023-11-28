@@ -227,7 +227,7 @@ def get_citibike_data(start_date: str = "04/2021", end_date: str = "10/2022") ->
     return df_res.reset_index(drop=True)
 
 
-def moving_average(df: pd.DataFrame, window: int = 7) -> pd.Series:
+def moving_average(df: pd.DataFrame, window: int = 7) -> pd.DataFrame:
     """
     Calculate the moving average for 'users_count' grouped by 'station_id' and add the result as a new column.
 
@@ -236,16 +236,17 @@ def moving_average(df: pd.DataFrame, window: int = 7) -> pd.Series:
         window (int): The window size for the rolling mean.
 
     Returns:
-        pd.Series: The engineered moving average feature.
+        pd.DataFrame: The input DataFrame with an additional column for the engineered moving average feature.
     """
-    result = df.groupby('station_id')['users_count'].rolling(window=window).mean().reset_index(
+    result = df.copy()
+    result[f'mean_{window}_days'] = result.groupby('station_id')['users_count'].rolling(window=window).mean().reset_index(
         0, 
         drop=True,
     ).shift(1)
     return result
 
 
-def moving_std(df: pd.DataFrame, window: int) -> pd.Series:
+def moving_std(df: pd.DataFrame, window: int) -> pd.DataFrame:
     """
     Calculate the moving standard deviation for 'users_count' grouped by 'station_id' and add the result as a new column.
 
@@ -254,16 +255,17 @@ def moving_std(df: pd.DataFrame, window: int) -> pd.Series:
         window (int): The window size for the rolling standard deviation.
 
     Returns:
-        pd.Series: The engineered moving standard deviation feature.
+        pd.DataFrame: The input DataFrame with an additional column for the engineered moving standard deviation feature.
     """
-    result = df.groupby('station_id')['users_count'].rolling(window=window).std().reset_index(
+    result = df.copy()
+    result[f'moving_std_{window}_days'] = result.groupby('station_id')['users_count'].rolling(window=window).std().reset_index(
         0,
         drop=True,
     ).shift(1)
     return result
 
 
-def exponential_moving_average(df: pd.DataFrame, window: int) -> pd.Series:
+def exponential_moving_average(df: pd.DataFrame, window: int) -> pd.DataFrame:
     """
     Calculate the exponential moving average for 'users_count' grouped by 'station_id' and add the result as a new column.
 
@@ -272,16 +274,17 @@ def exponential_moving_average(df: pd.DataFrame, window: int) -> pd.Series:
         window (int): The span parameter for exponential moving average.
 
     Returns:
-        pd.Series: The engineered exponential moving average feature.
+        pd.DataFrame: The input DataFrame with an additional column for the engineered exponential moving average feature.
     """
-    result = df.groupby('station_id')['users_count'].ewm(span=window).mean().reset_index(
+    result = df.copy()
+    result[f'exponential_moving_average_{window}_days'] = result.groupby('station_id')['users_count'].ewm(span=window).mean().reset_index(
         0, 
         drop=True,
     ).shift(1)
     return result
 
 
-def exponential_moving_std(df: pd.DataFrame, window: int) -> pd.Series:
+def exponential_moving_std(df: pd.DataFrame, window: int) -> pd.DataFrame:
     """
     Calculate the exponential moving standard deviation for 'users_count' grouped by 'station_id' and add the result as a new column.
 
@@ -290,9 +293,10 @@ def exponential_moving_std(df: pd.DataFrame, window: int) -> pd.Series:
         window (int): The span parameter for exponential moving standard deviation.
 
     Returns:
-        pd.Series: The engineered exponential moving standard deviation feature.
+        pd.DataFrame: The input DataFrame with an additional column for the engineered exponential moving standard deviation feature.
     """
-    result = df.groupby('station_id')['users_count'].ewm(span=window).std().reset_index(
+    result = df.copy()
+    result[f'exponential_moving_std_{window}_days'] = result.groupby('station_id')['users_count'].ewm(span=window).std().reset_index(
         0, 
         drop=True,
     ).shift(1)
@@ -319,13 +323,12 @@ def engineer_citibike_features(df: pd.DataFrame) -> pd.DataFrame:
     df_res = df_res.dropna()
 
     # Add moving averages with window sizes 7 and 14
-    df_res['mean_7_days'] = moving_average(df_res, 7)
-    df_res['mean_14_days'] = moving_average(df_res, 14)
+    df_res = moving_average(df_res, 7)
+    df_res = moving_average(df_res, 14)
 
     # Add various features for window sizes 7 and 14
     for window_size in [7, 14]:
         for func in [moving_std, exponential_moving_average, exponential_moving_std]:
-            feature_name = f'{func.__name__}_{window_size}_days'
-            df_res[feature_name] = func(df_res, window_size)
+            df_res = func(df_res, window_size)
 
     return df_res.reset_index(drop=True).sort_values(by=["date", "station_id"]).dropna()
