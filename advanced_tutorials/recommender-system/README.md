@@ -10,12 +10,20 @@
 #### In this tutorial, you will build a recommender system for fashion items Using Hopsworks. It is divided into the following parts:
 
 * 1_feature_engineering.ipynb
-* 2a_create_retrieval_dataset.ipynb
-* 2b_train_retrieval_model.ipynb
+* 2_train_retrieval_model.ipynb
 * 3_build_index.ipynb
-* 4a_create_ranking_dataset.ipynb
-* 4b_train_ranking_model.ipynb
+* 4_train_ranking_model.ipynb
 * 5_create_deployments.ipynb
+* 6_inference_and_ui.py
+
+#### Streamlit App
+
+Use the following commands in the terminal to launch the Streamlit application:
+
+`cd {%path_to_recommender_system_tutorial%}`
+
+`streamlit run 6_inference_and_ui.py`
+
 
 ## Before you begin
 For the tutorials to work, you need:
