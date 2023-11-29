@@ -1,5 +1,6 @@
 import pandas as pd
 
+
 def fill_missing_club_member_status(df: pd.DataFrame) -> pd.DataFrame:
     '''
     Fills missing values in 'club_member_status' with 'ABSENT'.

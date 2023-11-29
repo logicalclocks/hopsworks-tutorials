@@ -1,9 +1,7 @@
 import requests
-
 from math import cos, asin, sqrt, pi
 from datetime import datetime, date
 from calendar import monthrange
-
 import pandas as pd
 
 
@@ -14,12 +12,15 @@ STATIONS_WITHIN_DISTANCE = 50
 
 
 def distance(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
-    """Calculate distance in km between two geographical points.
+    """
+    Calculate distance in km between two geographical points using Haversine formula.
+
     Args:
         lat1 (float): Latitude of point 1.
         lon1 (float): Longitude of point 1.
         lat2 (float): Latitude of point 2.
         lon2 (float): Longitude of point 2.
+
     Returns:
         float: Haversine distance in km between point 1 and 2.
     """
@@ -28,8 +29,18 @@ def distance(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
     return CONST_EARTH_DIAMETER * asin(sqrt(a))  # 2*R*asin...
 
 
-def hsmi_measurment_data(measurement, period, area_name):
+def hsmi_measurment_data(measurement: str, period: str, area_name: str) -> pd.DataFrame:
+    """
+    Fetches measurement data from the SMHI API for a specific area and parameter.
 
+    Args:
+        measurement (str): Type of measurement to fetch.
+        period (str): Period for which to fetch the data (e.g., "corrected-archive", "latest-months", "latest-day").
+        area_name (str): Name of the area for which to fetch the data (e.g., "SE1", "SE2", "SE3", "SE4").
+
+    Returns:
+        pd.DataFrame: DataFrame with measurement data.
+    """
     if area_name == "SE1":
         city_name = "Luleå"
     elif area_name == "SE2":
@@ -113,18 +124,44 @@ def hsmi_measurment_data(measurement, period, area_name):
         return measurment_by_city
 
 
-# get week days
-def get_week_day(date_obj):
+def get_week_day(date_obj: date) -> int:
+    """
+    Returns the weekday index (0-6) of a given date.
+
+    Args:
+        date_obj (date): Date for which to get the weekday index.
+
+    Returns:
+        int: Weekday index (0-6, where Monday is 0 and Sunday is 6).
+    """
     return date_obj.weekday()
 
 
-def all_dates_in_year(year):
+def all_dates_in_year(year: int):
+    """
+    Generates all dates in a given year along with their weekday indices.
+
+    Args:
+        year (int): Year for which to generate dates.
+
+    Yields:
+        dict: Dictionary containing 'day' (formatted date) and 'weekday' (weekday index) for each date in the year.
+    """
     for month in range(1, 13):  # Month is always 1..12
         for day in range(1, monthrange(year, month)[1] + 1):
             yield {"day": date(year, month, day).strftime("%Y-%m-%d"), "weekday": get_week_day(date(year, month, day))}
 
 
-def fetch_smhi_measurements(historical_data=False):
+def fetch_smhi_measurements(historical_data: bool = False) -> pd.DataFrame:
+    """
+    Fetches meteorological measurements from the SMHI API for different areas.
+
+    Args:
+        historical_data (bool): If True, fetches historical data. If False, fetches data for the current day. Default is False.
+
+    Returns:
+        pd.DataFrame: DataFrame with meteorological measurements for different areas.
+    """
     measurements = ["mean_temp_per_day", "wind_speed", "precipitaton_type", "precipitaton_amount", "sunshine_time", "cloud_perc"]
     meteorological_measurements = pd.DataFrame(columns=["day"])
     for measurement in measurements:

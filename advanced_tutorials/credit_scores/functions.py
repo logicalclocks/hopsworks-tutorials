@@ -1,8 +1,8 @@
 import pandas as pd
 import numpy as np
+import matplotlib.axes._axes as axes
 
-
-def remove_nans(df):
+def remove_nans(df: pd.DataFrame) -> pd.DataFrame:
     '''
     Function which removes missing values.
     If column has more than 20% of missing values -> remove.
@@ -26,7 +26,7 @@ def remove_nans(df):
     return df
 
 
-def add_perc(ax, feature, Number_of_categories, hue_categories):
+def add_perc(ax: axes, feature: pd.Series, Number_of_categories: int, hue_categories: int) -> axes:
     '''
     Function which adds percentages grouped by hue column to the top of bars.
     
@@ -58,7 +58,7 @@ def add_perc(ax, feature, Number_of_categories, hue_categories):
             ax.annotate(percentage, (x, y+1500), size=12)
 
 
-def generate_value(col_values: pd.Series):
+def generate_value(col_values: pd.Series) -> np.ndarray:
     '''
     Function which returns a random value which is generated using probabilities of each value occurrence.
 
@@ -94,7 +94,11 @@ def generate_observation(data: pd.DataFrame) -> list:
     --------
         A list of generates values for each column (new row of a dataframe).
     '''
-    return [generate_value(data[column]) for column in data]
+    return [
+        generate_value(data[column]) 
+        for column 
+        in data
+        ]
 
 
 def generate_data(data: pd.DataFrame, amount: int = 10) -> pd.DataFrame:
@@ -114,10 +118,19 @@ def generate_data(data: pd.DataFrame, amount: int = 10) -> pd.DataFrame:
     pd.DataFrame
         Generated DataFrame.
     '''
-    pk_existing = [pk for pk in data.columns if pk in ['sk_id_prev', 'sk_id_curr', 'sk_id_bureau']]
+    pk_existing = [
+        pk 
+        for pk 
+        in data.columns 
+        if pk in ['sk_id_prev', 'sk_id_curr', 'sk_id_bureau']
+        ]
     pk_max = data[pk_existing].agg({'max'}).values[0]
     
     return pd.DataFrame(
-        [[*[pk + i for pk in pk_max], *generate_observation(data.drop(pk_existing, axis=1))] for i in range(amount)],
-        columns=data.columns
+        [
+            [*[pk + i for pk in pk_max], *generate_observation(data.drop(pk_existing, axis=1))] 
+            for i 
+            in range(amount)
+        ],
+        columns=data.columns,
     )

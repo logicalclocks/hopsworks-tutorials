@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 
+
 def convert_article_id_to_str(df: pd.DataFrame) -> pd.Series:
     '''
     Converts the 'article_id' column to strings.
