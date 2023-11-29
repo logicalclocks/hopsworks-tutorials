@@ -1,14 +1,21 @@
 import requests
-
 from math import cos, asin, sqrt, pi
 from datetime import datetime, date
 from calendar import monthrange
-
 import pandas as pd
 
 
+def fetch_electricity_prices(historical: bool = False) -> pd.DataFrame:
+    """
+    Fetches electricity prices from Nord Pool API.
 
-def fetch_electricity_prices(historical=False):
+    Parameters:
+    - historical (bool): If True, fetches historical data. If False, fetches data for the current day. Default is False.
+
+    Returns:
+    - pd.DataFrame: DataFrame with electricity prices for different areas (SE1, SE2, SE3, SE4).
+    """
+
     HOURLY = 10
     DAILY = 11
     API_URL = 'https://www.nordpoolgroup.com/api/marketdata/page/%i'
@@ -31,7 +38,7 @@ def fetch_electricity_prices(historical=False):
     for r in data['Rows']:
         for c in r['Columns']:
             if c['Name'] in areas:
-                area_price_list.append({"start_time": r["StartTime"], "end_time": r["EndTime"], "area": c["Name"], "price":c['Value']})
+                area_price_list.append({"start_time": r["StartTime"], "end_time": r["EndTime"], "area": c["Name"], "price": c['Value']})
     pdf = pd.DataFrame(area_price_list)
     pdf["day"] = pdf["start_time"].map(lambda x: datetime.strptime(x, '%Y-%m-%dT%H:%M:%S').strftime("%Y-%m-%d"))
     pdf = pdf.drop(["start_time", "end_time"], axis=1)
