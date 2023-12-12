@@ -48,6 +48,7 @@ In order to understand the tutorials you need to be familiar with general concep
     - [Credit Scores](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/advanced_tutorials/credit_scores): Predict clients' repayment abilities.
     - [Electricity](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/advanced_tutorials/electricity): Predict the electricity prices in several Swedish cities based on weather conditions, previous prices, and Swedish holidays.
     - [NYC Taxi Fares](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/advanced_tutorials/nyc_taxi_fares): Predict the fare amount for a taxi ride in New York City given the pickup and dropoff locations.
+    - [Anti-Money Laundering](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/advanced_tutorials/aml)
     - [Recommender System](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/advanced_tutorials/recommender-system): Build a recommender system for fashion items.
     - [TimeSeries](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/advanced_tutorials/timeseries): Timeseries price prediction.
     - [Keras model and Sklearn Transformation Functions with Hopsworks Model Registry](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/advanced_tutorials/transformation_functions/keras): How to register Sklearn Transformation Functions and Keras model in the Hopsworks Model Registry, how to retrieve them and then use in training and inference pipelines.
