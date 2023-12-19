@@ -7,6 +7,9 @@
 ## Building Recommender and Personalized Search Retrieval and Ranking Systems using Hopsworks
 ![rec_sys_hopsworks](images/rec_sys_hopsworks.png)
 
+#### Video for this talk
+[Data AI Talk on Personalized Recommendations with Hopsworks](https://www.youtube.com/watch?v=9vBRjGgdyTY)
+
 #### In this tutorial, you will build a recommender system for fashion items Using Hopsworks. It is divided into the following parts:
 
 * 1_feature_engineering.ipynb
