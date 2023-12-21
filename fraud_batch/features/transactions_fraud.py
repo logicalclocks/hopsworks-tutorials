@@ -15,7 +15,7 @@ def get_age_at_transaction(trans_df: pd.DataFrame, profiles_df: pd.DataFrame) ->
     """
     # Compute age at transaction.
     age_df = trans_df.merge(profiles_df, on="cc_num", how="left")
-    trans_df["age_at_transaction"] = (age_df["datetime"] - age_df["birthdate"]) / np.timedelta64(1, "Y")
+    trans_df["age_at_transaction"] = (age_df["datetime"] - age_df["birthdate"]) / np.timedelta64(365, "D")
     return trans_df
 
 
