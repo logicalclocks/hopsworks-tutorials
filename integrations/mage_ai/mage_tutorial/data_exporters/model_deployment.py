@@ -36,7 +36,7 @@ def deploy_model(data, *args, **kwargs):
 
     # Specify the file to upload ("predict_example.py") to the "Models" directory, and allow overwriting
     uploaded_file_path = dataset_api.upload(
-        "predict_example.py", 
+        "predictor_script.py", 
         "Models", 
         overwrite=True,
         )
