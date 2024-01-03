@@ -207,7 +207,7 @@ settings:
 spark_config: {}
 tags: []
 type: python
-updated_at: '2024-01-03 13:23:35'
+updated_at: '2024-01-03 16:31:35'
 uuid: hopsworks_mage_quickstart
 variables_dir: /Users/maxzhytnikov/.mage_data/mage_tutorial
 widgets: []
