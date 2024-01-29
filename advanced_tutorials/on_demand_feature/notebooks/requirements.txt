@@ -1,0 +1,8 @@
+numpy
+pandas
+matplotlib
+hopsworks
+joblib
+xgboost
+matplotlib
+hsml

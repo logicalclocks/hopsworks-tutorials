@@ -1,0 +1,7 @@
+pandas
+hopsworks
+requests
+numpy
+matplotlib
+tensorflow
+joblib

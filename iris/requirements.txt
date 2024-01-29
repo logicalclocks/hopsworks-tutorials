@@ -1,0 +1,7 @@
+joblib
+json
+scikit-learn
+xgboost
+matplotlib
+seaborn
+hopsworks
