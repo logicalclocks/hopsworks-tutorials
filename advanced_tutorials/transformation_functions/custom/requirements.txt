@@ -1,0 +1,7 @@
+hopsworks
+pandas
+numpy
+joblib
+xgboost
+scikit-learn
+hsml
