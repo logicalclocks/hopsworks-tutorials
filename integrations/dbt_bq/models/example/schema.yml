@@ -5,10 +5,16 @@ models:
   - name: read_bigquery_data
     description: "Reads data from BigQuery"
 
-  - name: data_pipeline
-    description: "Creates a Feature Group populated with data from BigQuery table"
+  - name: feature_group_creation
+    description: "Create an Online Feature Group"
 
-  - name: schedule_pipeline
-    description: "Parses todays data and inserts into existing feature group"
+  - name: data_pipeline
+    description: "Parse Data"
+
+  - name: fg_insert
+    description: "Insert parsed data into Online Feature Group"
+
+  - name: big_query_insert
+    description: "Insert parsed data into BigQuery"
  
 

@@ -1,25 +1,15 @@
-# Imports
-import requests
+from airflow import DAG 
+from airflow.operators.python_operator import PythonOperator
 import datetime
+import requests
 import time
+import json
+import datetime
 import pandas as pd
 import hopsworks
 
-
-def model(dbt, session):
-    # Setup cluster usage
-    dbt.config(
-        submission_method="cluster",
-        dataproc_cluster_name="{YOUR_DATAPROC_CLUSTER_NAME}",
-    )
-
-    # Read data_pipeline Python model
-    data_pipeline = dbt.ref("data_pipeline")
-
-    print('📊 Parsing starts...')
-
-
-    def get_weather_data_from_open_meteo(
+# Parse Weather Data
+def get_city_weather_data(
         city_name: str,
         coordinates: list,
         start_date: str,
@@ -52,13 +42,17 @@ def model(dbt, session):
             'end_date': end_date,
             'timezone': "Europe/London"
         }
-
-        base_url = 'https://api.open-meteo.com/v1/forecast' 
+        
+        if forecast:
+            # historical forecast endpoint
+            base_url = 'https://api.open-meteo.com/v1/forecast' 
+        else:
+            # historical observations endpoint
+            base_url = 'https://archive-api.open-meteo.com/v1/archive'  
             
         try:
             response = requests.get(base_url, params=params)
         except ConnectionError:
-            base_url = 'https://archive-api.open-meteo.com/v1/archive' 
             response = requests.get(base_url, params=params)
         
         response_json = response.json()    
@@ -95,7 +89,7 @@ def model(dbt, session):
             
         return res_df
 
-
+def get_weather_data():
     city_coords = {
         "London": [51.51, -0.13],
         "Paris": [48.85, 2.35],
@@ -109,14 +103,17 @@ def model(dbt, session):
         "Kyiv": [50.45, 30.52]
     }
 
+    # Get today's date
+    today = datetime.datetime.today().date().strftime("%Y-%m-%d")
+
     # Parse and insert updated data from observations endpoint
     parsed_df = pd.DataFrame()
 
     for city_name, city_coord in city_coords.items():
-        weather_df_temp = get_weather_data_from_open_meteo(
+        weather_df_temp = get_city_weather_data(
             city_name,
             city_coord,
-            '2023-06-05',
+            today,
         )
         parsed_df = pd.concat([parsed_df, weather_df_temp])
 
@@ -130,42 +127,67 @@ def model(dbt, session):
         bins=[0, 2.5, 5.0, 7.5, float('inf')],
         labels=['Low', 'Moderate', 'High', 'Very High']
     ).astype(str)
+    parsed_df["base_time"] = parsed_df["base_time"].astype(int) // 10**9
+    parsed_df.fillna(0, inplace=True)
 
-    parsed_df[[
-        'city_name',
-        'base_time',
-        'forecast_hr',
-        'temperature',
-        'relative_humidity',
-        'weather_code',
-        'wind_speed',
-        'wind_direction',
-        'index_column',
-        'hour',
-        'day',
-        'temperature_diff',
-        'wind_speed_category',
-    ]].head(3)
+    return parsed_df.to_json(orient='records')
 
-    print('✅ Parsing finished successfully!!!🎉')
 
-    # Login to your Hopsworks project
+def insert_data(**kwargs):
+
+    # Retrieve the output from the weather_data task
+    ti = kwargs['ti']
+    weather_data_json = ti.xcom_pull(task_ids='parse_weather_data')
+
+    # Parse the JSON string into a list of dictionaries
+    weather_data_list = json.loads(weather_data_json)
+
+    # Convert the list of dictionaries into a Pandas DataFrame
+    weather_data = pd.DataFrame(weather_data_list)
+
+    # Your code to insert data into Hopsworks Feature Store using weather_data
+    print("Received weather data:", weather_data)
+
     project = hopsworks.login(
-        host="{YOUR_HOST}",          
-        project="{YOUR_PROJECT_NAME}",
-        api_key_value="{YOUR_HOPSWORKS_API_KEY}"
+        api_key_value='{YOUR_HOPSWORKS_API_KEY}',
+        )
+
+    fs = project.get_feature_store()
+
+    weather_fg = fs.get_or_create_feature_group(
+        name="weather_fg",
+        version=1,
+        description="Weather data",
+        primary_key=["city_name", "hour"],
+        online_enabled=True,
+        event_time="base_time",
+    )
+    weather_fg.insert(weather_data)
+
+    return 
+
+
+default_args = {
+    'start_date': datetime.datetime(2023, 1, 1),
+}
+
+with DAG(
+    'Feature_Pipeline',
+    description='DAG to Parse, Transform and Insert data into Hopsworks Feature Store',
+    default_args=default_args, 
+    schedule_interval='@daily', 
+    catchup=False,
+    ) as dag:
+
+    weather_data = PythonOperator(
+        task_id='parse_weather_data',
+        python_callable=get_weather_data,
     )
 
-    # Get feature Store
-    fs = project.get_feature_store() 
+    insertion = PythonOperator(
+        task_id='insert_weather_data',
+        python_callable=insert_data,
+    )
 
-    # Retrieve required Feature Group
-    feature_group = fs.get_or_create_feature_group(
-        name = '{YOUR_FEATURE_GROUP_NAME}',
-        version = 1,
-    )    
+    weather_data >> insertion
 
-    # Insert data into Feature Group
-    feature_group.insert(parsed_df)   
-
-    return parsed_df

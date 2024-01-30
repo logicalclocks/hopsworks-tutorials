@@ -1,15 +1,35 @@
 import pandas as pd
 import numpy as np
+from typing import Union, Tuple
 
+def get_age_at_transaction(trans_df: pd.DataFrame, profiles_df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Calculate the age at transaction and add a new column 'age_at_transaction' to the DataFrame.
 
-def get_age_at_transaction(trans_df, profiles_df):
+    Parameters:
+    - trans_df (pd.DataFrame): DataFrame containing transaction data.
+    - profiles_df (pd.DataFrame): DataFrame containing profiles data.
+
+    Returns:
+    - pd.DataFrame: Updated DataFrame with the 'age_at_transaction' column.
+    """
     # Compute age at transaction.
     age_df = trans_df.merge(profiles_df, on="cc_num", how="left")
-    trans_df["age_at_transaction"] = (age_df["datetime"] - age_df["birthdate"]) / np.timedelta64(1, "Y")
+    trans_df["age_at_transaction"] = (age_df["datetime"] - age_df["birthdate"]) / np.timedelta64(365, "D")
     return trans_df
 
 
-def get_days_until_card_expires(trans_df, credit_cards_df):
+def get_days_until_card_expires(trans_df: pd.DataFrame, credit_cards_df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Calculate the days until the card expires and add a new column 'days_until_card_expires' to the DataFrame.
+
+    Parameters:
+    - trans_df (pd.DataFrame): DataFrame containing transaction data.
+    - credit_cards_df (pd.DataFrame): DataFrame containing credit cards data.
+
+    Returns:
+    - pd.DataFrame: Updated DataFrame with the 'days_until_card_expires' column.
+    """
     # Compute days until card expires.
     card_expiry_df = trans_df.merge(credit_cards_df, on="cc_num", how="left")
     card_expiry_df["expires"] = pd.to_datetime(card_expiry_df["expires"], format="%m/%y")
@@ -17,9 +37,17 @@ def get_days_until_card_expires(trans_df, credit_cards_df):
     return trans_df
 
 
-def haversine(long, lat):
-    """Compute Haversine distance between each consecutive coordinate in (long, lat)."""
+def haversine(long: pd.Series, lat: pd.Series) -> pd.Series:
+    """
+    Compute Haversine distance between each consecutive coordinate in (long, lat).
 
+    Parameters:
+    - long (pd.Series): Series containing longitude values.
+    - lat (pd.Series): Series containing latitude values.
+
+    Returns:
+    - pd.Series: Haversine distances between consecutive coordinates.
+    """
     long_shifted = long.shift()
     lat_shifted = lat.shift()
     long_diff = long_shifted - long
