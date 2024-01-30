@@ -1,9 +1,9 @@
 package com.hopsworks.tutorials;
 
+import com.google.common.base.Joiner;
 import com.logicalclocks.hsfs.FeatureStore;
 import com.logicalclocks.hsfs.FeatureView;
 import com.logicalclocks.hsfs.HopsworksConnection;
-import com.logicalclocks.hsfs.SecretStore;
 
 import java.util.ArrayList;
 import java.util.HashMap;
