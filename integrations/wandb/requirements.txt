@@ -1,0 +1,5 @@
+hopsworks
+pandas
+scikit-learn
+wandb
+joblib

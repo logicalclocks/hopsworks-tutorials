@@ -1,3 +1,4 @@
 hopsworks
 joblib
 scikit-learn
+hvplot

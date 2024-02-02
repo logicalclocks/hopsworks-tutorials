@@ -1,0 +1,4 @@
+airflow
+requests
+pandas as pd
+hopsworks
