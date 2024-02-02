@@ -1,0 +1,3 @@
+hsfs
+hopsworks
+bytewax

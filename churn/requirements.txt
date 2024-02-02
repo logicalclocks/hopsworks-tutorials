@@ -1,0 +1,10 @@
+hopsworks
+pandas
+joblib
+PIL
+pandas
+matplotlib
+seaborn
+scikit-learn
+xgboost
+hsml

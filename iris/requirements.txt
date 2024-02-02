@@ -1,0 +1,10 @@
+hopsworks
+xgboost
+joblib
+pandas
+scikit-learn
+matplotlib
+seaborn
+hsml
+gradio
+typing-extensions

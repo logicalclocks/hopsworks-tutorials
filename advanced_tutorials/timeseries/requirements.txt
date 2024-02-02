@@ -1,0 +1,8 @@
+hopsworks
+great_expectations
+pandas
+numpy
+xgboost
+scikit-learn
+joblib
+hsfs

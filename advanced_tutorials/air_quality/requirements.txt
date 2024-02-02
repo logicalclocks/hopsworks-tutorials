@@ -5,3 +5,11 @@ numpy
 streamlit
 streamlit-folium
 joblib
+requests
+json
+folium
+matplotlib
+seaborn
+xgboost
+scikit-learn
+hsml

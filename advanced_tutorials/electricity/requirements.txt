@@ -1,0 +1,6 @@
+hopsworks
+pandas
+numpy
+matplotlib
+tensorflow
+joblib

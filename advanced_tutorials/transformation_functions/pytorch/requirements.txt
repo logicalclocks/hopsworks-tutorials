@@ -1,0 +1,8 @@
+hopsworks
+pandas
+numpy
+matplotlib
+joblib
+torch
+scikit-learn
+hsml

@@ -1,0 +1,11 @@
+hopsworks
+python-dotenv
+pandas
+plotly
+joblib
+numpy
+matplotlib
+seaborn
+scikit-learn
+xgboost
+hsml

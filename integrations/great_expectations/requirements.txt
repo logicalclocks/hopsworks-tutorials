@@ -1,0 +1,4 @@
+hopsworks
+pandas
+numpy
+great_expectations
