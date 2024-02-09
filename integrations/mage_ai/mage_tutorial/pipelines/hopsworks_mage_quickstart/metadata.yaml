@@ -1,0 +1,213 @@
+blocks:
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - transactions_fe
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: credit_cards
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_loader
+  upstream_blocks: []
+  uuid: credit_cards
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - transactions_fe
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: profiles
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_loader
+  upstream_blocks: []
+  uuid: profiles
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - transactions_fe
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: transactions
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_loader
+  upstream_blocks: []
+  uuid: transactions
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - window_aggs
+  - transactions_fg
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: transactions_fe
+  retry_config: null
+  status: executed
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - transactions
+  - profiles
+  - credit_cards
+  uuid: transactions_fe
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - window_aggs_fg
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: window_aggs
+  retry_config: null
+  status: executed
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - transactions_fe
+  uuid: window_aggs
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - transactions_feature_view
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: transactions_fg
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - transactions_fe
+  uuid: transactions_fg
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - transactions_feature_view
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: window_aggs_fg
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - window_aggs
+  uuid: window_aggs_fg
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - model_building
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: transactions_feature_view
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - window_aggs_fg
+  - transactions_fg
+  uuid: transactions_feature_view
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - model_deployment
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: model_building
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - transactions_feature_view
+  uuid: model_building
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - deployment_inference
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: model_deployment
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - model_building
+  uuid: model_deployment
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: deployment_inference
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - model_deployment
+  uuid: deployment_inference
+cache_block_output_in_memory: false
+callbacks: []
+concurrency_config: {}
+conditionals: []
+created_at: '2023-12-28 11:57:39.358016+00:00'
+data_integration: null
+description: null
+executor_config: {}
+executor_count: 1
+executor_type: null
+extensions: {}
+name: QuickStart
+notification_config: {}
+remote_variables_dir: null
+retry_config: {}
+run_pipeline_in_one_process: false
+settings:
+  triggers: null
+spark_config: {}
+tags: []
+type: python
+updated_at: '2024-01-03 16:31:35'
+uuid: hopsworks_mage_quickstart
+variables_dir: /Users/maxzhytnikov/.mage_data/mage_tutorial
+widgets: []
