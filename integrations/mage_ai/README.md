@@ -11,13 +11,13 @@ Create a new Python environment for this tutorial.
 Open the terminal and pass the next command:
 
 ```
-git clone {tutorial_repo_link} mage_tutorial
+git clone https://github.com/logicalclocks/hopsworks-tutorials.git
 ```
 
 Go to the project folder.
 
 ```
-cd mage_tutorial
+cd hopsworks-tutorials/integrations/mage_ai
 ```
 
 Install the mage-ai library:
