@@ -59,15 +59,21 @@ The next step is to add the Hopsworks Api key to the secrets. Open the Secrets s
 ![secrets](images/secrets.png)
 
 
-*Secret Name: HOPSWORKS_API_KEY*
+- *Secret Name: HOPSWORKS_API_KEY*
 
-*Secret Value: {YOUR_HOPSWORKS_API_KEY}*
+- *Secret Value: {YOUR_HOPSWORKS_API_KEY}*
 
 ![secret](images/secret.png)
 
 Press Enter to save the secret.
 
 ![ready_secret](images/ready_secret.png)
+
+If you are running your own Hopsworks cluster, you will also have to add the following secrets, where the secret values should be the IP address or FQDN of your Hopsworks cluster and the name of the project in that Hopsworks cluster, respectively:
+
+- HOPSWORKS_HOST
+
+- HOPSWORKS_PROJECT
 
 Now you are ready to run Pipeline blocks.
 
