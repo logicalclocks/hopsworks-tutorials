@@ -66,6 +66,7 @@ In order to understand the tutorials you need to be familiar with general concep
     - [Bytewax](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/bytewax): Real time feature computation using Bytewax.
     - [Apache Beam](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/java/beam): Real time feature computation using Apache Beam, Google Cloud Dataflow and Hopsworks Feature Store.
     - [Apache Flink](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/java/flink): Real time feature computation using Apache Flink and Hopsworks Feature Store.
+    - [MageAI](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/mage_ai): Build and operate a ML system with Mage and Hopsworks.
    
 
 ## 📝 Feedbacks & Comments:
