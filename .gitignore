@@ -181,4 +181,4 @@ loan_approval/lending_model/roc_curve.png
 advanced_tutorials/timeseries/price_model/model_prediction.png
 
 integrations/neo4j/aml_model/*
-integrations/neo4j/aml_model/aml_model_transformer.py
+integrations/neo4j/aml_model_transformer.py
