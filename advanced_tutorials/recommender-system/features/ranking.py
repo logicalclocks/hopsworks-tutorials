@@ -15,11 +15,11 @@ def compute_ranking_dataset(trans_fg, articles_fg, customers_fg):
     # Define the number of negative pairs to generate
     n_neg = len(positive_pairs) * 10
 
-    # Generate random article_id for negative_pairs that are not in positive_pairs
-    negative_article_ids = positive_pairs["article_id"].drop_duplicates().sample(n_neg, replace=True, random_state=2).to_frame()
-
     # Initialize the negative_pairs DataFrame
     negative_pairs = pd.DataFrame()
+
+    # Generate random article_id for negative_pairs that are not in positive_pairs
+    negative_pairs['article_id'] = positive_pairs["article_id"].drop_duplicates().sample(n_neg, replace=True, random_state=2)
 
     # Add customer_id to negative_pairs
     negative_pairs["customer_id"] = positive_pairs["customer_id"].sample(n_neg, replace=True, random_state=3).to_numpy()
@@ -32,7 +32,7 @@ def compute_ranking_dataset(trans_fg, articles_fg, customers_fg):
     negative_pairs["label"] = 0
 
     # Concatenate positive and negative pairs
-    ranking_df = pd.concat([positive_pairs, negative_pairs], ignore_index=True)
+    ranking_df = pd.concat([positive_pairs, negative_pairs[positive_pairs.columns]], ignore_index=True)
     
     # Keep unique article_id from item features
     item_df = articles_fg.read()
