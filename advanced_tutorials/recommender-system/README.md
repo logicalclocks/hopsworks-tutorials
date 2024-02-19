@@ -14,7 +14,7 @@
 
 * 1_feature_engineering.ipynb
 * 2_train_retrieval_model.ipynb
-* 3_build_index.ipynb
+* 3_embeddings_creation.ipynb
 * 4_train_ranking_model.ipynb
 * 5_create_deployments.ipynb
 * 6_inference_and_ui.py
