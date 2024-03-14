@@ -63,6 +63,7 @@ In order to understand the tutorials you need to be familiar with general concep
     - [WandB](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/wandb): Build a machine learning model with Weights & Biases.
     - [Great Expectations](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/great_expectations): Introduction to Great Expectations concepts and classes which are relevant for integration with the Hopsworks MLOps platform.
     - [Neo4j](integrations/neo4j): Perform Anti-money laundering (AML) predictions using Neo4j Graph representation of transactions.
+    - [Polars](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/advanced_tutorials/polars/quickstart.ipynb) : Introductory tutorial on using Polars.
     - [Monitoring](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/monitoring): How to implement feature monitoring in your production pipeline.
     - [Bytewax](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/bytewax): Real time feature computation using Bytewax.
     - [Apache Beam](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/java/beam): Real time feature computation using Apache Beam, Google Cloud Dataflow and Hopsworks Feature Store.
