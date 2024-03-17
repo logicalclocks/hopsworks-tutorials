@@ -1,8 +1,12 @@
-geopy
-transformers
-sentencepiece
+geopy==2.4.1
+joblib==1.2.0
+xgboost==2.0.3
+transformers==4.38.2
 protobuf==3.20.0
-langchain
+langchain==0.1.10
 flask-sqlalchemy==3.1.1
 bitsandbytes==0.42.0
 accelerate==0.27.2
+streamlit==1.31.1
+sentencepiece==0.2.0
+gradio==4.21.0

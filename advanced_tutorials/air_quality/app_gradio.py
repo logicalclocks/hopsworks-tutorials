@@ -1,14 +1,13 @@
-import streamlit as st
+import gradio as gr
+from transformers import pipeline
+import numpy as np
 import hopsworks
 import joblib
 from functions.llm_chain import load_model, get_llm_chain, generate_response
-import warnings
-warnings.filterwarnings('ignore')
 
-st.title("🌤️ AirQuality AI assistant 💬")
+# Initialize the ASR pipeline
+transcriber = pipeline("automatic-speech-recognition", model="openai/whisper-base.en")
 
-
-@st.cache_resource()
 def connect_to_hopsworks():
     # Initialize Hopsworks feature store connection
     project = hopsworks.login()
@@ -42,7 +41,6 @@ def connect_to_hopsworks():
     return feature_view, model_air_quality, encoder
 
 
-@st.cache_resource()
 def retrieve_llm_chain():
 
     # Load the LLM and its corresponding tokenizer.
@@ -63,25 +61,15 @@ feature_view, model_air_quality, encoder = connect_to_hopsworks()
 # Load the LLM and its corresponding tokenizer and configure a language model chain
 model_llm, tokenizer, llm_chain = retrieve_llm_chain()
 
-# Initialize chat history
-if "messages" not in st.session_state:
-    st.session_state.messages = []
+def transcribe(audio):
+    sr, y = audio
+    y = y.astype(np.float32)
+    if y.ndim > 1 and y.shape[1] > 1:
+        y = np.mean(y, axis=1)
+    y /= np.max(np.abs(y))
+    return transcriber({"sampling_rate": sr, "raw": y})["text"]
 
-# Display chat messages from history on app rerun
-for message in st.session_state.messages:
-    with st.chat_message(message["role"]):
-        st.markdown(message["content"])
-
-# React to user input
-if user_query := st.chat_input("How can I help you?"):
-    # Display user message in chat message container
-    st.chat_message("user").markdown(user_query)
-    # Add user message to chat history
-    st.session_state.messages.append({"role": "user", "content": user_query})
-
-    st.write('⚙️ Generating Response...')
-
-    # Generate a response to the user query
+def generate_query_response(user_query):
     response = generate_response(
         user_query,
         feature_view,
@@ -92,9 +80,25 @@ if user_query := st.chat_input("How can I help you?"):
         llm_chain,
         verbose=False,
     )
+    return response
 
-    # Display assistant response in chat message container
-    with st.chat_message("assistant"):
-        st.markdown(response)
-    # Add assistant response to chat history
-    st.session_state.messages.append({"role": "assistant", "content": response})
+def handle_input(text_input=None, audio_input=None):
+    if audio_input is not None:
+        user_query = transcribe(audio_input)
+    else:
+        user_query = text_input
+    
+    if user_query:
+        return generate_query_response(user_query)
+    else:
+        return "Please provide input either via text or voice."
+
+iface = gr.Interface(
+    fn=handle_input,
+    inputs=[gr.Textbox(placeholder="Type here or use voice input..."), gr.Audio()],
+    outputs="text",
+    title="🌤️ AirQuality AI Assistant 💬",
+    description="Ask your questions about air quality or use your voice to interact."
+)
+
+iface.launch(share=True)
