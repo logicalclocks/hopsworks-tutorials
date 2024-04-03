@@ -7,6 +7,7 @@ import datetime
 import torch
 import sys
 import pandas as pd
+from openai import OpenAI
 from functions.air_quality_data_retrieval import get_data_for_date, get_data_in_date_range, get_future_data
 from typing import Any, Dict, List
 
@@ -42,11 +43,10 @@ def serialize_function_to_json(func: Any) -> str:
     return json.dumps(function_info, indent=2)
 
 
-def generate_hermes(prompt: str, model_llm, tokenizer) -> str:
-    """Retrieves a function name and extracts function parameters based on the user query."""
+def get_function_calling_prompt(user_query):
     fn = """{"name": "function_name", "arguments": {"arg_1": "value_1", "arg_2": value_2, ...}}"""
-    example = """{"name": "get_data_in_date_range", "arguments": {"date_start": "2024-01-10", "date_end": "2024-01-14", "city_name": "New York"}}"""
-    
+    example = """{"name": "get_data_in_date_range", "arguments": {"date_start": "2024-01-10", "date_end": "2024-01-14", "city_name": "<city_name>"}}"""
+
     prompt = f"""<|im_start|>system
 You are a helpful assistant with access to the following functions:
 
@@ -60,7 +60,7 @@ You are a helpful assistant with access to the following functions:
 - You need to choose one function to use and retrieve paramenters for this function from the user input.
 - If the user query contains 'will', it is very likely that you will need to use the get_future_data function.
 - Do not include feature_view, model and encoder parameters.
-- Dates should be provided in the format YYYY-MM-DD.
+- Provide dates STRICTLY in the YYYY-MM-DD format.
 - Generate an 'No Function needed' string if the user query does not require function calling.
 
 IMPORTANT: Today is {datetime.date.today().strftime("%A")}, {datetime.date.today()}.
@@ -77,20 +77,30 @@ EXAMPLE 1:
 - AI Assiatant: No Function needed.
 
 EXAMPLE 2:
-- User: Is it good or bad?
+- User: Is this Air Quality level good or bad?
 - AI Assiatant: No Function needed.
 
 EXAMPLE 3:
-- User: When and what was the minimum air quality from 2024-01-10 till 2024-01-14 in New York?
+- User: When and what was the minimum air quality from 2024-01-10 till 2024-01-14 in <city_name>?
 - AI Assistant:
 <onefunctioncall>
     <functioncall> {example} </functioncall>
 </onefunctioncall>
-
 <|im_end|>
+
 <|im_start|>user
-{prompt}<|im_end|>
+{user_query}
+<|im_end|>
+
 <|im_start|>assistant"""
+    
+    return prompt
+
+
+def generate_hermes(user_query: str, model_llm, tokenizer) -> str:
+    """Retrieves a function name and extracts function parameters based on the user query."""
+
+    prompt = get_function_calling_prompt(user_query)
     
     tokens = tokenizer(prompt, return_tensors="pt").to(model_llm.device)
     input_size = tokens.input_ids.numel()
@@ -111,6 +121,36 @@ EXAMPLE 3:
         generated_tokens.squeeze()[input_size:], 
         skip_special_tokens=True,
     )
+
+
+def function_calling_with_openai(user_query: str, client) -> str:
+    """
+    Generates a response using OpenAI's chat API.
+    
+    Args:
+        user_query (str): The user's query or prompt.
+        instructions (str): Instructions or context to provide to the GPT model.
+        
+    Returns:
+        str: The generated response from the assistant.
+    """
+    
+    instructions = get_function_calling_prompt(user_query).split('<|im_start|>user')[0]
+    
+    completion = client.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": instructions},
+            {"role": "user", "content": user_query},
+        ]
+    )
+
+    # Extract and return the assistant's reply from the response
+    if completion and completion.choices:
+        last_choice = completion.choices[0]
+        if last_choice.message:
+            return last_choice.message.content.strip()
+    return ""    
 
 
 def extract_function_calls(completion: str) -> List[Dict[str, Any]]:
@@ -150,7 +190,7 @@ def invoke_function(function, feature_view, model, encoder) -> pd.DataFrame:
     return function_output
 
 
-def get_context_data(user_query: str, feature_view, model_llm, tokenizer, model_air_quality, encoder) -> str:
+def get_context_data(user_query: str, feature_view, model_air_quality, encoder, model_llm=None, tokenizer=None, client=None) -> str:
     """
     Retrieve context data based on user query.
 
@@ -165,12 +205,18 @@ def get_context_data(user_query: str, feature_view, model_llm, tokenizer, model_
     Returns:
         str: The context data.
     """
-    # Generate a response using LLM
-    completion = generate_hermes(
-        user_query, 
-        model_llm, 
-        tokenizer,
-    )
+    
+    if client:
+        # Generate a response using LLM
+        completion = function_calling_with_openai(user_query, client) 
+     
+    else:
+        # Generate a response using LLM
+        completion = generate_hermes(
+            user_query, 
+            model_llm, 
+            tokenizer,
+        )
         
     # Extract function calls from the completion
     functions = extract_function_calls(completion)
