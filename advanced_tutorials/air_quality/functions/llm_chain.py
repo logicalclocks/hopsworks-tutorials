@@ -63,22 +63,17 @@ def get_prompt_template():
             instructions, previous conversation, context, date and user query.
     """
     prompt_template = """<|im_start|>system
-You are a helpful Air Quality assistant. 
-Provide your answers based on the provided context table which consists of the dates and air quality indicators for the city provided by user.
+You are one of the best air quality experts in the world. 
 
-INSTRUCTIONS:
+###INSTRUCTIONS:
 - If you don't know the answer, you will respond politely that you cannot help.
-- Use the provided table with air quality indicators for city provided by user to generate your answer.
+- Use the context table with air quality indicators for city provided by user to generate your answer.
 - You answer should be at least one sentence.
 - Do not show any calculations to the user.
-- If the user asks for the air quality level in specific range, you can calculate an average air quality level.
-- Make sure that you use correct air quality indicators for the required date.
-- Add a description of the air quality level, such as whether it is safe, whether to go for a walk, etc.
-- If user asks more general question, use your last responses in the chat history as a context.
+- Make sure that you use correct air quality indicators for the corresponding date.
+- Add a rich analysis of the air quality level, such as whether it is safe, whether to go for a walk, etc.
+- Do not mention in your answer that you are using context table.
 <|im_end|>
-
-Previous conversation:
-{chat_history}
 
 ### CONTEXT:
 {context}
@@ -124,15 +119,8 @@ def get_llm_chain(model_llm, tokenizer):
 
     # Create prompt from prompt template 
     prompt = PromptTemplate(
-        input_variables=["context", "question", "date_today", "chat_history"],
+        input_variables=["context", "question", "date_today"],
         template=get_prompt_template(),
-    )
-
-    # Create a ConversationBufferWindowMemory with specified configuration
-    memory = ConversationBufferWindowMemory(
-        k=3,                         # Number of turns to remember in the conversation buffer
-        memory_key="chat_history",   # Key to store the conversation history in memory
-        input_key="question",        # Key to access the input question in the conversation
     )
 
     # Create LLM chain 
@@ -140,7 +128,6 @@ def get_llm_chain(model_llm, tokenizer):
         llm=mistral_llm, 
         prompt=prompt,
         verbose=False,
-        memory=memory,
     )
 
     return llm_chain
@@ -149,11 +136,11 @@ def get_llm_chain(model_llm, tokenizer):
 def generate_response(
     user_query: str, 
     feature_view, 
-    model_llm, 
-    tokenizer, 
     model_air_quality, 
     encoder, 
-    llm_chain,
+    model_llm, 
+    tokenizer, 
+    llm_chain=None,
     verbose: bool = False,
 ) -> str:
     """
@@ -172,15 +159,14 @@ def generate_response(
     Returns:
         str: Generated response to the user query.
     """
-    
     # Get context data based on user query
     context = get_context_data(
         user_query,
         feature_view,
-        model_llm, 
-        tokenizer, 
         model_air_quality, 
         encoder,
+        model_llm=model_llm, 
+        tokenizer=tokenizer, 
     )
         
     # Get today's date in a readable format
@@ -197,6 +183,55 @@ def generate_response(
         "date_today": date_today,
         "question": user_query,
     })
-    
+
     # Return the generated text from the model output
-    return model_output['text']
+    return model_output['text'].split('<|im_start|>assistant')[-1]
+
+
+def generate_response_openai(
+    user_query: str, 
+    feature_view, 
+    model_air_quality, 
+    encoder, 
+    client,
+    verbose=True,
+):
+    
+    context = get_context_data(
+        user_query,
+        feature_view,
+        model_air_quality,
+        encoder,
+        client=client,
+    )
+    
+    # Get today's date in a readable format
+    date_today = f'{datetime.date.today().strftime("%A")}, {datetime.date.today()}'
+    
+    # Print today's date and context information if verbose mode is enabled
+    if verbose:
+        print(f"🗓️ Today's date: {date_today}")
+        print(f'📖 {context}')
+    
+    instructions = get_prompt_template().split('<|im_start|>user')[0]
+    
+    instructions_filled = instructions.format(
+        context=context,
+        date_today=date_today
+    )
+
+    completion = client.chat.completions.create(
+        model="gpt-4-0125-preview",
+        messages=[
+            {"role": "system", "content": instructions_filled},
+            {"role": "user", "content": user_query},
+        ]
+    )
+
+    # Extract and return the assistant's reply from the response
+    if completion and completion.choices:
+        last_choice = completion.choices[0]
+        if last_choice.message:
+            return last_choice.message.content.strip()
+    return "" 
+    
