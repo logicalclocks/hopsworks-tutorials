@@ -2,7 +2,6 @@ import transformers
 from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
 from langchain.llms import HuggingFacePipeline
 from langchain.prompts import PromptTemplate
-from langchain.chains.llm import LLMChain
 from langchain.memory import ConversationBufferWindowMemory
 import torch
 import datetime
@@ -124,11 +123,7 @@ def get_llm_chain(model_llm, tokenizer):
     )
 
     # Create LLM chain 
-    llm_chain = LLMChain(
-        llm=mistral_llm, 
-        prompt=prompt,
-        verbose=False,
-    )
+    llm_chain = prompt | mistral_llm
 
     return llm_chain
 
@@ -185,7 +180,7 @@ def generate_response(
     })
 
     # Return the generated text from the model output
-    return model_output['text'].split('<|im_start|>assistant')[-1]
+    return model_output.split('<|im_start|>assistant')[-1].strip()
 
 
 def generate_response_openai(
