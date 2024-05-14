@@ -5,7 +5,7 @@ import transformers
 import torch
 from langchain.llms import HuggingFacePipeline
 from langchain.prompts import PromptTemplate
-from langchain.chains.llm import LLMChain
+from langchain.schema.output_parser import StrOutputParser
 
 from functions.utils import (
     load_image,
@@ -135,7 +135,7 @@ def get_llm_chain(model_id: str = "meta-llama/Meta-Llama-3-8B-Instruct"):
     )
 
     # Create the LLM chain
-    llm_chain = prompt | pipeline_llm
+    llm_chain = prompt | pipeline_llm | StrOutputParser()
 
     return llm_chain
 
