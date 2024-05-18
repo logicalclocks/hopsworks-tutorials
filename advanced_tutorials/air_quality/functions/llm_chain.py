@@ -2,8 +2,8 @@ import transformers
 from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
 from langchain.llms import HuggingFacePipeline
 from langchain.prompts import PromptTemplate
-from langchain.chains.llm import LLMChain
 from langchain.memory import ConversationBufferWindowMemory
+from langchain.schema.output_parser import StrOutputParser
 import torch
 import datetime
 from typing import Any, Dict, Union
@@ -63,36 +63,36 @@ def get_prompt_template():
             instructions, previous conversation, context, date and user query.
     """
     prompt_template = """<|im_start|>system
-You are one of the best air quality experts in the world. 
+    You are one of the best air quality experts in the world. 
 
-###INSTRUCTIONS:
-- If you don't know the answer, you will respond politely that you cannot help.
-- Use the context table with air quality indicators for city provided by user to generate your answer.
-- You answer should be at least one sentence.
-- Do not show any calculations to the user.
-- Make sure that you use correct air quality indicators for the corresponding date.
-- Add a rich analysis of the air quality level, such as whether it is safe, whether to go for a walk, etc.
-- Do not mention in your answer that you are using context table.
-<|im_end|>
+    ###INSTRUCTIONS:
+    - If you don't know the answer, you will respond politely that you cannot help.
+    - Use the context table with air quality indicators for city provided by user to generate your answer.
+    - You answer should be at least one sentence.
+    - Do not show any calculations to the user.
+    - Make sure that you use correct air quality indicators for the corresponding date.
+    - Add a rich analysis of the air quality level, such as whether it is safe, whether to go for a walk, etc.
+    - Do not mention in your answer that you are using context table.
+    <|im_end|>
 
-### CONTEXT:
-{context}
+    ### CONTEXT:
+    {context}
 
-IMPORTANT: Today is {date_today}.
+    IMPORTANT: Today is {date_today}.
 
-<|im_start|>user
-{question}<|im_end|>
-<|im_start|>assistant"""
+    <|im_start|>user
+    {question}<|im_end|>
+    <|im_start|>assistant"""
     return prompt_template
 
 
-def get_llm_chain(model_llm, tokenizer):
+def get_llm_chain(tokenizer, model_llm):
     """
     Create and configure a language model chain.
 
     Args:
-        model_llm: The pre-trained language model for text generation.
         tokenizer: The tokenizer corresponding to the language model.
+        model_llm: The pre-trained language model for text generation.
 
     Returns:
         LLMChain: The configured language model chain.
@@ -124,11 +124,7 @@ def get_llm_chain(model_llm, tokenizer):
     )
 
     # Create LLM chain 
-    llm_chain = LLMChain(
-        llm=mistral_llm, 
-        prompt=prompt,
-        verbose=False,
-    )
+    llm_chain = prompt | mistral_llm | StrOutputParser()
 
     return llm_chain
 
@@ -176,6 +172,7 @@ def generate_response(
     if verbose:
         print(f"🗓️ Today's date: {date_today}")
         print(f'📖 {context}')
+        print('===' * 5)
         
     # Invoke the language model chain with relevant context
     model_output = llm_chain.invoke({
@@ -185,7 +182,7 @@ def generate_response(
     })
 
     # Return the generated text from the model output
-    return model_output['text'].split('<|im_start|>assistant')[-1]
+    return model_output.split('<|im_start|>assistant')[-1].strip()
 
 
 def generate_response_openai(
@@ -212,6 +209,7 @@ def generate_response_openai(
     if verbose:
         print(f"🗓️ Today's date: {date_today}")
         print(f'📖 {context}')
+        print('===' * 5)
     
     instructions = get_prompt_template().split('<|im_start|>user')[0]
     
