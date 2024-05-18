@@ -5,7 +5,7 @@ import transformers
 import torch
 from langchain.llms import HuggingFacePipeline
 from langchain.prompts import PromptTemplate
-from langchain.chains.llm import LLMChain
+from langchain.schema.output_parser import StrOutputParser
 
 from functions.utils import (
     load_image,
@@ -135,11 +135,8 @@ def get_llm_chain(model_id: str = "meta-llama/Meta-Llama-3-8B-Instruct"):
     )
 
     # Create the LLM chain
-    llm_chain = LLMChain(
-        llm=pipeline_llm,                    # The text generation pipeline
-        prompt=prompt,                       # The structured prompt template
-        verbose=False,                       # Controls verbose output during execution
-    )
+    llm_chain = prompt | pipeline_llm | StrOutputParser()
+
     return llm_chain
 
 
@@ -230,8 +227,8 @@ def generate_response(
     })
 
     # Process the model output to extract the relevant response part
-    return model_output['text'].split(
-        '<|start_header_id|>assistant<|end_header_id|>'
+    return model_output.split(
+       '<|start_header_id|>assistant<|end_header_id|>'
     )[-1].strip()
  
     
