@@ -66,7 +66,7 @@ def generate_historical_data(start_date: Optional[date] = None, end_date: Option
         
     data_list = []
     
-    for date in tqdm(date_range, desc="Generating Data"):
+    for date in tqdm(date_range, desc="🔮 Generating Data"):
         generate_historical_day(date, start_date, data_list)
     
     df = pd.DataFrame(data_list, columns=['date', 'id', 'price'])
