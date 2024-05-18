@@ -1,6 +1,9 @@
 ### Dataset Configuration
 DATASET_NAME = "shivi/cheques_sample_data"
 
+### Cheque Data URL
+DOWNLOAD_URL = "https://repo.hops.works/dev/jdowling/cheque-fraud.zip"
+
 ### Donut Configuration
 DONUT_BASE_REPO = "naver-clova-ix/donut-base" #"nielsr/donut-base"
 DONUT_FT_REPO = "shivi/donut-cheque-parser"
