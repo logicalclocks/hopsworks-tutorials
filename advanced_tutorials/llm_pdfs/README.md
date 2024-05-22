@@ -15,7 +15,7 @@ The Feature Pipeline does the following:
 ## 🏃🏻‍♂️Training Pipeline
 The Training Pipeline does the following:
 
- * Uses the instruction dataset and LoRA to fine-tune the open-source LLM (Mistral-7 by default) .
+ * Uses the instruction dataset and LoRA to fine-tune the open-source LLM (Mistral-7B-Instruct-v0.2 by default) .
  * Saves the fine-tuned model to Hopsworks Model Registry.
 
 ## 🚀 Inference Pipeline
