@@ -1,7 +1,7 @@
-# ⚙️ RAG and Fine-Tuning in Hopsworks - build a private PDF search system  
+# ⚙️ Build a private PDF search system using LLMs and RAG  
   * [Helper video describing how to implement this LLM PDF system](https://www.youtube.com/watch?v=8YDANJ4Gbis) 
 
-# ⚙️ Index Private PDFs for RAG, create and serve fine-tuned models from them, and include UI for querying
+# ⚙️ Index Private PDFs for RAG, create a fine-tuned LLM, UI for querying
 
 This project is an AI system built on Hopsworks that
   * creates vector embeddings for PDF files in a google drive folder (you can also use local/network directories) and indexes them for retrieval augmented generation (RAG) in Hopsworks Feature Store with Vector Indexing
