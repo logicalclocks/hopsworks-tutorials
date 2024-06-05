@@ -44,7 +44,7 @@ The Inference Pipeline notebook is designed to make predictions on new cheques a
 
 5. **Explanation Generation**: An LLM chain is used to generate detailed explanations for each validation result. This step leverages a Large Language Model to provide insights into why a cheque is considered fraudulent or valid, enhancing transparency and understanding.
 
-6. **Batch Inference**: The notebook also supports batch inference, allowing multiple cheques to be processed at once. Then validations and correcponding descriptions are saved in the **cheque_validation** Feature Group. This is useful for validating large volumes of cheques efficiently. 
+6. **Batch Inference**: The notebook also supports batch inference, allowing multiple cheques to be processed at once. Then validations and corresponding descriptions are saved in the **cheque_validation** Feature Group. This is useful for validating large volumes of cheques efficiently. 
 
 ## 🛠 Setup and Installation
 
