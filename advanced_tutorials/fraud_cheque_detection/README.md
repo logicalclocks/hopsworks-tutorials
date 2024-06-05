@@ -4,6 +4,8 @@
 
 The Cheque Fraud Detection project is designed to identify fraudulent cheques and provide detailed explanations for each validation. The project encompasses three main components: feature pipeline, training pipeline, and inference pipeline. 
 
+[Helper video describing how to implement the Cheque Fraud Detection system](https://www.youtube.com/watch?v=0H-XJ5qLFyA&t=1s)
+
 ## 📖 Feature Pipeline
 
 The Feature Pipeline does the following:
