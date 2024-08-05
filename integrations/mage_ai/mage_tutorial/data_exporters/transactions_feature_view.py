@@ -41,9 +41,9 @@ def create_feature_view(data, *args, **kwargs):
     label_encoder = fs.get_transformation_function(name="label_encoder")
 
     # Map features to transformations.
-    transformation_functions = {
-        "category": label_encoder,
-    }
+    transformation_functions = [
+        label_encoder("category"),
+    ]
 
     # Get or create the 'transactions_view' feature view
     feature_view = fs.get_or_create_feature_view(
