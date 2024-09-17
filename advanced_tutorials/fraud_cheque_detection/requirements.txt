@@ -1,0 +1,10 @@
+transformers==4.39.3
+datasets==2.18.0
+sentencepiece==0.2.0
+nltk==3.8.1
+pytorch_lightning==2.2.1
+textblob==0.18.0.post0
+word2number==1.1
+bitsandbytes==0.42.0
+accelerate==0.27.2
+langchain==0.1.16

@@ -18,7 +18,6 @@ def shift_pm_2_5(df: pd.DataFrame, days: int = 5) -> pd.DataFrame:
     """
     for shift_value in range(1, days + 1):
         df[f'pm_2_5_previous_{shift_value}_day'] = df.groupby('city_name')['pm2_5'].shift(shift_value)
-    df = df.dropna()
     return df
 
 
@@ -227,8 +226,9 @@ def feature_engineer_aq(df: pd.DataFrame) -> pd.DataFrame:
     for i in [7, 14, 28]:
         for func in [moving_std, exponential_moving_average, exponential_moving_std]:
             df_res = func(df_res, i)
-
-    df_res = df_res.sort_values(by=["date", "pm2_5"]).dropna()
+    
+    
+    df_res = df_res.sort_values(by=["date", "pm2_5"])
     df_res = df_res.reset_index(drop=True)
 
     df_res['year'] = year(df_res['date'])
