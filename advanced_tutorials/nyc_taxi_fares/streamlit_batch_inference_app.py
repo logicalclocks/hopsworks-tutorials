@@ -1,6 +1,6 @@
 import streamlit as st
 import hopsworks
-from xgboost import XGBRegressor
+import joblib
 import pandas as pd
 import numpy as np
 import folium
@@ -24,11 +24,7 @@ def get_model(project, model_name, file_name):
 
     if list_of_files:
         model_path = list_of_files[0]
-        # Initialize the model
-        model = XGBRegressor()
-
-        # Load the model from a saved JSON file
-        model.load_model("/model.json")
+        model = joblib.load(model_path)
     else:
         if not os.path.exists(TARGET_FILE):
             mr = project.get_model_registry()
@@ -39,11 +35,7 @@ def get_model(project, model_name, file_name):
                                       EVALUATION_METRIC,
                                       SORT_METRICS_BY)
             model_dir = model.download()
-            # Initialize the model
-            model = XGBRegressor()
-
-            # Load the model from a saved JSON file
-            model.load_model(model_dir + "/model.json")
+            model = joblib.load(model_dir + f"/{file_name}.pkl")
 
     return model
 

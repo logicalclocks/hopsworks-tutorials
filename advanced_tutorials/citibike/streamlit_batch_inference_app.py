@@ -1,17 +1,14 @@
 from datetime import timedelta, datetime
 from random import sample
 import os
+import joblib
 import pandas as pd
-from xgboost import XGBRegressor
 import plotly.express as px
 import streamlit as st
 
 import hopsworks
 
-from features import (
-    citibike, 
-    meteorological_measurements,
-)
+from features import citibike, meteorological_measurements
 
 
 def print_fancy_header(text, font_size=22, color="#ff5f27"):
@@ -165,11 +162,7 @@ def get_model(project, model_name, file_name):
 
     if list_of_files:
         model_path = list_of_files[0]
-        # Initialize the model
-        model = XGBRegressor()
-
-        # Load the model from a saved JSON file
-        model.load_model("/model.json")
+        model = joblib.load(model_path)
     else:
         if not os.path.exists(file_name):
             mr = project.get_model_registry()
@@ -180,12 +173,8 @@ def get_model(project, model_name, file_name):
                                       EVALUATION_METRIC,
                                       SORT_METRICS_BY)
             model_dir = model.download()
-            
-            # Initialize the model
-            model = XGBRegressor()
-            
-            # Load the model from a saved JSON file
-            model.load_model(model_dir + "/model.json")
+            model = joblib.load(model_dir + f"/{file_name}")
+
     return model
 
 print_fancy_header('\n 🤖 Getting the model...')

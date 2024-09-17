@@ -26,7 +26,7 @@ jobs:
       - name: Execute Python workflows from bash script
         env: 
           HOPSWORKS_API_KEY: ${{ secrets.HOPSWORKS_API_KEY_38 }}
-          WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY38 }}
+          WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
         run: ./scripts/test-notebooks.sh
 
   test_tutorials39:
@@ -49,7 +49,7 @@ jobs:
       - name: Execute Python workflows from bash script
         env: 
           HOPSWORKS_API_KEY: ${{ secrets.HOPSWORKS_API_KEY_39 }}
-          WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY39 }}
+          WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
         run: ./scripts/test-notebooks.sh
 
   test_tutorials310:
@@ -72,5 +72,5 @@ jobs:
       - name: execute python workflows from bash script
         env: 
           HOPSWORKS_API_KEY: ${{ secrets.HOPSWORKS_API_KEY_310 }}
-          WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY310 }}
+          WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
         run: ./scripts/test-notebooks.sh

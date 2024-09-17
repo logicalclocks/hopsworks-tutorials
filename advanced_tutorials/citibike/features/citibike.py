@@ -71,12 +71,10 @@ def get_last_date_in_fg(fg) -> str:
     Returns:
         str: Last date string in the format '%Y-%m-%d'.
     """
-    date_max = [
-        int(feature.max)
-        for feature in fg.statistics.feature_descriptive_statistics 
-        if feature.feature_name == 'timestamp'
-    ][0]
-    return convert_unix_to_date(date_max)
+    for col in fg.statistics.content["columns"]:
+        if col["column"] == "timestamp":
+            res = col["maximum"]
+            return convert_unix_to_date(res)
 
 
 ###############################################################################
@@ -146,10 +144,10 @@ def update_month_data(main_df: pd.DataFrame, month: str, year: str) -> pd.DataFr
     print(f"_____ Processing {month}/{year}... _____")
 
     if f"{year}{month}" in ["202206", "202207"]:
-        citibike = "citibike"
+        citibike = "citbike"
     else:
         citibike = "citibike"
-    url = f'https://s3.amazonaws.com/tripdata/JC-{year}{month}-{citibike}-tripdata.csv.zip'
+    url = f'https://s3.amazonaws.com/tripdata/{year}{month}-{citibike}-tripdata.csv.zip'
     print(url)
     filename = "data/" + url.split('/')[-1].split(".")[0] + ".csv"
     fn_list = filename.split(".")
