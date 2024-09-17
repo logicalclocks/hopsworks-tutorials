@@ -2,7 +2,7 @@ import streamlit as st
 import hopsworks
 import plotly.graph_objs as go
 import plotly.express as px
-import joblib
+from xgboost import XGBClassifier
 import math
 import pandas as pd
 
@@ -50,9 +50,18 @@ header('🔮 Model Retrieving...')
 @st.cache_data()
 def get_model(project=project):
     mr = project.get_model_registry()
-    model = mr.get_model("churnmodel", version=1)
+    model = mr.get_model(
+        name="churnmodel", 
+        version=1,
+    )
     model_dir = model.download()
-    return joblib.load(model_dir + "/churnmodel.pkl")
+    
+    # Initialize the model
+    model = XGBClassifier()
+
+    # Load the model from a saved JSON file
+    model.load_model(model_dir + "/model.json")
+    return model
 
 
 model = get_model()

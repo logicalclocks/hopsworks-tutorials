@@ -179,3 +179,13 @@ advanced_tutorials/citibike/data/__MACOSX/._202304-citibike-tripdata.csv
 advanced_tutorials/citibike/data/__MACOSX/._202305-citibike-tripdata.csv
 loan_approval/lending_model/roc_curve.png
 advanced_tutorials/timeseries/price_model/model_prediction.png
+advanced_tutorials/recommender-system/query_model/variables/variables.index
+advanced_tutorials/recommender-system/query_model/variables/variables.data-00000-of-00001
+advanced_tutorials/recommender-system/query_model/saved_model.pb
+advanced_tutorials/recommender-system/query_model/fingerprint.pb
+advanced_tutorials/recommender-system/candidate_model/variables/variables.index
+advanced_tutorials/recommender-system/candidate_model/variables/variables.data-00000-of-00001
+advanced_tutorials/recommender-system/candidate_model/fingerprint.pb
+advanced_tutorials/recommender-system/candidate_model/saved_model.pb
+integrations/neo4j/aml_model/*
+integrations/neo4j/aml_model_transformer.py
