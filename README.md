@@ -42,15 +42,18 @@ In order to understand the tutorials you need to be familiar with general concep
     - [Iris](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/iris): Classify iris flower species.
     - [Loan Approval](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/loan_approval): Predict loan approvals.
 - Advanced Tutorials:
-    - [Air Quality](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/advanced_tutorials/air_quality): Predict the Air Quality value (PM2.5) in Europe and USA using weather features and air quality features of the previous days.
+    - [Air Quality](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/advanced_tutorials/air_quality): Creating an air quality AI assistant that displays and explains air quality indicators for specific dates or periods, using Function Calling for LLMs and a RAG approach without a vector database.
     - [Bitcoin](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/advanced_tutorials/bitcoin): Predict Bitcoin price using timeseries features and tweets sentiment analysis.
     - [Citibike](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/advanced_tutorials/citibike): Predict the number of citibike users on each citibike station in the New York City.
     - [Credit Scores](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/advanced_tutorials/credit_scores): Predict clients' repayment abilities.
     - [Electricity](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/advanced_tutorials/electricity): Predict the electricity prices in several Swedish cities based on weather conditions, previous prices, and Swedish holidays.
     - [NYC Taxi Fares](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/advanced_tutorials/nyc_taxi_fares): Predict the fare amount for a taxi ride in New York City given the pickup and dropoff locations.
+    - [Hospital Wait Time](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/advanced_tutorials/hospital_wait_time): Predict the waiting time for a deceased donor kidney using Prophet model.
     - [Anti-Money Laundering](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/advanced_tutorials/aml):  Identify parties with potential suspicious activities. 
     - [Recommender System](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/advanced_tutorials/recommender-system): Build a recommender system for fashion items.
     - [TimeSeries](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/advanced_tutorials/timeseries): Timeseries price prediction.
+    - [LLM PDF](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/advanced_tutorials/llm_pdfs): An AI assistant that utilizes a Retrieval-Augmented Generation (RAG) system to provide accurate answers to user questions by retrieving relevant context from PDF documents.
+    - [Fraud Cheque Detection](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/advanced_tutorials/fraud_cheque_detection): Building an AI assistant that detects fraudulent scanned cheque images and generates explanations for the fraud classification, using a fine-tuned open-source LLM.
     - [Keras model and Sklearn Transformation Functions with Hopsworks Model Registry](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/advanced_tutorials/transformation_functions/keras): How to register Sklearn Transformation Functions and Keras model in the Hopsworks Model Registry, how to retrieve them and then use in training and inference pipelines.
     - [PyTorch model and Sklearn Transformation Functions with Hopsworks Model Registry](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/advanced_tutorials/transformation_functions/pytorch): How to register Sklearn Transformation Functions and PyTorch model in the Hopsworks Model Registry, how to retrieve them and then use in training and inference pipelines.
     - [Sklearn Transformation Functions With Hopsworks Model Registy](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/advanced_tutorials/transformation_functions/sklearn): How to register sklearn.pipeline with transformation functions and classifier in Hopsworks Model Registry and use it in training and inference pipelines.
@@ -63,10 +66,14 @@ In order to understand the tutorials you need to be familiar with general concep
     - [DBT Tutorial with BigQuery](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/dbt_bq): Perform feature engineering in DBT on BigQuery.
     - [WandB](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/wandb): Build a machine learning model with Weights & Biases.
     - [Great Expectations](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/great_expectations): Introduction to Great Expectations concepts and classes which are relevant for integration with the Hopsworks MLOps platform.
+    - [Neo4j](integrations/neo4j): Perform Anti-money laundering (AML) predictions using Neo4j Graph representation of transactions.
+    - [Polars](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/polars/quickstart.ipynb) : Introductory tutorial on using Polars.
+    - [PySpark Streaming](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/pyspark_streaming) : Real time feature computation from streaming data using PySpark and HopsWorks Feature Store.
     - [Monitoring](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/monitoring): How to implement feature monitoring in your production pipeline.
     - [Bytewax](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/bytewax): Real time feature computation using Bytewax.
     - [Apache Beam](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/java/beam): Real time feature computation using Apache Beam, Google Cloud Dataflow and Hopsworks Feature Store.
     - [Apache Flink](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/java/flink): Real time feature computation using Apache Flink and Hopsworks Feature Store.
+    - [MageAI](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/mage_ai): Build and operate a ML system with Mage and Hopsworks.
    
 
 ## 📝 Feedbacks & Comments:
