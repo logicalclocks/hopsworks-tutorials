@@ -116,7 +116,7 @@ def prepare_transactions_fraud(trans_df: pd.DataFrame) -> pd.DataFrame:
 
     # Select relevant columns, drop duplicates, and reset index
     trans_df = trans_df[["tid", "datetime", "cc_num", "amount", "country", "fraud_label",
-                         "loc_delta_t_plus_1", "loc_delta_t_minus_1", "time_delta_t_minus_1"]]
+                         "loc_delta_t_plus_1", "loc_delta_t_minus_1", "time_delta_t_minus_1", "birthdate"]]
     trans_df = trans_df.drop_duplicates(subset=['cc_num', 'datetime']).reset_index(drop=True)
 
     return trans_df
