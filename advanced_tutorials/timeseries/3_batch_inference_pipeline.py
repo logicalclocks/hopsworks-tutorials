@@ -33,7 +33,7 @@ def get_feature_group():
 def get_feature_view():
     st.write("🪝 Retrieving the Feature View...")
     feature_view = fs.get_feature_view(
-        name = 'price_fv3',
+        name = 'price_fv',
         version = 1
     )
     st.write("✅ Success!")
@@ -66,11 +66,11 @@ def retrieve_model():
     st.write("⚙️ Retrieving Model from Model Registry...")
     mr = project.get_model_registry()
     retrieved_model = mr.get_model(
-        name="xgboost_price_model2",
+        name="xgboost_price_model",
         version=1,
     )
     saved_model_dir = retrieved_model.download()
-    model = joblib.load(saved_model_dir + "/xgboost_price_model2.pkl")
+    model = joblib.load(saved_model_dir + "/xgboost_price_model.pkl")
 
     st.write("✅ Success!")
 
