@@ -22,7 +22,7 @@ def get_feature_store():
 def get_feature_group():
     st.write("🪝 Retrieving the Price Feature Group...")
     price_fg = fs.get_feature_group(
-        name='price',
+        name='prices',
         version=1,
     )
     st.write("✅ Success!")
