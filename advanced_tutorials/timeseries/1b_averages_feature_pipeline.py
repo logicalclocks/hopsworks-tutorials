@@ -6,32 +6,33 @@ warnings.filterwarnings('ignore')
 
 # Connect to the Feature Store
 project = hopsworks.login()
-fs = project.get_feature_store() 
+fs = project.get_feature_store()
 
-# Retrieve Averages Feature Group
+# Retrieve Feature Groups
 averages_fg = fs.get_feature_group(
-    name='averages',
+    name='averages', 
     version=1,
 )
-# Retrieve Price Feature Group
 price_fg = fs.get_feature_group(
-    name='price',
+    name='prices', 
     version=1,
 )
-# Get today's date
-today = datetime.today()
 
-# Calculate the date 30 days ago
-thirty_days_ago = (today - timedelta(days=31)).strftime("%Y-%m-%d")
+# Get today's date and 30 days ago as timestamps
+today = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
+thirty_days_ago = today - timedelta(days=31)
 
-# Read price data for 30 days ago
+# Read price data using timestamp
 month_price_data = price_fg.filter(price_fg.date >= thirty_days_ago).read()
 
 # Calculate second order features
 averages_df = calculate_second_order_features(month_price_data)
 
-# Get calculated second order features only for today
-averages_today = averages_df[averages_df.date == today.strftime("%Y-%m-%d")]
+# Convert today's date to string format for filtering
+today_str = today.strftime("%Y-%m-%d")
 
-# Insert second order features for today into Averages Feature Group
+# Filter for today's data
+averages_today = averages_df[averages_df['date'].dt.strftime("%Y-%m-%d") == today_str]
+
+# Insert second order features for today
 averages_fg.insert(averages_today)
