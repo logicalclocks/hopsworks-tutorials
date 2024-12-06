@@ -8,7 +8,7 @@ import plotly.graph_objects as go
 import plotly.colors as pc
 from typing import List, Union, Optional, Tuple, Dict
 
-def generate_historical_day(date: date, start_date: date, data_list: List[Tuple[date, int, float]]) -> List[Tuple[date, int, float]]:
+def generate_historical_day(date: date, start_date: date, data_list: List[Tuple[datetime.datetime, int, float]]) -> List[Tuple[datetime.datetime, int, float]]:
     """
     Generates synthetic data for a given day with different price patterns for each ID.
 
@@ -35,13 +35,16 @@ def generate_historical_day(date: date, start_date: date, data_list: List[Tuple[
     # Generate a range of prices based on the calculated variations
     prices = np.linspace(price_base - price_variation, price_base + price_variation, num_entries)
 
+    # Convert date to datetime at midnight for timestamp compatibility
+    datetime_val = datetime.datetime.combine(date, datetime.time())
+
     for _ in range(num_entries):
         # Randomly select an ID from the list of IDs
         selected_id = np.random.choice(ids)
         # Ensure non-negative prices
         price = max(prices[_], 0)
         # Append the generated data entry to the data list
-        data_list.append((date, selected_id, round(price, 1)))
+        data_list.append((datetime_val, selected_id, round(price, 1)))
 
     return data_list
 
@@ -71,6 +74,9 @@ def generate_historical_data(start_date: Optional[date] = None, end_date: Option
     
     df = pd.DataFrame(data_list, columns=['date', 'id', 'price'])
     
+    # Ensure date column is datetime type for timestamp compatibility
+    df['date'] = pd.to_datetime(df['date'])
+    
     df.drop_duplicates(inplace=True)
 
     return df
@@ -87,7 +93,9 @@ def generate_today() -> pd.DataFrame:
     num_entries = 5000  # 5000 rows per day
     ids = np.arange(5001)  # IDs from 0 to 5000
     data_list = []
-    date = datetime.date.today()
+    
+    # Use datetime instead of date for timestamp compatibility
+    current_datetime = datetime.datetime.combine(datetime.date.today(), datetime.time())
     
     prices = (
         200 + np.random.uniform(-50, 50, num_entries)
@@ -95,9 +103,12 @@ def generate_today() -> pd.DataFrame:
     
     for entry in range(num_entries):
         selected_id = np.random.choice(ids)
-        data_list.append((date, selected_id, round(prices[entry], 1)))
+        data_list.append((current_datetime, selected_id, round(prices[entry], 1)))
         
     df = pd.DataFrame(data_list, columns=['date', 'id', 'price'])
+    
+    # Ensure date column is datetime type for timestamp compatibility
+    df['date'] = pd.to_datetime(df['date'])
     
     df.drop_duplicates(inplace=True)
 
@@ -115,7 +126,7 @@ def to_wide_format(data: pd.DataFrame) -> pd.DataFrame:
     - pd.DataFrame: A DataFrame in wide format with 'date' as the index, 'id' as columns, and 'price' values.
     """
     # Convert the 'date' column to datetime type
-    data['date'] = pd.to_datetime(data['date'], format='%Y-%m-%d')
+    data['date'] = pd.to_datetime(data['date'])
 
     # Aggregate duplicate entries by taking the mean of prices
     agg_df = data.groupby(['date', 'id'])['price'].mean().reset_index()
