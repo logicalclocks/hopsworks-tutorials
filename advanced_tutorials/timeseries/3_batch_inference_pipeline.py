@@ -29,20 +29,8 @@ def get_feature_group():
 
     return price_fg
 
-@st.cache_resource()
-def get_feature_view():
-    st.write("🪝 Retrieving the Feature View...")
-    feature_view = fs.get_feature_view(
-        name = 'price_fv',
-        version = 1
-    )
-    st.write("✅ Success!")
-
-    return feature_view
-
 project, fs = get_feature_store()
 price_fg = get_feature_group()
-feature_view = get_feature_view()
 
 
 @st.cache_data()
@@ -62,21 +50,28 @@ st.plotly_chart(fig)
 
 
 @st.cache_resource()
-def retrieve_model():
+def retrieve_model_and_fv():
     st.write("⚙️ Retrieving Model from Model Registry...")
     mr = project.get_model_registry()
+    
     retrieved_model = mr.get_model(
         name="xgboost_price_model",
         version=1,
     )
+    
     saved_model_dir = retrieved_model.download()
     model = joblib.load(saved_model_dir + "/xgboost_price_model.pkl")
 
     st.write("✅ Success!")
+    st.write("🪝 Retrieving the Feature View...")
+    
+    feature_view = retrieved_model.get_feature_view()
+    
+    st.write("✅ Success!")
 
-    return model
+    return model, feature_view
 
-model = retrieve_model()
+model, feature_view = retrieve_model_and_fv()
 
 
 @st.cache_data()
