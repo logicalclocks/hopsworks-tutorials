@@ -7,7 +7,6 @@ import datetime
 import torch
 import sys
 import pandas as pd
-from openai import OpenAI
 from functions.air_quality_data_retrieval import get_data_for_date, get_data_in_date_range, get_future_data
 from typing import Any, Dict, List
 
@@ -138,7 +137,7 @@ def function_calling_with_openai(user_query: str, client) -> str:
     instructions = get_function_calling_prompt(user_query).split('<|im_start|>user')[0]
     
     completion = client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="gpt-4o-mini-2024-07-18",
         messages=[
             {"role": "system", "content": instructions},
             {"role": "user", "content": user_query},

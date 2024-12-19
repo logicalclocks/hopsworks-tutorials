@@ -219,7 +219,7 @@ def generate_response_openai(
     )
 
     completion = client.chat.completions.create(
-        model="gpt-4-0125-preview",
+        model="gpt-4o-mini-2024-07-18",
         messages=[
             {"role": "system", "content": instructions_filled},
             {"role": "user", "content": user_query},
