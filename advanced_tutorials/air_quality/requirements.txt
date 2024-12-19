@@ -11,3 +11,4 @@ streamlit==1.31.1
 sentencepiece==0.2.0
 gradio==4.21.0
 openai==1.58.1
+hopsworks[python]
