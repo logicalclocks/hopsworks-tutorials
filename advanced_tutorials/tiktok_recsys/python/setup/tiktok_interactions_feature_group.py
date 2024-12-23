@@ -9,7 +9,7 @@ fs = project.get_feature_store()
 
 features = [
     Feature(name="interaction_month", type="string"),
-    Feature(name="id", type="bigint"),
+    Feature(name="interaction_id", type="bigint"),
     Feature(name="user_id", type="bigint"),
     Feature(name="video_id", type="bigint"),
     Feature(name="category_id", type="bigint"),
@@ -22,7 +22,7 @@ interactions_fg = fs.get_or_create_feature_group(
     name="interactions",
     description="Interactions data.",
     version=1,
-    primary_key=["id"],
+    primary_key=["interaction_id"],
     partition_key=["interaction_month"],
     online_enabled=True,
     event_time="interaction_date"

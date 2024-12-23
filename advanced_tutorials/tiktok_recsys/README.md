@@ -33,7 +33,7 @@ export PARALLELISM=1
 Full documentation how to create feature group using HSFS APIs can be found [here](https://docs.hopsworks.ai/latest/user_guides/fs/feature_group/create/).
 
 ```bash
-python ./setup/tiktok_interactions_feature_groups.py
+python ./setup/tiktok_interactions_feature_group.py
 python ./setup/tiktok_user_window_agg_feature_group.py
 python ./setup/tiktok_video_window_agg_feature_group.py
 ```
