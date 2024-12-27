@@ -1,3 +1,0 @@
-hopsworks[python]
-joblib
-scikit-learn
