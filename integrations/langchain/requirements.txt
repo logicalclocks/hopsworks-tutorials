@@ -1,5 +1,4 @@
-hsfs==3.7.0rc5
-hopsworks==3.7.0rc1
 sentence_transformers
 torch
 langchain
+hopsworks[python]

@@ -1,4 +1,4 @@
-hopsworks
+hopsworks[python]
 neo4j
 tqdm
 scikit-learn
