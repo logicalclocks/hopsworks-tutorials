@@ -1,18 +1,9 @@
-<!--
-[![hopsworks-tutorials](https://github.com/logicalclocks/hopsworks-tutorials/actions/workflows/test-python-37.yml/badge.svg)](https://github.com/logicalclocks/hopsworks-tutorials/actions/workflows/test-python-37.yml)
-
-[![hopsworks-tutorials](https://github.com/logicalclocks/hopsworks-tutorials/actions/workflows/test-python-38.yml/badge.svg)](https://github.com/logicalclocks/hopsworks-tutorials/actions/workflows/test-python-38.yml)
-
-[![hopsworks-tutorials](https://github.com/logicalclocks/hopsworks-tutorials/actions/workflows/test-python-39.yml/badge.svg)](https://github.com/logicalclocks/hopsworks-tutorials/actions/workflows/test-python-39.yml)
--->
-
 # 👨🏻‍🏫 Hopsworks Tutorials
+
 We are happy to welcome you to our collection of tutorials dedicated to exploring the fundamentals of Hopsworks and Machine Learning development. In addition to offering different types of use cases and common subjects in the field, it facilitates navigation and use of models in a production environment using Hopsworks Feature Store.
 
 ## ⚙️ How to run the tutorials:
 For the tutorials to work, you will need a Hopsworks account. To do so, go to app.hopsworks.ai and create one. With a managed account, just run the Jupyter notebook from within Hopsworks.
-
-Generally the notebooks contain the information you will need on how to interact with the Hopsworks Platform.
 
 If you have an [app.hopsworks.ai](https://app.hopsworks.ai) account; you may connect to Hopsworks with the following line; this will prompt you with a link to your Token which will link to the feature store. 
 
@@ -27,56 +18,68 @@ In some cases, you may also need to install Hopsworks; to be able to work with t
 ```python
 !pip install -U 'hopsworks[python]' --quiet
 ```
-The walkthrough and tutorials are provided in the form of Python notebooks, you will therefore need to run a jupyter environment or work within a colaboratory notebook in google; the later option might lead to some minor errors being displayed or libraries might require different library versions to work.
 
 ## ✍🏻 Concepts:
-In order to understand the tutorials you need to be familiar with general concepts of Machine Learning and Python development. You may find some useful information in the [Hopsworks documentation.](https://docs.hopsworks.ai) 
+Familiarity with Machine Learning and Python development is recommended. For more information, visit the [Hopsworks documentation.](https://docs.hopsworks.ai)
 
 ## 🗄️ Table of Content:
 
-- Basic Tutorials:
-    - [QuickStart](https://github.com/logicalclocks/hopsworks-tutorials/blob/master/quickstart.ipynb): Introductory tutorial to get started quickly.
-    - [Churn](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/churn): Predict customers that are at risk of churning.
-    - [Fraud Batch](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/fraud_batch): Detect Fraud Transactions (Batch use case).
-    - [Fraud Online](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/fraud_online): Detect Fraud Transactions (Online use case).
-    - [Iris](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/iris): Classify iris flower species.
-    - [Loan Approval](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/loan_approval): Predict loan approvals.
-- Advanced Tutorials:
-    - [Air Quality](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/advanced_tutorials/air_quality): Creating an air quality AI assistant that displays and explains air quality indicators for specific dates or periods, using Function Calling for LLMs and a RAG approach without a vector database.
-    - [Bitcoin](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/advanced_tutorials/bitcoin): Predict Bitcoin price using timeseries features and tweets sentiment analysis.
-    - [Citibike](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/advanced_tutorials/citibike): Predict the number of citibike users on each citibike station in the New York City.
-    - [Credit Scores](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/advanced_tutorials/credit_scores): Predict clients' repayment abilities.
-    - [Electricity](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/advanced_tutorials/electricity): Predict the electricity prices in several Swedish cities based on weather conditions, previous prices, and Swedish holidays.
-    - [NYC Taxi Fares](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/advanced_tutorials/nyc_taxi_fares): Predict the fare amount for a taxi ride in New York City given the pickup and dropoff locations.
-    - [Hospital Wait Time](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/advanced_tutorials/hospital_wait_time): Predict the waiting time for a deceased donor kidney using Prophet model.
-    - [Recommender System](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/advanced_tutorials/recommender-system): Build a recommender system for fashion items.
-    - [TimeSeries](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/advanced_tutorials/timeseries): Timeseries price prediction.
-    - [LLM PDF](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/advanced_tutorials/llm_pdfs): An AI assistant that utilizes a Retrieval-Augmented Generation (RAG) system to provide accurate answers to user questions by retrieving relevant context from PDF documents.
-    - [Fraud Cheque Detection](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/advanced_tutorials/fraud_cheque_detection): Building an AI assistant that detects fraudulent scanned cheque images and generates explanations for the fraud classification, using a fine-tuned open-source LLM.
-    - [Keras model and Sklearn Transformation Functions with Hopsworks Model Registry](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/advanced_tutorials/transformation_functions/keras): How to register Sklearn Transformation Functions and Keras model in the Hopsworks Model Registry, how to retrieve them and then use in training and inference pipelines.
-    - [PyTorch model and Sklearn Transformation Functions with Hopsworks Model Registry](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/advanced_tutorials/transformation_functions/pytorch): How to register Sklearn Transformation Functions and PyTorch model in the Hopsworks Model Registry, how to retrieve them and then use in training and inference pipelines.
-    - [Sklearn Transformation Functions With Hopsworks Model Registy](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/advanced_tutorials/transformation_functions/sklearn): How to register sklearn.pipeline with transformation functions and classifier in Hopsworks Model Registry and use it in training and inference pipelines.
-    - [Custom Transformation Functions](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/advanced_tutorials/transformation_functions/custom): How to register custom transformation functions in hopsworks feature store use then in training and inference pipelines.
-- Integrations: 
-    - [BigQuery Storage Connector](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/big_query): Create an External Feature Group using BigQuery Storage Connector.
-    - [Google Cloud Storage](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/gcs): Create an External Feature Group using GCS Storage Connector.
-    - [Redshift](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/redshift): Create an External Feature Group using Redshift Storage Connector.
-    - [Snowflake](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/snowflake): Create an External Feature Group using Snowflake Storage Connector.
-    - [DBT Tutorial with BigQuery](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/dbt_bq): Perform feature engineering in DBT on BigQuery.
-    - [WandB](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/wandb): Build a machine learning model with Weights & Biases.
-    - [Great Expectations](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/great_expectations): Introduction to Great Expectations concepts and classes which are relevant for integration with the Hopsworks MLOps platform.
-    - [Neo4j](integrations/neo4j): Perform Anti-money laundering (AML) predictions using Neo4j Graph representation of transactions.
-    - [Polars](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/polars/quickstart.ipynb) : Introductory tutorial on using Polars.
-    - [PySpark Streaming](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/pyspark_streaming) : Real time feature computation from streaming data using PySpark and HopsWorks Feature Store.
-    - [Monitoring](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/monitoring): How to implement feature monitoring in your production pipeline.
-    - [Bytewax](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/bytewax): Real time feature computation using Bytewax.
-    - [Apache Beam](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/java/beam): Real time feature computation using Apache Beam, Google Cloud Dataflow and Hopsworks Feature Store.
-    - [Apache Flink](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/java/flink): Real time feature computation using Apache Flink and Hopsworks Feature Store.
-    - [MageAI](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/mage_ai): Build and operate a ML system with Mage and Hopsworks.
-   
+- [QuickStart](https://github.com/logicalclocks/hopsworks-tutorials/blob/master/quickstart.ipynb): Introductory tutorial to get started quickly.
 
-## 📝 Feedbacks & Comments:
-We welcome feedbacks and suggestions, you can contact us on any of the following channels:
-- Our [Support Forum](https://community.hopsworks.ai/),
-- Directly on this [github repository](https://github.com/logicalclocks/hopsworks-tutorials),
-- Send us an email at info@hopsworks.ai 
+### 🚀 Real-time AI Systems
+- [Fraud Online](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/real-time-ai-systems/fraud_online): Detect Fraud Transactions
+- [AML](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/real-time-ai-systems/aml): Anti-money laundering predictions
+- [TikTok RecSys](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/real-time-ai-systems/tiktok_recsys): TikTok-style recommendation system
+- [TimeSeries](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/real-time-ai-systems/timeseries): Timeseries price prediction
+
+### ⚙️ Batch AI Systems
+- [Loan Approval](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/batch-ai-systems/loan_approval): Predict loan approvals
+- [Fraud Batch](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/batch-ai-systems/fraud_batch): Detect Fraud Transactions
+- [Churn](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/batch-ai-systems/churn): Predict customers at risk of churning
+- [Credit Scores](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/batch-ai-systems/credit_scores): Predict clients' repayment abilities
+- [Hospital Wait Time](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/batch-ai-systems/hospital_wait_time): Predict waiting time for deceased donor kidneys
+- [NYC Taxi Fares](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/batch-ai-systems/nyc_taxi_fares): Predict NYC taxi fare amounts
+
+### 🔮 LLM AI Systems
+- [Fraud Cheque Detection](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/llm-ai-systems/fraud_cheque_detection): AI assistant for detecting fraudulent scanned cheques
+- [LLM PDF](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/llm-ai-systems/llm_pdfs): RAG-based AI assistant for PDF document Q&A
+- [Recommender System](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/llm-ai-systems/recommender-system): Fashion items recommender system
+
+### 🧬 API Examples
+- Vector Similarity Search:
+  - [Feature Group Embeddings API](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/api_examples/vector_similarity_search/1_feature_group_embeddings_api.ipynb)
+  - [Feature View Embeddings API](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/api_examples/vector_similarity_search/2_feature_view_embeddings_api.ipynb)
+- [Datasets](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/api_examples/datasets.ipynb)
+- [Feature Group Change Notification CDC](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/api_examples/feature_group_change_notification_cdc.ipynb)
+- [Feature Monitoring](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/api_examples/feature_monitoring.ipynb)
+- [Git Integration](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/api_examples/git.ipynb)
+- [Jobs Management](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/api_examples/jobs.ipynb)
+- [Kafka Integration](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/api_examples/kafka.ipynb)
+- [OpenSearch Integration](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/api_examples/opensearch.ipynb)
+- [Projects Management](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/api_examples/projects.ipynb)
+- [Secrets Management](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/api_examples/secrets.ipynb)
+
+### 🔬 Integrations
+- [Airflow GCP](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/airflow_gcp): Apache Airflow integration with Google Cloud Platform.
+- [AzureSQL](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/azuresql): Create an External Feature Group using Azure SQL Database.
+- [BigQuery](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/big_query): Create an External Feature Group using BigQuery Storage Connector.
+- [Bytewax](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/bytewax): Real-time feature computation using Bytewax.
+- [DBT with BigQuery](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/dbt_bq): Perform feature engineering in DBT on BigQuery.
+- [Federated Offline Query](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/federated-offline-query): Execute federated queries across offline data sources.
+- [Google Cloud Storage](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/gcs): Create an External Feature Group using GCS Storage Connector.
+- [Great Expectations](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/great_expectations): Introduction to Great Expectations concepts for Hopsworks MLOps platform.
+- [Java](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/java): Java-based integrations including Apache Beam and Apache Flink.
+- [LangChain](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/langchain): Integration with LangChain for LLM applications.
+- [MageAI](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/mage_ai): Build and operate ML systems with Mage and Hopsworks.
+- [Neo4j](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/neo4j): Perform Anti-money laundering predictions using Neo4j Graph.
+- [Polars](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/polars): Introductory tutorial on using Polars with Hopsworks.
+- [PySpark Streaming](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/pyspark_streaming): Real-time feature computation using PySpark.
+- [Redshift](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/redshift): Create an External Feature Group using Redshift Storage Connector.
+- [Snowflake](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/snowflake): Create an External Feature Group using Snowflake Storage Connector.
+- [Weights & Biases](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/wandb): Build machine learning models with Weights & Biases.
+
+## 📝 Feedback & Comments:
+We welcome your input through:
+- Our [Support Forum](https://community.hopsworks.ai/)
+- This [GitHub repository](https://github.com/logicalclocks/hopsworks-tutorials)
+- Email at info@hopsworks.ai
