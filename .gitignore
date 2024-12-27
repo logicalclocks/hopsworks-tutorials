@@ -193,3 +193,6 @@ advanced_tutorials/recommender-system/catboost_info/catboost_training.json
 advanced_tutorials/recommender-system/catboost_info/learn/events.out.tfevents
 *.tsv
 advanced_tutorials/recommender-system/catboost_info/test/events.out.tfevents
+advanced_tutorials/recommender-system/querymodel_transformer.py
+advanced_tutorials/recommender-system/ranking_transformer.py
+advanced_tutorials/recommender-system/ranking_predictor.py
