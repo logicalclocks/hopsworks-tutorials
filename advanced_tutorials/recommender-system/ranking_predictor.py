@@ -24,7 +24,7 @@ class Predict(object):
         # Log the extracted article ids
         logging.info(f'Article IDs: {article_ids}')
         
-        logging.info(f"🦅 Predicting...")
+        logging.info(f"🚀 Predicting...")
 
         # Predict probabilities for the positive class
         scores = self.model.predict_proba(features).tolist()

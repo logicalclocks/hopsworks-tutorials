@@ -1,4 +1,43 @@
 import polars as pl
+from enum import Enum
+import random
+
+
+class CustomerDatasetSize(Enum):
+    LARGE = "LARGE"
+    MEDIUM = "MEDIUM"
+    SMALL = "SMALL"
+
+class DatasetSampler:
+    _SIZES = {
+        CustomerDatasetSize.LARGE: 50_000,
+        CustomerDatasetSize.MEDIUM: 5_000,
+        CustomerDatasetSize.SMALL: 1_000,
+    }
+
+    def __init__(self, size: CustomerDatasetSize) -> None:
+        self._size = size
+
+    @classmethod
+    def get_supported_sizes(cls) -> dict:
+        return cls._SIZES
+
+    def sample(
+        self, customers_df: pl.DataFrame, transations_df: pl.DataFrame
+    ) -> dict[str, pl.DataFrame]:
+        random.seed(27)
+
+        n_customers = self._SIZES[self._size]
+        print(f"✂️ Sampling {n_customers} customers.")
+        customers_df = customers_df.sample(n=n_customers)
+
+        print(f"⛳️ Number of transactions for all the customers: {transations_df.height}")
+        transations_df = transations_df.join(
+            customers_df.select("customer_id"), on="customer_id"
+        )
+        print(f"⛳️ Number of transactions for the {n_customers} sampled customers: {transations_df.height}")
+
+        return {"customers": customers_df, "transactions": transations_df}
 
 
 def fill_missing_club_member_status(df: pl.DataFrame) -> pl.DataFrame:
