@@ -1,7 +1,0 @@
-#These are the libraries you need to install to the Hopsworks cluster.
-tensorflow==2.13
-tensorflow-recommenders-0.7.2
-catboost==1.1.1
-opensearch-py==1.1.0
-streamlit==1.28.2
-hopsworks[python]
