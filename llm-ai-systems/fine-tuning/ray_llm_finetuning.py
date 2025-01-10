@@ -55,9 +55,11 @@ TRAINING_CONFIGURATION_DIR = os.environ.get("TRAINING_CONFIGURATION_DIR")
 if TRAINING_CONFIGURATION_DIR is None:
     TRAINING_CONFIGURATION_DIR = ""
 
+
 def generate_random_dir_name(length=16):
     letters = string.ascii_letters + string.digits
     return ''.join(random.choice(letters) for i in range(length))
+
 
 def get_expected_lora_num_parameters(
         model, lora_config: LoraConfig, attn_layer_name: str = ATTENTION_LAYER_NAME
@@ -178,13 +180,16 @@ def evaluate(
         perplexity = float("inf")
     return perplexity, eval_loss
 
+
 def copy_model_to_hopsfs(local_path, hopsfs_path):
-    os.makedirs(os.path.dirname(hopsfs_path), exist_ok=True)
+    if not os.path.exists(hopsfs_path):
+        os.makedirs(os.path.dirname(hopsfs_path), exist_ok=True)
     shutil.copytree(local_path, hopsfs_path)
 
 def copy_model_to_local(pretrained_path, local_path):
     os.makedirs(os.path.dirname(local_path), exist_ok=True)
     shutil.copytree(pretrained_path, local_path)
+
 
 def _test_tokenizer(pretrained_path):
     # This function tests that adding special tokens does not
@@ -295,18 +300,18 @@ def training_function(kwargs: dict):
         device=accelerator.device,
     )
 
-    #pre_trained_path = config["pre-trained-path"]
+    # pre_trained_path = config["pre-trained-path"]
     print(f"Loading model from {pre_trained_path} ...")
     s = time.time()
     model = AutoModelForCausalLM.from_pretrained(
         pre_trained_path,
         trust_remote_code=True,
         torch_dtype=torch.bfloat16,
-        #low_cpu_mem_usage=True,
+        # low_cpu_mem_usage=True,
         # `use_cache=True` is incompatible with gradient checkpointing.
         use_cache=False,
-        #device_map={"": device_id},
-        #attn_implementation="flash_attention_2",
+        # device_map={"": device_id},
+        # attn_implementation="flash_attention_2",
     )
     print(f"Done loading model in {time.time() - s} seconds.")
 
@@ -324,7 +329,7 @@ def training_function(kwargs: dict):
         print(f"Attempting to apply LoRA config: {lora_config}")
 
         model.enable_input_require_grads()
-        #model = PeftModel.from_pretrained(model, config=lora_config)
+        # model = PeftModel.from_pretrained(model, config=lora_config)
         model = get_peft_model(model, lora_config)
 
         num_parameters = get_number_of_params(model)
@@ -609,7 +614,7 @@ def parse_args():
                              "Bf16 requires PyTorch >= 1.10 and an Nvidia Ampere GPU.")
 
     parser.add_argument("--ds-config", type=str, default=os.path.join(TRAINING_CONFIGURATION_DIR,
-                                                         "deepspeed_configs/zero_3_offload_optim_param.json"),
+                                                                      "deepspeed_configs/zero_3_offload_optim_param.json"),
                         help="Deepspeed config json to use.")
 
     parser.add_argument("--lora", action="store_true", default=False,
@@ -666,10 +671,10 @@ def parse_args():
 
 
 def main():
-    #if TRAINING_DATA_DIR is None:
+    # if TRAINING_DATA_DIR is None:
     #    TRAINING_DATA_DIR = os.environ.get("TRAINING_DATA_DIR")
 
-    #if os.environ.get("TRAINING_CONFIGURATION_DIR") is not None:
+    # if os.environ.get("TRAINING_CONFIGURATION_DIR") is not None:
     #    TRAINING_CONFIGURATION_DIR = os.environ.get("TRAINING_CONFIGURATION_DIR")
 
     args = parse_args()
@@ -726,13 +731,14 @@ def main():
     if args.lora:
         trial_name += "-lora"
 
-    storage_path = os.environ.get("PROJECT_DIR") + "/Resources/ft_llms_with_deepspeed/" + args.model_name + "/" + trial_name
+    storage_path = os.environ.get(
+        "PROJECT_DIR") + "/Resources/ft_llms_with_deepspeed/" + args.model_name + "/" + trial_name
     trainer = TorchTrainer(
         training_function,
         train_loop_config={
             "config": config,
             "args": vars(args),
-            #"chat_template": chat_template,
+            # "chat_template": chat_template,
             "special_tokens": special_tokens,
         },
         run_config=train.RunConfig(
