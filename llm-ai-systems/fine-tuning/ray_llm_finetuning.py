@@ -184,7 +184,7 @@ def evaluate(
 def copy_model_to_hopsfs(local_path, hopsfs_path):
     if not os.path.exists(hopsfs_path):
         os.makedirs(os.path.dirname(hopsfs_path), exist_ok=True)
-    shutil.copytree(local_path, hopsfs_path)
+    shutil.copytree(local_path, hopsfs_path, dirs_exist_ok=True)
 
 def copy_model_to_local(pretrained_path, local_path):
     os.makedirs(os.path.dirname(local_path), exist_ok=True)
