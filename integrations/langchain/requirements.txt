@@ -1,0 +1,4 @@
+sentence_transformers
+torch
+langchain
+hopsworks[python]

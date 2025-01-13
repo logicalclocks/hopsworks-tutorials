@@ -1,7 +1,0 @@
-hopsworks
-geopy
-pandas
-numpy
-streamlit
-streamlit-folium
-joblib

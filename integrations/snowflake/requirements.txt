@@ -1,0 +1,2 @@
+hopsworks[python]
+snowflake-connector-python
