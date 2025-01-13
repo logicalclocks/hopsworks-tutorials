@@ -37,5 +37,5 @@ export FEATURE_VIEW_VERSION=1
 ```
 
 ```bash
-java -jar ./target/hopsworks-java-tutorial-3.4.0-SNAPSHOT-jar-with-dependencies.jar $HOPSWORKS_HOST $HOPSWORKS_API_KEY $HOPSWORKS_PROJECT_NAME $FEATURE_VIEW_NAME $FEATURE_VIEW_VERSION
+java -jar ./target/hopsworks-java-tutorial-3.9.0-RC8-jar-with-dependencies.jar $HOPSWORKS_HOST $HOPSWORKS_API_KEY $HOPSWORKS_PROJECT_NAME $FEATURE_VIEW_NAME $FEATURE_VIEW_VERSION
 ```

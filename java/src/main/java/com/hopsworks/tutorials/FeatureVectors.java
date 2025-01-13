@@ -18,15 +18,16 @@ public class FeatureVectors {
     String apiKey = args[2];
     String fvName = args[3];
     Integer fvVersion = Integer.parseInt(args[4]);
-  
+
     FeatureStore fs = HopsworksConnection.builder()
       .host(host)
+      .port(443)
       .project(projectName)
       .apiKeyValue(apiKey)
       .hostnameVerification(false)
       .build()
       .getFeatureStore();
-    
+
     // get feature view
     FeatureView fv = fs.getFeatureView(fvName, fvVersion);
   
