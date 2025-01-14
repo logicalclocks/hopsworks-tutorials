@@ -1,119 +1,168 @@
 ### <span style='color:#ff5f27'> 📝 Imports
 
-import dbldatagen as dg
-from pyspark.sql import SparkSession
-from pyspark.sql.types import IntegerType, FloatType, StringType, BooleanType, TimestampType, ArrayType
-from pyspark.sql.functions import pandas_udf
-
-import pandas as pd
 import numpy as np
+import pandas as pd
 
 import hopsworks
-import random
-
-### <span style='color:#ff5f27'> 👩🏻‍🔬 Generation Function
-spark = SparkSession.builder.enableHiveSupport().getOrCreate()
 
 
-def generate_data(n_rows):
-    df_spec = (
-        dg.DataGenerator(spark, name="Products_Data", rows=n_rows, partitions=4)
-            .withColumn(
-            "user_id",
-            IntegerType(),
-            minValue=0,
-            maxValue=300000,
-            random=True,
+def generate_data(size=1000, seed=42):
+    """
+    Generate a Pandas DataFrame with 400 columns of various types and random null values
+    compatible with fastavro serialization
+
+    Parameters:
+    -----------
+    size : int, optional (default=1000)
+        Number of rows in the DataFrame
+    seed : int, optional (default=42)
+        Random seed for reproducibility
+
+    Returns:
+    --------
+    pd.DataFrame
+        Generated DataFrame with 400 mixed data types and null values
+    """
+    # Set random seed for reproducibility
+    np.random.seed(seed)
+
+    # Create a dictionary to store columns
+    columns = {}
+
+    # Create an empty helper function to create numeric columns with random nulls
+    def create_numeric_column(generator, null_prob=0.1):
+        """Create a column with random nulls using numpy"""
+        values = generator(size)
+        mask = np.random.random(size) < null_prob
+        values[mask] = np.nan
+        return values
+
+    # Create an empty helper function for string columns
+    def create_string_column(group_prefix, categories, null_prob=0.1):
+        """Create a string column with random nulls"""
+        values = [f"{group_prefix}_{np.random.randint(1, categories + 1)}" for _ in range(size)]
+        mask = np.random.random(size) < null_prob
+        for i in range(len(values)):
+            if mask[i]:
+                values[i] = None
+        return values
+
+    columns['id'] = [i for i in range(1000)]
+    date_base = pd.date_range(end=pd.Timestamp.now(), periods=size)
+    date_offsets = np.random.randint(0, 1500, size=size)
+    timestamps = date_base - pd.to_timedelta(date_offsets, unit='D')
+    columns['timestamp'] = [None if pd.isnull(ts) else ts for ts in timestamps]
+
+    # Generate 400 columns with systematic naming and varied characteristics
+    # Boolean-like Columns
+    for i in range(20):
+        columns[f'boolean_flag_{i + 1}'] = np.random.choice([True, False, None], size=size,
+                                                            p=[0.45, 0.45, 0.1])
+
+    # Byte-like Columns
+    for i in range(20):
+        columns[f'byte_value_{i + 1}'] = create_numeric_column(
+            lambda s: np.random.randint(-128, 128, size=s).astype(float)
         )
-            .withColumn(
-            "product_id",
-            IntegerType(),
-            minValue=0,
-            maxValue=1000,
-            random=True,
+
+    # Short Integer Columns
+    for i in range(20):
+        columns[f'short_int_{i + 1}'] = create_numeric_column(
+            lambda s: np.random.randint(-32768, 32768, size=s).astype(float)
         )
-            .withColumn(
-            "timestamp",
-            TimestampType(),
-            random=True,
+
+    # Low Categorical Integer Columns
+    for i in range(20):
+        columns[f'low_cat_int_{i + 1}'] = create_numeric_column(
+            lambda s: np.random.randint(1, 19, size=s).astype(float),
+            null_prob=0.05
         )
-            .withColumn(
-            "col_float",
-            FloatType(),
-            expr="floor(rand() * 350) * (86400 + 3600)",
-            numColumns=110,
-            random=True,
+
+    # High Categorical Integer Columns
+    for i in range(20):
+        columns[f'high_cat_int_{i + 1}'] = create_numeric_column(
+            lambda s: np.random.randint(1, 200, size=s).astype(float),
+            null_prob=0.15
         )
-            .withColumn(
-            "col_str",
-            StringType(),
-            numColumns=8,
-            values=['a', 'b', 'c', 'd', 'e', 'f', 'g'],
-            random=True,
 
+    # Long Columns (with some all-null)
+    for i in range(19):
+        columns[f'long_col_{i + 1}'] = create_numeric_column(
+            lambda s: np.random.randint(-(2 ** 63), 2 ** 63 - 1, size=s).astype(float),
+            null_prob=0.0
         )
-            .withColumn(
-            "col_int",
-            IntegerType(),
-            numColumns=6,
-            minValue=0,
-            maxValue=500,
-            random=True,
+    columns[f'long_column_all_null'] = np.full(size, np.nan)
+
+    # Zero Standard Deviation Float Columns
+    for i in range(20):
+        columns[f'float_zero_std_{i + 1}'] = create_numeric_column(
+            lambda s: np.full(s, 100.0),
+            null_prob=0.2
         )
-            .withColumn(
-            "col_bool",
-            BooleanType(),
-            numColumns=4,
-            random=True,
+
+    # Low Standard Deviation Float Columns
+    for i in range(20):
+        columns[f'float_low_std_{i + 1}'] = create_numeric_column(
+            lambda s: np.random.normal(100, 1.5, size=s),
+            null_prob=0.1
         )
-    )
 
-    df = df_spec.build()
+    # High Standard Deviation Float Columns
+    for i in range(20):
+        columns[f'float_high_std_{i + 1}'] = create_numeric_column(
+            lambda s: np.random.normal(100, 5.6, size=s),
+            null_prob=0.15
+        )
 
-    return df
+    # Double Columns
+    for i in range(20):
+        columns[f'double_value_{i + 1}'] = create_numeric_column(
+            lambda s: np.random.uniform(-1000, 1000, size=s),
+            null_prob=0.1
+        )
+
+    # Decimal Columns
+    for i in range(20):
+        columns[f'decimal_value_{i + 1}'] = create_numeric_column(
+            lambda s: np.round(np.random.uniform(-1000, 1000, size=s), 2),
+            null_prob=0.1
+        )
+
+    # Timestamp Columns
+    date_base = pd.date_range(end=pd.Timestamp.now(), periods=size)
+    for i in range(20):
+        date_offsets = np.random.randint(0, 1500, size=size)
+        timestamps = date_base - pd.to_timedelta(date_offsets, unit='D')
+        columns[f'timestamp_col_{i + 1}'] = [None if pd.isnull(ts) else ts for ts in timestamps]
+
+    # Date Columns
+    for i in range(20):
+        date_offsets = np.random.randint(0, 1500, size=size)
+        dates = (date_base - pd.to_timedelta(date_offsets, unit='D')).date
+        columns[f'date_{i + 1}'] = [None if pd.isnull(d) else d for d in dates]
+
+    # Low Categorical String Columns
+    for i in range(20):
+        columns[f'string_low_cat_{i + 1}'] = create_string_column(f'low_category', 19, null_prob=0.05)
+
+    # High Categorical String Columns
+    for i in range(20):
+        columns[f'string_high_cat_{i + 1}'] = create_string_column(f'high_category', 200, null_prob=0.15)
+
+    # Array Columns
+    for i in range(20):
+        columns[f'array_column_{i + 1}'] = [
+            [np.random.randint(0, 10),
+             np.random.randint(0, 100),
+             np.random.randint(0, 1000)]
+            for _ in range(size)
+        ]
+
+    # Create DataFrame in one go
+    return pd.DataFrame(columns)
 
 
-@pandas_udf(ArrayType(IntegerType()))
-def generate_list_col(rows: pd.Series) -> pd.Series:
-    return pd.Series([np.random.randint(100, size=random.randint(10, 31)) for _ in range(len(rows))])
-
-@pandas_udf(ArrayType(IntegerType()))
-def generate_click_col(rows: pd.Series) -> pd.Series:
-    return pd.Series([np.random.randint(10, size=random.randint(0, 5)) for _ in range(len(rows))])
-
-## <span style="color:#ff5f27;">🔮 Generate Data </span>
-n_rows = 5_000
-
-data_generated_products = generate_data(n_rows)
-
-# Get the number of rows
-num_rows = data_generated_products.count()
-
-# Get the number of columns
-num_columns = len(data_generated_products.columns)
-
-print("Number of rows:", num_rows)
-print("Number of columns:", num_columns)
-
-for i in range(6):
-    data_generated_products = data_generated_products.withColumn(
-        f'col_list_{i}',
-        generate_list_col(data_generated_products.product_id + i)
-    )
-
-data_generated_products = data_generated_products.withColumn("clicks", generate_click_col(data_generated_products.product_id + i))
-
-clicks_df = data_generated_products.select("user_id", "product_id", "timestamp", "clicks")
-products_df = data_generated_products.drop("user_id", "clicks")
-
-# Get the number of rows
-num_rows = data_generated_products.count()
-
-# Get the number of columns
-num_columns = len(data_generated_products.columns)
-
-print("Number of rows:", num_rows)
-print("Number of columns:", num_columns)
+products_df = generate_data()
 
 ## <span style="color:#ff5f27;">🪄 Feature Group Creation</span>
 project = hopsworks.login()
@@ -123,7 +172,7 @@ products_fg = fs.get_or_create_feature_group(
     name="products",
     version=1,
     description="Products Data",
-    primary_key=["product_id"],
+    primary_key=["id"],
     event_time="timestamp",
     stream=True,
     online_enabled=True,

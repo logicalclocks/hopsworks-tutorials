@@ -14,13 +14,8 @@ mvn clean package
 ```
 
 ## Create Feature Group and Feature View
-This tutorial comes with pyspark program with a code to create feature group and feature view:
+This tutorial comes with python a code to create feature group and feature view:
 - `./setup/create_fg_fv.py`
-
-Feature group data is generated using `dbldatagen` library. 
-
-You can execute this pyspark program directly on Hopsworks cluster. Follow the documentation how to set up and run 
-[spark jobs](https://docs.hopsworks.ai/hopsworks-api/3.3/generated/api/jobs/)
 
 ## Execute java application:
 Now you will create [connection](https://docs.hopsworks.ai/hopsworks-api/3.3/generated/api/connection/) with

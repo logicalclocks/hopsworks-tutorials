@@ -14,8 +14,8 @@ public class FeatureVectors {
   public static void main(String[] args) throws Exception {
   
     String host = args[0];
-    String projectName = args[1];
-    String apiKey = args[2];
+    String apiKey =args[1];
+    String projectName = args[2];
     String fvName = args[3];
     Integer fvVersion = Integer.parseInt(args[4]);
 
@@ -33,10 +33,10 @@ public class FeatureVectors {
   
     // single lookup sering vector
     List<Object> singleVector = fv.getFeatureVector(new HashMap<String, Object>() {{
-      put("product_id", productIdGenerator());
+      put("id", productIdGenerator());
     }});
     System.out.println("Feature values from single vector lookup");
-    System.out.println("[" + Joiner.on(", ").join(singleVector) + "]");
+    System.out.println("[" + Joiner.on(", ").useForNull("null").join(singleVector) + "]");
   
     // batch lookup sering vector
     fv.initServing(true, true);
@@ -45,7 +45,7 @@ public class FeatureVectors {
     // print results
     System.out.println("Feature values from batch lookup");
     for (List<Object> vector: batchVector) {
-      System.out.println("[" + Joiner.on(", ").join(vector) + "]");
+      System.out.println("[" + Joiner.on(", ").useForNull("null").join(vector) + "]");
     }
   }
   
@@ -63,6 +63,6 @@ public class FeatureVectors {
         productIds.add(productId);
       }
     }
-    return new HashMap<String, List<Object>>() {{put("product_id", productIds);}};
+    return new HashMap<String, List<Object>>() {{put("id", productIds);}};
   }
 }
