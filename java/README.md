@@ -13,9 +13,10 @@ cd ./hopsworks-tutorials/java
 mvn clean package
 ```
 
-## Create Feature Group and Feature View
-This tutorial comes with python a code to create feature group and feature view:
+## Create Feature Groups and Feature View
+This tutorial comes with python a code to create feature groups and feature view:
 - `./setup/create_fg_fv.py`
+- `./setup/fg_for_java_write.py`
 
 ## Execute java application:
 Now you will create [connection](https://docs.hopsworks.ai/hopsworks-api/3.3/generated/api/connection/) with
@@ -27,10 +28,9 @@ Then define environment variables
 HOPSWORKS_HOST=REPLACE_WITH_YOUR_HOPSWORKS_CLUSTER_HOST
 HOPSWORKS_API_KEY=REPLACE_WITH_YOUR_HOPSWORKS_API_KEY
 HOPSWORKS_PROJECT_NAME=REPLACE_WITH_YOUR_HOPSWORKS_PROJECT_NAME
-export FEATURE_VIEW_NAME=products_fv
-export FEATURE_VIEW_VERSION=1
 ```
 
 ```bash
-java -jar ./target/hopsworks-java-tutorial-3.9.0-RC8-jar-with-dependencies.jar $HOPSWORKS_HOST $HOPSWORKS_API_KEY $HOPSWORKS_PROJECT_NAME $FEATURE_VIEW_NAME $FEATURE_VIEW_VERSION
+python3 ./python_job_client.py --host $HOPSWORKS_HOST --api_key $HOPSWORKS_API_KEY --project $HOPSWORKS_PROJECT_NAME
+java -jar ./target/hopsworks-java-tutorial-3.9.0-RC8-jar-with-dependencies.jar $HOPSWORKS_HOST $HOPSWORKS_API_KEY $HOPSWORKS_PROJECT_NAME java_data 1 products_fv 1
 ```

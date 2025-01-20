@@ -11,10 +11,11 @@
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-    <guava.version>14.0.1</guava.version>
+    <guava.version>32.1.2-jre</guava.version>
     <httpclient.version>4.5.6</httpclient.version>
     <httpcore.version>4.4.13</httpcore.version>
     <surefire-plugin.version>2.22.0</surefire-plugin.version>
+    <avro.version>1.8.2</avro.version>
   </properties>
 
   <dependencies>
@@ -37,12 +38,6 @@
     </dependency>
 
     <dependency>
-      <groupId>com.google.guava</groupId>
-      <artifactId>guava</artifactId>
-      <version>${guava.version}</version>
-    </dependency>
-
-    <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
       <version>8.0.33</version>
@@ -52,25 +47,12 @@
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
-      <version>32.1.2-jre</version>
+      <version>${guava.version}</version>
     </dependency>
   </dependencies>
 
   <build>
     <plugins>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-        <configuration>
-          <archive>
-            <manifest>
-              <mainClass>com.hopsworks.tutorials.FeatureVectors</mainClass>
-            </manifest>
-          </archive>
-        </configuration>
-      </plugin>
-
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-assembly-plugin</artifactId>
@@ -78,7 +60,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>com.hopsworks.tutorials.FeatureVectors</mainClass>
+              <mainClass>com.hopsworks.tutorials.Main</mainClass>
             </manifest>
           </archive>
           <!-- get all project dependencies -->
@@ -110,6 +92,22 @@
           </systemProperties>
           <systemPropertiesFile>src/test/resources/system.properties</systemPropertiesFile>
         </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.avro</groupId>
+        <artifactId>avro-maven-plugin</artifactId>
+        <version>${avro.version}</version>
+        <executions>
+          <execution>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>schema</goal>
+              <goal>protocol</goal>
+              <goal>idl-protocol</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
     <testResources>
