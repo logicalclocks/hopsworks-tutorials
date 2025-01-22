@@ -39,8 +39,8 @@ def transform_custom(*args, **kwargs):
     query = trans_fg.select(["fraud_label", "category", "amount", "age_at_transaction", "days_until_card_expires", "loc_delta"])\
         .join(window_aggs_fg.select_except(["cc_num"]))
 
-    # Load transformation functions.
-    label_encoder = fs.get_transformation_function(name="label_encoder")
+    # Import transformation functions from Hopsworks.
+    from hopsworks.hsfs.builtin_transformations import label_encoder
 
     # Map features to transformations.
     transformation_functions = [
