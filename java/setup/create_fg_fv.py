@@ -59,98 +59,81 @@ def generate_data(size=1000, seed=42):
         columns[f'boolean_flag_{i + 1}'] = np.random.choice([True, False, None], size=size,
                                                             p=[0.45, 0.45, 0.1])
 
-    # Byte-like Columns
-    for i in range(20):
+        # Byte-like Columns
         columns[f'byte_value_{i + 1}'] = create_numeric_column(
             lambda s: np.random.randint(-128, 128, size=s).astype(float)
         )
 
-    # Short Integer Columns
-    for i in range(20):
+        # Short Integer Columns
         columns[f'short_int_{i + 1}'] = create_numeric_column(
             lambda s: np.random.randint(-32768, 32768, size=s).astype(float)
         )
 
-    # Low Categorical Integer Columns
-    for i in range(20):
+        # Low Categorical Integer Columns
         columns[f'low_cat_int_{i + 1}'] = create_numeric_column(
             lambda s: np.random.randint(1, 19, size=s).astype(float),
             null_prob=0.05
         )
 
-    # High Categorical Integer Columns
-    for i in range(20):
+        # High Categorical Integer Columns
         columns[f'high_cat_int_{i + 1}'] = create_numeric_column(
             lambda s: np.random.randint(1, 200, size=s).astype(float),
             null_prob=0.15
         )
 
-    # Long Columns (with some all-null)
-    for i in range(19):
+        # Long Columns (with some all-null)
         columns[f'long_col_{i + 1}'] = create_numeric_column(
             lambda s: np.random.randint(-(2 ** 63), 2 ** 63 - 1, size=s).astype(float),
             null_prob=0.0
         )
-    columns[f'long_column_all_null'] = np.full(size, np.nan)
 
-    # Zero Standard Deviation Float Columns
-    for i in range(20):
+        # Zero Standard Deviation Float Columns
         columns[f'float_zero_std_{i + 1}'] = create_numeric_column(
             lambda s: np.full(s, 100.0),
             null_prob=0.2
         )
 
-    # Low Standard Deviation Float Columns
-    for i in range(20):
+        # Low Standard Deviation Float Columns
         columns[f'float_low_std_{i + 1}'] = create_numeric_column(
             lambda s: np.random.normal(100, 1.5, size=s),
             null_prob=0.1
         )
 
-    # High Standard Deviation Float Columns
-    for i in range(20):
+        # High Standard Deviation Float Columns
         columns[f'float_high_std_{i + 1}'] = create_numeric_column(
             lambda s: np.random.normal(100, 5.6, size=s),
             null_prob=0.15
         )
 
-    # Double Columns
-    for i in range(20):
+        # Double Columns
         columns[f'double_value_{i + 1}'] = create_numeric_column(
             lambda s: np.random.uniform(-1000, 1000, size=s),
             null_prob=0.1
         )
 
-    # Decimal Columns
-    for i in range(20):
+        # Decimal Columns
         columns[f'decimal_value_{i + 1}'] = create_numeric_column(
             lambda s: np.round(np.random.uniform(-1000, 1000, size=s), 2),
             null_prob=0.1
         )
 
-    # Timestamp Columns
-    date_base = pd.date_range(end=pd.Timestamp.now(), periods=size)
-    for i in range(20):
+        # Timestamp Columns
         date_offsets = np.random.randint(0, 1500, size=size)
         timestamps = date_base - pd.to_timedelta(date_offsets, unit='D')
         columns[f'timestamp_col_{i + 1}'] = [None if pd.isnull(ts) else ts for ts in timestamps]
 
-    # Date Columns
-    for i in range(20):
+        # Date Columns
         date_offsets = np.random.randint(0, 1500, size=size)
         dates = (date_base - pd.to_timedelta(date_offsets, unit='D')).date
         columns[f'date_{i + 1}'] = [None if pd.isnull(d) else d for d in dates]
 
-    # Low Categorical String Columns
-    for i in range(20):
+        # Low Categorical String Columns
         columns[f'string_low_cat_{i + 1}'] = create_string_column(f'low_category', 19, null_prob=0.05)
 
-    # High Categorical String Columns
-    for i in range(20):
+        # High Categorical String Columns
         columns[f'string_high_cat_{i + 1}'] = create_string_column(f'high_category', 200, null_prob=0.15)
 
-    # Array Columns
-    for i in range(20):
+        # Array Columns
         columns[f'array_column_{i + 1}'] = [
             [np.random.randint(0, 10),
              np.random.randint(0, 100),
@@ -158,6 +141,7 @@ def generate_data(size=1000, seed=42):
             for _ in range(size)
         ]
 
+    columns[f'long_column_all_null'] = np.full(size, np.nan)
     # Create DataFrame in one go
     return pd.DataFrame(columns)
 
