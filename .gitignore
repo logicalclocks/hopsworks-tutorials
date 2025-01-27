@@ -196,3 +196,4 @@ advanced_tutorials/recommender-system/catboost_info/test/events.out.tfevents
 advanced_tutorials/recommender-system/querymodel_transformer.py
 advanced_tutorials/recommender-system/ranking_transformer.py
 advanced_tutorials/recommender-system/ranking_predictor.py
+integrations/java/flink/dependency-reduced-pom.xml
