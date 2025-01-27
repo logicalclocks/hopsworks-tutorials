@@ -1,10 +1,10 @@
-### <span style='color:#ff5f27'> 📝 Imports
+import argparse
 
 import numpy as np
 import pandas as pd
 
 import hopsworks
-
+from hsfs.feature import Feature
 
 def generate_data(size=1000, seed=42):
     """
@@ -146,27 +146,90 @@ def generate_data(size=1000, seed=42):
     return pd.DataFrame(columns)
 
 
-products_df = generate_data()
+def connect(args):
+    project = hopsworks.login(
+        host=args.host, port=args.port, project=args.project, api_key_value=args.api_key
+    )
+    return project
 
-## <span style="color:#ff5f27;">🪄 Feature Group Creation</span>
-project = hopsworks.login()
-fs = project.get_feature_store()
 
-products_fg = fs.get_or_create_feature_group(
-    name="products",
-    version=1,
-    description="Products Data",
-    primary_key=["id"],
-    event_time="timestamp",
-    stream=True,
-    online_enabled=True,
-)
-products_fg.insert(products_df)
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    # Hopsworks cluster configuration
+    parser.add_argument("--host", help="Hopsworks cluster host")
+    parser.add_argument(
+        "--port", help="Port on which Hopsworks is listening on", default=443
+    )
+    parser.add_argument("--api_key", help="API key to authenticate with Hopsworks")
+    parser.add_argument("--project", help="Name of the Hopsworks project to connect to")
 
-products_fg = fs.get_feature_group(name="products", version=1)
+    parser.add_argument("--feature_group_name", help="Name of the feature group")
+    parser.add_argument("--feature_group_version", help="Version of the feature group")
+    parser.add_argument("--feature_view_name", help="Name of the feature view")
+    parser.add_argument("--feature_view_version", help="Version of the feature view")
 
-fs.get_or_create_feature_view(
-    name='products_fv',
-    version=1,
-    query=products_fg.select_all(),
-)
+    args = parser.parse_args()
+
+    # Setup connection to Hopsworks
+    project = connect(args)
+    fs = project.get_feature_store()
+
+    # Create FG for writing from Java client
+    features = [
+        Feature(name="id", type="int"),
+        Feature(name="timestamp", type="timestamp"),
+        Feature(name="boolean_flag", type="boolean"),
+        Feature(name="byte_value", type="int"),
+        Feature(name="short_int", type="int"),
+        Feature(name="low_cat_int", type="int"),
+        Feature(name="high_cat_int", type="int"),
+        Feature(name="long_col", type="bigint"),
+        Feature(name="float_zero_std", type="float"),
+        Feature(name="float_low_std", type="float"),
+        Feature(name="float_high_std", type="float"),
+        Feature(name="double_value", type="double"),
+        Feature(name="decimalValue", type="double"),
+        Feature(name="timestamp_col", type="timestamp"),
+        Feature(name="date_col", type="date"),
+        Feature(name="string_low_cat", type="string"),
+        Feature(name="string_high_cat", type="string"),
+        Feature(name="array_column", type="array<int>"),
+    ]
+
+    fg = fs.create_feature_group(
+        name="java_data",
+        version=1,
+        description="Feature Group for the Java POJO DataRow example",
+        primary_key=["id"],
+        event_time="timestamp",
+        online_enabled=True,
+        stream=True,
+        statistics_config=False
+    )
+
+    # 4) Save feature metadata to Hopsworks
+    if fg.id is None:
+        fg.save(features)
+
+    # create feature view for fetching using java client
+
+    products_df = generate_data()
+    products_fg = fs.get_or_create_feature_group(
+        name="products",
+        version=1,
+        description="Products Data",
+        primary_key=["id"],
+        event_time="timestamp",
+        stream=True,
+        online_enabled=True,
+    )
+    products_fg.insert(products_df)
+
+    products_fg = fs.get_feature_group(name="products", version=1)
+
+    fs.get_or_create_feature_view(
+        name='products_fv',
+        version=1,
+        query=products_fg.select_all(),
+    )
+
