@@ -1,0 +1,7 @@
+tokenizer_mode: "mistral"
+dtype: "half"
+max_model_len: 20184
+gpu_memory_utilization: 0.96
+# only for vllm-openai model server
+enable_auto_tool_choice: true
+tool_call_parser: "mistral"
