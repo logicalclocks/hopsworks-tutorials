@@ -1,4 +1,5 @@
 import argparse
+from filelock import FileLock
 import functools
 import json
 import math
@@ -13,6 +14,8 @@ import tree
 from typing import Tuple
 import urllib
 from urllib.parse import urljoin
+
+import hopsworks
 
 try:
     import deepspeed  # noqa: F401
@@ -48,12 +51,11 @@ NUM_WARMUP_STEPS = 10
 OPTIM_WEIGHT_DECAY = 0.0
 ATTENTION_LAYER_NAME = "self_attn"
 
-TRAINING_DATA_DIR = os.environ.get("TRAINING_DATA_DIR")
-if TRAINING_DATA_DIR is None:
-    TRAINING_DATA_DIR = ""
-TRAINING_CONFIGURATION_DIR = os.environ.get("TRAINING_CONFIGURATION_DIR")
-if TRAINING_CONFIGURATION_DIR is None:
-    TRAINING_CONFIGURATION_DIR = ""
+# Environment variables
+PROJECT_DIR = os.getenv("PROJECT_DIR", "")
+TRAINING_DATA_DIR = os.getenv("TRAINING_DATA_DIR", "")
+TRAINING_CONFIGURATION_DIR = os.getenv("TRAINING_CONFIGURATION_DIR", "")
+TRAINING_CHECKPOINTS_DIR = os.getenv("TRAINING_CHECKPOINTS_DIR", "")
 
 
 def generate_random_dir_name(length=16):
@@ -143,7 +145,6 @@ def get_tokenizer(pretrained_path, special_tokens):
     tokenizer = AutoTokenizer.from_pretrained(pretrained_path)
     tokenizer.pad_token = tokenizer.eos_token
     tokenizer.add_tokens(special_tokens, special_tokens=True)
-
     return tokenizer
 
 
@@ -181,14 +182,14 @@ def evaluate(
     return perplexity, eval_loss
 
 
-def copy_model_to_hopsfs(local_path, hopsfs_path):
-    if not os.path.exists(hopsfs_path):
-        os.makedirs(os.path.dirname(hopsfs_path), exist_ok=True)
-    shutil.copytree(local_path, hopsfs_path, dirs_exist_ok=True)
-
-def copy_model_to_local(pretrained_path, local_path):
-    os.makedirs(os.path.dirname(local_path), exist_ok=True)
-    shutil.copytree(pretrained_path, local_path)
+def download_model_from_model_registry(model_name, local_path):
+    print("Downloading model from Hopsworks: ", model_name)
+    project = hopsworks.login()
+    mr = project.get_model_registry()
+    start_time = time.perf_counter()
+    mr.get_model(model_name).download(local_path)
+    end_time = time.perf_counter()
+    print("Downloading model from Hopsworks, done in ", end_time - start_time, " seconds")
 
 
 def _test_tokenizer(pretrained_path):
@@ -242,28 +243,13 @@ def training_function(kwargs: dict):
     chat_template = kwargs.get("chat_template", [])
     special_tokens = kwargs.get("special_tokens", [])
     model_id = config["model_name"]
-
-    # Each worker should download its own model
-    pre_trained_path = "/tmp/" + model_id + "/" + generate_random_dir_name()
-
-    # start by copying the model to local. Calculate the time it takes to copy the model
-    start_copy_time = time.time()
-    print("Copying model to local")
-    copy_model_to_local(args.pre_trained_path, pre_trained_path)
-    end_copy_time = time.time()
-    print("Done copying model to local in ", end_copy_time - start_copy_time, " seconds")
-
+    
     # We need to download the model weights on this machine if they don't exit.
     # We need to acquire a lock to ensure that only one process downloads the model
-    # bucket_uri = get_mirror_link(model_id)
-    # download_path = get_download_path(model_id)
-    # base_path = Path(download_path).parent
-    # base_path.mkdir(parents=True, exist_ok=True)
-    # lock_file = str(base_path / f'{model_id.replace("/",  "--")}.lock')
-    # with FileLock(lock_file):
-    #    download_model(
-    #        model_id=model_id, bucket_uri=bucket_uri, s3_sync_args=["--no-sign-request"]
-    #    )
+    pre_trained_path = "/tmp/" + model_id + "/" + generate_random_dir_name()
+    lock_file = f"{pre_trained_path}/{model_id.replace('/',  '--')}.lock"
+    with FileLock(lock_file):
+        download_model_from_model_registry(args.base_model_name, pre_trained_path)
 
     # Sample hyperparameters for learning rate, batch size, seed and a few other HPs
     lr = config["lr"]
@@ -313,7 +299,7 @@ def training_function(kwargs: dict):
         # device_map={"": device_id},
         # attn_implementation="flash_attention_2",
     )
-    print(f"Done loading model in {time.time() - s} seconds.")
+    print(f"Loading model, done in {time.time() - s} seconds.")
 
     model.resize_token_embeddings(len(tokenizer))
 
@@ -382,14 +368,14 @@ def training_function(kwargs: dict):
     ):
         lr_scheduler = get_linear_schedule_with_warmup(
             optimizer=optimizer,
-            num_warmup_steps=NUM_WARMUP_STEPS * args.num_devices,
-            num_training_steps=total_training_steps * args.num_devices,
+            num_warmup_steps=NUM_WARMUP_STEPS * args.torch_trainer_num_workers,
+            num_training_steps=total_training_steps * args.torch_trainer_num_workers,
         )
     else:
         lr_scheduler = DummyScheduler(
             optimizer,
-            warmup_num_steps=NUM_WARMUP_STEPS * args.num_devices,
-            total_num_steps=total_training_steps * args.num_devices,
+            warmup_num_steps=NUM_WARMUP_STEPS * args.torch_trainer_num_workers,
+            total_num_steps=total_training_steps * args.torch_trainer_num_workers,
         )
 
     # Prepare everything
@@ -401,7 +387,7 @@ def training_function(kwargs: dict):
 
     # Now we train the model
     if accelerator.is_main_process:
-        print("Starting training ...")
+        print("Starting training...")
         print("Number of batches on main process", train_ds_len // batch_size)
 
     for epoch in range(num_epochs):
@@ -478,7 +464,7 @@ def training_function(kwargs: dict):
         accelerator.print("Train time per epoch: ", e_epoch - s_epoch)
 
         eval_s_epoch = time.time()
-        print("Running evaluation ...")
+        print("Running evaluation...")
         perplex, eloss = evaluate(
             model=model,
             eval_ds=valid_ds,
@@ -513,14 +499,14 @@ def training_function(kwargs: dict):
             "learning_rate": lr_scheduler.get_lr()[0],
         }
 
-        with tempfile.TemporaryDirectory(dir=args.output_dir) as temp_checkpoint_dir:
+        with tempfile.TemporaryDirectory(dir=args.outputs_local_path) as temp_checkpoint_dir:
             accelerator.print(f"Saving the model locally at {temp_checkpoint_dir}")
             accelerator.wait_for_everyone()
 
             checkpoint_save_start = time.perf_counter()
 
             if accelerator.is_main_process:
-                print("Saving tokenizer and config.")
+                print("Saving tokenizer and config")
                 tokenizer.save_pretrained(temp_checkpoint_dir)
 
             accelerator.wait_for_everyone()
@@ -580,10 +566,6 @@ def training_function(kwargs: dict):
                 time.perf_counter() - checkpoint_save_start,
             )
 
-            hopsfs_upload_start = time.time()
-            copy_model_to_hopsfs(temp_checkpoint_dir, os.environ.get("TRAINED_MODEL_STORAGE_PATH"))
-            print("HopsFS upload time: ", time.time() - hopsfs_upload_start)
-
         if perplex < args.stop_perplexity:
             print(f"Perplexity reached {perplex} < {args.stop_perplexity}. Stopping.")
             break
@@ -591,11 +573,28 @@ def training_function(kwargs: dict):
         if config["as_test"]:
             break
 
+############################
+# Runs on Ray head process #
+############################
 
 def parse_args():
     parser = argparse.ArgumentParser(description="LLM fine-tuning with DeepSpeed")
 
-    parser.add_argument("--model-name", type=str, default="meta-llama/Meta-Llama-3.1-8B")
+    parser.add_argument("--base-model-name", type=str, default="meta-llama/meta-llama-3.1-8B")
+
+    parser.add_argument("--lora-model-name", type=str, default="lorallama318B")
+
+    parser.add_argument("--torch-trainer-checkpoints-path", "-ttchp", type=str, default=TRAINING_CHECKPOINTS_DIR,
+                        help="Path to results and checkpoints storage for Torch Trainer")
+
+    parser.add_argument("--torch-trainer-num-workers", "-ttnm", type=int, default=3,
+                        help="Number of Torch Trainer workers")
+
+    parser.add_argument("--torch-trainer-worker-gpus", "-ttwg", type=int, default=1,
+                        help="GPUs to allocate for each Torch Trainer worker")
+
+    parser.add_argument("--torch-trainer-worker-cpus", "-ttwc", type=int, default=12,
+                        help="CPUs to allocate for each Torch Trainer worker")
 
     parser.add_argument("--train-path", type=str, default=os.path.join(TRAINING_DATA_DIR, "train.jsonl"),
                         help="Path to training jsonl file")
@@ -606,8 +605,8 @@ def parse_args():
     parser.add_argument("--dataset-config", type=str, default=os.path.join(TRAINING_DATA_DIR, "config.json"),
                         help="Path to the config file")
 
-    parser.add_argument("--num-devices", "-nd", type=int, default=3,
-                        help="Number of devices to use.")
+    parser.add_argument("--outputs-local-path", type=str, default="/tmp",
+                        help="Local path to outputs directory, containing the resulting fine-tuned weights.")
 
     parser.add_argument("--mx", type=str, choices=["no", "fp16", "bf16", "fp8"], default="bf16",
                         help="Whether to use mixed precision. Choose between fp16 and bf16 (bfloat16). "
@@ -642,12 +641,6 @@ def parse_args():
     parser.add_argument("--grad-accum", type=int, default=1,
                         help="Gradient accumulation steps.")
 
-    parser.add_argument("--output-dir", type=str, default="/tmp",
-                        help="Path to output directory.")
-
-    parser.add_argument("--storage-path", type=str,
-                        help="Path to results and checkpoints storage")
-
     parser.add_argument("--no-grad-ckpt", action="store_true",
                         help="If passed, will not use gradient checkpointing.")
 
@@ -663,24 +656,13 @@ def parse_args():
     parser.add_argument("--as-test", action="store_true",
                         help="If passed, will run the script in test mode.")
 
-    parser.add_argument("--pre-trained-path", type=str, help="Path to pretrained model")
-
     args = parser.parse_args()
 
     return args
 
 
 def main():
-    # if TRAINING_DATA_DIR is None:
-    #    TRAINING_DATA_DIR = os.environ.get("TRAINING_DATA_DIR")
-
-    # if os.environ.get("TRAINING_CONFIGURATION_DIR") is not None:
-    #    TRAINING_CONFIGURATION_DIR = os.environ.get("TRAINING_CONFIGURATION_DIR")
-
     args = parse_args()
-
-    if not args.output_dir:
-        raise ValueError("--output-dir must be specified")
 
     # update the config with args so that we have access to them.
     config = vars(args)
@@ -691,7 +673,7 @@ def main():
             "seed": 42,
             "batch_size": args.batch_size_per_device,
             "gradient_accumulation_steps": args.grad_accum,
-            "model_name": args.model_name,
+            "model_name": args.base_model_name,
             "block_size": args.ctx_len,
             "eval_batch_size": args.eval_batch_size_per_device,
         }
@@ -718,21 +700,6 @@ def main():
 
     special_tokens = ray.data.read_json(TRAINING_DATA_DIR + "/tokens.json").take_all()[0]["tokens"]
 
-    # Config file
-    # chat_template = None
-    # special_tokens = None
-    # if os.path.isfile(args.dataset_config):
-    #    with open(args.dataset_config, "r") as json_file:
-    #        dataset_config = json.load(json_file)
-    #        chat_template = dataset_config.get("chat_template", None)
-    #        special_tokens = dataset_config.get("special_tokens", None)
-
-    trial_name = f"{args.model_name}".split("/")[-1]
-    if args.lora:
-        trial_name += "-lora"
-
-    storage_path = os.environ.get(
-        "PROJECT_DIR") + "/Resources/ft_llms_with_deepspeed/" + args.model_name + "/" + trial_name
     trainer = TorchTrainer(
         training_function,
         train_loop_config={
@@ -742,18 +709,17 @@ def main():
             "special_tokens": special_tokens,
         },
         run_config=train.RunConfig(
-            storage_path=storage_path,
+            storage_path=args.torch_trainer_checkpoints_path,
             checkpoint_config=train.CheckpointConfig(
                 num_to_keep=args.num_checkpoints_to_keep,
                 checkpoint_score_attribute="perplexity",
                 checkpoint_score_order="min",
-                # storage_path=os.environ["PROJECT_DIR"] + "/Resources/llm-checkpoint-dir",
             ),
         ),
         scaling_config=train.ScalingConfig(
-            num_workers=args.num_devices,
+            num_workers=args.torch_trainer_num_workers,
             use_gpu=True,
-            resources_per_worker={"GPU": 1, "CPU": 13},
+            resources_per_worker={"GPU": args.torch_trainer_worker_gpus, "CPU": args.torch_trainer_worker_cpus},
         ),
         datasets={"train": train_ds, "valid": valid_ds},
         dataset_config=ray.train.DataConfig(datasets_to_split=["train", "valid"]),
@@ -769,6 +735,18 @@ def main():
     print("Best checkpoint is stored at:")
     print(best_checkpoint)
     print(f"With perplexity: {best_checkpoint_metrics['perplexity']}")
+
+    # Connect with Hopsworks
+    project = hopsworks.login()
+    mr = project.get_model_registry()
+
+    # Export lora adapter
+    lora_model = mr.llm.create_model(args.lora_model_name, description=f"(LoRA adapter) Fine-tuning base model '{args.base_model_name}'")
+    lora_adapter_path = best_checkpoint.path.replace(PROJECT_DIR, f"/Projects/{project.name}")
+    start_time = time.perf_counter()
+    lora_model.save(lora_adapter_path, keep_original_files=True)
+    end_time = time.perf_counter()
+    print("Model exported to Hopsworks Model Registry in ", end_time - start_time, " seconds")
 
 
 if __name__ == "__main__":

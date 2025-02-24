@@ -6,7 +6,6 @@ pip:
 env_vars:
   LIBRARY_PATH: "$CUDA_HOME/lib64:$LIBRARY_PATH"
   PROJECT_DIR: "/home/yarnapp/hopsfs"
-  TRAINED_MODEL_STORAGE_PATH: "${PROJECT_DIR}/Resources/llama_finetuning/fine-tuned-model"
-  TRAINING_DATA_DIR: "${PROJECT_DIR}/Resources/llama_finetuning/datasets"
-  TRAINING_CONFIGURATION_DIR: "${PROJECT_DIR}/Resources/llama_finetuning/configs"
-  
+  TRAINING_DATA_DIR: "${PROJECT_DIR}/Resources/llama_finetuning/datasets" # hopsfs path to training data files
+  TRAINING_CONFIGURATION_DIR: "${PROJECT_DIR}/Resources/llama_finetuning/configs" # hopsfs path to training config files
+  TRAINING_CHECKPOINTS_DIR: "${PROJECT_DIR}/Resources/llama_finetuning/checkpoints" # hopsfs path to torch trainer checkpoints

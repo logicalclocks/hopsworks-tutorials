@@ -1,0 +1,5 @@
+dtype: "half"
+max_model_len: 2048
+gpu_memory_utilization: 0.96
+enable_lora: true
+lora_modules: "lora_adapter=/mnt/models/lora_adapter"
