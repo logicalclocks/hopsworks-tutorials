@@ -1,0 +1,11 @@
+pip:
+  - transformers==4.44.0
+  - accelerate==0.31.0
+  - peft==0.11.1
+  - deepspeed==0.16.2
+env_vars:
+  LIBRARY_PATH: "$CUDA_HOME/lib64:$LIBRARY_PATH"
+  PROJECT_DIR: "/home/yarnapp/hopsfs"
+  TRAINING_DATA_DIR: "${PROJECT_DIR}/Resources/llama_finetuning/datasets" # hopsfs path to training data files
+  TRAINING_CONFIGURATION_DIR: "${PROJECT_DIR}/Resources/llama_finetuning/configs" # hopsfs path to training config files
+  TRAINING_CHECKPOINTS_DIR: "${PROJECT_DIR}/Resources/llama_finetuning/checkpoints" # hopsfs path to torch trainer checkpoints
