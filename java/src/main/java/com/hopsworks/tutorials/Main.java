@@ -42,22 +42,24 @@ public class Main {
         FeatureView fv = fs.getFeatureView(fvName, fvVersion);
 
         // single lookup sering vector
-        List<Object> singleVector = fv.getFeatureVector(new HashMap<String, Object>() {{
-            put("id", productIdGenerator());
-        }});
-        System.out.println("Feature values from single vector lookup");
-        System.out.println("[" + Joiner.on(", ").useForNull("null").join(singleVector) + "]");
-
-        // batch lookup sering vector
-        fv.initServing(true, true);
-        List<List<Object>> batchVector = fv.getFeatureVectors(productIdGenerator(160));
-
-        // print results
-        System.out.println("Feature values from batch lookup");
-        for (List<Object> vector: batchVector) {
-            System.out.println("[" + Joiner.on(", ").useForNull("null").join(vector) + "]");
+        for (int i = 1; i <= 10; i++) {
+            List<Object> singleVector = fv.getFeatureVector(new HashMap<String, Object>() {{
+                put("id", productIdGenerator());
+            }});
+            System.out.println("Feature values from single vector lookup");
+            System.out.println("[" + Joiner.on(", ").useForNull("null").join(singleVector) + "]");
         }
 
+        // batch lookup sering vector
+        for (int i = 1; i <= 10; i++) {
+            fv.initServing(true, true);
+            List<List<Object>> batchVector = fv.getFeatureVectors(productIdGenerator(160));
+            // print results
+            System.out.println("Feature values from batch lookup");
+            for (List<Object> vector: batchVector) {
+                System.out.println("[" + Joiner.on(", ").useForNull("null").join(vector) + "]");
+            }
+        }
     }
 
     private static int productIdGenerator() {
