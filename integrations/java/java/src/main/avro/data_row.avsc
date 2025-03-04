@@ -1,0 +1,148 @@
+{
+    "type": "record",
+    "name": "DataRow",
+    "namespace": "com.hopsworks.tutorials",
+    "fields": [
+        {
+            "name": "id",
+            "type": [
+                "null",
+                "int"
+            ]
+        },
+        {
+            "name": "timestamp",
+            "type": [
+                "null",
+                {
+                    "type": "long",
+                    "logicalType": "timestamp-micros"
+                }
+            ]
+        },
+        {
+            "name": "boolean_flag",
+            "type": [
+                "null",
+                "boolean"
+            ]
+        },
+        {
+            "name": "byte_value",
+            "type": [
+                "null",
+                "int"
+            ]
+        },
+        {
+            "name": "short_int",
+            "type": [
+                "null",
+                "int"
+            ]
+        },
+        {
+            "name": "low_cat_int",
+            "type": [
+                "null",
+                "int"
+            ]
+        },
+        {
+            "name": "high_cat_int",
+            "type": [
+                "null",
+                "int"
+            ]
+        },
+        {
+            "name": "long_col",
+            "type": [
+                "null",
+                "long"
+            ]
+        },
+        {
+            "name": "float_zero_std",
+            "type": [
+                "null",
+                "float"
+            ]
+        },
+        {
+            "name": "float_low_std",
+            "type": [
+                "null",
+                "float"
+            ]
+        },
+        {
+            "name": "float_high_std",
+            "type": [
+                "null",
+                "float"
+            ]
+        },
+        {
+            "name": "double_value",
+            "type": [
+                "null",
+                "double"
+            ]
+        },
+        {
+            "name": "decimalvalue",
+            "type": [
+                "null",
+                "double"
+            ]
+        },
+        {
+            "name": "timestamp_col",
+            "type": [
+                "null",
+                {
+                    "type": "long",
+                    "logicalType": "timestamp-micros"
+                }
+            ]
+        },
+        {
+            "name": "date_col",
+            "type": [
+                "null",
+                {
+                    "type": "int",
+                    "logicalType": "date"
+                }
+            ]
+        },
+        {
+            "name": "string_low_cat",
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        {
+            "name": "string_high_cat",
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        {
+            "name": "array_column",
+            "type": [
+                "null",
+                {
+                    "type": "array",
+                    "items": [
+                        "null",
+                        "int"
+                    ]
+                }
+            ]
+        }
+    ]
+}
