@@ -1,10 +1,8 @@
 package com.hopsworks.tutorials;
 
 import com.google.common.base.Joiner;
-import com.logicalclocks.hsfs.FeatureStore;
-import com.logicalclocks.hsfs.FeatureView;
-import com.logicalclocks.hsfs.HopsworksConnection;
-import com.logicalclocks.hsfs.StreamFeatureGroup;
+import com.logicalclocks.hsfs.*;
+import lombok.NonNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,7 +22,7 @@ public class Main {
 
         FeatureStore fs = HopsworksConnection.builder()
                 .host(host)
-                .port(443)
+                .port(8181)
                 .project(projectName)
                 .apiKeyValue(apiKey)
                 .hostnameVerification(false)
@@ -37,6 +35,25 @@ public class Main {
         List<DataRow> data = DataGenerator.generateData(100, 42L);
         featureGroup.insertStream(data);
 
+
+        StreamFeatureGroup featureGroup2 =fs.getOrCreateStreamFeatureGroup(featureGroup.getName(),
+                2,
+                featureGroup.getDescription(),
+                featureGroup.getOnlineEnabled(),
+                featureGroup.getTimeTravelFormat(),
+                featureGroup.getPrimaryKeys(),
+                null,
+                featureGroup.getEventTime(),
+                null,
+                featureGroup.getFeatures(),
+                featureGroup.getStatisticsConfig(),
+                featureGroup.getStorageConnector(),
+                null,
+                featureGroup.getOnlineConfig());
+        featureGroup2.save();
+        featureGroup2.insertStream(data);
+
+        /*
         // Feature View
         // get feature view
         FeatureView fv = fs.getFeatureView(fvName, fvVersion);
@@ -60,6 +77,7 @@ public class Main {
                 System.out.println("[" + Joiner.on(", ").useForNull("null").join(vector) + "]");
             }
         }
+         */
     }
 
     private static int productIdGenerator() {
