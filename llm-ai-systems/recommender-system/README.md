@@ -18,6 +18,7 @@
 * 4_train_ranking_model.ipynb
 * 5_create_deployments.ipynb
 * 6_inference_and_ui.py
+* 7_job_scheduler.ipynb
 
 #### Streamlit App
 

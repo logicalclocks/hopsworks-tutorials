@@ -1,3 +1,4 @@
+import time
 from dataclasses import dataclass
 from typing import Optional, Dict, Set, List, Tuple
 from datetime import datetime
@@ -34,7 +35,7 @@ class InteractionType(Enum):
 
 @dataclass
 class Interaction:
-    t_dat: int  # Unix timestamp
+    t_dat: int  # Unix timestamp in milliseconds
     customer_id: str
     article_id: str
     interaction_type: str
@@ -63,7 +64,7 @@ class InteractionTracker:
         self.current_items[customer_id] = item_ids
         
         # Record ignore interactions
-        timestamp = int(datetime.now().timestamp())
+        timestamp_ms = int(datetime.now().timestamp() * 1000)
         
         for idx, item_id in enumerate(item_ids):
             if item_id not in self.purchased_items.get(customer_id, set()):
@@ -73,7 +74,7 @@ class InteractionTracker:
                     article_id=item_id,
                     interaction_type='ignore',
                     prev_article_id=prev_id,
-                    timestamp=timestamp
+                    timestamp=timestamp_ms
                 )
         
         logger.info(f"Tracked {len(item_ids)} shown items for customer {customer_id}")
@@ -110,8 +111,8 @@ class InteractionTracker:
     def _add_interaction(self, customer_id, article_id, interaction_type, prev_article_id, timestamp=None):
         """Add interaction with duplicate handling using dictionary"""
         if timestamp is None:
-            timestamp = int(datetime.now().timestamp())
-            
+            timestamp = int(datetime.now().timestamp() * 1000)
+        
         key = (customer_id, article_id, interaction_type)
         int_type = InteractionType.from_str(interaction_type)
         
@@ -155,6 +156,7 @@ class InteractionTracker:
         self.interactions.clear()
         logger.info("Cleared all recorded interactions")
 
+@st.cache_resource
 def get_tracker():
     """Get or create InteractionTracker instance"""
     if 'interaction_tracker' not in st.session_state:
