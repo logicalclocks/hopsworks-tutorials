@@ -24,7 +24,7 @@ public class Main {
 
         FeatureStore fs = HopsworksConnection.builder()
                 .host(host)
-                .port(443)
+                .port(8181)
                 .project(projectName)
                 .apiKeyValue(apiKey)
                 .hostnameVerification(false)
