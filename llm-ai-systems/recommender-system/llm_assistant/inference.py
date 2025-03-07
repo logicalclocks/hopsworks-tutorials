@@ -9,16 +9,19 @@ from llm_assistant.graph import GraphState, build_graph
 def get_context_data(project, customer_id):
     fs = project.get_feature_store() 
 
+    customers_fg = fs.get_feature_group(
+        name="customers",
+        version=1,
+    )
+
     feature_view = fs.get_feature_view(
         name="llm_assistant_context",
         version=1,
     )
 
-    data = feature_view.query.read()
+    data = feature_view.query.filter(customers_fg.customer_id == customer_id).read()
 
-    data_filtered = data[data["customer_id"] == customer_id]
-
-    return data_filtered
+    return data.drop(["customer_id"], axis=1)
 
 
 def get_llm_assistant_graph(project, customer_id):
@@ -62,11 +65,13 @@ def handle_llm_assistant_page(project, customer_id):
         st.divider()
         st.subheader("📝 Example Questions")
         example_questions = [
-            "What items I clicked on recently?",
-            "Describe the last three items I bought.",
+            "What items I clicked on for today?",
+            "What items I clicked on for the last three days?",
+            "Describe the last five items I bought.",
             "Can you describe my last interactions data?",
             "What interactions I did today?",
-            "Provide my purchase history",
+            "What interactions I did for the last week?",
+            "Provide my purchase history.",
             "What's my total spending for all time?",
             "Do I prefer online or offline shopping?",
             "What colors do I buy most often?",
@@ -106,55 +111,40 @@ def handle_llm_assistant_page(project, customer_id):
         
         # Process with LLM Assistant using the already built graph
         with st.chat_message("assistant"):
-            with st.spinner("🧠 Thinking..."):
+            try:
+                # Set up the state for this query
+                user_query = prompt
+                state = GraphState(
+                    user_query=user_query,
+                    response=None,
+                    customer_id=customer_id,
+                    context=None,
+                    context_quality="unknown",
+                    iterations=0,
+                    max_iterations=3,
+                    error_message=None,
+                    code=None,
+                )
+                
+                # Run the cached graph with the new state
+                config = RunnableConfig(recursion_limit=25)
+                final_state = st.session_state.llm_graph.invoke(state, config=config)
+                
+                # Extract response from final state
                 try:
-                    # Set up the state for this query
-                    user_query = prompt
-                    state = GraphState(
-                        messages=[HumanMessage(content=user_query)],
-                        user_query=user_query,
-                        customer_id=customer_id,
-                        context=None,
-                        context_quality="unknown",
-                        iterations=0,
-                        max_iterations=3,
-                        error_message=None,
-                        code=None,
-                    )
-                    
-                    # Run the cached graph with the new state
-                    config = RunnableConfig(recursion_limit=25)
-                    final_state = st.session_state.llm_graph.invoke(state, config=config)
-                    
-                    # Extract response from final state
-                    try:
-                        # Handle different possible structures of final_state
-                        if isinstance(final_state, dict):
-                            if "messages" in final_state:
-                                messages = final_state["messages"]
-                                if isinstance(messages, list) and messages:
-                                    response = messages[-1].content
-                                else:
-                                    response = messages.content if hasattr(messages, "content") else str(messages)
-                            else:
-                                response = "I couldn't generate a response from the state dictionary."
+                    if isinstance(final_state, dict):
+                        if "response" in final_state:
+                            response = final_state["response"]
                         else:
-                            # Try to access as an object
-                            messages = getattr(final_state, "messages", None)
-                            if messages and isinstance(messages, list):
-                                response = messages[-1].content
-                            elif messages:
-                                response = messages.content if hasattr(messages, "content") else str(messages)
-                            else:
-                                response = "I couldn't generate a response from the state object."
-                    except Exception as parsing_error:
-                        response = f"Processed your request but had trouble formatting the response: {str(parsing_error)}"
-                    
-                    st.markdown(response)
-                    
-                    # Add assistant response to chat history
-                    st.session_state.messages.append({"role": "assistant", "content": response})
-                except Exception as e:
-                    error_msg = f"Error processing your request: {str(e)}"
-                    st.error(error_msg)
-                    st.session_state.messages.append({"role": "assistant", "content": error_msg})
+                            response = "I couldn't generate a response."
+                except Exception as parsing_error:
+                    response = f"Processed your request but had trouble formatting the response: {str(parsing_error)}"
+                
+                st.markdown(response)
+                
+                # Add assistant response to chat history
+                st.session_state.messages.append({"role": "assistant", "content": response})
+            except Exception as e:
+                error_msg = f"Error processing your request: {str(e)}"
+                st.error(error_msg)
+                st.session_state.messages.append({"role": "assistant", "content": error_msg})

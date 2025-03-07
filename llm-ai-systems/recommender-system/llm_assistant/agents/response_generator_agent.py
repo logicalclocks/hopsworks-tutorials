@@ -1,8 +1,9 @@
 import os
 from langchain_openai import ChatOpenAI
 from langchain_core.messages import  AIMessage
-from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
+from langchain_core.prompts import ChatPromptTemplate
 from langgraph.types import Command
+import streamlit as st
 
 
 class ResponseGeneratorAgent:
@@ -49,7 +50,6 @@ class ResponseGeneratorAgent:
         return ChatPromptTemplate.from_messages(
             [
                 ("system", self._get_system_message()),
-                MessagesPlaceholder(variable_name="messages"),
                 ("human", self._get_human_message()),
             ]
         )
@@ -59,17 +59,15 @@ class ResponseGeneratorAgent:
     
 
     def generate_response(self, state):
-        response_content = self.chain.invoke({
-            "user_query": state["user_query"],
-            "context": state["context"],
-            "messages": state["messages"],
-        }).content
+        with st.spinner("📝 Generating Response..."):
+            response_content = self.chain.invoke({
+                "user_query": state["user_query"],
+                "context": state["context"],
+            }).content
 
-        ai_message = AIMessage(content=response_content)
-
-        return Command(
-            update={
-                "messages": ai_message,
-            },
-            goto="END",
-        )
+            return Command(
+                update={
+                    "response": response_content,
+                },
+                goto="END",
+            )

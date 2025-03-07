@@ -9,7 +9,7 @@ from llm_assistant.agents.response_generator_agent import ResponseGeneratorAgent
 
 class GraphState(TypedDict):
     user_query: str
-    messages: List[Any]
+    response: str
     customer_id: str
     context: str
     context_quality: Literal["unknown", "insufficient", "good"]

@@ -2,7 +2,7 @@ import os
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langgraph.types import Command
-
+import streamlit as st
 
 class QueryRefinementAgent:
     def __init__(self):
@@ -22,6 +22,9 @@ class QueryRefinementAgent:
             "The previous attempt to get context for a user query was insufficient. Please refine the query to\n"
             "be more specific and targeted, focusing on what data might be missing.\n"
             "Write just a refined query, without any explanation.\n"
+            "Important feature descriptions:\n"
+            " - interaction_score: Type of interaction: 0 = ignore, 1 = click, 2 = purchase.\n"
+            " - sales_channel_id: 1 = online, 2 = offline.\n"
         )
     
 
@@ -47,16 +50,17 @@ class QueryRefinementAgent:
     
 
     def refine_query(self, state):
-        response = self.chain.invoke({
-            "user_query": state["user_query"],
-            "context": state["context"]
-        }).content
+        with st.spinner("👩🏻‍🔬 Refining Query..."):
+            response = self.chain.invoke({
+                "user_query": state["user_query"],
+                "context": state["context"]
+            }).content
 
-        return Command(
-            update={
-                "user_query": response
-            },
-            goto="generate_context",
-        )
+            return Command(
+                update={
+                    "user_query": response
+                },
+                goto="generate_context",
+            )
 
 

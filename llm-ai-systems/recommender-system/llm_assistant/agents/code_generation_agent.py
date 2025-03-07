@@ -3,7 +3,8 @@ import pandas as pd
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langgraph.types import Command
-
+import streamlit as st
+import logging
 
 class CodeGenerationAgent:
     def __init__(self, data):
@@ -16,7 +17,7 @@ class CodeGenerationAgent:
         self.formatted_data_sample_json = self.escape_curly_braces(self._data_sample_json)
 
         self.llm = ChatOpenAI(
-            model_name='gpt-4o-mini-2024-07-18',
+            model_name='gpt-4o-2024-11-20',
             temperature=0,
             api_key=os.environ['OPENAI_API_KEY'],
         )
@@ -57,7 +58,7 @@ class CodeGenerationAgent:
             " - t_dat is present in milliseconds format.\n"
             "\n"
             "Only generate Python code - no explanations.\n"
-            "The code should define a function called `run_analysis` that takes the dataframe and customer_id and returns a dictionary with the results (Do not return customer_id).\n"
+            "The code should define a function called `run_analysis` that takes the dataframe and returns a dictionary with the results.\n"
         ) 
 
 
@@ -65,6 +66,7 @@ class CodeGenerationAgent:
         return (
         "Generate Python code to answer this query: '{user_query}'\n"
         "Previous code errors (if present): '{error_message}'\n"
+        "Previous code (if present): '{previous_code}'\n"
     )
 
 
@@ -81,12 +83,13 @@ class CodeGenerationAgent:
         return self.prompt | self.llm
     
 
-    def generate_code(self, user_query, error_message=None):
+    def generate_code(self, user_query, error_message=None, previous_code=None):
 
         response = self.chain.invoke(
             {
                 "user_query": user_query,
-                "error_message": error_message
+                "error_message": error_message,
+                "previous_code": previous_code,
             }
         )
 
@@ -95,13 +98,14 @@ class CodeGenerationAgent:
             code = code.split("```python")[1].split("```")[0].strip()
         elif "```" in code:
             code = code.split("```")[1].split("```")[0].strip()
+
         return code
     
 
-    def run_code(self, code, customer_id):
+    def run_code(self, code):
         try:
             # Create namespace for execution
-            namespace = {"pd": pd, "data": self.data, "customer_id": customer_id}
+            namespace = {"pd": pd, "data": self.data}
             
             # Execute the code in the namespace
             exec(code, namespace, namespace)
@@ -109,7 +113,7 @@ class CodeGenerationAgent:
             # Check if run_analysis was defined
             if "run_analysis" in namespace and callable(namespace["run_analysis"]):
                 # Call the function and get its result
-                function_result = namespace["run_analysis"](self.data, customer_id)
+                function_result = namespace["run_analysis"](self.data)
                 
                 # Verify function_result is a dictionary
                 if isinstance(function_result, dict):
@@ -141,24 +145,26 @@ class CodeGenerationAgent:
         
 
     def generate_context(self, state):
-        code = self.generate_code(state["user_query"], state["error_message"])
+        with st.spinner("🔮 Generating Context..."):
+            code = self.generate_code(state["user_query"], state["error_message"], state["code"])
 
-        result = self.run_code(code, state["customer_id"])
+            result = self.run_code(code)
 
-        if "error" in result.keys():
+            if "error" in result.keys() and state["iterations"] < state["max_iterations"]:
+                return Command(
+                    update={
+                        "error_message": result["error"],
+                        "iterations": state["iterations"] + 1,
+                        "code": code,
+                    },
+                    goto="generate_context",
+                )
+
             return Command(
                 update={
-                    "error_message": result["error"],
+                    "context": str(result["context"]),
                     "iterations": state["iterations"] + 1,
+                    "code": code,
                 },
-                goto="generate_context",
+                goto="evaluate_context",
             )
-
-        return Command(
-            update={
-                "context": str(result["context"]),
-                "iterations": state["iterations"] + 1,
-                "code": code,
-            },
-            goto="evaluate_context",
-        )
