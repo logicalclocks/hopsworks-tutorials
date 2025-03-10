@@ -1,12 +1,18 @@
 package com.hopsworks.tutorials;
 
-import com.google.common.base.Joiner;
+import com.logicalclocks.hsfs.Feature;
 import com.logicalclocks.hsfs.FeatureStore;
 import com.logicalclocks.hsfs.FeatureView;
 import com.logicalclocks.hsfs.HopsworksConnection;
 import com.logicalclocks.hsfs.StreamFeatureGroup;
+import com.logicalclocks.hsfs.TimeTravelFormat;
+
+import com.google.common.base.Joiner;
+
+import org.apache.avro.generic.GenericRecord;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -24,7 +30,7 @@ public class Main {
 
         FeatureStore fs = HopsworksConnection.builder()
                 .host(host)
-                .port(8181)
+                .port(443)
                 .project(projectName)
                 .apiKeyValue(apiKey)
                 .hostnameVerification(false)
@@ -36,6 +42,72 @@ public class Main {
         // Generate, for example, 100 rows with seed=42
         List<DataRow> data = DataGenerator.generateData(100, 42L);
         featureGroup.insertStream(data);
+
+
+        List<Feature> features = Arrays.asList(
+                Feature.builder().name("pk").type("string").build(),
+                Feature.builder().name("event_time").type("timestamp").build(),
+                Feature.builder().name("feat").type("array<struct<sku:string,ts:timestamp>>")
+                        .onlineType("varbinary(150)").build()
+        );
+
+        StreamFeatureGroup structFg =fs.getOrCreateStreamFeatureGroup(
+                "java_struct",
+                1,
+                "fg containing struct features",
+                true,
+                TimeTravelFormat.HUDI,
+                Arrays.asList("pk"),
+                null,
+                "event_time",
+                null,
+                features,
+                null,
+                null,
+                null,
+                null);
+        structFg.save();
+        List<JavaStructPojo> structPojos = JavaStructGenerator.generateData(100);
+        structFg.insertStream(structPojos);
+
+        StreamFeatureGroup structGenericRecordFg =fs.getOrCreateStreamFeatureGroup(
+                "java_struct_generic",
+                1,
+                "fg containing struct features",
+                true,
+                TimeTravelFormat.HUDI,
+                Arrays.asList("pk"),
+                null,
+                "event_time",
+                null,
+                features,
+                null,
+                null,
+                null,
+                null);
+        structGenericRecordFg.save();
+        List<GenericRecord> structGenericRecords = JavaStructGenerator.generateGenericRecordData(100);
+        structGenericRecordFg.insertStream(structGenericRecords);
+
+        StreamFeatureGroup structAvroRecordFg =fs.getOrCreateStreamFeatureGroup(
+                "java_struct_avro",
+                1,
+                "fg containing struct features",
+                true,
+                TimeTravelFormat.HUDI,
+                Arrays.asList("pk"),
+                null,
+                "event_time",
+                null,
+                features,
+                null,
+                null,
+                null,
+                null);
+        structAvroRecordFg.save();
+
+        List<JavaStructAvro> structAvroRecords = JavaStructGenerator.generateJavaStructAvroData(100);
+        structAvroRecordFg.insertStream(structAvroRecords);
 
         // Feature View
         // get feature view
@@ -57,7 +129,6 @@ public class Main {
         for (List<Object> vector: batchVector) {
             System.out.println("[" + Joiner.on(", ").useForNull("null").join(vector) + "]");
         }
-
     }
 
     private static int productIdGenerator() {
