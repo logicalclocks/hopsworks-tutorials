@@ -4,7 +4,7 @@ import streamlit as st
 from langchain_openai import ChatOpenAI
 import hopsworks
 
-from functions.deployments import get_deployments
+from functions.deployment import get_deployment
 from functions.two_tower_recommender_utils import customer_recommendations
 from llm_recommender.agent import FashionRecommenderAgent
 from llm_recommender.utils import llm_recommendations
@@ -50,16 +50,15 @@ def initialize_services():
     logger.info("Initializing deployments...")
     with st.sidebar:
         with st.spinner("🚀 Starting Deployments..."):
-            articles_fv, ranking_deployment, query_model_deployment = get_deployments(project)
+            articles_fv, recommender_deployment = get_deployment(project)
         st.success('✅ Deployments Ready')
         
         # Stop deployments button
-        if st.button("⏹️ Stop Deployments", key='stop_deployments_button', type="secondary"):
-            ranking_deployment.stop()
-            query_model_deployment.stop()
-            st.success("Deployments stopped successfully!")
+        if st.button("⏹️ Stop Deployment", key='stop_deployments_button', type="secondary"):
+            recommender_deployment.stop()
+            st.success("Deployment stopped successfully!")
     
-    return project, tracker, fg_updater, articles_fv, ranking_deployment, query_model_deployment
+    return project, tracker, fg_updater, articles_fv, recommender_deployment
 
 
 @st.cache_resource
@@ -125,7 +124,7 @@ def main():
     initialize_page()
     
     # Initialize services
-    project, tracker, fg_updater, articles_fv, ranking_deployment, query_model_deployment = initialize_services()
+    project, tracker, fg_updater, articles_fv, recommender_deployment = initialize_services()
     
     # Select customer
     customer_id = st.sidebar.selectbox(
@@ -146,7 +145,7 @@ def main():
     
     # Handle page content
     if page_selection == "Customer Recommendations":
-        customer_recommendations(articles_fv, query_model_deployment, customer_id, tracker, fg_updater)
+        customer_recommendations(articles_fv, recommender_deployment, customer_id, tracker, fg_updater)
     elif page_selection == "LLM Recommendations":
         handle_llm_page(articles_fv, customer_id, tracker, fg_updater)
     else:
