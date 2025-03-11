@@ -12,8 +12,9 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 class FeatureGroupUpdater:
-    def __init__(self):
+    def __init__(self, project):
         """Initialize the FeatureGroup updater"""
+        self.project = project
         self._initialize_feature_groups()
     
     def _initialize_feature_groups(self) -> None:
@@ -21,8 +22,8 @@ class FeatureGroupUpdater:
         try:
             if 'feature_group' not in st.session_state:
                 logger.info("📡 Initializing Hopsworks Feature Groups connection...")
-                project = hopsworks.login()
-                fs = project.get_feature_store()
+
+                fs = self.project.get_feature_store()
                 
                 # Initialize interactions feature group
                 st.session_state.feature_group = fs.get_feature_group(
@@ -46,13 +47,14 @@ class FeatureGroupUpdater:
         """Prepare transaction data for insertion into transactions feature group"""
         try:
             timestamp = datetime.now()
+            timestamp_ms = int(timestamp.timestamp() * 1000)
             
             transaction = {
-                't_dat': int(timestamp.timestamp()),
+                't_dat': timestamp_ms,
                 'customer_id': str(purchase_data['customer_id']),
                 'article_id': str(purchase_data['article_id']),
                 'price': round(random.uniform(10, 140), 2),
-                'sales_channel_id': 2,
+                'sales_channel_id': 1,
                 'year': timestamp.year,
                 'month': timestamp.month,
                 'day': timestamp.day,
@@ -147,8 +149,10 @@ class FeatureGroupUpdater:
 
         return False
 
-def get_fg_updater():
+
+@st.cache_resource
+def get_fg_updater(_project):
     """Get or create FeatureGroupUpdater instance"""
     if 'fg_updater' not in st.session_state:
-        st.session_state.fg_updater = FeatureGroupUpdater()
+        st.session_state.fg_updater = FeatureGroupUpdater(_project)
     return st.session_state.fg_updater
