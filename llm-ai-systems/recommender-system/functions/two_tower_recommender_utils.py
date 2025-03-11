@@ -44,7 +44,7 @@ def display_item(item_id, score, articles_fv, customer_id, tracker, source, fg_u
             else:
                 st.error("Failed to record transaction, but purchase was tracked")
 
-def customer_recommendations(articles_fv, query_model_deployment, customer_id, tracker, fg_updater):
+def customer_recommendations(articles_fv, recommender_deployment, customer_id, tracker, fg_updater):
     """Handle customer-based recommendations"""    
     # Initialize or update recommendations
     if 'customer_recs' not in st.session_state:
@@ -76,7 +76,7 @@ def customer_recommendations(articles_fv, query_model_deployment, customer_id, t
                 }
             ]
             
-            prediction = query_model_deployment.predict(inputs=deployment_input)['predictions']['ranking']
+            prediction = recommender_deployment.predict(inputs=deployment_input)['predictions']['ranking']
             
             # Filter out purchased items
             available_items = [
