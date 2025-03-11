@@ -47,12 +47,12 @@ public class JavaStructGenerator {
         return new JavaStructPojo(pk, eventTime, featList);
     }
 
-    public static JavaStructAvro generateJavaStructAvro() {
+    public static JavaStructAvro generateJavaStructAvro(Integer id) {
 
         JavaStructAvro javaStructAvro = new JavaStructAvro();
 
         // Set primary key (union of null and string, so non-null value)
-        javaStructAvro.setPk(UUID.randomUUID().toString());
+        javaStructAvro.setPk(id.toString());
 
         // Set event_time (as a Long for timestamp-micros)
         javaStructAvro.setEventTime(getRandomMicroTimestamp());
@@ -77,12 +77,12 @@ public class JavaStructGenerator {
     /**
      * Generates a random GenericRecord for the given schema.
      */
-    public static GenericRecord generateRandomRecord(Schema schema) {
+    public static GenericRecord generateRandomRecord(Schema schema, Integer id) {
         // Create the main record for the "java_struct_1" record.
         GenericRecord record = new GenericData.Record(schema);
 
         // "pk": union [null, string] -> choose a random UUID string.
-        record.put("pk", UUID.randomUUID().toString());
+        record.put("pk", id.toString());
 
         // "event_time": union [null, long] -> generate a random timestamp in microseconds.
         record.put("event_time", getRandomMicroTimestamp());
@@ -132,11 +132,10 @@ public class JavaStructGenerator {
     }
 
     public static List<JavaStructAvro> generateJavaStructAvroData(int size) {
-
         List<JavaStructAvro> rows = new ArrayList<>(size);
 
         for (int i = 0; i < size; i++) {
-            JavaStructAvro data = generateJavaStructAvro();
+            JavaStructAvro data = generateJavaStructAvro(i);
             rows.add(data);
         }
         return rows;
@@ -174,7 +173,7 @@ public class JavaStructGenerator {
 
         List<GenericRecord> rows = new ArrayList<>(size);
         for (int i = 0; i < size; i++) {
-            GenericRecord data = generateRandomRecord(schema);
+            GenericRecord data = generateRandomRecord(schema, i);
             rows.add(data);
         }
         return rows;

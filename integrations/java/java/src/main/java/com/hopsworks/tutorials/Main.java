@@ -9,6 +9,7 @@ import com.logicalclocks.hsfs.TimeTravelFormat;
 
 import com.google.common.base.Joiner;
 
+import com.logicalclocks.hsfs.constructor.Query;
 import org.apache.avro.generic.GenericRecord;
 
 import java.util.ArrayList;
@@ -108,6 +109,16 @@ public class Main {
 
         List<JavaStructAvro> structAvroRecords = JavaStructGenerator.generateJavaStructAvroData(100);
         structAvroRecordFg.insertStream(structAvroRecords);
+
+        Query structQuery = structAvroRecordFg.selectAll().join(structGenericRecordFg.selectAll());
+        FeatureView structFeatureView = fs.getOrCreateFeatureView("java_structs", structQuery, 1);
+
+        for (int i = 0; i < 100; i++) {
+            Integer finalI = i;
+            structFeatureView.getFeatureVector(new HashMap<String, Object>() {{
+                put("pk", finalI.toString());
+            }});
+        }
 
         // Feature View
         // get feature view
