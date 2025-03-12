@@ -62,5 +62,3 @@ class QueryRefinementAgent:
                 },
                 goto="generate_context",
             )
-
-
