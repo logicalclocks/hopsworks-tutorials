@@ -56,9 +56,12 @@ class CodeGenerationAgent:
             " - interaction_score: Type of interaction: 0 = ignore, 1 = click, 2 = purchase.\n"
             " - sales_channel_id: 1 = online, 2 = offline.\n"
             " - t_dat is present in milliseconds format.\n"
+            " - For date comparisons, NEVER compare exact millisecond timestamps. Instead, convert timestamps to dates and compare at the day level.\n"
+            " - When filtering for 'today', convert both the current time and the t_dat column to date objects (year, month, day) before comparison.\n"
             "\n"
             "Only generate Python code - no explanations.\n"
             "The code should define a function called `run_analysis` that takes the dataframe and returns a dictionary with the results.\n"
+            "Always include proper date handling that compares dates at the day level, not millisecond level.\n"
         ) 
 
 
