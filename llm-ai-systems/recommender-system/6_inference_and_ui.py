@@ -19,9 +19,9 @@ logger = logging.getLogger(__name__)
 
 # Constants
 CUSTOMER_IDS = [
+    'aa3be689a15c58be8a969fee5ed04024756a721754eb8c0ee2886a00fe25f853',
     '5919849351d32e688f7fc0617ef3e65e0b6c5608744987dd79b72e373c32d8b1',
     '8b31e273de61b62800b633d46f071b7b2b8353f459095c5b607d4a8c537398b1',
-    'aa3be689a15c58be8a969fee5ed04024756a721754eb8c0ee2886a00fe25f853',
     'b41d990c8a127dac386dd6c9f2a6ec4ac41185cd21ef2df0a952a8cbdf61ed5d',
     '55d08819b6bfff0466f4e0b25b4590edb5366dc133cf8541b7f44e7338b1ad01',
 ]
@@ -65,6 +65,7 @@ def initialize_services():
 def get_fashion_recommender_agent():
     """Create a fashion recommender agent using OpenAI's ChatGPT"""
     if 'OPENAI_API_KEY' not in os.environ:
+        st.warning("⚠️ OpenAI API Key not found in environment variables")
         return None
         
     llm = ChatOpenAI(
@@ -79,12 +80,25 @@ def show_interaction_dashboard(tracker, fg_updater, page_selection):
     """Display interaction data and controls"""
     with st.sidebar.expander("📊 Interaction Dashboard", expanded=True):
         if page_selection in ["LLM Recommendations", "LLM Assistant"]:
-            api_key = st.text_input("🔑 OpenAI API Key:", type="password", key="openai_api_key")
-            if api_key:
-                os.environ["OPENAI_API_KEY"] = api_key
-                st.success("✅ API Key set successfully!")
+            # Check if OpenAI API key exists in environment
+            api_key_env = os.environ.get("OPENAI_API_KEY", "")
+            
+            if api_key_env:
+                st.success("✅ OpenAI API Key found in environment")
+                # Option to override with a different key
+                if st.checkbox("Use a different OpenAI API Key", key="override_api_key"):
+                    api_key = st.text_input("🔑 OpenAI API Key:", type="password", key="openai_api_key")
+                    if api_key and api_key != api_key_env:
+                        os.environ["OPENAI_API_KEY"] = api_key
+                        st.success("✅ API Key updated successfully!")
             else:
-                st.warning("⚠️ Please enter OpenAI API Key for LLM Recommendations")
+                # Prompt for key if not in environment
+                api_key = st.text_input("🔑 OpenAI API Key:", type="password", key="openai_api_key")
+                if api_key:
+                    os.environ["OPENAI_API_KEY"] = api_key
+                    st.success("✅ API Key set successfully!")
+                else:
+                    st.warning("⚠️ Please enter OpenAI API Key for LLM Recommendations")
             st.divider()
 
         interaction_data = tracker.get_interactions_data()
@@ -148,8 +162,11 @@ def main():
         customer_recommendations(articles_fv, recommender_deployment, customer_id, tracker, fg_updater)
     elif page_selection == "LLM Recommendations":
         handle_llm_page(articles_fv, customer_id, tracker, fg_updater)
-    else:
-        handle_llm_assistant_page(project, customer_id)
+    else:  # LLM Assistant
+        if 'OPENAI_API_KEY' in os.environ:
+            handle_llm_assistant_page(project, customer_id)
+        else:
+            st.warning("Please provide your OpenAI API Key in the Interaction Dashboard to use the LLM Assistant")
 
 if __name__ == '__main__':
     main()

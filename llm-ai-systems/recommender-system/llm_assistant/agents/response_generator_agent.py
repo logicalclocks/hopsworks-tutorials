@@ -32,7 +32,8 @@ class ResponseGeneratorAgent:
             " - interaction_score: Type of interaction: 0 = ignore, 1 = click, 2 = purchase.\n"
             " - sales_channel_id: 1 = online, 2 = offline\n"
             " - price values are not in dollars, they are in units, not to reveal the real information\n"
-            "Provide a rich, engaging response including all details from the context data.\n"
+            "Provide a rich, engaging response including all relevant details from the context data.\n"
+            "The response should be written in a user-friendly style that is easy to read and understand.\n"
         )
 
 
