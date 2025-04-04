@@ -72,7 +72,7 @@ def customer_recommendations(articles_fv, recommender_deployment, customer_id, t
             deployment_input = [
                 {
                     "customer_id": customer_id,
-                    "transaction_date": formatted_timestamp,
+                    "date": formatted_timestamp,
                 }
             ]
             
