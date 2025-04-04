@@ -30,7 +30,7 @@ Also, you obviously need to have [streamlit](https://docs.streamlit.io/library/g
 
 
 ## Data
-You will generate random data for this tutorial. See corresponding functions in the [functions.py](https://github.com/logicalclocks/hopsworks-tutorials/blob/master/advanced_tutorials/nyc_taxi_fares/functions.py).
+You will generate random data for this tutorial. See corresponding functions in the [functions.py](https://github.com/logicalclocks/hopsworks-tutorials/blob/branch-4.2/advanced_tutorials/nyc_taxi_fares/functions.py).
 
 
 ## Streamlit run
