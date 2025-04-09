@@ -15,7 +15,7 @@ mvn clean package
 
 ## Execute java application:
 Now you will create [connection](https://docs.hopsworks.ai/hopsworks-api/3.3/generated/api/connection/) with
-your Hopsworks cluster. For this you need to have Hopsworks cluster host address and [api key](https://docs.hopsworks.ai/3.3/user_guides/projects/api_key/create_api_key/)
+your Hopsworks cluster. For this you need to have Hopsworks cluster host address and [api key](https://docs.hopsworks.ai/latest/user_guides/projects/api_key/create_api_key/)
 
 Then define environment variables 
 
