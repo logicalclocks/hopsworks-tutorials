@@ -36,7 +36,7 @@ Currently, bytewax support for Hopsworks feature store is experimental and only 
 that Feature group metadata needs to be registered in Hopsworks Feature store before you can write real time features computed
 by Bytewax.
 
-Full documentation how to create feature group using HSFS APIs can be found [here](https://docs.hopsworks.ai/3.4/user_guides/fs/feature_group/create/).
+Full documentation how to create feature group using HSFS APIs can be found [here](https://docs.hopsworks.ai/latest/user_guides/fs/feature_group/create/).
 
 This tutorial comes with a python program to create a feature group:
 - `python ./setup/feature_group.py`
