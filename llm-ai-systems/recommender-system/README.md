@@ -18,6 +18,7 @@
 * 4_train_ranking_model.ipynb
 * 5_create_deployments.ipynb
 * 6_inference_and_ui.py
+* 7_job_scheduler.ipynb
 
 #### Streamlit App
 
@@ -35,8 +36,8 @@ For the tutorials to work, you need:
   will not work for [app.hopsworks.ai](https://app.hopsworks.ai) account as submitting custom jobs to
   [app.hopsworks.ai](https://app.hopsworks.ai) are not supported.
 
-You can find documentation on how to get started on [GCP](https://docs.hopsworks.ai/3.1/setup_installation/gcp/getting_started/),
-[AWS](https://docs.hopsworks.ai/3.1/setup_installation/aws/getting_started/) or on [Azure](https://docs.hopsworks.ai/3.1/setup_installation/azure/getting_started/).
+You can find documentation on how to get started on [GCP](https://docs.hopsworks.ai/latest/setup_installation/gcp/getting_started/),
+[AWS](https://docs.hopsworks.ai/latest/setup_installation/aws/getting_started/) or on [Azure](https://docs.hopsworks.ai/latest/setup_installation/azure/getting_started/).
 
 
 
