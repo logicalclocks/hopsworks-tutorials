@@ -16,13 +16,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Main {
 
     public static void main(String[] args) throws Exception {
 
         String host = args[0];
-        String apiKey =args[1];
+        String apiKey = args[1];
         String projectName = args[2];
         String fgName = args[3];
         Integer fgVersion = Integer.parseInt(args[4]);
@@ -44,7 +45,43 @@ public class Main {
         List<DataRow> data = DataGenerator.generateData(100, 42L);
         featureGroup.insertStream(data);
 
+        // get feature vector
+        getSingleFeatureVector(fs, fvName, fvVersion);
+        getBatchFeatureVectors(fs, fvName, fvVersion);
 
+        // struct features
+        structFeatures(fs);
+    }
+
+    private static void getSingleFeatureVector(FeatureStore fs, String fvName, Integer fvVersion) throws Exception {
+        FeatureView fv = fs.getFeatureView(fvName, fvVersion);
+        fv.initServing(false, true);
+
+        // single lookup serving vector
+        List<Object> singleVector = fv.getFeatureVector(new HashMap<String, Object>() {{
+            put("id", productIdGenerator());
+        }});
+        System.out.println("Feature values from single vector lookup");
+        System.out.println("[" + Joiner.on(", ").useForNull("null").join(singleVector) + "]");
+    }
+
+    private static void getBatchFeatureVectors(FeatureStore fs, String fvName, Integer fvVersion) throws Exception {
+        FeatureView fv = fs.getFeatureView(fvName, fvVersion);
+        fv.initServing(true, true);
+
+        // batch lookup sering vector
+        List<List<Object>> batchVector = fv.getFeatureVectors(productIdGenerator(160));
+
+        // print results
+        System.out.println("Feature values from batch lookup");
+        for (List<Object> vector: batchVector) {
+            System.out.println("[" + Joiner.on(", ").useForNull("null").join(vector) + "]");
+        }
+    }
+
+    private static void structFeatures(FeatureStore fs) throws Exception {
+        int size = 100;
+        
         List<Feature> features = Arrays.asList(
                 Feature.builder().name("pk").type("string").build(),
                 Feature.builder().name("event_time").type("timestamp").build(),
@@ -52,7 +89,8 @@ public class Main {
                         .onlineType("varbinary(150)").build()
         );
 
-        StreamFeatureGroup structFg =fs.getOrCreateStreamFeatureGroup(
+        // Create a feature group JavaStructPojo
+        StreamFeatureGroup structFg = fs.getOrCreateStreamFeatureGroup(
                 "java_struct",
                 1,
                 "fg containing struct features",
@@ -68,10 +106,11 @@ public class Main {
                 null,
                 null);
         structFg.save();
-        List<JavaStructPojo> structPojos = JavaStructGenerator.generateData(100);
+        List<JavaStructPojo> structPojos = JavaStructGenerator.generateData(size);
         structFg.insertStream(structPojos);
 
-        StreamFeatureGroup structGenericRecordFg =fs.getOrCreateStreamFeatureGroup(
+        // Create a feature group GenericRecord
+        StreamFeatureGroup structGenericRecordFg = fs.getOrCreateStreamFeatureGroup(
                 "java_struct_generic",
                 1,
                 "fg containing struct features",
@@ -87,10 +126,11 @@ public class Main {
                 null,
                 null);
         structGenericRecordFg.save();
-        List<GenericRecord> structGenericRecords = JavaStructGenerator.generateGenericRecordData(100);
+        List<GenericRecord> structGenericRecords = JavaStructGenerator.generateGenericRecordData(size);
         structGenericRecordFg.insertStream(structGenericRecords);
 
-        StreamFeatureGroup structAvroRecordFg =fs.getOrCreateStreamFeatureGroup(
+        // Create a feature group avro
+        StreamFeatureGroup structAvroRecordFg = fs.getOrCreateStreamFeatureGroup(
                 "java_struct_avro",
                 1,
                 "fg containing struct features",
@@ -106,40 +146,36 @@ public class Main {
                 null,
                 null);
         structAvroRecordFg.save();
-
-        List<JavaStructAvro> structAvroRecords = JavaStructGenerator.generateJavaStructAvroData(100);
+        List<JavaStructAvro> structAvroRecords = JavaStructGenerator.generateJavaStructAvroData(size);
         structAvroRecordFg.insertStream(structAvroRecords);
 
-        Query structQuery = structAvroRecordFg.selectAll().join(structGenericRecordFg.selectAll());
+        // Create a feature view with the struct features
+        Query structQuery = structFg.selectAll()
+            .join(structGenericRecordFg.selectAll())
+            .join(structAvroRecordFg.selectAll());
         FeatureView structFeatureView = fs.getOrCreateFeatureView("java_structs", structQuery, 1);
 
-        for (int i = 0; i < 100; i++) {
-            Integer finalI = i;
-            structFeatureView.getFeatureVector(new HashMap<String, Object>() {{
-                put("pk", finalI.toString());
+        // List of all primary keys
+        List<Object> valueList = structPojos.stream()
+                .map(record -> record.getPk())
+                .collect(Collectors.toList());
+
+        // Test get feature vector
+        structFeatureView.initServing(false, true);
+        for (Object i: valueList) {
+            List<Object> results = structFeatureView.getFeatureVector(new HashMap<String, Object>() {{
+                put("pk", i);
             }});
+
+            System.out.println(results);
         }
 
-        // Feature View
-        // get feature view
-        FeatureView fv = fs.getFeatureView(fvName, fvVersion);
-
-        // single lookup sering vector
-        List<Object> singleVector = fv.getFeatureVector(new HashMap<String, Object>() {{
-            put("id", productIdGenerator());
+        // Test batch feature vectors
+        structFeatureView.initServing(true, true);
+        List<List<Object>> results = structFeatureView.getFeatureVectors(new HashMap<String, List<Object>>() {{
+            put("pk", valueList);
         }});
-        System.out.println("Feature values from single vector lookup");
-        System.out.println("[" + Joiner.on(", ").useForNull("null").join(singleVector) + "]");
-
-        // batch lookup sering vector
-        fv.initServing(true, true);
-        List<List<Object>> batchVector = fv.getFeatureVectors(productIdGenerator(160));
-
-        // print results
-        System.out.println("Feature values from batch lookup");
-        for (List<Object> vector: batchVector) {
-            System.out.println("[" + Joiner.on(", ").useForNull("null").join(vector) + "]");
-        }
+        System.out.println(results);
     }
 
     private static int productIdGenerator() {
