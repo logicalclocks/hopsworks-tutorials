@@ -78,38 +78,36 @@ public class JavaStructGenerator {
      * Generates a random GenericRecord for the given schema.
      */
     public static GenericRecord generateRandomRecord(Schema schema, Integer id) {
-        // Create the main record for the "java_struct_1" record.
         GenericRecord record = new GenericData.Record(schema);
 
-        // "pk": union [null, string] -> choose a random UUID string.
-        record.put("pk", id.toString());
+        // Wrap "pk" in union [null, string]
+        Schema pkSchema = schema.getField("pk").schema();
+        record.put("pk", GenericData.get().deepCopy(pkSchema.getTypes().get(1), id.toString()));
 
-        // "event_time": union [null, long] -> generate a random timestamp in microseconds.
-        record.put("event_time", getRandomMicroTimestamp());
+        // Wrap "event_time" in union [null, timestamp-micros]
+        Schema eventTimeSchema = schema.getField("event_time").schema();
+        record.put("event_time", GenericData.get().deepCopy(eventTimeSchema.getTypes().get(1), getRandomMicroTimestamp()));
 
-        // "feat": union [null, array<union[null, S_feat]>]
-        // Retrieve the union schema for the "feat" field.
-        Schema featFieldSchema = schema.getField("feat").schema();
-        // In the union, index 1 is the non-null array schema.
-        Schema arraySchema = featFieldSchema.getTypes().get(1); // non-null branch for the array
-        // The array’s element is itself a union: [null, S_feat]
-        Schema featElementUnionSchema = arraySchema.getElementType();
-        // In the union, index 1 is the S_feat record schema.
-        Schema sFeatSchema = featElementUnionSchema.getTypes().get(1); // non-null branch for S_feat
+        // Handle "feat": [null, array<union[null, S_feat]>]
+        Schema featUnionSchema = schema.getField("feat").schema();
+        Schema arraySchema = featUnionSchema.getTypes().get(1); // array<union[null, S_feat]>
+        Schema elementUnionSchema = arraySchema.getElementType(); // union[null, S_feat]
+        Schema sFeatSchema = elementUnionSchema.getTypes().get(1); // S_feat
 
-        // Create a list of S_feat records (choosing a non-null value).
-        int featSize = random.nextInt(5) + 1; // between 1 and 5 items.
         List<Object> featList = new ArrayList<>();
-        for (int i = 0; i < featSize; i++) {
-            GenericRecord featRecord = new GenericData.Record(sFeatSchema);
-            featRecord.put("sku", "SKU-" + UUID.randomUUID().toString().substring(0, 8));
-            featRecord.put("ts", getRandomMicroTimestamp());
+        for (int i = 0; i < random.nextInt(5) + 1; i++) {
+            GenericRecord sFeat = new GenericData.Record(sFeatSchema);
+            sFeat.put("sku", GenericData.get().deepCopy(sFeatSchema.getField("sku").schema().getTypes().get(1),
+                                                        "SKU-" + UUID.randomUUID().toString().substring(0, 8)));
+            sFeat.put("ts", GenericData.get().deepCopy(sFeatSchema.getField("ts").schema().getTypes().get(1),
+                                                    getRandomMicroTimestamp()));
 
-            // Wrap each record in its union type (["null", S_feat])
-            Object wrapped = new GenericData.Record(featElementUnionSchema.getTypes().get(1));
-            wrapped = GenericData.get().deepCopy(featElementUnionSchema, featRecord);
-            featList.add(wrapped);
+            // Wrap sFeat in union [null, S_feat]
+            Object wrappedSFeat = GenericData.get().deepCopy(elementUnionSchema.getTypes().get(1), sFeat);
+            featList.add(wrappedSFeat);
         }
+
+        // Wrap featList in union [null, array<...>]
         record.put("feat", featList);
 
         return record;
