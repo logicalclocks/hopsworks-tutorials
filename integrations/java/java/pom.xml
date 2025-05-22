@@ -6,7 +6,7 @@
 
   <groupId>com.hopsworks.tutorials</groupId>
   <artifactId>hopsworks-java-tutorial</artifactId>
-  <version>4.3.0</version>
+  <version>3.9.0-RC18</version>
 
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
