@@ -88,7 +88,7 @@ public class JavaStructGenerator {
         Schema eventTimeSchema = schema.getField("event_time").schema();
         record.put("event_time", GenericData.get().deepCopy(eventTimeSchema.getTypes().get(1), getRandomMicroTimestamp()));
 
-        // Handle "feat": [null, array<union[null, S_feat]>]
+        // feat: [null, array<union[null, S_feat]>]
         Schema featUnionSchema = schema.getField("feat").schema();
         Schema arraySchema = featUnionSchema.getTypes().get(1); // array<union[null, S_feat]>
         Schema elementUnionSchema = arraySchema.getElementType(); // union[null, S_feat]
@@ -97,18 +97,22 @@ public class JavaStructGenerator {
         List<Object> featList = new ArrayList<>();
         for (int i = 0; i < random.nextInt(5) + 1; i++) {
             GenericRecord sFeat = new GenericData.Record(sFeatSchema);
-            sFeat.put("sku", GenericData.get().deepCopy(sFeatSchema.getField("sku").schema().getTypes().get(1),
-                                                        "SKU-" + UUID.randomUUID().toString().substring(0, 8)));
-            sFeat.put("ts", GenericData.get().deepCopy(sFeatSchema.getField("ts").schema().getTypes().get(1),
-                                                    getRandomMicroTimestamp()));
+            sFeat.put("sku", GenericData.get().deepCopy(
+                sFeatSchema.getField("sku").schema().getTypes().get(1),
+                "SKU-" + UUID.randomUUID().toString().substring(0, 8))
+            );
+            sFeat.put("ts", GenericData.get().deepCopy(
+                sFeatSchema.getField("ts").schema().getTypes().get(1),
+                getRandomMicroTimestamp())
+            );
 
             // Wrap sFeat in union [null, S_feat]
             Object wrappedSFeat = GenericData.get().deepCopy(elementUnionSchema.getTypes().get(1), sFeat);
             featList.add(wrappedSFeat);
         }
 
-        // Wrap featList in union [null, array<...>]
-        record.put("feat", featList);
+        // ✅ Wrap the entire list in its union
+        record.put("feat", GenericData.get().deepCopy(featUnionSchema, featList));
 
         return record;
     }
