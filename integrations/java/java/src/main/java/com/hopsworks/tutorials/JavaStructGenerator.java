@@ -106,8 +106,9 @@ public class JavaStructGenerator {
             featRecord.put("ts", getRandomMicroTimestamp());
 
             // Wrap each record in its union type (["null", S_feat])
-            Object unionWrappedRecord = GenericData.get().deepCopy(featElementUnionSchema, featRecord);
-            featList.add(unionWrappedRecord);
+            Object wrapped = new GenericData.Record(featElementUnionSchema.getTypes().get(1));
+            wrapped = GenericData.get().deepCopy(featElementUnionSchema, featRecord);
+            featList.add(wrapped);
         }
         record.put("feat", featList);
 
