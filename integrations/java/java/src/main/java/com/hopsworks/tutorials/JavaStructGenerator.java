@@ -99,12 +99,15 @@ public class JavaStructGenerator {
 
         // Create a list of S_feat records (choosing a non-null value).
         int featSize = random.nextInt(5) + 1; // between 1 and 5 items.
-        List<GenericRecord> featList = new ArrayList<>();
+        List<Object> featList = new ArrayList<>();
         for (int i = 0; i < featSize; i++) {
             GenericRecord featRecord = new GenericData.Record(sFeatSchema);
             featRecord.put("sku", "SKU-" + UUID.randomUUID().toString().substring(0, 8));
             featRecord.put("ts", getRandomMicroTimestamp());
-            featList.add(featRecord);
+
+            // Wrap each record in its union type (["null", S_feat])
+            Object unionWrappedRecord = GenericData.get().deepCopy(featElementUnionSchema, featRecord);
+            featList.add(unionWrappedRecord);
         }
         record.put("feat", featList);
 
