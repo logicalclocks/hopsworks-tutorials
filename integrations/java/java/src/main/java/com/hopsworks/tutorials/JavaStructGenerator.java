@@ -111,8 +111,8 @@ public class JavaStructGenerator {
             featList.add(wrappedSFeat);
         }
 
-        // ✅ Wrap the entire list in its union
-        record.put("feat", GenericData.get().deepCopy(featUnionSchema, featList));
+        // Wrap the entire list in its union
+        record.put("feat", GenericData.get().deepCopy(featUnionSchema.getTypes().get(1), featList));
 
         return record;
     }
