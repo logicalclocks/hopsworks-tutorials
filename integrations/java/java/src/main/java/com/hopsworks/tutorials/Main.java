@@ -23,16 +23,17 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
         String host = args[0];
-        String apiKey = args[1];
-        String projectName = args[2];
-        String fgName = args[3];
-        Integer fgVersion = Integer.parseInt(args[4]);
-        String fvName = args[5];
-        Integer fvVersion = Integer.parseInt(args[6]);
+        Integer port = Integer.parseInt(args[1]);
+        String apiKey = args[2];
+        String projectName = args[3];
+        String fgName = args[4];
+        Integer fgVersion = Integer.parseInt(args[5]);
+        String fvName = args[6];
+        Integer fvVersion = Integer.parseInt(args[7]);
 
         FeatureStore fs = HopsworksConnection.builder()
                 .host(host)
-                .port(443)
+                .port(port)
                 .project(projectName)
                 .apiKeyValue(apiKey)
                 .hostnameVerification(false)
