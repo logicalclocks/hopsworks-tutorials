@@ -1,30 +1,41 @@
 package com.hopsworks.tutorials;
 
-import com.google.common.base.Joiner;
+import com.logicalclocks.hsfs.Feature;
 import com.logicalclocks.hsfs.FeatureStore;
 import com.logicalclocks.hsfs.FeatureView;
 import com.logicalclocks.hsfs.HopsworksConnection;
 import com.logicalclocks.hsfs.StreamFeatureGroup;
+import com.logicalclocks.hsfs.TimeTravelFormat;
+
+import com.google.common.base.Joiner;
+
+import com.logicalclocks.hsfs.constructor.Query;
+import org.apache.avro.generic.GenericRecord;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import org.apache.avro.Schema;
 
 public class Main {
 
     public static void main(String[] args) throws Exception {
 
         String host = args[0];
-        String apiKey =args[1];
-        String projectName = args[2];
-        String fgName = args[3];
-        Integer fgVersion = Integer.parseInt(args[4]);
-        String fvName = args[5];
-        Integer fvVersion = Integer.parseInt(args[6]);
+        Integer port = Integer.parseInt(args[1]);
+        String apiKey = args[2];
+        String projectName = args[3];
+        String fgName = args[4];
+        Integer fgVersion = Integer.parseInt(args[5]);
+        String fvName = args[6];
+        Integer fvVersion = Integer.parseInt(args[7]);
 
         FeatureStore fs = HopsworksConnection.builder()
                 .host(host)
-                .port(443)
+                .port(port)
                 .project(projectName)
                 .apiKeyValue(apiKey)
                 .hostnameVerification(false)
@@ -37,19 +48,31 @@ public class Main {
         List<DataRow> data = DataGenerator.generateData(100, 42L);
         featureGroup.insertStream(data);
 
-        // Feature View
-        // get feature view
-        FeatureView fv = fs.getFeatureView(fvName, fvVersion);
+        // get feature vector
+        getSingleFeatureVector(fs, fvName, fvVersion);
+        getBatchFeatureVectors(fs, fvName, fvVersion);
 
-        // single lookup sering vector
+        // struct features
+        structFeatures(fs);
+    }
+
+    private static void getSingleFeatureVector(FeatureStore fs, String fvName, Integer fvVersion) throws Exception {
+        FeatureView fv = fs.getFeatureView(fvName, fvVersion);
+        fv.initServing(false, true);
+
+        // single lookup serving vector
         List<Object> singleVector = fv.getFeatureVector(new HashMap<String, Object>() {{
             put("id", productIdGenerator());
         }});
         System.out.println("Feature values from single vector lookup");
         System.out.println("[" + Joiner.on(", ").useForNull("null").join(singleVector) + "]");
+    }
+
+    private static void getBatchFeatureVectors(FeatureStore fs, String fvName, Integer fvVersion) throws Exception {
+        FeatureView fv = fs.getFeatureView(fvName, fvVersion);
+        fv.initServing(true, true);
 
         // batch lookup sering vector
-        fv.initServing(true, true);
         List<List<Object>> batchVector = fv.getFeatureVectors(productIdGenerator(160));
 
         // print results
@@ -57,7 +80,86 @@ public class Main {
         for (List<Object> vector: batchVector) {
             System.out.println("[" + Joiner.on(", ").useForNull("null").join(vector) + "]");
         }
+    }
 
+    private static void structFeatures(FeatureStore fs) throws Exception {
+        int size = 100;
+        
+        List<Feature> features = Arrays.asList(
+                Feature.builder().name("pk").type("string").build(),
+                Feature.builder().name("event_time").type("timestamp").build(),
+                Feature.builder().name("feat").type("array<struct<sku:string,ts:timestamp>>")
+                        .onlineType("varbinary(150)").build()
+        );
+
+
+        // Create a feature group JavaStructPojo
+        StreamFeatureGroup structFg = fs.getOrCreateStreamFeatureGroup(
+                "java_struct",
+                1,
+                "fg containing struct features",
+                true,
+                TimeTravelFormat.HUDI,
+                Arrays.asList("pk"),
+                null,
+                "event_time",
+                null,
+                features,
+                null,
+                null,
+                null,
+                null);
+        structFg.save();
+        List<JavaStructPojo> structPojos = JavaStructGenerator.generateData(size);
+        structFg.insertStream(structPojos);
+
+        // Create a feature group GenericRecord
+        StreamFeatureGroup structGenericRecordFg = fs.getOrCreateStreamFeatureGroup(
+                "java_struct_generic",
+                1,
+                "fg containing struct features",
+                true,
+                TimeTravelFormat.HUDI,
+                Arrays.asList("pk"),
+                null,
+                "event_time",
+                null,
+                features,
+                null,
+                null,
+                null,
+                null);
+        structGenericRecordFg.save();
+        Schema schema = structGenericRecordFg.getDeserializedAvroSchema();
+        List<GenericRecord> structGenericRecords = JavaStructGenerator.generateGenericRecordData(schema, size);
+        structGenericRecordFg.insertStream(structGenericRecords);
+
+        // Create a feature view with the struct features
+        Query structQuery = structFg.selectAll()
+            .join(structGenericRecordFg.selectAll());
+        FeatureView structFeatureView = fs.getOrCreateFeatureView("java_structs", structQuery, 1);
+
+        // List of all primary keys
+        List<Object> valueList = structPojos.stream()
+                .map(record -> record.getPk())
+                .collect(Collectors.toList());
+
+        // Test get feature vector
+        structFeatureView.initServing(false, true);
+        for (Object i: valueList) {
+            List<Object> results = structFeatureView.getFeatureVector(new HashMap<String, Object>() {{
+                put("pk", i);
+            }});
+
+            System.out.println(results);
+        }
+
+        // Test batch feature vectors
+        structFeatureView.initServing(true, true);
+        List<List<Object>> results = structFeatureView.getFeatureVectors(new HashMap<String, List<Object>>() {{
+            put("pk", valueList);
+        }});
+        System.out.println(results);
     }
 
     private static int productIdGenerator() {
