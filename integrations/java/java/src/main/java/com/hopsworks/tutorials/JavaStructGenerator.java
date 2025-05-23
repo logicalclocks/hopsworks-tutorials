@@ -2,7 +2,6 @@ package com.hopsworks.tutorials;
 
 
 import org.apache.avro.Schema;
-import org.apache.avro.Schema.Parser;
 import org.apache.avro.generic.GenericData;
 import org.apache.avro.generic.GenericRecord;
 
@@ -31,9 +30,9 @@ public class JavaStructGenerator {
     /**
      * Generates a random instance of JavaStructPojo.
      */
-    public static JavaStructPojo generateJavaStructPojo() {
+    public static JavaStructPojo generateJavaStructPojo(Integer id) {
         // Generate a random primary key
-        String pk = UUID.randomUUID().toString();
+        String pk = id.toString();
         // Generate a random event_time (timestamp in microseconds)
         Long eventTime = getRandomMicroTimestamp();
 
@@ -45,33 +44,6 @@ public class JavaStructGenerator {
         }
 
         return new JavaStructPojo(pk, eventTime, featList);
-    }
-
-    public static JavaStructAvro generateJavaStructAvro(Integer id) {
-
-        JavaStructAvro javaStructAvro = new JavaStructAvro();
-
-        // Set primary key (union of null and string, so non-null value)
-        javaStructAvro.setPk(id.toString());
-
-        // Set event_time (as a Long for timestamp-micros)
-        javaStructAvro.setEventTime(getRandomMicroTimestamp());
-
-        // Create a random list of S_feat items (between 1 and 5 items)
-        // Generate a list of S_feat records.
-        List<S_feat> featList = new ArrayList<>();
-        int count = (int) (Math.random() * 5) + 1; // between 1 and 5 items
-        for (int i = 0; i < count; i++) {
-            S_feat feat = new S_feat();
-            String sku = "SKU-" + UUID.randomUUID().toString().substring(0, 8);
-            Long ts = getRandomMicroTimestamp();
-            feat.setSku(sku);
-            feat.setTs(ts);
-            featList.add(feat);
-        }
-        javaStructAvro.setFeat(featList);
-
-        return javaStructAvro;
     }
 
     /**
@@ -106,13 +78,13 @@ public class JavaStructGenerator {
                 getRandomMicroTimestamp())
             );
 
-            // Wrap sFeat in union [null, S_feat]
-            Object wrappedSFeat = GenericData.get().deepCopy(elementUnionSchema.getTypes().get(1), sFeat);
-            featList.add(wrappedSFeat);
+            // no createUnion, just add the record
+            Object unionWrappedSFeat = GenericData.get().deepCopy(elementUnionSchema, sFeat);
+            featList.add(unionWrappedSFeat);
         }
 
-        // Wrap the entire list in its union
-        record.put("feat", GenericData.get().deepCopy(featUnionSchema.getTypes().get(1), featList));
+        // no wrapping for union of feat, just set the list (or null)
+        record.put("feat", featList);
 
         return record;
     }
@@ -131,17 +103,7 @@ public class JavaStructGenerator {
         List<JavaStructPojo> rows = new ArrayList<>(size);
 
         for (int i = 0; i < size; i++) {
-            JavaStructPojo data = generateJavaStructPojo();
-            rows.add(data);
-        }
-        return rows;
-    }
-
-    public static List<JavaStructAvro> generateJavaStructAvroData(int size) {
-        List<JavaStructAvro> rows = new ArrayList<>(size);
-
-        for (int i = 0; i < size; i++) {
-            JavaStructAvro data = generateJavaStructAvro(i);
+            JavaStructPojo data = generateJavaStructPojo(i);
             rows.add(data);
         }
         return rows;
@@ -150,33 +112,7 @@ public class JavaStructGenerator {
     /**
      * Test method to generate and print a random Avro record.
      */
-    public static List<GenericRecord>  generateGenericRecordData(int size) throws IOException {
-        String SCHEMA_JSON = "{\n" +
-                "    \"type\": \"record\",\n" +
-                "    \"name\": \"JavaStructAvro\",\n" +
-                "    \"namespace\": \"com.hopsworks.tutorials\",\n" +
-                "    \"fields\": [\n" +
-                "        {\n" +
-                "            \"name\": \"pk\",\n" +
-                "            \"type\": [\"null\", \"string\"]\n" +
-                "        },\n" +
-                "        {\n" +
-                "            \"name\": \"event_time\",\n" +
-                "            \"type\": [\"null\", {\"type\": \"long\", \"logicalType\": \"timestamp-micros\"}]\n" +
-                "        },\n" +
-                "        {\n" +
-                "            \"name\": \"feat\",\n" +
-                "            \"type\": [\"null\", {\"type\": \"array\", \"items\": [\"null\", {\"type\": \"record\", \"name\": \"S_feat\", \"fields\": [\n" +
-                "                {\"name\": \"sku\", \"type\": [\"null\", \"string\"]},\n" +
-                "                {\"name\": \"ts\", \"type\": [\"null\", {\"type\": \"long\", \"logicalType\": \"timestamp-micros\"}]}\n" +
-                "            ]}]}]\n" +
-                "        }\n" +
-                "    ]\n" +
-                "}";
-
-        Schema.Parser parser = new Parser();
-        Schema schema = parser.parse(SCHEMA_JSON);
-
+    public static List<GenericRecord> generateGenericRecordData(Schema schema, int size) throws IOException {
         List<GenericRecord> rows = new ArrayList<>(size);
         for (int i = 0; i < size; i++) {
             GenericRecord data = generateRandomRecord(schema, i);

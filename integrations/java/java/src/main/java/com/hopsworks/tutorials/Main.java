@@ -18,6 +18,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.avro.Schema;
+
 public class Main {
 
     public static void main(String[] args) throws Exception {
@@ -90,6 +92,7 @@ public class Main {
                         .onlineType("varbinary(150)").build()
         );
 
+
         // Create a feature group JavaStructPojo
         StreamFeatureGroup structFg = fs.getOrCreateStreamFeatureGroup(
                 "java_struct",
@@ -127,33 +130,13 @@ public class Main {
                 null,
                 null);
         structGenericRecordFg.save();
-        List<GenericRecord> structGenericRecords = JavaStructGenerator.generateGenericRecordData(size);
+        Schema schema = structGenericRecordFg.getDeserializedAvroSchema();
+        List<GenericRecord> structGenericRecords = JavaStructGenerator.generateGenericRecordData(schema, size);
         structGenericRecordFg.insertStream(structGenericRecords);
-
-        // Create a feature group avro
-        StreamFeatureGroup structAvroRecordFg = fs.getOrCreateStreamFeatureGroup(
-                "java_struct_avro",
-                1,
-                "fg containing struct features",
-                true,
-                TimeTravelFormat.HUDI,
-                Arrays.asList("pk"),
-                null,
-                "event_time",
-                null,
-                features,
-                null,
-                null,
-                null,
-                null);
-        structAvroRecordFg.save();
-        List<JavaStructAvro> structAvroRecords = JavaStructGenerator.generateJavaStructAvroData(size);
-        structAvroRecordFg.insertStream(structAvroRecords);
 
         // Create a feature view with the struct features
         Query structQuery = structFg.selectAll()
-            .join(structGenericRecordFg.selectAll())
-            .join(structAvroRecordFg.selectAll());
+            .join(structGenericRecordFg.selectAll());
         FeatureView structFeatureView = fs.getOrCreateFeatureView("java_structs", structQuery, 1);
 
         // List of all primary keys
