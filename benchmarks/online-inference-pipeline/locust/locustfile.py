@@ -9,7 +9,7 @@ class FeatureStoreOnlineUser(FeatureStoreUser):
         self,
         environment: Environment,
     ):
-        self.host = "<YOUR_HOST_IP>" 
+        self.host = "<YOUR_HOST_IP>" # with the format "http://<ip-address>/"
 
         self.headers = {
             "Host": "<YOUR_HOST_HEADER>",
