@@ -15,8 +15,8 @@ This repository benchmarks a deployment running inside **Hopsworks** using [Locu
    - Insert your Hopsworks API key into the same [`locustfile.py`](https://github.com/logicalclocks/hopsworks-tutorials/blob/branch-4.2/benchmarks/online-inference-pipeline/locust/locustfile.py#L12).
    - Generate the API key by following [this guide](https://docs.hopsworks.ai/latest/user_guides/projects/api_key/create_api_key/).
 
-4. **Crete the 'HOPSWORKS_API_KEY' secret**
-   - Create a Secret with name `HOPSWORKS_API_KEY` containing the API key by following [this guide](https://docs.hopsworks.ai/latest/user_guides/projects/secrets/create_secret/).
+4. **Create the 'HOPSWORKS_API_KEY' secret**
+   - Create a secret with the name `HOPSWORKS_API_KEY` which contains the API key by following [this guide](https://docs.hopsworks.ai/latest/user_guides/projects/secrets/create_secret/).
 
 5. **Build the Locust Docker Image**
    - Use the provided [Dockerfile](https://github.com/logicalclocks/hopsworks-tutorials/blob/branch-4.2/benchmarks/online-inference-pipeline/locust/Dockerfile) to build a Locust image.
