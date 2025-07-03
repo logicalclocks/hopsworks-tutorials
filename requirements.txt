@@ -4,7 +4,7 @@ numpy
 xgboost
 python-dotenv
 parsedatetime
-hopsworks[python]
+hopsworks[python,polars,great-expectations] @ git+https://github.com/logicalclocks/hopsworks-api@main#subdirectory=python
 jupyter
 ipykernel
 nbconvert
