@@ -15,21 +15,24 @@ This repository benchmarks a deployment running inside **Hopsworks** using [Locu
    - Insert your Hopsworks API key into the same [`locustfile.py`](https://github.com/logicalclocks/hopsworks-tutorials/blob/master/benchmarks/online-inference-pipeline/locust/locustfile.py#L12).
    - Generate the API key by following [this guide](https://docs.hopsworks.ai/latest/user_guides/projects/api_key/create_api_key/).
 
-4. **Build the Locust Docker Image**
+4. **Crete the 'HOPSWORKS_API_KEY' secret**
+   - Create a Secret with name `HOPSWORKS_API_KEY` containing the API key by following [this guide](https://docs.hopsworks.ai/latest/user_guides/projects/secrets/create_secret/).
+
+5. **Build the Locust Docker Image**
    - Use the provided [Dockerfile](https://github.com/logicalclocks/hopsworks-tutorials/blob/master/benchmarks/online-inference-pipeline/locust/Dockerfile) to build a Locust image.
    - Push the image to your preferred container registry.
 
-5. **Update Kubernetes Manifests**
+6. **Update Kubernetes Manifests**
    - Update the image URL in both:
      - [`master-deployment.yaml`](https://github.com/logicalclocks/hopsworks-tutorials/blob/master/benchmarks/online-inference-pipeline/locust/kubernetes-locust/master-deployment.yaml#L28)
      - [`slave-deployment.yaml`](https://github.com/logicalclocks/hopsworks-tutorials/blob/master/benchmarks/online-inference-pipeline/locust/kubernetes-locust/slave-deployment.yaml#L28)
 
-6. **Deploy Locust**
+7. **Deploy Locust**
    - Run the [deployment script](https://github.com/logicalclocks/hopsworks-tutorials/blob/master/benchmarks/online-inference-pipeline/locust/kubernetes-locust/deploy.sh) to deploy Locust master and worker nodes.
    - This will deploy into a Kubernetes namespace named `locust`.
    - **Note:** Ensure you have `kubectl` access to the cluster.
 
-7. **Access Locust UI**
+8. **Access Locust UI**
    - Once deployed, port-forward port `8089` from the `locust-master` service to your local machine.
    - Access the Locust Web UI at [http://localhost:8089](http://localhost:8089) to run and monitor your load tests.
 
