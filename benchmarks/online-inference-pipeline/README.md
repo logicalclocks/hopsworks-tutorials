@@ -8,24 +8,24 @@ This repository benchmarks a deployment running inside **Hopsworks** using [Locu
    - Run all the provided notebooks to set up your deployment inside Hopsworks.
 
 2. **Configure Target Host**
-   - Add the **host name** and **IP address** of your deployment in [`locustfile.py`](https://github.com/logicalclocks/hopsworks-tutorials/blob/master/benchmarks/model-deployment/locust/locustfile.py#L12).
+   - Add the **host name** and **IP address** of your deployment in [`locustfile.py`](https://github.com/logicalclocks/hopsworks-tutorials/blob/master/benchmarks/online-inference-pipeline/locust/locustfile.py#L12).
    - You can find this information in the Hopsworks **Deployment UI**.
 
 3. **Add Hopsworks API Key**
-   - Insert your Hopsworks API key into the same [`locustfile.py`](https://github.com/logicalclocks/hopsworks-tutorials/blob/master/benchmarks/model-deployment/locust/locustfile.py#L12).
+   - Insert your Hopsworks API key into the same [`locustfile.py`](https://github.com/logicalclocks/hopsworks-tutorials/blob/master/benchmarks/online-inference-pipeline/locust/locustfile.py#L12).
    - Generate the API key by following [this guide](https://docs.hopsworks.ai/latest/user_guides/projects/api_key/create_api_key/).
 
 4. **Build the Locust Docker Image**
-   - Use the provided [Dockerfile](https://github.com/logicalclocks/hopsworks-tutorials/blob/master/benchmarks/model-deployment/locust/Dockerfile) to build a Locust image.
+   - Use the provided [Dockerfile](https://github.com/logicalclocks/hopsworks-tutorials/blob/master/benchmarks/online-inference-pipeline/locust/Dockerfile) to build a Locust image.
    - Push the image to your preferred container registry.
 
 5. **Update Kubernetes Manifests**
    - Update the image URL in both:
-     - [`master-deployment.yaml`](https://github.com/logicalclocks/hopsworks-tutorials/blob/master/benchmarks/model-deployment/locust/kubernetes-locust/master-deployment.yaml#L28)
-     - [`slave-deployment.yaml`](https://github.com/logicalclocks/hopsworks-tutorials/blob/master/benchmarks/model-deployment/locust/kubernetes-locust/slave-deployment.yaml#L28)
+     - [`master-deployment.yaml`](https://github.com/logicalclocks/hopsworks-tutorials/blob/master/benchmarks/online-inference-pipeline/locust/kubernetes-locust/master-deployment.yaml#L28)
+     - [`slave-deployment.yaml`](https://github.com/logicalclocks/hopsworks-tutorials/blob/master/benchmarks/online-inference-pipeline/locust/kubernetes-locust/slave-deployment.yaml#L28)
 
 6. **Deploy Locust**
-   - Run the [deployment script](https://github.com/logicalclocks/hopsworks-tutorials/blob/master/benchmarks/model-deployment/locust/kubernetes-locust/deploy.sh) to deploy Locust master and worker nodes.
+   - Run the [deployment script](https://github.com/logicalclocks/hopsworks-tutorials/blob/master/benchmarks/online-inference-pipeline/locust/kubernetes-locust/deploy.sh) to deploy Locust master and worker nodes.
    - This will deploy into a Kubernetes namespace named `locust`.
    - **Note:** Ensure you have `kubectl` access to the cluster.
 
