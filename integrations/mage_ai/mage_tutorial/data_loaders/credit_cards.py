@@ -1,16 +1,17 @@
 import io
 import pandas as pd
 import requests
-if 'data_loader' not in globals():
+
+if "data_loader" not in globals():
     from mage_ai.data_preparation.decorators import data_loader
-if 'test' not in globals():
+if "test" not in globals():
     from mage_ai.data_preparation.decorators import test
 
 
 @data_loader
 def load_credit_data(*args, **kwargs):
     # Specify the URL for the data
-    url = "https://repo.hops.works/master/hopsworks-tutorials/data/card_fraud_data/"
+    url = "https://repo.hops.works/branch-4.3/hopsworks-tutorials/data/card_fraud_data/"
     # Read the 'credit_cards.csv' file
     credit_cards_df = pd.read_csv(url + "credit_cards.csv")
 
@@ -19,4 +20,4 @@ def load_credit_data(*args, **kwargs):
 
 @test
 def test_output(output, *args) -> None:
-    assert output is not None, 'The output is undefined'
+    assert output is not None, "The output is undefined"
