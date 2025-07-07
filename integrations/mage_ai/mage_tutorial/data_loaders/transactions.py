@@ -11,7 +11,7 @@ if "test" not in globals():
 @data_loader
 def load_transactions_data(*args, **kwargs):
     # Specify the URL for the data
-    url = "https://repo.hops.works/branch-4.3/hopsworks-tutorials/data/card_fraud_data/"
+    url = "https://repo.hops.works/master/hopsworks-tutorials/data/card_fraud_data/"
 
     # Read the 'transactions.csv' file
     # Parse the 'datetime' column as dates
