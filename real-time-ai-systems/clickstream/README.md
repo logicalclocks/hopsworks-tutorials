@@ -21,28 +21,17 @@ GROUP BY user_id, window_end
 - **Latency**: 10-50ms
 - **When to use**: You want simple SQL, lowest latency
 
-### [Flink](./flink/) - Most Flexible
-```python
-# Table API (SQL)
-t_env.sql_query("SELECT ... FROM TUMBLE(...)")
-
-# Or DataStream API for custom logic
-class CTRAggregator(AggregateFunction):
-    # Your Python UDF here
+### [Flink](./flink/) - Production Ready
+```java
+// Native Java implementation
+events
+    .keyBy(ClickEvent::getUserId)
+    .window(TumblingEventTimeWindows.of(Time.minutes(5)))
+    .aggregate(new CTRAccumulator(), new CTRWindowFunction());
 ```
-- **Lines of code**: 20-100
-- **Latency**: 50-200ms (Java), 200-500ms (PyFlink)
-- **When to use**: Need complex UDFs or stateful processing
-
-### [PySpark](./pyspark/) - Best Integration
-```python
-df.groupBy(window("timestamp", "5 minutes"), "user_id") \
-  .agg(sum(when(col("event_type") == "click", 1))) \
-  .withColumn("ctr", col("clicks") / col("impressions"))
-```
-- **Lines of code**: 30
-- **Latency**: 500ms-2s
-- **When to use**: Already using Spark, need batch+stream
+- **Lines of code**: ~100 (Java boilerplate)
+- **Latency**: 50-200ms
+- **When to use**: Production workloads, need guaranteed processing
 
 ## The Magic: Hopsworks Unifies Everything
 
