@@ -8,6 +8,44 @@ Calculate Click-Through Rate (CTR) in real-time:
 - Group by user
 - CTR = clicks / impressions
 
+## Data Flow Architecture
+
+### Feldera Flow
+```
+1. Raw Events (Kafka: clickstream_events)
+            ↓
+2. Feldera SQL (TUMBLE window aggregation)
+            ↓
+3. Output to Kafka (ctr_5min_<project_id>)
+            ↓
+4. Hopsworks Auto-Ingestion (stream=True)
+            ↓
+   ├── OnlineFS → RonDB (real-time serving)
+   └── Hudi → Data Lake (historical data)
+            ↓
+5. Feature View → get_feature_vector() → ML Model
+```
+
+### Flink Flow
+```
+1. Raw Events (Kafka: clickstream_events)
+            ↓
+2. Flink DataStream (CTRAccumulator + Window)
+            ↓
+3. featureGroup.insertStream()
+            ↓
+4. Internal Kafka (managed by Hopsworks)
+            ↓
+   ├── OnlineFS → RonDB (real-time serving)
+   └── Hudi → Data Lake (historical data)
+            ↓
+5. Feature View → get_feature_vector() → ML Model
+```
+
+**Key Difference:**
+- **Feldera**: You manage the output Kafka topic explicitly
+- **Flink**: Hopsworks manages Kafka transparently via HSFS
+
 ## Pick Your Engine
 
 ### [Feldera](./feldera/) - Simplest
@@ -35,23 +73,32 @@ events
 
 ## The Magic: Hopsworks Unifies Everything
 
-All engines write to Hopsworks the same way:
+Regardless of engine, Hopsworks provides:
 
 ```python
-# Create streaming feature group
+# 1. Feature Group (stores computed features)
 fg = fs.get_or_create_feature_group(
     name="ctr_5min",
-    stream=True,           # ← Enable streaming
-    online_enabled=True,   # ← Real-time serving
-    topic_name=KAFKA_TOPIC # ← Auto-ingestion from Kafka
+    stream=True,           # ← Enable streaming ingestion
+    online_enabled=True    # ← Enable real-time serving
 )
 
-# That's it. Hopsworks handles:
-# - Kafka → Feature Store ingestion
-# - Online store (low-latency serving)
-# - Offline store (via materialization jobs)
-# - Schema management
+# 2. Feature View (serves features)
+fv = fs.get_or_create_feature_view(
+    name="ctr_fv",
+    query=fg.select_all()
+)
+
+# 3. Real-time lookup (same API for all engines)
+features = fv.get_feature_vector({"user_id": "user_123"})
+# → {"impressions": 100, "clicks": 5, "ctr": 0.05}
 ```
+
+**What Hopsworks handles:**
+- Kafka → Feature Store synchronization
+- Dual storage: Online (RonDB) + Offline (Hudi)
+- Schema management and validation
+- Exactly-once semantics via idempotent writes
 
 ## Quick Start
 
