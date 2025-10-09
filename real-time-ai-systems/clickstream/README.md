@@ -10,41 +10,26 @@ Calculate Click-Through Rate (CTR) in real-time:
 
 ## Data Flow Architecture
 
-### Feldera Flow
+### Both Engines Follow Same Pattern
 ```
-1. Raw Events (Kafka: clickstream_events)
+1. Raw Events (e.g., clickstream_events)
             ↓
-2. Feldera SQL (TUMBLE window aggregation)
+2. Stream Processing Engine
+   - Feldera: SQL with TUMBLE windows
+   - Flink: DataStream API with CTRAccumulator
             ↓
-3. Output to Kafka (ctr_5min_<project_id>)
+3. Write to Feature Group
+   - Feldera: Via Kafka topic (explicit)
+   - Flink: Via insertStream() API
             ↓
-4. Hopsworks Auto-Ingestion (stream=True)
-            ↓
-   ├── OnlineFS → RonDB (real-time serving)
-   └── Hudi → Data Lake (historical data)
+4. Hopsworks Feature Store*
+   ├── RonDB (real-time serving)
+   └── Data Lake (batch job for historical)
             ↓
 5. Feature View → get_feature_vector() → ML Model
 ```
 
-### Flink Flow
-```
-1. Raw Events (Kafka: clickstream_events)
-            ↓
-2. Flink DataStream (CTRAccumulator + Window)
-            ↓
-3. featureGroup.insertStream()
-            ↓
-4. Internal Kafka (managed by Hopsworks)
-            ↓
-   ├── OnlineFS → RonDB (real-time serving)
-   └── Hudi → Data Lake (historical data)
-            ↓
-5. Feature View → get_feature_vector() → ML Model
-```
-
-**Key Difference:**
-- **Feldera**: You manage the output Kafka topic explicitly
-- **Flink**: Hopsworks manages Kafka transparently via HSFS
+*Under the hood: Hopsworks uses Kafka for reliable ingestion, but this is transparent to you.
 
 ## Pick Your Engine
 
