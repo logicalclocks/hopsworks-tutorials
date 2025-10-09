@@ -2,16 +2,20 @@
 
 Production-ready Flink implementation with native Hopsworks integration.
 
-## Build
+## Setup
 
 ```bash
+# 1. Create Kafka topics and feature groups
+python setup.py
+
+# 2. Build the JAR
 mvn clean package
 ```
 
 ## Run
 
 ```bash
-# Set environment variables
+# Set environment variables (setup.py prints these)
 export HOPSWORKS_HOST=your-host
 export HOPSWORKS_PORT=443
 export HOPSWORKS_PROJECT=your-project
@@ -45,8 +49,15 @@ KafkaSource → Deserialize → Window(5min) → Aggregate → Hopsworks
 ### Direct Hopsworks Integration
 
 ```java
-StreamFeatureGroup featureGroup = fs.getStreamFeatureGroup("ctr_5min", 1);
+StreamFeatureGroup featureGroup = fs.getStreamFeatureGroup("ctr_5min_flink", 1);
 featureGroup.insertStream(ctrStream);
 ```
 
-No Kafka sink needed - HSFS handles everything.
+HSFS handles everything transparently:
+- Internal Kafka topic (managed by Hopsworks)
+- Serialization to Avro
+- Online store writes (via OnlineFS service)
+- Offline store sync (via Hudi DeltaStreamer)
+- Schema validation
+
+You don't manage Kafka - Hopsworks does it for you.

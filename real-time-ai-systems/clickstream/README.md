@@ -55,10 +55,16 @@ fg = fs.get_or_create_feature_group(
 
 ## Quick Start
 
-1. Pick an engine folder
-2. Run `1_setup.ipynb` - Creates Kafka topics and feature groups
-3. Run `2_*_pipeline.*` - Starts streaming pipeline
-4. Run `3_read_features.ipynb` - Query your real-time features
+### Feldera
+1. Run `1_setup.ipynb` - Creates Kafka topics and feature groups
+2. Run `2_feldera_pipeline.ipynb` - Starts SQL streaming
+3. Run `3_read_features.ipynb` - Query features
+
+### Flink (Java)
+1. `mvn clean package` - Build the JAR
+2. Set environment variables (see flink/README.md)
+3. `flink run target/clickstream-ctr-flink-1.0.jar`
+4. Query features via Hopsworks UI or API
 
 ## Why This Matters
 
