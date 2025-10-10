@@ -1,107 +1,163 @@
-# Real-Time CTR Calculation - Choose Your Engine
+# Real-Time Clickstream Analytics - Pre-computed vs On-Demand
 
-Same use case, multiple streaming engines. **Hopsworks handles the complexity, you pick the tool.**
+Comprehensive examples showing different approaches to real-time feature engineering with Hopsworks.
 
-## The Use Case
-Calculate Click-Through Rate (CTR) in real-time:
-- 5-minute tumbling windows
-- Group by user
-- CTR = clicks / impressions
+## Two Patterns, Same Goal
 
-## Data Flow Architecture
+### 🚀 Pre-Computed Aggregations
+Stream processing engines calculate features in real-time and store results.
 
-### Both Engines Follow Same Pattern
 ```
-1. Raw Events (e.g., clickstream_events)
+Raw Events → Streaming Engine → Aggregated Features → Feature Store
+                (Feldera/Flink)     (Ready to serve)
+```
+
+**Examples:**
+- [CTR Calculation](./examples/ctr_calculation/) - Click-through rate with Feldera/Flink
+- [Click Counts Pre-computed](./examples/click_counts/precomputed/) - Window aggregations with Feldera
+
+### 🔄 On-Demand Aggregations
+Store raw events, compute aggregations at query time.
+
+```
+Raw Events → Feature Store → Query-time Aggregation → Features
+              (Raw storage)     (Compute on read)
+```
+
+**Example:**
+- [Click Counts On-Demand](./examples/click_counts/on_demand/) - Spark batch + SQL aggregations
+
+## Architecture Comparison
+
+### Pre-Computed Pattern
+```
+1. Kafka Events (clickstream_events)
             ↓
-2. Stream Processing Engine
-   - Feldera: SQL with TUMBLE windows
-   - Flink: DataStream API with CTRAccumulator
+2. Stream Processing (Feldera/Flink)
+   - Window aggregations
+   - Real-time computation
             ↓
-3. Write to Feature Group
-   - Feldera: Via Kafka topic (explicit)
-   - Flink: Via insertStream() API
+3. Feature Group (aggregated)
+   ├── RonDB (instant serving)
+   └── Data Lake (historical)
             ↓
-4. Hopsworks Feature Store*
-   ├── RonDB (real-time serving)
-   └── Data Lake (batch job for historical)
+4. Feature View → get_feature_vector()
+   Returns: Pre-computed values
+```
+
+### On-Demand Pattern (Future 4.7+)
+```
+1. Kafka Events (clickstream_events)
             ↓
-5. Feature View → get_feature_vector() → ML Model
+2. Feature Group (raw events)
+   ├── RonDB (stores raw)
+   └── Data Lake (historical)
+            ↓
+3. Feature View with SQL
+   SELECT COUNT(*) WHERE time > NOW() - INTERVAL 5 MIN
+            ↓
+4. get_feature_vector()
+   Returns: Computed on-the-fly
 ```
 
-*Under the hood: Hopsworks uses Kafka for reliable ingestion, but this is transparent to you.
+## Performance Comparison
 
-## Pick Your Engine
+Based on Jim's benchmarks with 100k events:
 
-### [Feldera](./feldera/) - Simplest
-```sql
-SELECT user_id,
-       SUM(clicks) / NULLIF(SUM(impressions), 0) as ctr
-FROM TUMBLE(events, DESCRIPTOR(timestamp), INTERVAL '5' MINUTES)
-GROUP BY user_id, window_end
-```
-- **Lines of code**: 12
-- **Latency**: 10-50ms
-- **When to use**: You want simple SQL, lowest latency
+| Pattern | Storage | Latency | Flexibility | Use Case |
+|---------|---------|---------|-------------|----------|
+| **Pre-computed** | Higher (stores all windows) | ~5ms per lookup | Fixed aggregations | High-frequency inference |
+| **On-demand** | Lower (raw events only) | ~20-50ms per lookup | Dynamic queries | Exploratory, changing requirements |
 
-### [Flink](./flink/) - Production Ready
-```java
-// Native Java implementation
-events
-    .keyBy(ClickEvent::getUserId)
-    .window(TumblingEventTimeWindows.of(Time.minutes(5)))
-    .aggregate(new CTRAccumulator(), new CTRWindowFunction());
-```
-- **Lines of code**: ~100 (Java boilerplate)
-- **Latency**: 50-200ms
-- **When to use**: Production workloads, need guaranteed processing
+## Examples Overview
 
-## The Magic: Hopsworks Unifies Everything
+### 1. CTR Calculation (Pre-computed)
+Calculate click-through rate in real-time:
+- **Metric**: CTR = clicks / impressions
+- **Engines**: Feldera (SQL), Flink (Java)
+- **Window**: 5-minute tumbling
 
-Regardless of engine, Hopsworks provides:
-
-```python
-# 1. Feature Group (stores computed features)
-fg = fs.get_or_create_feature_group(
-    name="ctr_5min",
-    stream=True,           # ← Enable streaming ingestion
-    online_enabled=True    # ← Enable real-time serving
-)
-
-# 2. Feature View (serves features)
-fv = fs.get_or_create_feature_view(
-    name="ctr_fv",
-    query=fg.select_all()
-)
-
-# 3. Real-time lookup (same API for all engines)
-features = fv.get_feature_vector({"user_id": "user_123"})
-# → {"impressions": 100, "clicks": 5, "ctr": 0.05}
-```
-
-**What Hopsworks handles:**
-- Kafka → Feature Store synchronization
-- Dual storage: Online (RonDB) + Offline (Hudi)
-- Schema management and validation
-- Exactly-once semantics via idempotent writes
+### 2. Click Counts (Both Patterns)
+Count user clicks over time windows:
+- **Metric**: Click count per user
+- **Windows**: 1, 10, 30, 60 minutes
+- **Pre-computed**: Feldera with RANGE windows
+- **On-demand**: Spark batch + MySQL queries
 
 ## Quick Start
 
-### Feldera
-1. Run `1_setup.ipynb` - Creates Kafka topics and feature groups
-2. Run `2_feldera_pipeline.ipynb` - Starts SQL streaming
-3. Run `3_read_features.ipynb` - Query features
+### Pre-Computed Examples
+```bash
+# CTR with Feldera
+cd examples/ctr_calculation/feldera
+python setup.py
+jupyter notebook 2_feldera_pipeline.ipynb
 
-### Flink (Java)
-1. `mvn clean package` - Build the JAR
-2. Set environment variables (see flink/README.md)
-3. `flink run target/clickstream-ctr-flink-1.0.jar`
-4. Query features via Hopsworks UI or API
+# Click counts with Feldera
+cd examples/click_counts/precomputed
+jupyter notebook 2a_feldera_pipeline.ipynb
+```
 
-## Why This Matters
+### On-Demand Example
+```bash
+cd examples/click_counts/on_demand
+jupyter notebook 3a_spark_batch.ipynb  # Store raw events
+jupyter notebook 3b_online_inference.ipynb  # Query-time aggregation
+```
 
-**Without Hopsworks:** Different APIs, storage systems, and serving layers for each engine.
+## Trade-offs
 
-**With Hopsworks:** Same feature store, same serving API - regardless of engine.
+### When to Pre-compute
+✅ Known aggregations upfront
+✅ Need <10ms latency
+✅ High query volume
+❌ Storage cost concerns
+❌ Frequently changing requirements
 
-You focus on your business logic. We handle the infrastructure.
+### When to Use On-Demand
+✅ Exploratory analytics
+✅ Dynamic aggregations
+✅ Storage efficiency
+❌ Sub-10ms latency required
+❌ Complex aggregations
+
+## Future (v4.7+): Push-Down Aggregations
+
+RonSQL will enable efficient on-demand aggregations directly in RonDB:
+
+```python
+# Future API (v4.7)
+fv = fs.get_feature_view(
+    query=clicks_fg.aggregate()
+        .window("5 minutes")
+        .group_by("user_id")
+        .agg({"clicks": "count(*)"})
+)
+
+# Computed in RonDB, not application
+features = fv.get_feature_vector({"user_id": "u123"})
+```
+
+## Repository Structure
+
+```
+clickstream/
+├── examples/
+│   ├── ctr_calculation/       # Pre-computed CTR
+│   │   ├── feldera/           # SQL approach
+│   │   └── flink/             # Java approach
+│   └── click_counts/          # Click aggregations
+│       ├── 1_synthetic_data.ipynb
+│       ├── precomputed/       # Stream processing
+│       └── on_demand/         # Query-time computation
+└── README.md
+```
+
+## Key Takeaways
+
+1. **Pre-computed**: Fast serving, fixed logic, higher storage
+2. **On-demand**: Flexible queries, higher latency, efficient storage
+3. **Hopsworks unifies both**: Same Feature Store, different patterns
+4. **Choose based on requirements**: Latency vs flexibility trade-off
+
+*Under the hood: Both patterns use Kafka for ingestion, but at different stages.*
