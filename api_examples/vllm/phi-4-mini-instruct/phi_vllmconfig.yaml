@@ -1,0 +1,4 @@
+dtype: "half"
+max_model_len: 4096
+gpu_memory_utilization: 0.96
+trust_remote_code: true

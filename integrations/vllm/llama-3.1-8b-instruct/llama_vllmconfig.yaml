@@ -1,3 +1,0 @@
-dtype: "half"
-max_model_len: 2048
-gpu_memory_utilization: 0.96
