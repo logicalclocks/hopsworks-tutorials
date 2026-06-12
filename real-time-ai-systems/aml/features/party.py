@@ -48,7 +48,7 @@ def get_party_labels(data_transaction_labels: pd.DataFrame, data_party: pd.DataF
     alert_sources.columns = ["id", "tran_timestamp"]
     alert_targets = alert_transactions[["target", "tran_timestamp"]]
     alert_targets.columns = ["id", "tran_timestamp"]
-    sar_party = alert_sources.append(alert_targets, ignore_index=True)
+    sar_party = pd.concat([alert_sources, alert_targets], ignore_index=True)
     sar_party.sort_values(["id", "tran_timestamp"], ascending=[False, True])
 
     # Find the first occurrence of SAR per ID
