@@ -1,4 +1,4 @@
-hopsworks[python]
+hopsworks[python,great-expectations]
 neo4j
 tqdm
 scikit-learn
@@ -6,6 +6,5 @@ hsfs
 joblib
 tqdm
 graphdatascience
-great_expectations
 tensorflow
 requests
