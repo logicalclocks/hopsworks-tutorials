@@ -57,7 +57,6 @@ Familiarity with Machine Learning and Python development is recommended. For mor
 - [Kafka Integration](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/api_examples/kafka.ipynb)
 - [OpenSearch Integration](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/api_examples/opensearch.ipynb)
 - [Projects Management](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/api_examples/projects.ipynb)
-- [Partitioned Training Datasets](https://github.com/logicalclocks/hopsworks-tutorials/blob/master/api_examples/partitioned_training_datasets.ipynb)
 - [Secrets Management](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/api_examples/secrets.ipynb)
 
 ### 🔬 Integrations
