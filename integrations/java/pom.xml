@@ -20,7 +20,6 @@
     <groupId>com.hopsworks.tutorials</groupId>
     <version>3.4.2</version>
     <modules>
-        <module>beam</module>
         <module>flink</module>
     </modules>
 
