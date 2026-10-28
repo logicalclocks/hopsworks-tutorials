@@ -742,7 +742,7 @@ def main():
 
     # Export lora adapter
     lora_model = mr.llm.create_model(args.lora_model_name, description=f"(LoRA adapter) Fine-tuning base model '{args.base_model_name}'")
-    lora_adapter_path = best_checkpoint.path.replace(PROJECT_DIR, f"/Projects/{project.name}")
+    lora_adapter_path = best_checkpoint.path.replace(PROJECT_DIR, f"/Projects/{getattr(project, 'backing_name', project.name)}")
     start_time = time.perf_counter()
     lora_model.save(lora_adapter_path, keep_original_files=True)
     end_time = time.perf_counter()
