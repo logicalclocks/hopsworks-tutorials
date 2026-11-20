@@ -44,7 +44,7 @@ def deploy_model(data, *args, **kwargs):
     # Construct the full path to the uploaded predictor script
     predictor_script_path = os.path.join(
         "/Projects", 
-        project.name, 
+        getattr(project, "backing_name", project.name),
         uploaded_file_path,
         )
 
