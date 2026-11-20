@@ -2,6 +2,35 @@ import pandas as pd
 import numpy as np
 import matplotlib.axes._axes as axes
 
+def collapse_to_customer(df: pd.DataFrame) -> pd.DataFrame:
+    '''
+    Collapse a feature group that has one row per previous credit
+    (grain sk_id_prev, sk_id_curr) down to one row per applicant (sk_id_curr),
+    keeping the most recent record per applicant.
+
+    Hopsworks 5.0 requires a feature view join to cover every column of the
+    joined feature group's primary key. The previous_* tables are at
+    (sk_id_prev, sk_id_curr) grain while the training set is at sk_id_curr
+    grain, so they are reduced to sk_id_curr grain here before joining.
+
+    Args:
+    -----
+    df: pd.DataFrame
+        DataFrame at (sk_id_prev, sk_id_curr) grain.
+
+    Returns:
+    --------
+    pd.DataFrame
+        One row per sk_id_curr (most recent by datetime), without sk_id_prev.
+    '''
+    if 'datetime' in df.columns:
+        df = df.sort_values('datetime')
+    df = df.groupby('sk_id_curr', as_index=False).last()
+    if 'sk_id_prev' in df.columns:
+        df = df.drop(columns=['sk_id_prev'])
+    return df
+
+
 def remove_nans(df: pd.DataFrame) -> pd.DataFrame:
     '''
     Function which removes missing values.
