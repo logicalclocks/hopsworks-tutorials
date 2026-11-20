@@ -68,7 +68,7 @@ Familiarity with Machine Learning and Python development is recommended. For mor
 - [Federated Offline Query](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/federated-offline-query): Execute federated queries across offline data sources.
 - [Google Cloud Storage](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/gcs): Create an External Feature Group using GCS Storage Connector.
 - [Great Expectations](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/great_expectations): Introduction to Great Expectations concepts for Hopsworks MLOps platform.
-- [Java](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/java): Java-based integrations including Apache Beam and Apache Flink.
+- [Java](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/java): Java-based integrations including Apache Flink.
 - [LangChain](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/langchain): Integration with LangChain for LLM applications.
 - [MageAI](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/mage_ai): Build and operate ML systems with Mage and Hopsworks.
 - [Neo4j](https://github.com/logicalclocks/hopsworks-tutorials/tree/master/integrations/neo4j): Perform Anti-money laundering predictions using Neo4j Graph.
