@@ -17,7 +17,10 @@ class CodeGenerationAgent:
         self.formatted_data_sample_json = self.escape_curly_braces(self._data_sample_json)
 
         self.llm = ChatOpenAI(
-            model_name='gpt-4o-2024-11-20',
+            model_name='gpt-6-luna',
+            # GPT-6 reasons by default; 'none' keeps replies quick, and Chat Completions
+            # lets it call functions (structured output) only at 'none'.
+            extra_body={'reasoning_effort': 'none'},
             temperature=0,
             api_key=os.environ['OPENAI_API_KEY'],
         )
