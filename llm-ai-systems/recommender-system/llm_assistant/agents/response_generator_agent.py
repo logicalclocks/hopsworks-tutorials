@@ -9,7 +9,10 @@ import streamlit as st
 class ResponseGeneratorAgent:
     def __init__(self):
         self.llm = ChatOpenAI(
-            model_name='gpt-4o-mini-2024-07-18',
+            model_name='gpt-6-luna',
+            # GPT-6 reasons by default; 'none' keeps replies quick, and Chat Completions
+            # lets it call functions (structured output) only at 'none'.
+            extra_body={'reasoning_effort': 'none'},
             temperature=0.7,
             api_key=os.environ['OPENAI_API_KEY'],
         )
